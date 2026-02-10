@@ -66,6 +66,8 @@ from halo2_structs import (
     GAME_STATS_STRUCT,
     SESSION_PLAYER_SIZE,
     PGCR_BREAKPOINT_ADDR,
+    PGCR_DISPLAY_HEADER,
+    PGCR_DISPLAY_HEADER_SIZE,
     PGCR_DISPLAY_GAMETYPE_ADDR,
     LifeCycle,
     LIVE_ADDRESSES,
@@ -256,6 +258,19 @@ class Halo2StatsReader:
     # =========================================================================
     # Gametype and Team Methods
     # =========================================================================
+
+    def read_pgcr_header(self) -> Optional[bytes]:
+        """Read the full PGCR Display header (0x90 bytes at 0x56B900).
+
+        The header contains the gametype enum at +0x84, but the other 132 bytes
+        are undocumented. This method returns raw bytes for investigation.
+        """
+        addr = PGCR_DISPLAY_HEADER
+        self.log(f"Reading PGCR header from 0x{addr:08X} ({PGCR_DISPLAY_HEADER_SIZE} bytes)")
+        data = self.client.read_memory(addr, PGCR_DISPLAY_HEADER_SIZE)
+        if not data or len(data) < PGCR_DISPLAY_HEADER_SIZE:
+            return None
+        return data
 
     def read_gametype(self) -> Optional[GameType]:
         """Read gametype enum from PGCR Display header at 0x56B984.
@@ -1067,6 +1082,11 @@ Examples:
         action="store_true",
         help="Use XBDM breakpoint for instant game-end detection (instead of polling)"
     )
+    parser.add_argument(
+        "--dump-header",
+        action="store_true",
+        help="Hex dump the PGCR Display header (0x90 bytes) for research"
+    )
 
     args = parser.parse_args()
 
@@ -1090,6 +1110,38 @@ Examples:
     reader = Halo2StatsReader(client, verbose=args.verbose)
 
     try:
+        # Dump PGCR header for research
+        if args.dump_header:
+            header = reader.read_pgcr_header()
+            if header:
+                print(f"\nPGCR Display Header (0x{PGCR_DISPLAY_HEADER:08X}, {len(header)} bytes):")
+                print("=" * 72)
+                for offset in range(0, len(header), 16):
+                    chunk = header[offset:offset + 16]
+                    hex_str = " ".join(f"{b:02X}" for b in chunk)
+                    ascii_str = "".join(chr(b) if 0x20 <= b <= 0x7E else "." for b in chunk)
+                    print(f"  +0x{offset:02X}: {hex_str:<48s} {ascii_str}")
+                # Parse known fields
+                gametype_val = struct.unpack('<I', header[0x84:0x88])[0]
+                print(f"\nKnown fields:")
+                print(f"  +0x84: Gametype enum = {gametype_val}", end="")
+                try:
+                    print(f" ({GameType(gametype_val).name})")
+                except ValueError:
+                    print(f" (unknown)")
+                # Try interpreting potential strings
+                for label, start, end in [("Offset 0x00", 0x00, 0x20), ("Offset 0x20", 0x20, 0x40),
+                                          ("Offset 0x40", 0x40, 0x60), ("Offset 0x60", 0x60, 0x80)]:
+                    try:
+                        text = header[start:end].decode('utf-16-le').rstrip('\x00')
+                        if text and all(0x20 <= ord(c) <= 0x7E for c in text):
+                            print(f"  {label}: \"{text}\" (UTF-16LE)")
+                    except:
+                        pass
+            else:
+                print("Failed to read PGCR header")
+            return
+
         # Watch mode takes over entirely
         if args.watch:
             if args.breakpoint:
