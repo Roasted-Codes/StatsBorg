@@ -1,0 +1,64 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::SetEffectData</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::SetEffectData [C++]">
+<META NAME="MS-HKWD" CONTENT="SetEffectData (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetEffectData [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectsound8_seteffectdata_dxaudio"></A>IDirectSound8::SetEffectData</H1>
+
+<P>Updates part or all of the effect's data.</P>
+
+<PRE class="syntax"><B>HRESULT SetEffectData(</B>
+    <B>DWORD</B> <I>dwEffectIndex</I>,
+    <B>DWORD</B> <I>dwOffset</I>,
+    <B>LPCVOID</B> <I>pvData</I>,
+    <B>DWORD</B> <I>dwDataSize</I>,
+    <b>DWORD</b> <i>dwApply</i>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>dwEffectIndex</I></DT>
+    <DD>DWORD value that contains the absolute index of the effect.</DD>
+<DT><I>dwOffset</I></DT>
+    <DD>DWORD value that contains the offset, in bytes, of the start of the update region.</DD>
+<DT><I>pvData</I></DT>
+    <DD>Address of the data buffer containing the update.</DD>
+<DT><I>dwDataSize</I></DT>
+    <DD>DWORD value that contains the size of the data buffer in bytes.</DD>
+<dt><i>dwApply</i></dt>
+    <dd>DWORD value that specifies when the effect data should be updated. Can be one of the following values:</dd>
+    <table>
+        <tr>
+    		<th>Value</th>
+            <th>Description</th>
+    	</tr>
+        <tr>
+		    <td>DSFX_DEFERRED</td>
+            <td>Defer updating the effect data until <a href="xbox_idirectsound8_commiteffectdata_dxaudio.htm">IDirectSound8::CommitEffectData</a> is called.</td>
+    	</tr>
+    	<tr>
+    	    <td>DSFX_IMMEDIATE</td>
+            <td>Apply the effect data immediately.</td>
+    	</tr>
+    </table>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

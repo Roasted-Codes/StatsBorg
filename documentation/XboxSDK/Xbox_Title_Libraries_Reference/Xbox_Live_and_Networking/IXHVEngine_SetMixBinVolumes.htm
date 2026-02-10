@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::SetMixBinVolumes</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::SetMixBinVolumes</h1>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetMixBinVolumes(</b>
+    <b>XUID</b> <i>xuidRemoteTalker</i><b>,</b>
+    <b>const DSMIXBINS</b> *<i>pMixBins</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>xuidRemoteTalker</i></dt>
+				<dd>[in]  <a href="xuid.htm">XUID</a> defining the remote player associated with the mixbin volume assignment.</dd>
+			
+			<dt><i>pMixBins</i></dt>
+				<dd>[in]  Pointer to a <a href="xbox_dsmixbins_dxaudio.htm">DSMIXBINS</a> structure that specifies the mixbins and the volumes they should be set to.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+			<p><b>SetMixBinVolumes</b> is limited in that it doesn't support separate sends to the same mixbin. It can send more than one channel of a multichannel sound to the same mixbin, but it cannot control the volume of each send separately. Additionally, <b>SetMixBinVolumes</b> generates a warning if passed an array which contains the same mixbin in more than one entry of that array.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_idirectsoundbuffer8_setmixbinvolumes_dxaudio.htm">IDirectSoundBuffer8::SetMixBinVolumes</a>, 
+			<a href="xbox_idirectsoundstream_setmixbinvolumes_dxaudio.htm">IDirectSoundStream::SetMixBinVolumes</a>, 
+			<a href="xbox_ixactsoundsource_setmixbinvolumes_dxaudio.htm">IXACTSoundSource::SetMixBinVolumes</a>
+		</p>
+
+</body>
+</html>

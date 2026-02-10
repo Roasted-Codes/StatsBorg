@@ -1,0 +1,71 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_REQUEST_ANSWER_TYPE</title>
+</head>
+		
+    <body topmargin="0">
+        
+
+
+        <h1>XONLINE_REQUEST_ANSWER_TYPE</h1>
+
+                
+        
+<p>Defines the values used to specify responses to a request.</p>
+                
+
+<pre class="syntax">typedef enum {
+    XONLINE_REQUEST_NO = 0,
+    XONLINE_REQUEST_YES = 1,
+    XONLINE_REQUEST_BLOCK = 2,
+} XONLINE_REQUEST_ANSWER_TYPE;</pre>
+            
+
+            
+                <h4><a name="constants"></a>Constants</h4>
+<dl>
+            <dt><a name="XONLINE_REQUEST_NO"></a>XONLINE_REQUEST_NO</dt>
+                <dd>Declines the request.</dd>
+            
+            <dt><a name="XONLINE_REQUEST_YES"></a>XONLINE_REQUEST_YES</dt>
+                <dd>Accepts the request.</dd>
+            
+            <dt><a name="XONLINE_REQUEST_BLOCK"></a>XONLINE_REQUEST_BLOCK</dt>
+                <p>
+<dd>                
+Blocks the player that created the request. Adds the requesting player to the 
+current user's Never list. The current user no longer receives friend requests 
+from the requesting player. 
+</dd>
+<p>
+If the current user makes a subsequent friend request of the blocked user, the 
+blocked user becomes unblocked. (That is, the blocked user is removed from the 
+Never list.) The blocked user is removed from the Never list regardless of their 
+response to the current user's friend request. 
+</p>
+<p>
+Blocking a player from making friend requests does not automatically add 
+that player to the <a href="XOnlineMutelistAdd.htm">mutelist</a>.
+</p>
+		</p>
+            
+        </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XOnline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_online_enumerated_types_xonline.htm">Xbox Live Enumerated Types</a> |
+<a href="XOnlineFriendsAnswerRequest.htm">XOnlineFriendsAnswerRequest</a>
+</p>
+
+
+        
+    </body>
+    </html>

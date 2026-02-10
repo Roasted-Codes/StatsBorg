@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineUserGuestNumber</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineUserGuestNumber</h1>
+<p>Macro that, given the <b>dwUserFlags</b> value from an <a href="xuid.htm">XUID</a> structure, determines the guest number (1&#8211;3) of the user.</p><pre class="syntax" xml:space="preserve">#define <b>XOnlineUserGuestNumber</b>(<i>dwUserFlags</i>) \
+   ((dwUserFlags) &amp; XONLINE_USER_GUEST_MASK)</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwUserFlags</i></dt>
+<dd>[in]  Type is <b>DWORD</b>. The <b>dwUserFlags</b> value from an <b>XUID</b> structure contained in an <a href="XONLINE_USER.htm">XONLINE_USER</a> structure.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>The return value is the guest number (1&#8211;3) of the user.  If the user is not a guest, the return value is 0.</p>
+<p>The return value is of type <b>DWORD</b>.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p><b>XOnlineUserGuestNumber</b> accepts the entire <b>dwUserFlags</b> from an <b>XUID</b> structure and returns the guest number of the user.  An Xbox <i>Live</i> user can have up to three guests (one for each additional controller) logged on at the same time using the regular user's credentials.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_macros.htm">Xbox Live Macros</a> |
+<a href="XOnlineIsUserGuest.htm">XOnlineIsUserGuest</a>,
+<a href="XOnlineSetUserGuestNumber.htm">XOnlineSetUserGuestNumber</a>,
+<a href="XOnlineUserCountryId.htm">XOnlineUserCountryId</a>
+</p>
+</body>
+</html>

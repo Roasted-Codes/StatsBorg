@@ -1,0 +1,82 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STAT_TYPE</title>
+</head>
+		
+    <body topmargin="0">
+        
+
+
+        <h1>XONLINE_STAT_TYPE</h1>
+
+                
+        
+<p>
+        The values of the <b>XONLINE_STAT_TYPE</b> enumeration type define the possible types for statistics used by the statistics service.
+        </p>
+                
+
+<pre class="syntax">typedef enum {
+    XONLINE_STAT_NONE,
+    XONLINE_STAT_LONG,
+    XONLINE_STAT_LONGLONG,
+    XONLINE_STAT_DOUBLE,
+    XONLINE_STAT_LPCWSTR,
+} XONLINE_STAT_TYPE;</pre>
+            
+
+            
+                <h4><a name="constants"></a>Constants</h4>
+<dl>
+
+<dt><a name="XONLINE_STAT_NONE"></a>XONLINE_STAT_NONE</dt>
+<dd>
+Null Type. This type is not used.
+</dd>
+
+
+<dt><a name="XONLINE_STAT_LONG"></a>XONLINE_STAT_LONG</dt>
+<dd>
+Integer; 32-bits.
+</dd>
+
+
+<dt><a name="XONLINE_STAT_LONGLONG"></a>XONLINE_STAT_LONGLONG</dt>
+<dd>
+Big integer; 64-bits.
+</dd>
+
+
+<dt><a name="XONLINE_STAT_DOUBLE"></a>XONLINE_STAT_DOUBLE</dt>
+<dd>
+Real number; 64-bits.
+</dd>
+
+
+<dt><a name="XONLINE_STAT_LPCWSTR"></a>XONLINE_STAT_LPCWSTR</dt>
+<dd>
+                        Stores a variable-length string. This type should be used only for storing user 
+                        nicknames and storing paths to statistics attachments.
+</dd>
+
+
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XOnline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_online_enumerated_types_xonline.htm">Xbox Live Enumerated Types</a> |
+<a href="XONLINE_STAT.htm">XONLINE_STAT</a>
+</p>
+
+
+        
+    </body>
+    </html>

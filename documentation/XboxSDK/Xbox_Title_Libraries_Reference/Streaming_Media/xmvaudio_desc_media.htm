@@ -1,0 +1,79 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVAUDIO_DESC</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XMVAUDIO_DESC</h1>
+
+        
+        
+<p>Describes an audio stream in an Xbox Media Video (XMV) file.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _XMVAUDIO_DESC{
+    DWORD WaveFormat;
+    DWORD ChannelCount;
+    DWORD SamplesPerSecond;
+    DWORD BitsPerSample;
+    DWORD Flags;
+} XMVAUDIO_DESC;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+    			<dt><b>WaveFormat</b></dt>
+        			<dd>Describes how the audio data in the stream is encoded. This member must be either WAVE_FORMAT_PCM or WAVE_FORMAT_ADPCM.</dd>
+    			
+				<dt><b>ChannelCount</b></dt>
+        			<dd>Number of channels in the audio stream. Number of channels is either 1, 2, 4, or 6.</dd>
+    			
+				<dt><b>SamplesPerSecond</b></dt>
+        			<dd>Number of samples per second (Hz) in the audio stream.</dd>
+    			
+				<dt><b>BitsPerSample</b></dt>
+        			<dd>Number of bits in each sample.</dd>
+    			
+				<dt><b>Flags</b></dt>
+					<dd>Indicates which 5.1 audio stream set this stream belongs to, if any. The value will be zero or one of the following:</dd>
+					<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+						<tr>
+<td>XMVAUDIODESC_51_ADPCM_FRONT_LEFT_RIGHT</td>
+<td>Indicates front left and right channels.</td>
+</tr>
+						<tr>
+<td>XMVAUDIODESC_51_ADPCM_CENTER_LOW_FREQUENCY</td>
+<td>Indicates center and low frequency channels.</td>
+</tr>
+						<tr>
+<td>XMVAUDIODESC_51_ADPCM_REAR_LEFT_RIGHT</td>
+<td>Indicates rear left and right channels.</td>
+</tr>
+					</table>
+				
+    
+		</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="xmvdecoder_getaudiodescriptor_media.htm">XMVDecoder::GetAudioDescriptor</a></p>
+
+        
+    </body>
+    </html>

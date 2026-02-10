@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGVec2Minimize</TITLE>
+<META NAME="MS-HKWD" CONTENT="XGVec2Minimize">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxvec2minimize_graphicsd3dx"></A>XGVec2Minimize</H1>
+
+<P>Returns a 2D vector that is made up of the smallest components of two 2D vectors.</P>
+
+<PRE class=syntax><B>XGVECTOR2* XGVec2Minimize(
+</B>  <B>XGVECTOR2* </B><I>pOut</I><B>,</B>
+<B>  CONST XGVECTOR2* </B><I>pV1</I><B>,</B>
+<B>  CONST XGVECTOR2* </B><I>pV2</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to the <A HREF="xgraphics_xgvector2.htm"><B>XGVECTOR2</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pV1</I></DT>
+
+<DD>[in] Pointer to a source <B>XGVECTOR2</B> structure.</DD>
+
+<DT><I>pV2</I></DT>
+
+<DD>[in] Pointer to a source <B>XGVECTOR2</B> structure.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Pointer to a <B>XGVECTOR2</B> structure that is made up of the smallest components of the two vectors.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>XGVec2Minimize</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgmath.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use xgraphics.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="xgraphics_xgvec2maximize.htm"><B>XGVec2Maximize</B></A> </P>
+
+</BODY>
+</HTML>

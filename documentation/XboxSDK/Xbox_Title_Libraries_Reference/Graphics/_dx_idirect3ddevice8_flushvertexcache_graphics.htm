@@ -1,0 +1,25 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::FlushVertexCache</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::FlushVertexCache</h1>
+<p>Flushes the vertex cache</p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>FlushVertexCache(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>None.</p>
+<h4><a name="remarks"></a>Remarks</h4>This function has the same behavior as calling <a href="_dx_idirect3dvertexbuffer8_lock_graphics.htm">IDirect3DVertexBuffer8::Lock</a> without the D3DLOCK_NOFLUSH flag. It has been provided so that titles can avoid calling <b>Lock</b> if they want to and to facilitate <a href="d.htm#_dx_dma_glos">DMA</a> loads of vertex data.<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    
+</body>
+</html>

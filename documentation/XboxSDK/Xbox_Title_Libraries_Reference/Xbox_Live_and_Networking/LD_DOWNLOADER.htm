@@ -1,0 +1,88 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>LD_DOWNLOADER</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>LD_DOWNLOADER</h1>
+
+        
+        
+
+            <p>
+                The game title passes the <b>LD_DOWNLOADER</b> structure to Downloader.xbe as 
+                the <i>pLaunchData</i> parameter of <a href="x_jsk_xlaunchnewtitle.htm">XLaunchNewImage</a>. When 
+                Downloader.xbe reboots to the title, it passes this structure back to the title 
+                as the <i>pLaunchData</i> parameter of <b>XLaunchNewImage</b>.
+            </p>
+        
+
+	
+		
+
+<pre class="syntax">typedef struct _LD_DOWNLOADER{
+    DWORD dwID;
+    DWORD dwBitFilter;
+    BYTE bPremiumLogonPort;
+    BYTE Reserved1[3];
+    DWORD Reserved2;
+    XONLINE_LOGON_STATE LogonState;
+    BYTE UserDefined[MAX_LAUNCH_DATA_SIZE - (20 + XONLINE_LOGON_STATE_SIZE)];
+} LD_DOWNLOADER, *PLD_DOWNLOADER;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>dwID</b></dt>
+                <dd>
+                    Value that identifies the structure as downloader launch data. The 
+                    title sets this member to LAUNCH_DATA_DOWNLOADER_ID before launching Downloader.xbe.
+                </dd>
+             <dt><b>dwBitFilter</b></dt>
+                <dd>
+                    Value that identifies a particular category of content. Only content 
+                    that has a matching bit value is presented to the user. Use the <b>dwBitFilter</b> 
+                    value to identify content for a particular language, country, or region.
+                </dd>
+             <dt><b>bPremiumLogonPort</b></dt>
+                <dd>
+                    Zero-based controller index of the user who will select the 
+                    downloadable content. The title may specify only a single user; other users will 
+                    not be able to interact with Downloader.xbe. The specified user may not be a 
+                    guest.
+                </dd>
+             <dt><b>Reserved1</b></dt>
+                <dd>
+                    This member is reserved. Specify zero values for the elements of this array.
+                </dd>
+             <dt><b>Reserved2</b></dt>
+                <dd>
+                    This member is reserved. Specify zero for the value of this member.
+                </dd>
+             <dt><b>LogonState</b></dt>
+                <dd>
+                    Logon state at the time that the title launches Downloader.xbe.
+                </dd>
+             <dt><b>UserDefined</b></dt>
+                <dd>
+                    Opaque data provided by the title. Downloader.xbe passes this data 
+                    back to the title when it reboots.
+                </dd>
+            </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                
+
+        
+    </body>
+    </html>

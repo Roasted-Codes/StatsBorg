@@ -1,0 +1,62 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DMN_PROFINT</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DMN_PROFINT</H1>
+
+<P>Contains information relevant to a DM_PROFINT notification type. For a complete list of notification types, see <B><A HREF="xbox_jbh_debugapi_function_dmnotify.htm">DmNotify</A></B>.</P>
+
+<PRE class=syntax>typedef struct _DMN_PROFINT {
+    DWORD Eip;
+    DWORD EFlags;
+    WORD SegCs;
+} DMN_PROFINT, *PDMN_PROFINT;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+
+<DT><B>Eip</B></DT>
+<DD>Contents of the EIP register.</DD>
+
+<DT><B>EFlags</B></DT>
+<DD>Contents of the EFlags register.</DD>
+
+<DT><B>SegCs</B></DT>
+<DD>Contents of the CS register.</DD>
+
+</DL>
+
+<!--
+<H4>Remarks</H4>
+
+<P>Some remarks.</P>
+-->
+
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h
+<br><b>Import Library:</b> Use XbDm.lib
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

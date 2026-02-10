@@ -1,0 +1,52 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineStatUnitRead</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineStatUnitRead</h1>
+<p>Initiates a task to retrieve stats for the specified units.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineStatUnitRead(</b>
+    <b>const XUID</b> *<i>pxuidUnitMembers</i><b>,</b>
+    <b>DWORD</b> <i>dwNumStatSpecUnits</i><b>,</b>
+    <b>const XONLINE_STAT_SPEC_UNIT</b> *<i>pStatSpecUnits</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>pxuidUnitMembers</i></dt>
+<dd>[in]  Pointer to an array of <a href="xuid.htm">XUID</a> structures representing the unit members. This array must always contain XONLINE_STAT_MAX_MEMBERS_IN_UNIT entries. Units with fewer than XONLINE_STAT_MAX_MEMBERS_IN_UNIT members must place the valid member IDs starting at index 0, and must zero out the unused entries.</dd>
+
+	<dt><i>dwNumStatSpecUnits</i></dt>
+<dd>[in]  Number of <a href="XONLINE_STAT_SPEC_UNIT.htm">XONLINE_STAT_SPEC_UNIT</a> structures in the array pointed to by the <i>pStatSpecUnits</i> parameter.</dd>
+
+	<dt><i>pStatSpecUnits</i></dt>
+<dd>[in]  Pointer to an array of <b>XONLINE_STAT_SPEC_UNIT</b> structures. Each structure specifies stats to retrieve for that unit.</dd>
+
+	<dt><i>hWorkEvent</i></dt>
+<dd>[in, optional]  Handle to a caller-created event object. This object will be signaled when there is work to do by calling <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>. The caller may pass in NULL instead, indicating that the caller will poll <b>XOnlineTaskContinue</b> itself.</dd>
+
+	<dt><i>phTask</i></dt>
+<dd>[out]  Address of an <b>XONLINETASK_HANDLE</b> that receives the stats retrieval task. This task sends the stats request to the Statistics Service and receives the response. This handle must be pumped to completion by <b>XOnlineTaskContinue</b>. The task is complete when <b>XOnlineTaskContinue</b> returns XONLINETASK_S_SUCCESS. After the task completes, call <a href="XOnlineStatUnitReadGetResult.htm">XOnlineStatUnitReadGetResult</a> to retrieve the stats. After retrieving the stats, call <a href="XOnlineTaskClose.htm">XOnlineTaskClose</a> to close the task.</dd>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;To throttle requests sent to the Statistics Service, <b>XOnlineTaskContinue</b> will return XONLINE_E_TASK_ABORTED_BY_DUPLICATE if the task is still being pumped when a second operation is started.</p>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+		<p>This function can be called only with direct user input related to Statistics.</p>
+		
+		<p>This function must not be called more often than once a second between game sessions. During a game session, this function can only be called once at the beginning, once at the end and every five minutes if the game session lasts longer than five minutes. Contact your Technical Game Manager or consult the Technical Certification Requirements for details.</p>
+	<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="XOnlineStatUnitReadGetResult.htm">XOnlineStatUnitReadGetResult</a></p>
+
+</body>
+</html>

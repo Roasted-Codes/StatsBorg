@@ -1,0 +1,53 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineStorageDownloadToMemoryGetResults</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineStorageDownloadToMemoryGetResults</h1>
+<p>Retrieves the storage download results from a call to <a href="XOnlineStorageDownloadToMemory.htm">XOnlineStorageDownloadToMemory</a>.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineStorageDownloadToMemoryGetResults(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>PBYTE</b> *<i>ppbReceivedData</i><b>,</b>
+    <b>DWORD</b> *<i>pcbReceivedData</i><b>,</b>
+    <b>DWORD</b> *<i>pcbDataTotal</i><b>,</b>
+    <b>ULONGLONG</b> *<i>pqwOwnerPuid</i><b>,</b>
+    <b>FILETIME</b> *<i>pftCreationDate</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+		<dt><i>hTask</i></dt>
+<dd>[in]  A task handle returned from <b>XOnlineStorageDownloadToMemory</b>.</dd>
+
+		<dt><i>ppbReceivedData</i></dt>
+<dd>[out, optional]  Pointer into which the data was received. This is the same pointer that was passed to <b>XOnlineStorageDownloadToMemory</b>.</dd>
+
+		<dt><i>pcbReceivedData</i></dt>
+<dd>[out, optional]  The number of bytes actually received.</dd>
+
+		<dt><i>pcbDataTotal</i></dt>
+<dd>[out, optional]  Number of bytes available on the server (<i>pcbReceivedData</i> is equal to <i>pcbDataTotal</i> if everything is received).</dd>
+
+		<dt><i>pqwOwnerPuid</i></dt>
+<dd>[out, optional]  PUID of the owner of this storage item.</dd>
+
+		<dt><i>pftCreationDate</i></dt>
+<dd>[out, optional]  The date this file was created.</dd>
+	</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+		<p>This function should not be called until pumping of the download task has returned a value other than XONLINETASK_S_RUNNING.</p>
+		<p>If the download was successful, this function returns the buffer to the data received (which should be the same as <i>pbReceiveBuffer</i> in the original download call), the number of bytes actually received into the buffer, and the number of bytes that was in the server response.  Typically, if the receive buffer is large enough, the <i>cbReceivedData</i> and <i>pcbTotal</i> should match. If <i>pcbTotal</i> is larger than <i>pcbReceivedData</i>, the supplied buffer is not large enough to hold the whole response.</p>
+	<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="XOnlineStorageDownloadToMemory.htm">XOnlineStorageDownloadToMemory</a></p>
+
+</body>
+</html>

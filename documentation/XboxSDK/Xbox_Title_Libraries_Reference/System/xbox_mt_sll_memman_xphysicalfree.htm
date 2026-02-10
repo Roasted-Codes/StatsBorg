@@ -1,0 +1,48 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XPhysicalFree</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XPhysicalFree">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_xphysicalfree"></A>XPhysicalFree</H1>
+
+<P>The <B>XPhysicalFree</B> function frees memory previously allocated with a call to <A HREF="xbox_mt_sll_memman_xphysicalalloc.htm">XPhysicalAlloc</a>.</P>
+
+<PRE class=syntax><B>VOID XPhysicalFree(
+  LPVOID</B><I> lpAddress</I>  // address of region
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpAddress</I></DT>
+
+<DD>[in] Pointer to the base address of the region of memory to be freed.  This parameter must be the address returned by the <B>XPhysicalAlloc</B> function when the memory was allocated. </DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function does not return a value.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p>
+
+<H4>See Also</H4>
+<P> 
+
+<a href="xbox_mt_xtl_sll_memory_management_functions.htm">Memory Management Functions</a> |
+<A HREF="xbox_mt_sll_memman_xphysicalalloc.htm">XPhysicalAlloc</a>
+</P>
+
+
+</BODY>
+</HTML>

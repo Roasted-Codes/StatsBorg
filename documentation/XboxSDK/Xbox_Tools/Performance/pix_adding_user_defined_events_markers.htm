@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Adding User-Defined Events and Markers</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Adding User-Defined Events and Markers</h1>
+<p>By default, PIX captures many CPU events and Direct3D function calls for use in profiling. In addition, it is possible to define your own events and markers specific to your game engine.</p><p>Markers specify when a particular event occurs. They have no duration and are represented in the <a href="pix_timeline_window.htm">PIX Timeline Window</a> by a single line. You set markers by calling <a href="_dx_d3dperf_setmarker.htm">D3DPERF_SetMarker</a>.</p><p>A user-defined event occurs over a period of time. An event, such as a game's physics engine, would be bracketed by a call to <a href="_dx_d3dperf_beginevent.htm">D3DPERF_BeginEvent</a> at the start of the event, and a call to <a href="_dx_d3dperf_endevent.htm">D3DPERF_EndEvent</a> at the end. Since PIX supports hierarchical events, calls to <b>D3DPERF_BeginEvent</b>/<b>D3DPERF_EndEvent</b> and <b>D3DPERF_SetMarker</b> may be nested inside each other, up to eight levels deep. Both <b>D3DPERF_BeginEvent</b> and <b>D3DPERF_EndEvent</b> return an integer that represents the level of the hierarchy in which they are starting or ending. These return values may be used to debug mismatched pairs of calls.</p><p>The following code snippet shows how these functions can be used:</p>
+<pre class="clsCode">
+void FrameMove()
+{
+   int fmBegin = D3DPERF_BeginEvent( D3DCOLOR_ARGB( 0xff, 0xff, 0x7f, 0x7f ),
+                                     "FrameMove" );
+   // Update the frame
+   // ...
+									 
+   int fmEnd = D3DPERF_EndEvent();
+   assert( fmBegin == fmEnd );
+}
+</pre>
+    
+</body>
+</html>

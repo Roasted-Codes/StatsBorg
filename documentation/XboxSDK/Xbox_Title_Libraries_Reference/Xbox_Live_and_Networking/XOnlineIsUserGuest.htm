@@ -1,0 +1,36 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineIsUserGuest</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineIsUserGuest</h1>
+<p>Macro that, given the <b>dwUserFlags</b> value from an <a href="xuid.htm">XUID</a> structure, determines whether a user is a guest.</p><pre class="syntax" xml:space="preserve">#define <b>XOnlineIsUserGuest</b>(<i>dwUserFlags</i>) \
+   (((dwUserFlags) &amp; XONLINE_USER_GUEST_MASK) != 0)</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwUserFlags</i></dt>
+<dd>[in]  Type is <b>DWORD</b>. The <b>dwUserFlags</b> value from an <b>XUID</b> structure contained in an <a href="XONLINE_USER.htm">XONLINE_USER</a> structure.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>The return value is TRUE if the user is a guest; FALSE otherwise.</p>
+<p>The return value is of type <b>BOOL</b>.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p><b>XOnlineIsUserGuest</b> accepts the entire <b>dwUserFlags</b> from an <b>XUID</b> structure and determines whether that user is a guest.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_macros.htm">Xbox Live Macros</a> |
+<a href="XOnlineIsUserVoiceAllowed.htm">XOnlineIsUserVoiceAllowed</a>,
+<a href="XOnlineIsUserPurchaseAllowed.htm">XOnlineIsUserPurchaseAllowed</a>,
+<a href="XOnlineIsUserNicknameAllowed.htm">XOnlineIsUserNicknameAllowed</a>,
+<a href="XOnlineUserGuestNumber.htm">XOnlineUserGuestNumber</a>,
+<a href="XOnlineSetUserGuestNumber.htm">XOnlineSetUserGuestNumber</a>
+</p>
+</body>
+</html>

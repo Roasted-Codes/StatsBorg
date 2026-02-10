@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineCompetitionSessionRegister</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineCompetitionSessionRegister</h1>
+            <p>Registers a player for a session in a competition.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineCompetitionSessionRegister(</b>
+    <b>const XONLINE_ARB_ID</b> *<i>pArbitrationID</i><b>,</b>
+    <b>WORD</b> <i>wMaxRoundSeconds</i><b>,</b>
+    <b>DWORD</b> <i>dwArbitrationRegisterFlags</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pArbitrationID</i></dt>
+				<dd>[in]  Arbitration session ID. Obtain this value by calling <a href="XOnlineArbitrationCreateRoundID.htm">XOnlineArbitrationCreateRoundID</a>.</dd>
+			
+
+            <dt><i>wMaxRoundSeconds</i></dt>
+				<dd>[in]  Maximum length of the round, in seconds.</dd>
+			
+
+            <dt><i>dwArbitrationRegisterFlags</i></dt>
+				<dd>[in]  Composed of one or more arbitration registration flags combined together using 
+				a bitwise OR operation. The flags must include XONLINE_ARB_REGISTER_FLAG_USER_COMPETITION or 
+				XONLINE_ARB_REGISTER_FLAG_PUBLISHER_COMPETITION, depending on whether the competition is created 
+				by a user or a publisher. For more information about arbitration registration flags, see the 
+				<i>dwFlags</i> parameter of the <a href="XOnlineArbitrationRegister.htm">XOnlineArbitrationRegister</a> function. </dd>
+			
+
+            <dt><i>hWorkEvent</i></dt>
+				<dd>[in, optional]  Handle of an event that you want to associate with this 
+				task. The event is triggered when the task completes. If you do not want to 
+				associate a handle with this event, set this parameter to NULL.</dd>
+			
+
+            <dt><i>phTask</i></dt>
+				<dd>[out]  Address of a <b>XONLINETASK_HANDLE</b> 
+				variable. Upon return, the <b>XONLINETASK_HANDLE</b> variable 
+				contains the handle of the task initiated by this function.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>Competitions are composed of one or more sessions. This function registers a player for a 
+			particular session in a competition.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+			<p><a href="XOnlineCompetitionCreate.htm">XOnlineCompetitionCreate</a></p>
+		
+</body>
+</html>

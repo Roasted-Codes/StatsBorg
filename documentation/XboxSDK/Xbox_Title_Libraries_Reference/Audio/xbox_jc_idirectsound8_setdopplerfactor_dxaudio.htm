@@ -1,0 +1,61 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::SetDopplerFactor</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::SetDopplerFactor [C++]">
+<META NAME="MS-HKWD" CONTENT="SetDopplerFactor (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetDopplerFactor [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsound8_setdopplerfactor_dxaudio"></A>IDirectSound8::SetDopplerFactor</H1>
+
+<P>Sets the Doppler effect factor.</P>
+
+<PRE class="syntax"><B>HRESULT SetDopplerFactor(</B>
+    <B>FLOAT</B> <I>flDopplerFactor</I>,
+    <B>DWORD</B> <I>dwApply</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>flDopplerFactor</I></DT>
+
+<DD>Value that specifies the Doppler factor.</DD>
+
+<DT><I>dwApply</I></DT>
+
+<DD>Value that specifies when the setting should be applied. This value must be one of the following:</DD>
+
+<DL>
+<DT>DS3D_DEFERRED </DT>
+
+<DD>Settings are not applied until the application calls the <A HREF="xbox_jc_idirectsound8_commitdeferredsettings_dxaudio.htm"><B>CommitDeferredSettings</B></A> method. This allows the application to change several settings and generate a single recalculation. </DD>
+
+<DT>DS3D_IMMEDIATE </DT>
+
+<DD>Settings are applied immediately, causing the system to recalculate the 3D coordinates for all 3D sound buffers. 
+</DD>
+</DL>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+
+<P>The Doppler factor has a range of DS3D_MINDOPPLERFACTOR (no Doppler effects) to DS3D_MAXDOPPLERFACTOR (as currently defined, 10 times the Doppler effects found in the real world). The default value is DS3D_DEFAULTDOPPLERFACTOR (1.0). For more information, see <A HREF="_dx_doppler_factor_dxaudio.htm"><B>Doppler Factor</B></A>.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

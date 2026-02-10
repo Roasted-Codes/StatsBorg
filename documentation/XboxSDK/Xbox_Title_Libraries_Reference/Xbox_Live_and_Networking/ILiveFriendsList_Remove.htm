@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveFriendsList::Remove</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveFriendsList::Remove</h1>
+<p>Removes a friend from the user's friends list.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>Remove(</b>
+    <b>const XONLINE_FRIEND</b> *<i>pFriend</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pFriend</i></dt>
+<dd>[in]  Pointer to an <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure that specifies the friend to remove.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The specified friend will be permanently removed from the friends list (but can be added again later).</p>
+<p><b>Remove</b> can also be used to cancel a pending friend request.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveFriendsList_Request.htm">ILiveFriendsList::Request</a>,
+<a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a>
+</p>
+
+</body>
+</html>

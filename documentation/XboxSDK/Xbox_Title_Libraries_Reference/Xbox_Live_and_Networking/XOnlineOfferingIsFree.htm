@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineOfferingIsFree</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineOfferingIsFree</h1>
+<p>Macro that, given the <b>fOfferingFlags</b> value from an <a href="XONLINEOFFERING_INFO.htm">XONLINEOFFERING_INFO</a> structure, determines whether the offering is free.</p><pre class="syntax" xml:space="preserve">#define <b>XOnlineOfferingIsFree</b>(<i>x</i>) \
+   (((x) &amp; XONLINE_OFFERING_IS_NOT_FREE) == 0)</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>x</i></dt>
+<dd>[in]  Type is <b>WORD</b>. The <b>fOfferingFlags</b> value from an <b>XONLINEOFFERING_INFO</b> structure.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>The return value is TRUE if the offering is free; FALSE otherwise.</p>
+<p>The return value is of type <b>BOOL</b>.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p><b>XOnlineOfferingIsFree</b> accepts the entire <b>fOfferingFlags</b> from an <b>XONLINEOFFERING_INFO</b> structure and determines whether the offering is free.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_macros.htm">Xbox Live Macros</a> |
+<a href="XONLINEOFFERING_INFO.htm">XONLINEOFFERING_INFO</a>
+</p>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVDecoder::Reset</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XMVDecoder::Reset</h1>
+<p>Resets the movie playback to the beginning (where the file was opened). </p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>Reset(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>None.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p><b>Reset</b> will not disable any audio streams or reset the audio synchronization stream.</p>
+		
+		<p>If the file was opened on a buffer (using <a href="xmvdecoder_createdecoderforpackets_media.htm">XMVDecoder_CreateDecoderForPackets</a>), the buffer manager will need to send the very first packet at the next call to <i>pfnGetNextPacket</i>.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xmv.lib.</p>
+    
+</body>
+</html>

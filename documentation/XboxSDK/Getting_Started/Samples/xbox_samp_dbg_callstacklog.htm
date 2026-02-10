@@ -1,0 +1,22 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>CallStackLog Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>CallStackLog Sample</h1>
+<p>The CallStackLog Sample demonstrates how to capture the current call stack
+in a running Xbox executable.  The sample generates a log file with call stack information.
+The CallStackLookup sample, run on the development machine,
+reads the log file with the call stack names and generates a friendly printout.</p><h2><a name="IDANJUM"></a>Overview</h2>
+<p><a href="xbox_debugapi_function_dmcapturestackbacktrace.htm">DmCaptureStackBackTrace</a> is used to collect an array of addresses for
+the current call stack.  <a href="xbox_jbh_debugapi_function_dmwalkloadedmodules.htm">DmWalkLoadedModules</a> is used to iterate over
+the modules in the XBE and determine their base addresses.
+This combined information is used to look up the function names in the XBE's debug information (which resides on the development PC).
+</p>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3D8::GetAdapterModeCount</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3D8::GetAdapterModeCount [C++]">
+<META NAME="MS-HKWD" CONTENT="GetAdapterModeCount (IDirect3D8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetAdapterModeCount [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3d8_getadaptermodecount_graphics"></A>IDirect3D8::GetAdapterModeCount</H1>
+
+<P>Returns the number of display modes available on this adapter.</P>
+
+<PRE class=syntax><B>UINT</B> <B>GetAdapterModeCount(</B>
+<B>  UINT</B><I> Adapter</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>Adapter</I></DT>
+
+<DD>[in] Ordinal number that denotes the display adapter. D3DADAPTER_DEFAULT is always the primary display adapter. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This method returns the number of display modes on this adapter, or zero if <I>Adapter</I> is greater than or equal to the number of adapters on the system.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirect3d8_enumadaptermodes_graphics.htm"><B>IDirect3D8::EnumAdapterModes</B></A></P>
+
+</BODY>
+</HTML>

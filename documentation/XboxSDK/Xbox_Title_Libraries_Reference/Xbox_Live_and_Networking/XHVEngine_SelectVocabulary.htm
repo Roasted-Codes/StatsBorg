@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::SelectVocabulary</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::SelectVocabulary</h1>
+<p>Selects which speech recognition vocabularies are active for the specified local talker.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SelectVocabulary(</b>
+    <b>DWORD</b> <i>dwLocalPort</i><b>,</b>
+    <b>DWORD</b> <i>dwVocabsCount</i><b>,</b>
+    <b>const XHV_SR_VOCAB_SELECTION</b> *<i>pVocabSelections</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>dwLocalPort</i></dt>
+<dd>[in]  Controller port of the local talker.</dd>
+<dt><i>dwVocabsCount</i></dt>
+<dd>[in]  The number of vocabularies in <i>pVocabSelections</i></dd>
+<dt><i>pVocabSelections</i></dt>
+<dd>[in]  An array of <b>XHV_SR_VOCAB_SELECTION</b> values specifying the vocabularies to activate.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>This method selects as active one or more vocabularies in the speech recognition bank currently registered with the speech recognition engine. Vocabularies are specified in <i>pVocabSelections</i> by their enumerated values as determined by the <a href="xbox_mds_tool_buildspeechrecbank.htm">BuildSpeechRecBank</a> tool, which creates a header file containing the vocabulary section values.</p>
+<p>Call <b>SelectVocabulary</b> only after successfully calling <a href="IXHVEngine_RegisterSpeechRecognitionBank.htm">RegisterSpeechRecognitionBank</a>.</p>
+<p>Active vocabularies cannot be changed while speech recognition is in progress.  <b>SelectVocabulary</b> will return a failure code if such an attempt is made.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

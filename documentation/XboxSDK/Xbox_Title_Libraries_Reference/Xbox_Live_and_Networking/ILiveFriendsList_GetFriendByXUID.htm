@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveFriendsList::GetFriendByXUID</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveFriendsList::GetFriendByXUID</h1>
+<p>Retrieves detailed information for the friend with the specified user identifier.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetFriendByXUID(</b>
+    <b>XUID</b> <i>FriendXUID</i><b>,</b>
+    <b>XONLINE_FRIEND</b> *<i>pFriend</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>FriendXUID</i></dt>
+<dd>[in]  An <a href="xuid.htm">XUID</a> identifying the friend to retrieve from the friends list.  Only the <b>qwUserID</b> member of the structure need be set.</dd>
+<dt><i>pFriend</i></dt>
+<dd>[out]  Pointer to an <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure that receives the friend information.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveFriendsList_GetFriendByIndex.htm">ILiveFriendsList::GetFriendByIndex</a>,
+<a href="xuid.htm">XUID</a>,
+<a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a>
+</p>
+
+</body>
+</html>

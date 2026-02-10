@@ -1,0 +1,29 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Negate</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_negate_graphics"></A>Negate</H1>
+
+<P>-<I><B>r</B><SUB>n</SUB></I></P>
+
+<P>Performs a signed inverse (y = &#8211;x), or negates the value before it is used in the instruction. </P>
+
+<P>The following example shows how to use this modifier.</P>
+
+<PRE>mul r0, r0, -v1    ; Multiply by specular color.
+</PRE>
+
+<P>This operation is performed after any other modifiers present on the same argument.</P>
+
+<P>Note that <A HREF="_dx_invert_graphics.htm">Invert</A> (1&#8211;<I><B>r</B><SUB>n</SUB></I>)and <A HREF="#_dx_negate_graphics">Negate</A> (&#8211;<I><B>r</B><SUB>n</SUB></I>) are mutually exclusive and cannot be applied to the same register.</P>
+
+<P>This modifier is for use with the color and alpha blending instructions.</P>
+
+</BODY>
+</HTML>

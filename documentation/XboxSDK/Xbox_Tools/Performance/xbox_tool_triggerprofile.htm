@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>TriggerProfile Tool</title>
+</head>
+<body topmargin="0">
+
+
+<h1>TriggerProfile Tool</h1>
+<p>The TriggerProfile tool remotely triggers a <a href="xbox_image_fastcap_prop.htm">FastCAP</a> profile by 
+		sending a DebugManager command to the Xbox application that is currently running. The application must be using XBProfiling_IsFastCAPRequested or some equivalent to listen for the command. The FastCAP profile should 
+		typically capture an entire frame of data. All Xbox samples are set up, in their Profile_FastCap configurations, to have profiling triggered by this class. For more information, see the 
+		<a href="prog_wp_holistic_guide.htm">Holistic Guide to Xbox Profilers</a>.</p>
+<pre class="clsCode">
+Usage: TRIGGERPROFILE
+</pre>
+    <p>This tool requires no command-line options.</p>
+<pre class="clsCode">
+Source: (XDK Root)\Tools\Win32\Profiling\TriggerProfile
+</pre>
+    
+<pre class="clsCode">
+Executable: (XDK Root)\xbox\bin\TriggerProfile.exe
+</pre>
+    
+</body>
+</html>

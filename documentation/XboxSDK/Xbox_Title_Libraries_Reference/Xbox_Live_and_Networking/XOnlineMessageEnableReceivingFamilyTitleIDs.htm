@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageEnableReceivingFamilyTitleIDs</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageEnableReceivingFamilyTitleIDs</h1>
+<p>Specifies which family title IDs are valid for messages.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageEnableReceivingFamilyTitleIDs(</b>
+    <b>DWORD</b> <i>dwNumTitleIDs</i><b>,</b>
+    <b>const DWORD</b> *<i>pdwTitleIDs</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwNumTitleIDs</i></dt>
+<dd>[in]  Number of family title identifiers to monitor. The maximum number of identifiers is four.</dd>
+
+	<dt><i>pdwTitleIDs</i></dt>
+<dd>[in]  An array of the title IDs.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns S_OK if successful, an error code otherwise.</p>
+	<p>E_INVALIDARG is returned when the family title identifiers supplied are invalid.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p><b>XOnlineMessageEnableReceivingFamilyTitleIDs</b> allows the title to begin receiving messages sent using one of the family title IDs (see <a href="XOnlineMessageSetSendingFamilyTitleID.htm">XOnlineMessageSetSendingFamilyTitleID</a>) in addition to messages sent using the game's title ID. This function should be called after <a href="xonlinestartup.htm">XOnlineStartup</a> and before <a href="XOnlineLogon.htm">XOnlineLogon</a> to ensure notifications and messages from family title IDs are immediately available. Titles generally do not need to call this function again.</p>
+	<p>To disable messages for family title IDs, set the <i>dwNumTitleIDs</i> parameter to zero and the <i>pdwTitleIDs</i> parameter to NULL.</p>
+	<p>Attempting to use this function to enable a family title ID without first including that ID in the title's certificate will result in an error message displayed in the debug output as well as the function not working correctly. A family title ID can be included in a title's certificate by opening the project properties dialog box in Visual Studio, and adding the family title ID to the alternate title IDs.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

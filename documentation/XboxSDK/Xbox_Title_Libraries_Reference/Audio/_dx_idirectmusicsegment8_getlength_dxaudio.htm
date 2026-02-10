@@ -1,0 +1,51 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicSegment8::GetLength</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicSegment8::GetLength [C++]">
+<META NAME="MS-HKWD" CONTENT="GetLength (IDirectMusicSegment8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetLength [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicsegment8_getlength_dxaudio"></A>IDirectMusicSegment8::GetLength</H1>
+
+<P>Retrieves the length of the segment.</P>
+
+<PRE class=syntax><B>HRESULT GetLength(
+  MUSIC_TIME* </B><I>pmtLength</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pmtLength</I></DT>
+
+<DD>Address of a variable that receives the segment's length in music time.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is S_OK.</P>
+
+<P>If it fails, the method can return <A HREF="_dx_directmusic_return_values_by_name_dxaudio.htm#_dx_e_pointer_dxaudio"><B>E_POINTER</B></A>.</P>
+
+<H4>Remarks</H4>
+
+<P>The method always returns 1 in *<I>pmtLength </I>for segments created from wave files.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dmusici.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirectmusicsegment8_setlength_dxaudio.htm"><B>IDirectMusicSegment8::SetLength</B></A></P>
+
+</BODY>
+</HTML>

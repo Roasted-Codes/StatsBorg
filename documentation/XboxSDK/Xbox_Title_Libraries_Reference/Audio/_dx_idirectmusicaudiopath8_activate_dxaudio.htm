@@ -1,0 +1,51 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicAudioPath8::Activate</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicAudioPath8::Activate [C++]">
+<META NAME="MS-HKWD" CONTENT="Activate (IDirectMusicAudioPath8) [C++]">
+<META NAME="MS-HKWD" CONTENT="Activate [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicaudiopath8_activate_dxaudio"></A>IDirectMusicAudioPath8::Activate</H1>
+
+<P>Activates or deactivates the audiopath.</P>
+
+<PRE class="syntax"><B>HRESULT Activate(</B>
+    <B>BOOL</B> <I>fActivate</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>fActivate</I></DT>
+
+<DD>Boolean that specifies whether to activate (TRUE) or deactivate (FALSE) the path.</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns S_OK if successful, S_FALSE if the audiopath is already in the requested state.</P>
+
+<H4>Remarks</H4>
+
+<p>Calling activate is required for sound to be heard on an audiopath.  Not calling activate on a created audiopath will not defer usage of audiopath resources.  These resources are allocated immediately upon creation of the audiopath, and they are only released when the audiopath is released.</p>
+
+<P>When an audiopath is deactivated, all playback stops and any attempt to play a segment will fail. Calling <B>Activate</B>(FALSE) on an audiopath will not deactivate any of that path's shared buffers in use by other active audiopaths.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dmusici.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_standard_audiopaths_dxaudio.htm"><B>Standard Audiopaths</B></A></P>
+
+
+</BODY>
+</HTML>

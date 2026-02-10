@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicSegmentState8</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicSegmentState8">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicsegmentstate8_dxaudio"></A>IDirectMusicSegmentState8</H1>
+
+<P>When the <A HREF="_dx_idirectmusicperformance8_playsegmentex_dxaudio.htm"><B>IDirectMusicPerformance8::PlaySegmentEx</B></A> method is called, the performance engine generates a segment-state object that tracks the state of the playing segment. It also provides the application with a handle to the segment, in the form of the <B>IDirectMusicSegmentState8</B> interface, which can be used to track the playback status of the segment. This method can also be used directly to stop playback or remove the segment from the performance, using methods of <A HREF="_dx_idirectmusicperformance8_dxaudio.htm"><B>IDirectMusicPerformance8</B></A>.</P>
+
+<P>The interface has the following methods:</P>
+
+<TABLE>
+<TR VALIGN="top">
+<TD width=35%><B>Sound management</B></TD>
+<TD width=65%><A HREF="_dx_idirectmusicsegmentstate8_setpitch_dxaudio.htm"><B>SetPitch</B></A></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=35%>&nbsp;</TD>
+<TD width=65%><A HREF="_dx_idirectmusicsegmentstate8_setvolume_dxaudio.htm"><B>SetVolume</B></A></TD>
+</TR>
+
+
+<TR VALIGN="top">
+<TD width=35%><B>Information</B></TD>
+<TD width=65%><A HREF="_dx_idirectmusicsegmentstate8_getobjectinpath_dxaudio.htm"><B>GetObjectInPath</B></A></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=35%>&nbsp;</TD>
+<TD width=65%><A HREF="_dx_idirectmusicsegmentstate8_getsegment_dxaudio.htm"><B>GetSegment</B></A></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=35%>&nbsp;</TD>
+<TD width=65%><A HREF="_dx_idirectmusicsegmentstate8_getstarttime_dxaudio.htm"><B>GetStartTime</B></A></TD>
+</TR>
+
+</TABLE><BR>
+
+<P>The <B>IDirectMusicSegmentState8</B> interface also supports the <A HREF="_dx_iunknown_addref_dxintro.htm"><B>AddRef</B></A> and <A HREF="_dx_iunknown_release_dxintro.htm"><B>Release</B></A> methods. There is also minimal support for the <B>QueryInterface</B> method.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dmusici.h.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XACT_FILEIO_CALLBACKS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XACT_FILEIO_CALLBACKS</h1>
+
+        
+        
+<p>Contains title-defined XACT file I/O callbacks registered with <a href="xbox_xactenginesetfileiocallbacks.htm">XACTEngineSetFileIOCallbacks</a>.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _XACT_FILEIO_CALLBACKS{
+    XACT_READFILE_CALLBACK ReadFileCallback;
+    XACT_GETOVERLAPPEDRESULT_CALLBACK GetOverlappedResultCallback;
+} XACT_FILEIO_CALLBACKS, *PXACT_FILEIO_CALLBACKS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>ReadFileCallback</b></dt>
+<dd>Title-defined <a href="XACT_READFILE_CALLBACK.htm">XACT_READFILE_CALLBACK</a> called by XACT to read data from the disk.  If this member is NULL, XACT uses the system <a href="filesio_39id.htm">ReadFile</a>.</dd>
+<dt><b>GetOverlappedResultCallback</b></dt>
+<dd>Title-defined <a href="XACT_GETOVERLAPPEDRESULT_CALLBACK.htm">XACT_GETOVERLAPPEDRESULT_CALLBACK</a> called by XACT to determine the results of an overlapped read operation begun with a call to the read file callback.  If this member is NULL, XACT uses the system <a href="synchro_75v8.htm">GetOverlappedResult</a>.</dd>
+</dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>XACT file I/O callbacks are registered using the <b>XACTEngineSetFileIOCallbacks</b> function.</p>
+<p>Titles can specify NULL for either (or both) of the callbacks to direct XACT to use the system routine rather than calling the title's function.  Specifying NULL for <b>ReadFileCallback</b> is rare, and likely not useful.</p>
+ 
+
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xact.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="XACT_READFILE_CALLBACK.htm">XACT_READFILE_CALLBACK</a>,
+<a href="XACT_GETOVERLAPPEDRESULT_CALLBACK.htm">XACT_GETOVERLAPPEDRESULT_CALLBACK</a>,
+<a href="xbox_xactenginesetfileiocallbacks.htm">XACTEngineSetFileIOCallbacks</a>
+</p>
+
+        
+    </body>
+    </html>

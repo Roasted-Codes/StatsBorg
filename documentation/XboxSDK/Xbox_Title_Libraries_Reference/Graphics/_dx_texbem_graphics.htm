@@ -1,0 +1,47 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>texbem</TITLE>
+<META NAME="MS-HKWD" CONTENT="texbem">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_texbem_graphics"></A>texbem</H1>
+
+<P>Implements DirectX 6-style bump mapping.</P>
+
+<PRE class=syntax>texbem   tDest, tSrc0
+</PRE>
+
+<H4>Registers</H4>
+
+<DL>
+<DT><B>tDest</B></DT>
+
+<DD>Destination register, holding the result of the operation.</DD>
+
+<DT><B>tSrc0</B></DT>
+
+<DD>Temporary source register, specifying the input argument.
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<p>The <b>texbem</b> instruction implements DirectX 6-style bump mapping. It uses a texture value read in a previous stage from a displacement map to perturb the texture coordinates at the current stage. The displacement map contains 2's complement signed values that are used to perturb the texture coordinates on the current stage. It can be formatted as D3DFMT_V8U8 or D3DFMT_V16U16. The new texture coordinates are calculated by multiplying the red and green components from the tSrc register by a 2 &times; 2 matrix. If tDest is t1 and tSrc is t0, then u and v are calculated as follows:</p>
+<blockquote><pre>u = t1.s + mat00 * t0.r + mat10 * t0.g
+v = t1.t + mat01 * t0.r + mat11 * t0.g</pre></blockquote>
+
+<p>u and v then specify a 2D texture address that is used to do a normal texture lookup on stage 1.  The 2 &times; 2 matrix is used to take into account movement of the eye point relative to the light source. It is specified using the D3DTSS_BUMPENVMAT00 through D3DTSS_BUMPENVMAT11 texture stage states. The texbem texture mode is typically used immediately after a texture stage that reads the u and v displacement values as shown below:</p>
+<blockquote><pre>tex t0         // Look up the bump map (2D bump map).
+texbem t1, t0  // Calculate a 2D texture address based on the 
+               // displacement from stage 0 and then do a tex lookup.</pre></blockquote>
+
+
+<P>Note that this instruction has an unnamed input which is the assigned texture that corresponds to this texture stage.</P>
+
+</BODY>
+</HTML>

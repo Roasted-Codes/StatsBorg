@@ -1,0 +1,30 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Vertex Shader Tune Tool (VSTune)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Vertex Shader Tune Tool (VSTune)</h1>
+<p>This tool demonstrates the performance capabilities of the vertex shader and fixed function pipelines 
+			on the Xbox.  It is customizable so that the developer can test vertex shaders and analyze their performance 
+			versus the fixed function pipeline or other vertex shaders. The source code is provided with the 
+			XDK.</p>
+<pre class="clsCode">
+Source: (XDK Root)\Tools\Xbox\Graphics\VSTune
+</pre>
+    <h2><a name="IDAOQQM"></a>General Usage</h2>
+<p>You must copy the .INI file to the Xbox in the directory that contains the .XBE for this program. The 
+			tool prompts you if it cannot find an .INI file. Please see the file vstune.ini for a description of how 
+			each configuration entry can be used to test different aspects of the transform and lighting pipeline.</p><p>You can change the .INI file without restarting the application. Simply overwrite the existing .INI file 
+			with a new version. The application immediately loads the new .INI file and uses it as the new test.</p><p>In addition to testing the fixed function pipeline, you can specify a vertex shader in the .INI file 
+			to test its throughput.</p><p>There are two basic tests the tool can perform. The first is the "current" test that is defined in 
+			the .INI file.  It tests the performance throughput of the transform and lighting pipeline based on the 
+			specifications in the .INI file.  The second test is the "PushBuffer Call" test.  This test shows the 
+			throughput of the "current" test with push-buffers of varying sizes. You can set the push-buffer sizes 
+			in the .INI file.</p>
+</body>
+</html>

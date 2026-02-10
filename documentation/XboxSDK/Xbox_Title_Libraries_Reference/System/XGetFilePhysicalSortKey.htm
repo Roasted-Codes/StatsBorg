@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XGetFilePhysicalSortKey</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XGetFilePhysicalSortKey</h1>
+<p>Returns a physical sort key for a file.  The sort key represents the physical location of the file on the volume, enabling the sorting of file access requests in order to minimize seek time.</p><pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>XGetFilePhysicalSortKey(</b>
+    <b>HANDLE</b> <i>hFile</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>hFile</i></dt>
+<dd>[in]  Handle of the file to obtain a sort key for.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>If the function succeeds, the return value is the physical sort key of the file.</p><p>If the function fails, the return value is 0xFFFFFFFF.  To get extended error information, call <a href="errors_3uwi.htm">GetLastError</a>.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>By using the physical sort keys, I/O operations on a volume can be ordered based on the physical location of the files.  This enables optimizations such as ordering file I/O in order to minimize seek time.</p>
+<p>For the DVD drive, the returned value can also be used as a measurement of distance between files.  The returned key is the starting sector number of the file.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xbox.h; for include use xtl.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_mt_xtl_sll_file_io_functions.htm">File I/O Functions</a> |
+<a href="filesio_7wmd.htm">CreateFile</a>
+</p>
+
+</body>
+</html>

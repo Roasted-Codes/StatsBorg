@@ -1,0 +1,33 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IUnknown::AddRef</TITLE>
+<META NAME="MS-HKWD" CONTENT="IUnknown::AddRef">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_iunknown_addref_dxintro"></A>AddRef</H1>
+
+<P>Increases the reference count of the object by 1.</P>
+
+<PRE class=syntax><B>ULONG AddRef();
+</B></PRE>
+
+<H4>Parameters</H4>
+
+<P>There are no parameters.</P>
+
+<H4>Return Values</H4>
+
+<P>Returns the new reference count. This value is for diagnostic and testing purposes only.</P>
+
+<H4>Remarks</H4>
+
+<P>When the object is created, its reference count is set to 1. Every time an application obtains an interface to the object or calls the <B>AddRef</B> method, the object's reference count is increased by 1. Use the <a href="_dx_iunknown_release_dxintro.htm">Release</a> method to decrease the object's reference count by 1.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>ID3DXMatrixStack::Pop</TITLE>
+<META NAME="MS-HKWD" CONTENT="ID3DXMatrixStack::Pop [C++]">
+<META NAME="MS-HKWD" CONTENT="Pop (ID3DXMatrixStack) [C++]">
+<META NAME="MS-HKWD" CONTENT="Pop [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_id3dxmatrixstack_pop_graphicsd3dx"></A>ID3DXMatrixStack::Pop</H1>
+
+<P>Removes the current matrix from the top of the stack.</P>
+
+<PRE class=syntax><B>HRESULT Pop(); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT>None.</DT>
+
+<DD></DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is D3D_OK.</P>
+
+<H4>Remarks</H4>
+
+<P>Note that this method decrements the count of items on the stack by 1, effectively removing the current matrix from the top of the stack and promoting a matrix to the top of the stack. If the current count of items on the stack is 0, then this method returns without performing any action. If the current count of items on the stack is 1, then this method empties the stack.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in d3dx8math.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use d3dx8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_id3dxmatrixstack_gettop_graphicsd3dx.htm"><B>ID3DXMatrixStack::GetTop</B></A>, <A HREF="_dx_id3dxmatrixstack_push_graphicsd3dx.htm"><B>ID3DXMatrixStack::Push</B></A> </P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_NOTIFICATION_MSG</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_NOTIFICATION_MSG</h1>
+
+        
+        
+<p>Contains the notification message information.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct {
+    XONLINE_NOTIFICATION_EVENT_TYPE type;
+    union {
+        struct {
+            DWORD dwCode;
+        } service;
+    } info;
+} XONLINE_NOTIFICATION_MSG, *PXONLINE_NOTIFICATION_MSG;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>type</b></dt>
+                <dd><a href="XONLINE_NOTIFICATION_EVENT_TYPE.htm">XONLINE_NOTIFICATION_EVENT_TYPE</a> value specifying the type of notification.</dd>
+            
+            
+                
+                    <dt><b>dwCode</b></dt>
+                        <dd>Reserved. Do not use.</dd>
+                    
+                
+            
+        </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XOnline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> |
+<a href="XOnlineLogon.htm">XOnlineLogon</a>,
+<a href="XONLINE_USER.htm">XONLINE_USER</a>
+</p>
+
+
+        
+    </body>
+    </html>

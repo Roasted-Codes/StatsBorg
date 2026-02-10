@@ -1,0 +1,107 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DSOUTPUTLEVELS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>DSOUTPUTLEVELS</h1>
+
+        
+        
+<p>Contains the audio output peak and root mean square (<a href="r.htm#_dx_root_mean_square_glos">RMS</a>) levels of an audio frame.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _DSOUTPUTLEVELS{
+    DWORD dwAnalogLeftTotalPeak;<span class="clsSyntaxComment">  // analog peak</span>
+    DWORD dwAnalogRightTotalPeak;
+    DWORD dwAnalogLeftTotalRMS;<span class="clsSyntaxComment">  // analog RMS</span>
+    DWORD dwAnalogRightTotalRMS;
+    DWORD dwDigitalFrontLeftPeak;<span class="clsSyntaxComment">  // digital peak levels</span>
+    DWORD dwDigitalFrontCenterPeak;
+    DWORD dwDigitalFrontRightPeak;
+    DWORD dwDigitalBackLeftPeak;
+    DWORD dwDigitalBackRightPeak;
+    DWORD dwDigitalLowFrequencyPeak;
+    DWORD dwDigitalFrontLeftRMS;<span class="clsSyntaxComment">  // digital RMS levels</span>
+    DWORD dwDigitalFrontCenterRMS;
+    DWORD dwDigitalFrontRightRMS;
+    DWORD dwDigitalBackLeftRMS;
+    DWORD dwDigitalBackRightRMS;
+    DWORD dwDigitalLowFrequencyRMS;
+} DSOUTPUTLEVELS, *PDSOUTPUTLEVELS, *LPDSOUTPUTLEVELS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>dwAnalogLeftTotalPeak</b></dt>
+                
+                <dd>Value that contains the total peak level for the left analog channel.</dd>
+            
+            <dt><b>dwAnalogRightTotalPeak</b></dt>
+                <dd>Value that contains the total peak level for the right analog channel.</dd>
+            
+            <dt><b>dwAnalogLeftTotalRMS</b></dt>
+                
+                <dd>Value that contains the total <a href="r.htm#_dx_root_mean_square_glos">RMS</a> value for the left analog channel.</dd>
+            
+            <dt><b>dwAnalogRightTotalRMS</b></dt>
+                <dd>Value that contains the total <b>RMS</b> value for the right analog channel.</dd>
+            
+            <dt><b>dwDigitalFrontLeftPeak</b></dt>
+                
+                <dd>Value that contains the peak level for the digital front left channel.</dd>
+            
+            <dt><b>dwDigitalFrontCenterPeak</b></dt>
+                <dd>Value that contains the peak level for the digital front center channel.</dd>
+            
+            <dt><b>dwDigitalFrontRightPeak</b></dt>
+                <dd>Value that contains the peak level for the digital front right channel.</dd>
+            
+            <dt><b>dwDigitalBackLeftPeak</b></dt>
+                <dd>Value that contains the peak level for the digital back left channel.</dd>
+            
+            <dt><b>dwDigitalBackRightPeak</b></dt>
+                <dd>Value that contains the peak level for the digital back right channel.</dd>
+            
+            <dt><b>dwDigitalLowFrequencyPeak</b></dt>
+                <dd>Value that contains the peak level for the digital low frequency oscillator channel.</dd>
+            
+            <dt><b>dwDigitalFrontLeftRMS</b></dt>
+                
+                <dd>Value that contains the <b>RMS</b> level for the digital front left channel.</dd>
+            
+            <dt><b>dwDigitalFrontCenterRMS</b></dt>
+                <dd>Value that contains the <b>RMS</b> level for the digital front center channel.</dd>
+            
+            <dt><b>dwDigitalFrontRightRMS</b></dt>
+                <dd>Value that contains the <b>RMS</b> level for the digital front right channel.</dd>
+            
+            <dt><b>dwDigitalBackLeftRMS</b></dt>
+                <dd>Value that contains the <b>RMS</b> level for the digital back left channel.</dd>
+            
+            <dt><b>dwDigitalBackRightRMS</b></dt>
+                <dd>Value that contains the <b>RMS</b> level for the digital back right channel.</dd>
+            
+            <dt><b>dwDigitalLowFrequencyRMS</b></dt>
+                <dd>Value that contains the <b>RMS</b> level for the digital low frequency oscillator channel.</dd>
+            
+        </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+                
+
+        
+    </body>
+    </html>

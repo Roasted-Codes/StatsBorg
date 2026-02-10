@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DMN_THREADSWITCH</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DMN_THREADSWITCH</H1>
+
+<P>Contains information relevant to a DM_THREADSWITCH notification type. For a complete list of notification types, see <A HREF="xbox_jbh_debugapi_function_dmnotify.htm">DmNotify</A>.</P>
+
+<PRE class=syntax>typedef struct _DMN_THREADSWITCH {
+    DWORD OldThreadId;
+    DWORD NewThreadId;
+} DMN_THREADSWITCH, *PDMN_THREADSWITCH;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+
+<DT><B>OldThreadId</B></DT>
+<DD>ID of the thread that was switched from.</DD>
+
+<DT><B>NewThreadId</B></DT>
+<DD>ID of the thread that was switched to.</DD>
+
+</DL>
+
+<!--
+<H4>Remarks</H4>
+
+<P>Some remarks.</P>
+-->
+
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h
+<br><b>Import Library:</b> Use XbDm.lib
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

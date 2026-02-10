@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XAudioCreateAdpcmFormat</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XAudioCreateAdpcmFormat</h1>
+<p>Creates an ADPCM wave format structure.</p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>XAudioCreateAdpcmFormat(</b>
+    <b>WORD</b> <i>nChannels</i><b>,</b>
+    <b>DWORD</b> <i>nSamplesPerSec</i><b>,</b>
+    <b>LPXBOXADPCMWAVEFORMAT</b> <i>pwfx</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>nChannels</i></dt>
+                <dd>[in]  Value that specifies the number of channels in the wave.</dd>
+            
+            <dt><i>nSamplesPerSec</i></dt>
+                <dd>[in]  Value that specifies the sampling rate.</dd>
+            
+            <dt><i>pwfx</i></dt>
+                <dd>[out]  Address of the <a href="xbox_xboxadpcmwaveformat_dxaudio.htm">XBOXADPCMWAVEFORMAT</a> structure created.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>None.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+</body>
+</html>

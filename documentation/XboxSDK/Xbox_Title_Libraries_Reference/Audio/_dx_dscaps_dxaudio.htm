@@ -1,0 +1,50 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DSCAPS</TITLE>
+<META NAME="MS-HKWD" CONTENT="DSCAPS  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_dscaps_dxaudio"></A>DSCAPS</H1>
+
+<P>Describes the capabilities of a DirectSound device. Used by the <A HREF="_dx_idirectsound8_getcaps_dxaudio.htm"><B>IDirectSound8::GetCaps</B></A> method.</P>
+
+<PRE class="syntax">typedef struct _DSCAPS{                                                       
+    DWORD dwFree2DBuffers;
+    DWORD dwFree3DBuffers;
+    DWORD dwFreeBufferSGEs;
+    DWORD dwMemoryAllocated;
+} DSCAPS, *LPDSCAPS;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwFree2DBuffers</B></DT>
+    <DD>Value that contains the number of 2D sound buffers that are available.</DD>
+<DT><B>dwFree3DBuffers</B></DT>
+    <DD>Value that contains the number of 3D sound buffers that are available.</DD>
+<DT><B>dwFreeBufferSGEs</B></DT>
+    <DD>Value that contains the number of buffer scatter/gather entries that are available.</DD>
+<DT><B>dwMemoryAllocated</B></DT>
+    <DD>Value that contains the total amount of memory that has been allocated by DirectSound.</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>DirectSound for the Xbox has drastically changed the DSCAPS structure to reflect the nature of the Xbox Media Communications Processor (MCP).</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirectsound8_getcaps_dxaudio.htm"><B>IDirectSound8::GetCaps</B></A> </P>
+
+</BODY>
+</HTML>

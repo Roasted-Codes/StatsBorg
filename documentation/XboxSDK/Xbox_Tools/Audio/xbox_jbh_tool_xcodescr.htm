@@ -1,0 +1,54 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Code Scrambler Tool (XCodeScr)</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Code Scrambler Tool (XCodeScr)</H1>
+
+
+<P class="content">The XCodeScr tool scrambles individual DSP program binaries before distribution.</P>
+
+<PRE>USAGE: xcodescr key infile outfile</PRE>
+
+<TABLE class="tblcontrols">
+<!--**Stock Text. Do not change.****-->
+<TR VALIGN="top"><TH align=left width=25%>Option</TH><TH align=left width=75%>Description</TH></TR>
+<!--**Use this set of tags for a row. Copy and paste for additional rows.**-->
+<TR><td><em>key</em></td>     <td>Private key to use for scrambling. This must be an 8-character ASCII string.</td></TR>
+<TR><td><em>infile</em></td>  <td>Input file to be scrambled. This may be any file, but is typically a GP DSP program binary image, the result of running a Motorola 56300 DSP assembler.</td></TR>
+<TR><td><em>outfile</em></td> <td>Output file. This may be any file, but is typically a GP DSP program binary image. By convention, the output extension is ".scr".</td></TR>
+<TR><td>-?</td>      <td>Display usage.</td></TR>
+</TABLE>
+
+<H3 class="overview">Overview</H3>
+
+<P class="content">The nature of the DSP instruction set and the generally small size of a program with GP DSP audio effects make it trivial to disassemble a straight binary image of such a program and reverse-engineer its algorithms. It is unlikely, therefore, that third-party vendors of these programs would risk porting their code over for use with Xbox without some guarantee of protection. To encourage these vendors to support the Xbox and make their DSP algorithms available to Xbox developers (and thereby increase the audio quality of Xbox titles), vendors must be able to scramble individual DSP program images.</P>
+
+<H3 class="overview">Details of Usage</H3>
+
+<P class="content">The DSPBuilder and XGPImage tools use the DSP code images scrambled by XCodeScr instead of raw DSP binary images. The output from <a href="xbox_tool_dsp_builder_dxaudio.htm">DSPBuilder</a> and <a href="xbox_jbh_tool_xgpimage.htm">XGPImage</a> consist of fixed-up, re-scrambled DSP images, using the DSP program's original private key. Upon DSP program download by Microsoft&#174 DirectSound&#174, the image file is unscrambled and the DSP program is executed on the GP DSP.</P>
+
+<P class=note><B>Note</B>&nbsp;&nbsp;For DSPBuilder, .ini files are required for parameter states, to generate headers, and so on.</p>
+
+<UL>
+  <LI>DSP developer develops and debugs DSP program using Motorola 56300 DSP assembler and creates a binary output image (.bin).</li>
+  <LI>DSP developer runs XCodeScr program to create a scrambled DSP program image (.scr), using a private key known only to the DSP developer.</li>
+  <LI>DSP developer makes DSP program in scrambled form (.scr) available to Xbox developers.</li>
+  <LI>Xbox developer integrates .scr into their title by using DSPBuilder or XGPImage to build a DSP image including the scrambled DSP program.</li>
+  <LI>Output image produced by DSPBuilder or XGPImage is used by Xbox title, using the <a href="xbox_idirectsound8_downloadeffectsimage_dxaudio.htm">IDirectSound8::DownloadEffectsImage</a> method.</li>
+</UL>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Loading Audio Data</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H2><A NAME="_dx_loading_audio_data_dxaudio"></A>Loading Audio Data</H2>
+
+<P>Many DirectMusic objects have to be loaded from a file before they can be incorporated into a performance. The <A HREF="_dx_idirectmusicloader8_dxaudio.htm"><B>IDirectMusicLoader8</B></A> interface is used to manage the enumeration and loading of such objects, as well as to cache them so that they are not loaded more than once.</P>
+
+<P>An application should have only one instance of the loader in existence at a time. You should create a single global loader object and not free it until there is no more loading to be done. This strategy ensures that objects are found and cached efficiently.</P>
+
+<P>More information on using the loader is contained in the following topics:
+
+<UL>
+	<LI><A HREF="_dx_setting_the_loader_s_search_directory_dxaudio.htm"><B>Setting the Loader's Search Directory</B></A> </LI>
+
+	<LI><A HREF="_dx_loading_an_object_from_a_file_dxaudio.htm"><B>Loading an Object from a File</B></A></LI>
+
+	<LI><A HREF="_dx_containers_dxaudio.htm"><B>Containers</B></A></LI>
+
+	<LI><A HREF="_dx_cache_management_dxaudio.htm"><B>Cache Management</B></A> </LI>
+
+	<LI><A HREF="_dx_garbage_collection_dxaudio.htm"><B>Garbage Collection</B></A></LI>
+
+	<LI><A HREF="_dx_setting_objects_dxaudio.htm"><B>Setting Objects</B></A> </LI>
+</UL>
+
+<P>See also <A HREF="_dx_custom_loading_dxaudio.htm"><B>Custom Loading</B></A> in the <A HREF="_dx_advanced_topics_in_directx_audio_dxaudio.htm"><B>Advanced Topics in DirectX Audio</B></A> section.</P>
+
+</BODY>
+</HTML>

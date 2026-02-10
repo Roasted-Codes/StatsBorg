@@ -1,0 +1,47 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>TOKEN_FLOAT_LIST</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_token_float_list_graphicsxof"></A>TOKEN_FLOAT_LIST</H4>
+
+<P>A variable-length record. The token is followed by a count value that specifies the number of floats or doubles that follow in the list field. The size of the floating point value (float or double) is determined by the value of float size specified in the file header. For efficiency, consecutive <B>TOKEN_FLOAT_LIST</B>s should be compounded into a single list.</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=11%>Field</TH>
+<TH align=left width=23%>Type</TH>
+<TH align=left width=23%>Size (bytes)</TH>
+<TH align=left width=43%>Contents</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=11%><B>token</B> </TD>
+<TD width=23%><B>WORD</B> </TD>
+<TD width=23%>2</TD>
+<TD width=43%><B>TOKEN_FLOAT_LIST</B></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=11%><B>count</B> </TD>
+<TD width=23%><B>DWORD</B> </TD>
+<TD width=23%>4</TD>
+<TD width=43%>Number of floats or doubles in list field </TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=11%><B>list</B> </TD>
+<TD width=23%>float/double array</TD>
+<TD width=23%> 4 or 8 &times; <B>count</B></TD>
+<TD width=43%>Float or double list </TD>
+</TR>
+</TABLE><BR>
+
+</BODY>
+</HTML>

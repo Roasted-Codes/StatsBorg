@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STAT_UNIT</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_STAT_UNIT</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_STAT_UNIT{
+    XUID xuidUnitMembers[XONLINE_STAT_MAX_MEMBERS_IN_UNIT];
+    XONLINE_STAT_NAME UnitMemberNames[XONLINE_STAT_MAX_MEMBERS_IN_UNIT];
+} XONLINE_STAT_UNIT, *PXONLINE_STAT_UNIT;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+	<dt><b>xuidUnitMembers</b></dt>
+<dd>Array of <a href="xuid.htm">XUID</a> structures representing the unit members.</dd>
+
+	<dt><b>UnitMemberNames</b></dt>
+<dd>Array of <a href="XONLINE_STAT_NAME.htm">XONLINE_STAT_NAME</a> structures containing the Gamertags and team names for the users.</dd>
+
+	
+</dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>In order to obtain the date of the last activity, </p>
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineStatUnitEnumerateGetResults.htm">XOnlineStatUnitEnumerateGetResults</a></p>
+
+        
+    </body>
+    </html>

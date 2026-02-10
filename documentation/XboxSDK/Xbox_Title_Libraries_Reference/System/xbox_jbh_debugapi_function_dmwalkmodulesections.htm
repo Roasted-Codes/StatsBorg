@@ -1,0 +1,111 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DmWalkModuleSections</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DmWalkModuleSections</H1>
+
+<P class="content">Provides a way to
+examine information about each section of a loaded module. Call
+<b>DmWalkModuleSections</b> repeatedly to iterate over the list of loaded
+sections.</P>
+
+<PRE class=syntax><b>DMHRAPI DmWalkModuleSections(</b>
+  <B>PDM_WALK_MODSECT</B> <I>*ppWalkModSect</I><B>,</B> 
+  <B>LPCSTR</B>           <I>lzModName</I>
+  <B>PDMN_SECTIONLOAD</B> <I>pSecLoad</I>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+
+<DT><I>ppWalkModSect</I></DT>
+
+<DD>Pointer to a structure that <b>DmWalkModuleSections</b> uses internally to
+    iterate over the list of <a
+    href="xbox_jbh_debugapi_struct_DMN_SECTIONLOAD.htm">DMN_SECTIONLOAD</a>
+    structures. Set <i>ppWalkModSect</i> to NULL on the first call to
+    <B>DmWalkModuleSections</B>; the function allocates memory to store a list
+    of loaded module sections and sets the <i>ppWalkModSect</i> pointer to the address
+    of beginning of that list.</DD>
+
+<DT><I>lzModName</I></DT>
+<DD>Name of the module to walk.</DD>
+
+<DT><I>pSecLoad</I></DT>
+
+<DD>Pointer to a <a
+    href="xbox_jbh_debugapi_struct_DMN_SECTIONLOAD.htm">DMN_SECTIONLOAD</a> structure
+    that contains information about the next loaded module section.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P class="content">XBDM_NOERR is returned if the call to <B>DmWalkModuleSections</B> is successful and the end of the list has not been reached. XBDM_ENDOFLIST is returned when the walk is complete. Otherwise, an error value is returned.</P>
+
+
+<H4>Remarks</H4>
+
+<P class="content">If the return is not XBDM_NOERR or XBDM_ENDOFLIST, then an
+error has occurred and the walk should be discontinued. After using
+<b>DmWalkModuleSections</b>, you must free the memory allocated to store the
+list of sections by calling <A
+HREF="xbox_jbh_debugapi_function_dmcloseloadedmodules.htm"><B>DmCloseModuleSections</B></A>,
+passing it the value stored in the <i>ppWalkModSect</i> pointer.</P>
+
+<p class="content">The following example illustrates how to use
+<b>DmWalkModuleSections</b> and <b>DmCloseModuleSections</b> to iterate over the
+list of sections in a loaded module.</p>
+
+
+<pre>
+DMHRAPI error;
+PDM_WALK_MODSECT *ppWalkModSect = NULL;
+DMN_SECTIONLOAD sectLoad;
+
+do
+{
+    error = DmWalkModuleSections(ppWalkModSect, lzModName, &amp;sectLoad);
+
+    // Examine the contents of sectLoad here.
+}
+while (error == XBDM_NOERR);
+
+if (error != XBDM_ENDOFLIST)
+{
+    // Handle error.
+}
+
+DmCloseModuleSections(*ppWalkModSect);
+</pre>
+
+
+<h4>Requirements</h4>
+
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<H4>See Also</H4>
+<p class="content">
+<A HREF="xbox_jbh_debugapi_function_dmcloseloadedmodules.htm">DmCloseModuleSections</A>,
+<a href="xbox_jbh_debugapi_struct_DMN_SECTIONLOAD.htm">DMN_SECTIONLOAD</a>
+</p>
+
+
+</BODY>
+</HTML>

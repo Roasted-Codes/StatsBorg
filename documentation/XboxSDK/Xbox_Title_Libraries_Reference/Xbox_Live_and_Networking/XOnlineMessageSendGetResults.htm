@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageSendGetResults</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageSendGetResults</h1>
+            <p>Retrieves the results of a message transmission.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageSendGetResults(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>XONLINE_MSG_SEND_RESULT</b> *<i>pMsgSendResults</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>hTask</i></dt>
+				<dd>[in]  Task handle obtained from <a href="XOnlineMessageSend.htm">XOnlineMessageSend</a>.</dd>
+			
+            <dt><i>pMsgSendResults</i></dt>
+				<dd>[out]  Address of a <b>XONLINE_MSG_SEND_RESULT</b> structure. Upon return, 
+				the <b>XONLINE_MSG_SEND_RESULT</b> structure contains the results of the 
+				message transmission.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="XOnlineMessageSend.htm">XOnlineMessageSend</a></p>
+        
+</body>
+</html>

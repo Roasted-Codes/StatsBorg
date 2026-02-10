@@ -1,0 +1,51 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::GetPixelShaderFunction</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::GetPixelShaderFunction [C++]">
+<META NAME="MS-HKWD" CONTENT="GetPixelShaderFunction (IDirect3DDevice8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetPixelShaderFunction [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_getpixelshaderfunction_graphics"></A>IDirect3DDevice8::GetPixelShaderFunction</H1>
+
+<P>Retrieves the pixel shader function.</P>
+
+<PRE class=syntax><B>HRESULT GetPixelShaderFunction(
+   DWORD </B><I>Handle</I><B>,</B>
+<B>   D3DPIXELSHADERDEF* </B><I>pData</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>Handle</I></DT>
+
+<DD>[in] Handle to the referred to pixel shader.</DD>
+
+<DT><I>pData</I></DT>
+
+<DD>[out] Pointer to a <a href="xbox_jbh_dxref_psh_binformat.htm"><b>D3DPIXELSHADERDEF</b></a> structure that, on the successful return of the function, will contain the pixel shader referred to by the <i>Handle</i>. </DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is S_OK.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirect3ddevice8_getpixelshader_graphics.htm"><B>IDirect3DDevice8::GetPixelShader</B></A></P>
+
+</BODY>
+</HTML>

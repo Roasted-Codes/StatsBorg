@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::SetVoiceMask</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::SetVoiceMask</h1>
+<p>Sets the input voice mask parameters for the specified local talker.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetVoiceMask(</b>
+    <b>DWORD</b> <i>dwLocalPort</i><b>,</b>
+    <b>const XHV_VOICE_MASK</b> *<i>pVoiceMask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>dwLocalPort</i></dt>
+<dd>[in]  Controller port of the local talker.</dd>
+<dt><i>pVoiceMask</i></dt>
+<dd>[in]  Pointer to an <a href="XHV_VOICE_MASK.htm">XHV_VOICE_MASK</a> structure that specifies the voice mask parameters to apply.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>Specifying a value of XHV_VOICE_MASK_PARAM_DISABLED for any member of the <b>XHV_VOICE_MASK</b> structure disables the masking effects controlled by that member.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

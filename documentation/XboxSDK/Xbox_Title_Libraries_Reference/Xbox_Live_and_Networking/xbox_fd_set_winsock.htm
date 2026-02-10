@@ -1,0 +1,52 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>fd_set</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="fd_set">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="xbox_fd_set_winsock"></A>fd_set</H1>
+
+<P>The <B>fd_set</B> structure is used by various Winsock functions and service providers, such as the <A HREF="xbox_select_winsock.htm"><B>select</B></A> function, to place sockets into a "set" for various purposes, such as testing a given socket for readability using the <I>readfds</I> parameter of the <B>select</B> function.</P>
+
+<PRE class=syntax>typedef struct fd_set {
+  u_int    fd_count;                 // how many are SET? 
+  SOCKET   fd_array[FD_SETSIZE];     // an array of SOCKETs 
+} fd_set;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>fd_count</B></DT>
+
+<DD>Number of sockets in the set.</DD>
+
+<DT><B>fd_array</B></DT>
+
+<DD>Array of sockets that are in the set.
+</DD>
+</DL>
+
+<H4>Requirements</H4>
+<p>
+<b>Header: </b>Declared in winsockx.h, for include use Xtl.h.
+</p>
+
+
+<H4>See Also</H4>
+
+<P>
+<a href="xbox_winsock_overview_winsock.htm"><b>Winsock Overview</b></a>,
+<a href="xbox_winsock_structures_winsock.htm"><b>Winsock Structures</b></a> |
+<A HREF="xbox_select_winsock.htm"><B>select</B></A>
+</P>
+
+
+</BODY>
+</HTML>

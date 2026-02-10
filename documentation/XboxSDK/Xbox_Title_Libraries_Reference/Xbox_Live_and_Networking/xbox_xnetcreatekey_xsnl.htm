@@ -1,0 +1,40 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XNetCreateKey</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XNetCreateKey [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_xnetcreatekey_xsnl"></A>XNetCreateKey</H1>
+
+<P>Creates a key used to host a session.</P>
+
+<PRE class="syntax"><B>INT XNetCreateKey(</B>
+    <B>XNKID</B> <I>*pxnkid</I>,
+    <B>XNKEY</B> <I>*pxnkey</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pxnkid</I></DT>
+    <DD>Address of the <A HREF="xbox_xnkid_xsnl.htm"><B>XNKID</B></A> structure that receives the key identifier.</DD>
+<DT><I>pxnkey</I></DT>
+    <DD>Address of the <A HREF="xbox_xnkey_xsnl.htm"><B>XNKEY</B></A> structure that receives the key exchange key.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns zero if successful, an error code otherwise.</P>
+
+<H4>Requirements </H4>
+<P><B>Header: </B>Declared in Winsockx.h, for include use Xtl.h.</P>
+<P><B>Import Library: </B>Use Xnet.lib for titles that only support system link play, XOnline.lib for titles that support online play. Use the secure versions of the library file (Xnets.lib or XOnlines.lib) for final testing.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineTeamSetFamilyTitleID</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineTeamSetFamilyTitleID</h1>
+<p>Sets the family title ID for teams.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineTeamSetFamilyTitleID(</b>
+    <b>DWORD</b> <i>dwTitleID</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwTitleID</i></dt>
+<dd>[in]  Family title ID to use for teams.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns S_OK if successful, an error code otherwise.</p>
+	<p>XONLINE_E_INVALID_TITLE_ID is returned when title identifier supplied is neither a valid title identifier or one of the family title identifier.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p>A title may call this function only once, and must call it before attempting to create a team, enumerate teams, write team stats, and so on.  Using teams functionality before calling this function will result in the real title ID being used rather than the team family title ID.</p>
+	<p>Titles should also pass the team family title ID to <a href="XOnlineMessageEnableReceivingFamilyTitleIDs.htm">XOnlineMessageEnableReceivingFamilyTitleIDs</a> in order to receive notifications of incoming XONLINE_MSG_TYPE_TEAM_RECRUIT messages via <a href="XOnlineGetNotificationEx.htm">XOnlineGetNotificationEx</a> and to have those messages returned by <a href="XOnlineMessageEnumerate.htm">XOnlineMessageEnumerate</a>.</p>
+	<p>Attempting to use this function to enable a family title ID without first including that ID in the title's certificate will result in an error message displayed in the debug output as well as the function not working correctly. A family title ID can be included in a title's certificate by opening the project properties dialog box in Visual Studio, and adding the family title ID to the alternate title IDs.</p>
+	<p>Setting the family title ID will generate debug output for informational purposes.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

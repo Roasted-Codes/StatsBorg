@@ -1,0 +1,74 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Setting Objects</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H3><A NAME="_dx_setting_objects_dxaudio"></A>Setting Objects</H3>
+
+<P>Sometimes it is desirable to tell the loader where to get an object, without actually loading that object, so that the loader can retrieve it if the object is later referenced by other objects as they are being loaded. You might also want to give an object a new attribute so that the loader can find it by that attribute. </P>
+
+<P>The <A HREF="_dx_idirectmusicloader8_setobject_dxaudio.htm"><B>IDirectMusicLoader8::SetObject</B></A> method takes as a parameter a <A HREF="_dx_dmus_objectdesc_dxaudio.htm"><B>DMUS_OBJECTDESC</B></A> structure that contains two key pieces of information: 
+
+<UL>
+	<LI>A pointer to a file path. See <A HREF="_dx_loading_an_object_from_a_file_dxaudio.htm"><B>Loading an Object from a File</B></A> for more information. </LI>
+
+	<LI>An identifier for the object when it is referenced later. This could be a GUID or a name. Later, the call to <A HREF="_dx_idirectmusicloader8_getobject_dxaudio.htm"><B>IDirectMusicLoader8::GetObject</B></A> will find the stored object by using the same name or GUID. Note that you cannot change a GUID or name that already exists in the object. </LI>
+</UL>
+
+<P>On return, the <B>DMUS_OBJECTDESC</B> structure may contain additional information about the object gathered by the loader.</P>
+
+<!-- OMIT: 
+<P>The following function assigns a name to an unnamed object (such as a MIDI file) in a resource:</P>
+
+<PRE>// m_pLoader is a valid IDirectMusicLoader8 interface pointer.
+ 
+HRESULT SetObjectFromResource(const GUID* guid, int ID,
+        char* type, CHAR* name)
+{
+  HRSRC hResource = NULL;
+  HGLOBAL hData = NULL;
+  hResource = FindResource(g_hInstance, MAKEINTRESOURCE(ID), type);
+  if (hResource != NULL)
+  {
+    hData = LoadResource(g_hInstance, hResource); 
+    if (hData != NULL)
+    {
+      DMUS_OBJECTDESC desc;
+      if(m_pLoader &amp;&amp; (hResource != NULL) &amp;&amp; (hData != NULL))
+      {
+        ZeroMemory(&amp;desc,sizeof(desc));
+        desc.pbMemData = (BYTE*) LockResource(*hData);
+        desc.llMemLength = SizeofResource(g_hInstance, (*hResource));
+        desc.guidClass = (*guid);
+        desc.dwSize = sizeof(desc);
+        desc.dwValidData = DMUS_OBJ_CLASS | DMUS_OBJ_MEMORY;
+        if (name)
+        {
+            wcscpy(desc.wszName, name);
+            desc.dwValidData |= DMUS_OBJ_NAME;
+        }
+        return m_pLoader-&gt;SetObject(&amp;desc);
+      }
+    }
+  }
+  return E_FAIL;
+}
+</PRE>
+
+-->
+
+<P>The sample function could be used to assign a name to a MIDI file stored as a resource of type "MIDI", as in the following function call:</P>
+
+<PRE>SetObjectFromResource(CLSID_DirectMusicSegment, 101,
+        "MIDI", "canyon");
+</PRE>
+
+<P>The object can now be loaded at any time by name.</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,24 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Templates</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H3><A NAME="_dx_templates_dxaudio"></A>Templates</H3>
+
+<P>A template is a segment that contains a signpost track and, optionally, a command track. The signpost track can be used to create a new chord progression, either for the segment itself or for another segment that does not have a signpost track. The command track supplies <A HREF="g.htm#_dx_groove_level_glos" CLASS="POPUP"><B>groove levels</B></A> and embellishments. You can use templates at run time to compose new material. </P>
+
+<P class=note><B>Note</B>&nbsp;&nbsp;Templates created in versions of DirectMusic Producer prior to DirectX 8.0 are not playable self-contained segments. They can be used only to compose other segments.</P>
+
+<P>The signpost track contains a sequence of signpost markers, which mark the beginning and end of regions in which variations in the chord progression are possible. Each signpost marker is designated as valid for a particular group of signpost chords in a chordmap. The author of the content is responsible for assigning signpost markers and signpost chords to the appropriate groups.</P>
+
+<P>DirectMusic composes a segment by applying the signpost track to a particular style and chordmap. Each time the composer encounters a pair of signpost markers along the time line in the template, it searches the chordmap for a pair of signpost chords that belong to that group. If it finds a pair and the interval between them fits into the time available, it follows the chord progression between those two signpost chords, as defined in the chordmap. If it is unable to find a path that works, or if there is no end signpost marker, the engine plays any chord from the group of the beginning signpost marker.</P>
+
+<P>For information on composing segments from templates in an application, see <A HREF="_dx_using_templates_dxaudio.htm"><B>Using Templates</B></A>.</P>
+
+</BODY>
+</HTML>

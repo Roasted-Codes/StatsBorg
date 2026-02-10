@@ -1,0 +1,14 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Optimizations for Matrix Palette Skinning</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Optimizations for Matrix Palette Skinning</h1>
+<p>You don't need to set the vertex shader constants for the bones unless we change skins. This optimization will be written into the XDX file itself, rather than trying to hack it into the XbView application. Since the vertex shader constants are not set unless they are included in the pass data, simply omit the redundant set calls when exporting the XDX file from Deep Exploration. This saves having to do all the matrix multiplies and <a href="_dx_idirect3ddevice8_setvertexshaderconstant_graphics.htm">SetVertexShaderConstant</a> calls for each bone if there is more than one pass for the mesh. It also shows the power of the XDX format. The optimization involves only data; no code changes are necessary. Many other such optimizations are possible. Developers can do them on a per-project basis to further enhance and customize the pipeline for their shop or particular game.</p>
+</body>
+</html>

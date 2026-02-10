@@ -1,0 +1,34 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundStream::Discontinuity</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundStream::Discontinuity [C++]">
+<META NAME="MS-HKWD" CONTENT="Discontinuity (IDirectSoundStream) [C++]">
+<META NAME="MS-HKWD" CONTENT="Discontinuity [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsoundstream_discontinuity_dxaudio"></A>IDirectSoundStream::Discontinuity</H1>
+
+<P>Handles a break in the input stream.</P>
+
+<PRE class=syntax><B>HRESULT Discontinuity();</B></PRE>
+
+<H4>Return Values</H4>
+
+<P><B>Discontinuity</B> should always return DS_OK if successful.</P>
+
+<H4>Remarks</H4>
+
+<P>An application should call <B>Discontinuity</B> when an Xbox Media Object needs more input data but that data is not available for some reason. <B>Discontinuity</B> resets the internal state of the Xbox Media Object and initializes any state variables needed. For streams with finite duration, <B>Discontinuity</B> should be called after submission of the final packet in the stream. </P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+
+</BODY>
+</HTML>

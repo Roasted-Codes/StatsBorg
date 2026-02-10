@@ -1,0 +1,60 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XPERFCPXSTATE</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XPERFCPXSTATE</h1>
+
+        
+        
+<p>Used by <a href="xperfsetcpxstate.htm">XPerfSetCPXState</a> to set the sampling method and threshold used by CPX.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _XPERFCPXSTATE{
+    DWORD SamplingMethod;
+    DWORD Threshold;
+} XPERFCPXSTATE, *PXPERFCPXSTATE;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>SamplingMethod</b></dt>
+<dd>Must be one of the following flags:</dd>
+<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XPERF_SAMPLING_TIMER</td>
+<td>Sample using the Timer. <b>Threshold</b> should be at least two million.</td>
+</tr>
+<tr>
+<td>XPERF_SAMPLING_L2MISSES</td>
+<td>Sample when an L2 cache miss occurs. <b>Threshold</b> should be at least 40,960.</td>
+</tr>
+</table>
+
+<dt><b>Threshold</b></dt>
+<dd>Sets the sampling frequency. The lower the value, the more sampling will occur.</dd>
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xperf.h.</p>
+            
+                
+
+        
+    </body>
+    </html>

@@ -1,0 +1,65 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirectMusicSegment8::SetWavePlaybackParams</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirectMusicSegment8::SetWavePlaybackParams</h1>
+<p>Sets the wave playback settings for the segment.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetWavePlaybackParams(</b>
+    <b>DWORD</b> <i>dwFlags</i><b>,</b>
+    <b>DWORD</b> <i>dwReadAhead</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwFlags</i></dt>
+                <dd>Value specifying the flags set for this method. Can be a combination of the following values:</dd>
+            <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                <tr>
+<td>DMUS_WAVEF_OFF</td>
+<td>Not supported.</td>
+</tr>
+                <tr>
+<td>DMUS_WAVEF_STREAMING</td>
+<td>Indicates that this wave file is a stream. Use this flag to avoid shutting off streaming on a wave. Omission of this flag indicates a buffer.</td>
+</tr>
+
+                <tr>
+<td>DMUS_WAVEF_NOINVALIDATE</td>
+<td>Indicates that the wave should be allowed to continue playing after a call made to <a href="_dx_idirectmusicperformance8_invalidate_dxaudio.htm">IDirectMusicPerformance8::Invalidate</a>. Omission indicates that the wave should stop playing on a call made to <b>IDirectMusicPerformance8::Invalidate</b>.</td>
+</tr>
+                <tr>
+<td>DMUS_WAVEF_NOPREROLL</td>
+<td>Indicates that the contents of the wave should not be pre-rolled. Omission of this flag indicates that content should be pre-rolled.</td>
+</tr>
+                <tr>
+<td>DMUS_WAVEF_IGNORELOOPS</td>
+<td>Indicates that the wave should ignore segment loops. Omission of this flags indicates that this wave will retrigger every time the segment loops (in other words, looping waves will keep looping when the segment loops).</td>
+</tr>
+            </table>
+            
+            <dt><i>dwReadAhead</i></dt>
+                <dd>Value that specifies the amount of audio data (in milliseconds) to read ahead. Must be greater than or equal to DMUS_READAHEAD_MIN.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p>This method is used to adjust the source of a segment, not the segment that is currently playing. Once the segment starts playing, none of the flags supported by <i>dwFlags</i> can be used.</p>
+			<p>Calling <b>SetWavePlaybackParams</b> is particularly helpful for a wave file segment which does not contain wave header data in its source. For more information, see <a href="_dx_idirectmusicperformance8_playsegmentex_dxaudio.htm">IDirectMusicPerformance8::PlaySegmentEx</a>.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DMusicI.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DMusic.lib.</p>
+    
+</body>
+</html>

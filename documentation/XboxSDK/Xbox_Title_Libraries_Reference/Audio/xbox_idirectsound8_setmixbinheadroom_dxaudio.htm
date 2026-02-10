@@ -1,0 +1,44 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::SetMixBinHeadroom</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::SetMixBinHeadroom [C++]">
+<META NAME="MS-HKWD" CONTENT="SetMixBinHeadroom (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetMixBinHeadroom [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectsound8_setmixbinheadroom_dxaudio"></A>IDirectSound8::SetMixBinHeadroom</H1>
+
+<P>Adjusts the headroom of a specified mixbin.</P>
+
+<PRE class="syntax"><B>HRESULT SetMixBinHeadroom(</B>
+    <B>DWORD</B> <I>dwMixBin</I>,
+    <B>DWORD</B> <I>dwHeadroom</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>dwMixBin</I></DT>
+    <DD>Value that contains the identifier of the mixbin to set. Can be one of the <a href="xbox_mixbin_constants_dxaudio.htm">Mixbin Constants</a>.</DD>
+<DT><I>dwHeadroom</I></DT>
+    <DD>Value that specifies the headroom attenuation in bits, from zero to seven. The value seven specifies seven bits (approximately &#8211;42 dB). The mixbin headroom defaults to one, which specifies 1 bit (&#8211;6 dB).</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+<P>Mixbin headroom refers to the amount of additional attenuation that is applied to a DirectSound buffer or stream when is is mixed into the mixbin.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

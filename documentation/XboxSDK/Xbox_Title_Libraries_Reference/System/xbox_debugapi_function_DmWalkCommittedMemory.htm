@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmWalkCommittedMemory</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmWalkCommittedMemory</h1>
+	<p>Provides a way to examine 
+	information about each committed page of memory. Call <b>DmWalkCommittedMemory</b>
+	repeatedly to iterate over the list of memory pages.</p>
+<pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmWalkCommittedMemory(</b>
+    <b>PDM_WALK_MEMORY *</b> <i>ppDmWalkMemory</i><b>,</b>
+    <b>DM_MEMORY_REGION *</b> <i>pMemoryRegion</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+	<dt><i>ppDmWalkMemory</i></dt>
+		<dd>Pointer to a structure that <b>DmWalkCommittedMemory</b> uses 
+		internally to iterate over the list of <b>PDM_MEMORY_REGION</b> 
+		structures. </dd>
+	
+
+	<dt><i>pMemoryRegion</i></dt>
+		<dd>Pointer to a <b>DM_MEMORY_REGION</b> structure that 
+		contains information about the next block of committed memory. </dd>
+	
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns XBDM_NOERR if successful, an error value otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p>If the return value from this function is anything other than XBDM_NOERR or 
+	XBDM_ENDOFLIST, an error has occurred and the walk should be discontinued. After using 
+	<b>DmWalkCommittedMemory</b>, your program must free the memory allocated to store the 
+	list of memory regions by calling <a href="xbox_debugapi_function_DmCloseCommittedMemory.htm">DmCloseCommittedMemory</a>, passing it the value 
+	stored in the <i>ppDmWalkMemory</i> parameter.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XbDm.h, XboxDbg.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    
+</body>
+</html>

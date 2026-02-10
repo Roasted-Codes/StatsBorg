@@ -1,0 +1,41 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Enabling Antialiasing</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1>Enabling Antialiasing</H1>
+
+<p>Antialiasing is enabled by specifying something other than D3DMULTISAMPLE_NONE for the <b>MultiSampleType</b> member of <a href="_dx_d3dpresent_parameters_graphics.htm"><b>D3DPRESENT_PARAMETERS</b></a> when creating or resetting the device.</p>
+
+<pre>// This sample assumes that pD3D is a valid pointer to an IDirect3D8
+// interface and the pDevice is a pointer to an IDirect3DDevice8
+// interface.
+
+// Set up the structure used to create the device.
+D3DPRESENT_PARAMETERS d3dPP;
+ZeroMemory( &amp;d3dPP, sizeof(d3dPP) );
+d3dPP.BackBufferWidth       = 640;
+d3dPP.BackBufferHeight      = 480;
+d3dPP.BackBufferFormat      = D3DFMT_X8R8G8B8;
+d3dPP.BackBufferCount       = 1;
+d3dPP.MultiSampleType       = D3DMULTISAMPLE_4_SAMPLES_MULTISAMPLE_LINEAR;
+d3dPP.SwapEffect            = D3DSWAPEFFECT_DISCARD;
+
+// Create the device.
+if ( FAILED( pD3D-&gt;CreateDevice( 0, D3DDEVTYPE_HAL, NULL,
+                                 D3DCREATE_HARDWARE_VERTEXPROCESSING,
+                                 &amp;d3dPP, &amp;pDevice ) ) )
+     return E_FAIL;
+</pre>
+
+<p>By setting the <b>MultiSampleType</b> member to be a multisampling type (as opposed to a supersampling type), multisampling is enabled. This is unlike the behavior under DirectX 8.0 for the PC where it is necessary to turn on multisampling using the render state D3DRS_MULTISAMPLEANTIALIAS.</p>
+
+
+</BODY>
+</HTML>

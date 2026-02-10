@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVEncoder Tool (XMVEncoder)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XMVEncoder Tool (XMVEncoder)</h1>
+<h2><a name="IDALQUM"></a>Description</h2>
+<p>XMVEncoder provides a simple means of encoding AVIs to XMVs, making use of the WM8EUTIL encoder available at http://www.microsoft.com/windows/windowsmedia/WM8/encoding.aspx as well as XMVTool (included in the Xbox SDK).</p>
+<h2><a name="IDAOQUM"></a>Required files and media</h2>
+<p>WM8EUTIL must be installed. Available at the following URL: http://www.microsoft.com/windows/windowsmedia/WM8/encoding.aspx.</p>
+<h2><a name="IDARQUM"></a>Usage</h2>
+<p>Knowledge of the WM8EUTIL AVI-to-WMV encoder is required to use this tool. Consult the help documents included with WM8EUTIL for more information on the encoding parameters.</p>
+<h3><a name="IDAUQUM"></a>Basic usage:</h3>
+<ol>
+<li>Upon first use, go to preferences and make sure the path for WM8EUTIL is correct.</li>
+<li>Select a source AVI file. The intermediate and output files will be auto-populated. You may change these if desired.</li>
+<li>Enter your encoding parameters for the AVI-to-WMV portion and the WMV-to-XMV portion (entering &#8722;1 uses the defaults for each parameter).</li>
+<li>Click <b>Encode</b>. After encoding is complete, the results of the operation will be shown in the output window.</li>
+</ol>
+<h3><a name="IDA5QUM"></a>XMVCompare interface:</h3>
+<p>This tool has the ability to interface with the XMVCompare sample included in the XDK (XboxSDK\sample\xbox\video\xmvcompare). To make use of this:</p>
+<ol>
+<li>Compile and launch the XMVCompare sample.</li>
+<li>Start the XMVEncoder tool.</li>
+<li>Select your source/intermediate/output files.</li>
+<li>Before clicking <b>Encode</b>, be sure <b>After encode, upload to</b> is checked and select a side to upload the resulting XMV to (either left or right).</li>
+<li>Click <b>Encode</b>. If the encoding is successful, the XMV will be uploaded to the XDK and the XMVCompare sample will play the resulting file.</li>
+<li>You may press the play button to remotely restart the videos.</li>
+</ol>
+
+</body>
+</html>

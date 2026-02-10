@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmUnloadSymbolsForModule</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmUnloadSymbolsForModule</h1>
+<p>Unloads the debugging symbol table for a specified module.</p><pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmUnloadSymbolsForModule(</b>
+    <b>ULONG_PTR</b> <i>BaseAddress</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+<dt><i>BaseAddress</i></dt>
+<dd>[in]  Base address of the module.</dd>
+
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns XBDM_NOERR if successful, an error value otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XboxDbg.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_lrf_debugapi_function_dmgetsourcelinefromaddress.htm">DmGetSourceLineFromAddress</a>,
+<a href="xbox_lrf_debugapi_function_dmgetsymbolfromaddress.htm">DmGetSymbolFromAddress</a>,
+<a href="xbox_lrf_debugapi_function_dmloadsymbolsforallloadedmodules.htm">DmLoadSymbolsForAllLoadedModules</a>,
+<a href="xbox_lrf_debugapi_function_dmloadsymbolsformodule.htm">DmLoadSymbolsForModule</a>,
+<a href="xbox_lrf_debugapi_function_dmsetsymbolsearchpath.htm">DmSetSymbolSearchPath</a>
+</p>
+
+</body>
+</html>

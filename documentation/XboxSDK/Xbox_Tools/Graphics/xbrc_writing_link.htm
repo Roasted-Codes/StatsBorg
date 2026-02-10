@@ -1,0 +1,16 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Writing a Link Function (XbRC)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Writing a Link Function (XbRC)</h1>
+<p>To final step to extend XbRC is to write the link function that outputs the data from the intermediate file to the final file format needed for the resource(s). The link function outputs the data for this resource type into the large stream for the resource file. For Direct3D resources, this is a Bundler file. For any extensions, the definition of this function is up to the end developer. You could output the data any way you want to. For example, you might have collision volume data associated with the art files, but you may not want to package the collision data with the Direct3D resources. The link functions for the collision containers would simply write to a different file or file(s) depending on how you wanted to structure it.</p><p>The linker could also be used to output many different files for each resource type. For example, you may want output the bundled Direct3D resources and output whatever custom format you are using for PC or Playstation to a separate file using the same data. In that way, all of your resources are ready at compile time and can be previewed on the Xbox immediately. This makes ports much easier because you can also include the code to scale the content for other platforms in the compiler as well. In fact, you could add tags to the XDX file describing how to scale the content for each resource type using the methods just described!</p><h4><a name="seealso"></a>See Also</h4>
+<p><a href="xbrc_writing_optimize.htm">Previous Step</a></p>
+
+</body>
+</html>

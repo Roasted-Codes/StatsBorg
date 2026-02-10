@@ -1,0 +1,62 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXColorModulate</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXColorModulate">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxcolormodulate_graphicsd3dx"></A>D3DXColorModulate</H1>
+
+<P>Blends two colors.</P>
+
+<PRE class=syntax><B>D3DXCOLOR* D3DXColorModulate(
+  D3DXCOLOR* </B><I>pOut</I><B>,</B>
+<I>  </I><B>CONST</B> <B>D3DXCOLOR* </B><I>pC1</I><B>,</B>
+<I>  </I><B>CONST</B> <B>D3DXCOLOR* </B><I>pC2</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to a <A HREF="_dx_d3dxcolor_graphicsd3dx.htm"><B>D3DXCOLOR</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pC1</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXCOLOR</B> structure.</DD>
+
+<DT><I>pC2</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXCOLOR</B> structure.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function returns a pointer to a <B>D3DXCOLOR</B> structure that is the result of the blending operation.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>D3DXColorModulate</B> function can be used as a parameter for another function.</P>
+
+<P>This function blends together two colors by multiplying matching color components, as shown in the following example.</P>
+
+<PRE>    pOut-&gt;r = pC1-&gt;r * pC2-&gt;r;
+</PRE>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8math.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3dx8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_d3dxcolorlerp_graphicsd3dx.htm"><B>D3DXColorLerp</B></A>, <A HREF="_dx_d3dxcolornegative_graphicsd3dx.htm"><B>D3DXColorNegative</B></A>, <A HREF="_dx_d3dxcolorscale_graphicsd3dx.htm"><B>D3DXColorScale</B></A> </P>
+
+</BODY>
+</HTML>

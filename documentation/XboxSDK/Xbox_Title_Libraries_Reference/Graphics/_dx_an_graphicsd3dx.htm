@@ -1,0 +1,24 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>an</TITLE>
+<META NAME="MS-HKWD" CONTENT="an">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_an_graphicsd3dx"></A>a<I>n</I></H1>
+
+<P>These are the address registers. There is only a single address register in Microsoft&#174; DirectX&#174; 8.0. The address register, designated as a0.x, may be used as signed integer offset in relative addressing into the constant register file.</P>
+
+<PRE>    c[a0.x + <I>n</I>]
+</PRE>
+
+<P>Reads from out of the legal range will return (0.0, 0.0, 0.0, 0.0). Address registers may be a destination only for the <A HREF="_dx_mov_graphicsd3dx.htm">mov</A> instruction. Address registers cannot be read by the vertex shader, just used in relative addressing of the constant register file. Addresses read from outside the range of constant registers supported will return unpredictable results.</P>
+
+<P>Vertex shaders that attempt to use the address register before setting it will fail the Microsoft Direct3D&#174; API call to create the vertex shader.</P>
+
+</BODY>
+</HTML>

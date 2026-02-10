@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pkl
+*.xlsx
+*.xbe.orig.map
+history/
+exports/bungie/
+exports/rampant/
+documentation/XboxSDK.chm
+documentation/XboxSDK_extracted/
+_ul
+nul

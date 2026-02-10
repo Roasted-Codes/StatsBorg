@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>htons</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="htons">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="xbox_htons_winsock"></A>htons</H1>
+
+<P>Converts a <B>u_short</B> from host to TCP/IP network byte order (which is big-endian).</P>
+
+<PRE class=syntax><B>u_short htons(
+  u_short</B><I> hostshort  </I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>hostshort</I></DT>
+
+<DD>[in] 16-bit number in host byte order.
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>The <B>htons</B> function takes a 16-bit number in host byte order and returns a 16-bit number in network byte order used in TCP/IP networks.</P>
+
+<H4>Return Values</H4>
+
+<P>The <B>htons</B> function returns the value in TCP/IP network byte order.</P>
+
+<H4>Requirements</H4>
+<p>
+<b>Header: </b>Declared in winsockx.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xnet.lib for titles that only support system link play, XOnline.lib for titles that support online play. Use the secure versions of the library file (Xnets.lib or XOnlines.lib) for final testing.
+</p>
+
+
+<H4>See Also</H4>
+
+<P>
+<a href="xbox_winsock_overview_winsock.htm">Winsock Overview</A>,
+<a href="xbox_winsock_functions_winsock.htm">Winsock Functions</A> |
+  <A HREF="xbox_htonl_winsock.htm">htonl</A>, <A HREF="xbox_ntohl_winsock.htm">ntohl</A>, <A HREF="xbox_ntohs_winsock.htm">ntohs</A> </P>
+
+
+</BODY>
+</HTML>

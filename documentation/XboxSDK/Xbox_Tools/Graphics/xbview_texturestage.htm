@@ -1,0 +1,24 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>TextureStage (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>TextureStage (XbView)</h1>
+<p>The <b>TextureStage</b> structure stores the information needed to set the texture and <a href="_dx_d3dtexturestagestatetype_graphics.htm">D3DTEXTURESTAGESTATETYPE</a> for a given texture stage. The Xbox can set four textures per pass. As such, there are a maximum of four of these structures in the <a href="xdx_element_pass.htm">Pass</a> context specifying the texture information for each stage.</p>
+<pre class="clsCode">
+struct TextureStage 
+{
+    DWORD TextureResource;
+    DWORD TextureStateCount;
+    TextureState *rTextureState;
+    DWORD PaletteResource;
+};
+</pre>
+    <p><b>TextureResource</b> is an index back into the list of resources specifying the texture map for this stage. To minimize storage of the resources on the Xbox, we only store each texture once and use references to them here rather then storing the texture map multiple times. <b>TextureStateCount</b> specifies the number of texture stage states there for this texture pass and the <b>rTextureState</b> pointer points to a list of simple structs that describes each <b>TextureStage</b> state constant and the value assigned to it before rendering. </p><p>Just as with render states, texture stage states are reset by <a href="xbview_xbr_setdefaultstate.htm">XBR::SetDefaultState</a> every pass to the defaults required by XbView.</p>
+</body>
+</html>

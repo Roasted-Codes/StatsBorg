@@ -1,0 +1,107 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DM_MEMORY_STATISTICS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>DM_MEMORY_STATISTICS</h1>
+
+        
+        
+<p>The <b>DM_MEMORY_STATISTICS</b> structure, returned by the
+<a href="xbox_lrf_debugapi_function_dmquerymemorystatistics.htm">DmQueryMemoryStatistics</a> function, contains information about the number
+of memory pages currently devoted to different types of memory on the Xbox
+console.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    DWORD cbSize;
+    DWORD TotalPages;
+    DWORD AvailablePages;
+    DWORD StackPages;
+    DWORD VirtualPageTablePages;
+    DWORD SystemPageTablePages;
+    DWORD PoolPages;
+    DWORD VirtualMappedPages;
+    DWORD ImagePages;
+    DWORD FileCachePages;
+    DWORD ContiguousPages;
+    DWORD DebuggerPages;
+} DM_MEMORY_STATISTICS, *PDM_MEMORY_STATISTICS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+
+<dt><b>cbSize</b></dt>
+<dd>Size, in bytes, of the <b>DM_MEMORY_STATISTICS</b> structure.</dd>
+
+
+<dt><b>TotalPages</b></dt>
+<dd>Total memory pages.</dd>
+
+
+<dt><b>AvailablePages</b></dt>
+<dd>Number of available memory pages.</dd>
+
+
+<dt><b>StackPages</b></dt>
+<dd>Number of pages of stack memory.</dd>
+
+
+<dt><b>VirtualPageTablePages</b></dt>
+<dd>Number of pages of virtual page table memory.</dd>
+
+
+<dt><b>SystemPageTablePages</b></dt>
+<dd>Number of pages of system page table memory.</dd>
+
+
+<dt><b>PoolPages</b></dt>
+<dd>Number of pages of pool memory.</dd>
+
+
+<dt><b>VirtualMappedPages</b></dt>
+<dd>Number of pages of virtual mapped memory.</dd>
+
+
+<dt><b>ImagePages</b></dt>
+<dd>Number of pages of image memory.</dd>
+
+
+<dt><b>FileCachePages</b></dt>
+<dd>Number of pages of file cache memory.</dd>
+
+
+<dt><b>ContiguousPages</b></dt>
+<dd>Number of pages of contiguous memory.</dd>
+
+
+<dt><b>DebuggerPages</b></dt>
+<dd>Number of pages of debugger memory.</dd>
+
+
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XbDm.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_lrf_debugapi_function_dmquerymemorystatistics.htm">DmQueryMemoryStatistics</a>
+</p>
+
+
+        
+    </body>
+    </html>

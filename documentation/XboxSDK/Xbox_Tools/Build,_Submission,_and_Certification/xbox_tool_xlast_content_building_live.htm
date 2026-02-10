@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Building Packages for Xbox Live</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Building Packages for Xbox Live</h1>
+<p>After you have the content package organized the way you want it, you can build it 
+for distribution via Xbox <i>Live</i>. After you build your content package,
+test it on your local Xbox development console before posting it to PartnerNet for testing.</p><p>To build your package for Xbox <i>Live</i>, click <b>Action</b> 
+in the main menu, and then click <b>Build for Xbox Live</b>.</p><p>When building content packages, it is common to get the following error.</p>
+<pre class="clsCode">
+Error: Binary value too long for property DetailsData (Max is 65536 characters)
+</pre>
+    <p>This usually indicates that your Dashboard Icon bitmap or your Download Manager Icon bitmaps 
+are not the correct size. Dashboard Icon bitmaps must be 64&#0215;64 pixels, and Download Manager Icon 
+bitmaps must be 168&#0215;128 pixels in size.
+</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;XLAST may take a while and become unresponsive while it is building. If it is 
+unresponsive longer than you think it should be, use the Windows Task Manager to check its 
+status.</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;If there are empty folders in your project, XLAST does not create them in the 
+final build.</p>
+</body>
+</html>

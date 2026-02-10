@@ -1,0 +1,51 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::SetCopyRectsState</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_setcopyrectsstate_graphics"></A>IDirect3DDevice8::SetCopyRectsState</H1>
+
+<P>Sets the state and raster operation (ROP) to be performed when calling <a href="_dx_idirect3ddevice8_copyrects_graphics.htm"><b>IDirect3DDevice8::CopyRects</b></a>, allowing the title to do various blending operations.</P>
+
+<PRE class=syntax><b>HRESULT WINAPI SetCopyRectsState(
+  CONST D3DCOPYRECTSTATE</b> <i>*pCopyRectState</i><b>,
+  CONST D3DCOPYRECTROPSTATE</b> <i>*pCopyRectRopState</i>
+<b>);</b>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<dt><i>pCopyRectState</i></dt>
+<dd>[in] Pointer to a <a href="_dx_d3dcopyrectstate_graphics.htm"><b>D3DCOPYTRECTSTATE</b></a> structure that describes what state to use with <b>CopyRects</b>.</dd>
+
+<dt><i>pCopyRectRopState</i></dt>
+<dd>[in] Pointer to a <a href="_dx_d3dcopyrectropstate_graphics.htm"><b>D3DCOPYRECTROPSTATE</b></a> structure that describes the ROP to use with <b>CopyRects</b>. <i>pCopyRectRopState</i> may be NULL so long as <pre>pCopyRectState->Operation != D3DCOPYRECT_ROP_AND</pre></dd>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the function succeeds, the return value is S_OK.</P>
+
+<H4>Remarks</H4>
+
+<p>A full flush of the graphics pipeline occurs whenever you shift between 3D and 2D operations and therefore it is recommended that you perform all 2D operations like <b>CopyRects</b> at the end of the frame if it is possible.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<h4>See Also</h4>
+
+<p><a href="_dx_idirect3ddevice8_copyrects_graphics.htm"><b>IDirect3DDevice8::CopyRects</b></a>, <a href="_dx_idirect3ddevice8_setcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::SetCopyRectsState</b></a></p>
+
+
+</BODY>
+</HTML>

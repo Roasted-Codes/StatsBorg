@@ -1,0 +1,68 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveEngine::NotificationSetState</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveEngine::NotificationSetState</h1>
+<p>Sets the current online state information for the specified user.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>NotificationSetState(</b>
+    <b>DWORD</b> <i>Port</i><b>,</b>
+    <b>DWORD</b> <i>StateFlags</i><b>,</b>
+    <b>XNKID</b> <i>SessionID</i><b>,</b>
+    <b>DWORD</b> <i>StateDataSize</i><b>,</b>
+    <b>const PVOID</b> *<i>pStateData</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>Port</i></dt>
+<dd>[in]  The controller port index (zero-based) of the user whose state information is being set.</dd>
+<dt><i>StateFlags</i></dt>
+<dd>[in]  Online state flags to set.  This parameter can be a combination of the following values.</dd>
+    <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+        <tr>
+<td>XONLINE_FRIENDSTATE_FLAG_JOINABLE</td>
+<td>The user is in a session that other users can join.</td>
+</tr>
+        <tr>
+<td>XONLINE_FRIENDSTATE_FLAG_ONLINE</td>
+<td>The user is online.</td>
+</tr>
+        <tr>
+<td>XONLINE_FRIENDSTATE_FLAG_PLAYING</td>
+<td>The user is playing a game.</td>
+</tr>
+        <tr>
+<td>XONLINE_FRIENDSTATE_FLAG_VOICE</td>
+<td>The user has voice capability.</td>
+</tr>
+    </table>
+    <p>
+    To have a player appear to be offline&#8212;that is, "cloaked"&#8212;clear the XONLINE_FRIENDSTATE_FLAG_ONLINE flag; even though the player is online, the player will not appear on the Friends lists of other players. However, if the cloaked player sends an invitation to a player on his or her Friends list, the cloaked player will appear online to that player until the invitation is resolved.
+    </p>
+
+<dt><i>SessionID</i></dt>
+<dd>[in]  Specifies an <a href="xbox_xnkid_xsnl.htm">XNKID</a> structure that identifies the user's current session. Setting this structure to all zeros expires any previously sent game invitations.</dd>
+<dt><i>StateDataSize</i></dt>
+<dd>[in]  Specifies the size, in bytes, of the buffer pointed to by <i>pStateData</i>.  This value can range from zero to MAX_STATEDATA_SIZE.  If <i>StateDataSize</i> is zero, <i>pStateData</i> must be NULL.</dd>
+<dt><i>pStateData</i></dt>
+<dd>[in]  Pointer to a buffer containing title-specific state information. This parameter can be NULL if no such information is provided.  The Xbox Drop-in UI friends implementation does not use this data, so titles are free to use it in whatever manner they wish.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>Titles using Xbox Drop-in UI must call <b>NotificationSetState</b> rather than <a href="XOnlineNotificationSetState.htm">XOnlineNotificationSetState</a> when setting user states and state flags.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

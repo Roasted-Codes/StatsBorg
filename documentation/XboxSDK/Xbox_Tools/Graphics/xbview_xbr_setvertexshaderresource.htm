@@ -1,0 +1,21 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XBR::SetVertexShaderResource (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XBR::SetVertexShaderResource (XbView)</h1>
+<pre class="clsCode">
+HRESULT SetVertexShaderResource( DWORD VertexShaderResourceIndex );
+</pre>
+    <p>This function sets the vertex shader to the resource index passed in. It is somewhat complicated by the fact that there are, typically, two vertex shader resources for a given vertex shader in a Pass. The first resource is the vertex shader code itself and any global constants we need to set. The second resource is the vertex shader pass information, which includes local vertex shader constants to set (like bones) and the vertex buffer stream to use with this shader. As such, the function is split into two parts based on which of these two resources we are setting. There is an if statement which breaks the function into two parts. </p>
+<pre class="clsCode">
+if( pVS-&gt;VertexShaderReference == 0 )
+</pre>
+    <p>If this statement is TRUE, we have the vertex shader code and any global constants. This part of the function creates the vertex shader using <a href="_dx_idirect3ddevice8_createvertexshader_graphics.htm">IDirect3DDevice8::CreateVertexShader</a>, sets vertex shader constant 0 to the transformation matrix set in the Direct3D device, calls <a href="xbview_xbr_applyvertexshaderconstants.htm">XBR::ApplyVertexShaderConstants</a>, and then sets the default stream if one was specified. </p><p>Should the if statement be false, the function uses the pVS-&gt;VertexShaderReference to get the first shader reference in the resource file. It then calls <b>XBR::ApplyVertexShaderConstants</b> with the local constants set for the vertex shader pass. It also sets the vertex buffer stream to the stream set in the vertex shader pass. </p>
+</body>
+</html>

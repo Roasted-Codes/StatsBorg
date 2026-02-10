@@ -1,0 +1,395 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Game Clips</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Game Clips</h1>
+<h2><a name="IDAPQUM"></a>
+                Introduction
+            </h2>
+<p>
+                Many game titles benefit from enabling users to see not only the rankings of top 
+                players but also how the top players performed. These games could benefit 
+                further by enabling users to download and view content related to the top 
+                players' standings, content such as "ghost races" for the top 10 fastest laps, 
+                replays of the fastest time to complete a level, the most kills with a single 
+                explosion, and so on. Given this capability, a game could then upload game-created 
+                content in the form of attachments to game statistics. A game uploads these "Game Clips" 
+                from the local Xbox to the Xbox <i>Live</i> 
+                service for download by anyone playing the game.
+            </p><h2><a name="IDAUQUM"></a>
+                Goals
+            </h2>
+<p>
+                Game Clips has the following goals:
+            </p><ul>
+<li>Provide a secure process for allowing games to attach game-created content 
+                to stats rankings.</li>
+<li>Allow users to find the attached game-created content and download it to 
+                their local Xbox.</li>
+</ul>
+<h2><a name="IDA0QUM"></a>
+                Non-Goals
+            </h2>
+<p>
+                Game Clips is <i>not</i> intended to
+            </p><ul>
+<li>Provide a process by which publishers can send content directly to us for 
+                distribution. Instead, content download should be used for this.</li>
+<li>Allow titles to upload content to non&#8211;Xbox <i>Live</i> servers.</li>
+<li>Allow generalized content upload.</li>
+<li>Charge users for uploads. The title, not the player, must consume the cost.</li>
+</ul>
+<h2><a name="IDAIRUM"></a>
+                Scenarios
+            </h2>
+<p>
+                The scenarios encompassed by Game Clips are limited only by the 
+                imagination of the game developer. In general, these scenarios relate to 
+                excellent game play that can be ranked in some way. The following scenarios 
+                detail a few possible game implementations of this feature. Keep in mind that 
+                this document covers only content upload and download. Developers must choose 
+                how to implement their game's client-side experience.
+            </p><h3><a name="IDALRUM"></a>
+                    Ghost Race
+                </h3>
+<p>
+                    Jim is playing Race Game on Xbox <i>Live</i> and completes the Tokyo race in first place. The 
+                    game tells him he has completed the race fast enough to be ranked number 7 
+                    on Xbox <i>Live</i> and asks if he would like to upload the race he just completed so others 
+                    can see it. He chooses to upload the race. He then looks at the stats for the 
+                    Tokyo track and sees that he can download the top 10 races. He downloads the 
+                    race from the number 1 ranked player and practices racing against it offline.
+                </p><h3><a name="IDASRUM"></a>
+                    Replay
+                </h3>
+<p>
+                    Jim has been unable to get past the bridge on the second level of Action Game so 
+                    he decides to go to Xbox <i>Live</i> to get some help. He goes logs on and gets the list of 
+                    players that have completed the level the fastest. When he sees the top 10 
+                    players' times, he can't believe anyone could beat the level that quickly, so he 
+                    decides to see how some of the people completed the level. He downloads the 
+                    replay of the #1 player and watches how the player gets past the bridge.
+                </p><h3><a name="IDAXRUM"></a>
+                    Hall of Fame
+                </h3>
+<p>
+                    Jim sees an entry for "Hall of Fame" in Action Game and checks it out. Once 
+                    there, he sees listings such as "Largest Explosion" and "Most kills with a 
+                    single shot". He selects the "Largest Explosion" item and sees a list of the top 
+                    10 explosions created by users while playing the game. He selects the #1 entry, 
+                    downloads a replay of the explosion, and watches it locally.
+                </p><h2><a name="IDA0RUM"></a>
+                Design
+            </h2>
+<p><b>Leaderboard Configuration</b> A publisher can allow stats attachments on any 
+                of a title's leaderboards. The Stats service currently limits each title to 20 
+                leaderboards. Publishers are allowed 1GB of attachment storage space per 
+                title. The total per-title storage quota of 1GB is enforced at leaderboard 
+                configuration time; the sum of the maximum consumable storage space for all of 
+                the title's leaderboards must not exceed 1GB. The maximum consumable storage 
+                space is a product of the maximum upload size and the number of slots on that 
+                leaderboard for which upload is allowed. The maximum upload size for a single 
+                attachment is 2MB.
+            </p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Leaderboards are also referred to as "scoreboards."</p><h3><a name="IDAASUM"></a>
+                    Publisher Submission
+                </h3>
+<p>
+                    Within these limits, titles can manage per-leaderboard allotment, including 
+                    maximum upload size and number of uploads per leaderboard. To take advantage of 
+                    stats attachments for any of the title's leaderboards, games must use the Stats 
+                    Configuration tool (see <a href="xbox_online_Stats_Attachments.htm#Stats_Tools">Tools</a>) 
+                    to submit a Stats Configuration package for each leaderboard to be attachment-enabled. 
+                    This package contains:
+                </p><ul>
+<li>LeaderboardID</li>
+<li>Description (friendly name)</li>
+<li>Number of uploads per leaderboard</li>
+<li>Maximum upload size per leaderboard</li>
+</ul>
+<h3><a name="IDANSUM"></a>
+                    Reconfiguration
+                </h3>
+<p>
+                    The publisher can change the number of uploads per leaderboard after the game is 
+                    released. The process is similar to the initial leaderboard configuration 
+                    process described previously.
+                </p><p>
+                    If a game reduces the number of uploads allowed on a given leaderboard, then the 
+                    attachments for the ranks that drop below the upload threshold are deleted once 
+                    the threshold is changed. For example, suppose the game initially keeps 20 
+                    packages for the top 20 races. If the title reduces the number of packages to 
+                    only the top 5 races, we delete the other 15 packages at the time the upload 
+                    threshold is changed.
+                </p><h3><a name="IDARSUM"></a>
+                    Attachment Upload Verification
+                </h3>
+<p>
+                    Games must carry out the stats-write and get an upload confirmation before 
+                    uploading content. We are extending the stats-write functionality to communicate 
+                    upload confirmation. For more information, see <a href="xbox_online_Stats_Attachments.htm#Proposed_Flow">Proposed 
+                    Function Call Flow for Stats with Attachment</a> API later in this topic.
+                </p><p>
+                    To prevent duplicate uploads, the Stats service allows only one attachment per 
+                    stats write, even if the write request contains multiple user/attribute pairs. 
+                    Titles can work around this restriction if necessary by separating user/attribute 
+                    pairs into multiple write requests.
+                </p><h3><a name="IDA0SUM"></a>
+                    Stats-Write Functionality Enhancements
+                </h3>
+<p>
+                    When the game writes the user's stats, the Stats service returns a value 
+                    indicating whether the user has qualified for an upload. This is an enhancement 
+                    to the stats-write functionality. Stats service includes new information in the 
+                    stats-write response. Both the wire structure and Client APIs/Structures change 
+                    accordingly.
+                </p><li><b>Upload Confirmation</b> A value that indicates whether there is an 
+                uploaded file associated with this user on this leaderboard.</li>
+<li><b>Remote File Reference</b> Remote file reference for the attachment.</li>
+<li><b>Max Attachment Size</b> Size of the largest upload package allowed. The 
+                client and the server (in case the client is hacked) must fail uploading any 
+                package above that size.</li>
+<li><b>Number of Qualified Upload Slots</b> Configured number of slots on the 
+                leaderboard for which uploads are allowed, counting from the top-ranked slot on 
+                the leaderboard.</li>
+<h3><a name="IDAJTUM"></a>
+                    Attachment Upload
+                </h3>
+<p>
+                    If the service confirms the attachment upload, the game calls the Upload API to 
+                    store the user attachment on the server. This attachment content stays on the 
+                    server indefinitely, with two exceptions:
+                </p><ol>
+<li>If the rank associated with an attachment drops below the per-leaderboard 
+                    upload threshold, the content is no longer downloadable.</li>
+<li>If the title reconfigures the upload settings for the leaderboard, the 
+                    threshold moves up to exclude the attachment and the content again becomes 
+                    unavailable for download. For example, if the Most Kills leaderboard initially 
+                    allows uploads for the top 10 ranked players and the threshold changes to 5, the 
+                    uploads for players 6&#8211; 10 can no longer be seen.
+
+                    </li>
+</ol>
+<p>
+                    Titles must ask users whether to proceed with an attachment upload, if they 
+                    qualify for it. For privacy, bandwidth cost, or time reasons, users may decide 
+                    not to upload an attachment. Titles must make it clear that an upload is a now-or-never 
+                    opportunity. Titles must not allow a user to take other actions before making 
+                    the upload decision. For large attachments, the upload can take a long time. Per 
+                    TCR, titles must provide user feedback for uploads longer than three seconds.
+                </p><h3><a name="IDASTUM"></a>
+                    Region and Version Conflict Management
+                </h3>
+<p>
+                    Xbox <i>Live</i> services do not have built-in ability to manage 
+                    multiple title versions. Developers must ensure that all versions for a given 
+                    TitleID are backward-compatible across auto-updates, and if the game ships in 
+                    multiple regions under the same TitleID, developers must address any 
+                    internationalization and localization issues. Xbox <i>Live</i> 
+                    services can support publishers by resetting leaderboards and deleting old stats 
+                    attachments if a title makes a change that breaks ross-version compatibility.
+                </p><h3><a name="IDAZTUM"></a>
+                    Maximum Upload Size Enforcement
+                </h3>
+<p>
+                    The maximum size the server allows is returned to the client in the stats-write 
+                    response. The client enforces the maximum size on every upload and fails all 
+                    attempts to upload a package that is larger than the maximum size specified.
+                </p><h3><a name="IDA2TUM"></a>
+                    Attachment Data Format
+                </h3>
+<p>
+                    Only the title determines the data format of the attachment. The stats service 
+                    is passed a blob of data, it stores the blob, and passes the blob back. Although 
+                    multiple files may be wrapped into a single file for upload purposes, it is 
+                    always a single blob of data that is eventually uploaded to the server.
+                </p><h3><a name="IDA5TUM"></a>
+                    Upload Errors
+                </h3>
+<p>
+                    In general, there is no guarantee that any upload is going to succeed, 
+                    regardless of how immediate the upload attempt is.  The likelihood of success 
+                    does decrease, however, if the game delays the upload operation. The title 
+                    should automatically retry failed attempts to upload an attachment. The title 
+                    should tell the user that upload has failed and ask the user whether to try 
+                    again. The title can call the Upload API again, but user confirmation is 
+                    required.
+                </p><p>
+                    Upload API errors include the following cases:
+                </p><ul>
+<li><b>Server is too busy.</b> Keep trying.</li>
+<li><b>Upload is interrupted.</b> "Resumable" uploads are not supported. Asking 
+                    the user for permission to try again is the only recourse.</li>
+</ul>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Uploading empty attachments is not supported and will result in an error.</p><h3><a name="IDALUUM"></a>
+                    Destructive Uploads
+                </h3>
+<p>
+                    Posting a new rating that qualifies for the attachment upload deletes any 
+                    attachment that the user posting a rating might have had previously. If the user 
+                    chooses not to upload (or the upload fails) neither the old nor the new 
+                    attachment is available.
+                </p><p>
+                    If a ranking drops below the upload threshold, the attachments associated with 
+                    the below-threshold ranks are deleted. If that user's same rank moves above the 
+                    upload threshold, there will be no attachment associated with it. If a user's 
+                    rank drops below the upload threshold during upload, the upload will continue as 
+                    normal. If the ranking is below the threshold after the upload is complete, the 
+                    stats service drops the content at that point.
+                </p><h3><a name="IDAPUUM"></a>
+                    Metadata
+                </h3>
+<p>
+                    For internal auditing and tracking purposes, the Xbox <i>Live</i> 
+                    service stores a minimum amount of metadata for each attachment uploaded to the 
+                    service. This data includes:
+                </p><ul>
+<li>Gamertag and PUID of user uploading attachment.</li>
+<li>Signature assigned by the signature server.</li>
+<li>Date and time the attachment was uploaded.</li>
+<li>Machine PUID of Xbox the attachment was uploaded from.</li>
+<li>Installed disc size of the attachment in blocks.</li>
+<li>Compressed size of uploaded attachment.</li>
+</ul>
+<h3><a name="IDA1UUM"></a>
+                    Attachment Download
+                </h3>
+<p>
+                    Uploaded attachments are available for download and viewing by any authenticated 
+                    client running that title. Users discover available attachments by browsing 
+                    through enabled leaderboards. Users can initiate the download process by 
+                    choosing to download any of the available attachments.
+                </p><h3><a name="IDA4UUM"></a>
+                    Download API
+                </h3>
+<p>
+                    The Download API for stats attachments provides the following information:
+                </p><ul>
+<li>Remote File Reference (IN)</li>
+<li>Uncompressed Size (OUT)</li>
+<li>Compressed Size (OUT)</li>
+<li>Attachment Content (OUT)</li>
+</ul>
+<h3><a name="IDAGVUM"></a>
+                    Caching
+                </h3>
+<p>
+                Client implementation of the Download and Upload API prevents repeated downloads 
+                if the content is already available on the hard disk. Client APIs store the 
+                downloaded content on the T: drive. The client statistics API enforces a limit 
+                of 20 cached attachments per title across all leaderboards.
+            </p><h2><a name="Stats_Tools"></a>
+                Tools
+            </h2>
+<p>
+                A future XDK will provide a GUI "Stats Configuration" tool that enables 
+                publishers to configure leaderboards to work with Game Clips.
+            </p><h2><a name="Proposed_Flow"></a>
+                Function Call Flow for Game Clips API
+            </h2>
+<h3><a name="IDARVUM"></a>
+                    Writing Scores
+                </h3>
+<ol>
+<li>As the user races, create a file of the replay and sign it with the Xbox <i>Live</i> key.</li>
+<li>When the user finishes the race, write the score to the server, as follows:
+                        <ol>
+<li>Call <a href="XOnlineStatWrite.htm">XOnlineStatWrite</a>. Store any game-specific information 
+                            about the content as stat attributes, before initiating upload. Here are some 
+                            examples of the type of information to store:
+                                <ul>
+<li>Game region, if the attachment content does not work across regions in that 
+                                    game.</li>
+<li>Title version, to allow the game to block obsolete content after an auto-update.</li>
+<li>Length of replay. If this is a high-score movie, a user may want to know how 
+                                    long it takes to watch.</li>
+<li>The size of the file (compressed and uncompressed) is stored automatically 
+                                    by the API.</li>
+</ul>
+</li>
+<li>Pump write task handle with <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>.</li>
+<li>If you get XONLINE_S_CAN_UPLOAD then</li>
+<ol>
+<li>Call <a href="XOnlineStatWriteGetResult.htm">XOnlineStatWriteGetResult</a> to get a remote file reference.</li>
+<li>Close the task.</li>
+<li>Ask the user if he or she wants to upload, or alternatively, begin the 
+                                upload automatically.</li>
+<li>Upload the attachment file, as follows:
+                                    <ol>
+<li>Call <a href="XOnlineStorageUpload.htm">XOnlineStorageUpload</a> with the remote file reference 
+                                        retrieved by the call to <a href="XOnlineStatWriteGetResult.htm">XOnlineStatWriteGetResult</a>.</li>
+<li>Pump the upload with <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>.</li>
+<li>Optionally call <a href="XOnlineStorageGetProgress.htm">XOnlineStorageGetProgress</a> to find out how the 
+                                        upload is going and to display a progress bar.</li>
+<li>When the upload is complete, <a href="XOnlineStorageGetProgress.htm">XOnlineStorageGetProgress</a> 
+                                        returns S_OK. But there is still no guarantee the content is on the specified 
+                                        leaderboard. The user could have lost his or her standing on the leaderboard 
+                                        during the upload. For example, at the time the upload started, Mary qualified 
+                                        for 9th place; by the time the upload completed, she had fallen to 15th place, 
+                                        but the leaderboard isn't configured to store attachments for that low a ranking.</li>
+</ol>
+</li>
+</ol>
+</ol>
+</li>
+</ol>
+<h3><a name="IDALXUM"></a>
+                    Reading Scores
+                </h3>
+<p>
+                    Read scores and access downloads, as follows:
+                </p><ol>
+<li>The title creates <a href="XONLINE_STAT_SPEC.htm">XONLINE_STAT_SPEC</a> structures that can 
+                    contain <a href="XONLINE_STAT.htm">XONLINE_STAT</a>s with any of three new reserved IDs:</li>
+<ul>
+<li>The remote file reference of the download</li>
+<li>The size uncompressed</li>
+<li>The size compressed</li>
+</ul>
+<li>Call <a href="XOnlineStatRead.htm">XOnlineStatRead</a> or <a href="XOnlineStatLeaderEnumerate.htm">XOnlineStatLeaderEnumerate</a>.</li>
+<li>Pump the task to completion.</li>
+<li>Call <a href="XOnlineStatReadGetResult.htm">XOnlineStatReadGetResult</a> or <a href="XOnlineStatLeaderEnumerateGetResults.htm">XOnlineStatLeaderEnumerateGetResults</a>:
+                        <ul>
+<li><p>
+                                    The title must pass in a buffer large enough for all the remote file references 
+                                    requested. The title can calculate this size as follows:
+                                </p><p>
+                                    (Number of users * (Size of remote file reference + Size of nickname)
+                                </p></li>
+<li>The title can display information stored in the stats server about the 
+                            download. For example, is there a download for this item? What is its size (compressed, 
+                            uncompressed)? Is there any other title-specific information?</li>
+</ul>
+</li>
+<li>Typically, the title displays an icon indicating that the user can download 
+                    a replay for a particular statistic.</li>
+<li>If the user chooses to download the replay
+                        <ol>
+<li>Call <a href="XOnlineStorageDownload.htm">XOnlineStorageDownload</a> with the remote file reference. (This 
+                            does the download and any associated installing.)</li>
+<li>Pump the task to completion.</li>
+<li>Optionally call <a href="XOnlineStorageGetProgress.htm">XOnlineStorageGetProgress</a> to find out how the 
+                            upload is going and to display a progress bar.</li>
+</ol>
+</li>
+</ol>
+<h3><a name="IDAGRVM"></a>
+                    Accessing and Managing Content on the Hard Disk
+                </h3>
+<ul>
+<li>The attachment is automatically stored in TDATA by the API.</li>
+<li>There will be APIs to access the attachment.</li>
+<li>As the title downloads additional attachments, the API automatically deletes 
+                    old saved replays.</li>
+<li>The title can store these permanently by letting the user copy them to UDATA 
+                    as saved games.</li>
+</ul>
+<h4><a name="seealso"></a>See Also</h4>
+<p><a href="xbox_tool_xlast.htm">Xbox Live Authoring and Submission Tool</a></p>
+</body>
+</html>

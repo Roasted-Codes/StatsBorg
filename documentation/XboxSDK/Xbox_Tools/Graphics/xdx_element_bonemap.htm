@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>boneMap Element</title>
+</head>
+<body topmargin="0">
+
+
+<h1>boneMap Element</h1>
+<p>The &lt;<b>boneMap</b>&gt; element contains the data describing how bones are mapped to frames. It is used by Deep Exploration for the reimportation of XDX files but is ignored by the Xbox Resource Compiler.</p>
+<pre class="syntax" xml:space="preserve">&lt;boneMap
+   index = integer
+   node = string
+/&gt;</pre>
+<h4>Required Attributes</h4>
+<dl id="idXML">
+<dt><b>index</b></dt>
+<dd>
+						<p>Denotes the order of the bones. The <b>index</b> must be an integer ranging from zero to the number of bones that are influencing the model or mesh.</p>
+					</dd>
+<dt><b>node</b></dt>
+<dd>
+						<p>Identifier for the &lt;<a href="xdx_element_frame.htm">frame</a>&gt; influenced by the bone.</p>
+					</dd>
+</dl>
+<h4>Optional Attributes</h4>
+<p>None.</p><h4>Element Information</h4>
+<table>
+<tr>
+<td><b>Parent Elements</b></td>
+<td><a href="xdx_element_matrixmapping.htm">matrixMapping</a></td>
+</tr>
+<tr>
+<td><b>Child Elements</b></td>
+<td>None.</td>
+</tr>
+</table>
+
+</body>
+</html>

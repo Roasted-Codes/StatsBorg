@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>model Element</title>
+</head>
+<body topmargin="0">
+
+
+<h1>model Element</h1>
+<p>The &lt;<b>model</b>&gt; element is a container for all of the states required to draw an object on the Xbox.</p>
+<pre class="syntax" xml:space="preserve">&lt;model
+   id = string
+/&gt;</pre>
+<h4>Required Attributes</h4>
+<dl id="idXML">
+<dt><b>id</b></dt>
+<dd>
+						<p>Identifier used by Deep Exploration for reimportation of the XDX file. The Xbox Resource Compiler ignores this attribute.</p>
+					</dd>
+</dl>
+<h4>Optional Attributes</h4>
+<p>None.</p><h4>Element Information</h4>
+<table>
+<tr>
+<td><b>Parent Elements</b></td>
+<td><a href="xdx_element_frame.htm">frame</a></td>
+</tr>
+<tr>
+<td><b>Child Elements</b></td>
+<td><a href="xdx_element_pass.htm">pass</a></td>
+</tr>
+</table>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>A &lt;<b>model</b>&gt; element is always associated to a given &lt;<a href="xdx_element_frame.htm">frame</a>&gt;; however, that relationship is not determined by inclusion. The identifier of the &lt;<b>frame</b>&gt; node that the &lt;<b>model</b>&gt; is attached to is determined by the <b>parameter</b> attribute of the &lt;<a href="xdx_element_constantVS.htm">constantVS</a>&gt; tag that:</p>
+<ol>
+<li>Is a descendant of the &lt;<b>model</b>&gt;.</li>
+<li>Has a <b>matrix</b> attribute "WorldViewProjection".</li>
+</ol>
+<p>To see how this works, see the example below.</p>
+<h4><a name="examples"></a>Examples</h4>
+<dl><dt><b>Determining The Frame</b></dt>
+<dd><p>In this example, the &lt;<b>model</b>&gt; is assocated to the &lt;<b>frame</b>&gt; with <b>id</b> "BAR" since that is the <b>parameter</b> of the &lt;<b>constantVS</b>&gt; descendant whose <b>matrix</b> is "WorldViewProjection".</p>
+
+
+<pre class="clsCode">
+&lt;model id="FOO"&gt;
+   &lt;pass&gt;
+      &lt;vertexShaderPass ...&gt;
+         ...
+         &lt;constantVS index="0" count="4" parameter="BAR" matrix="WorldViewProjection"/&gt;
+         ...
+      &lt;/vertexShaderPass&gt;
+      ...
+   &lt;/pass&gt;
+&lt;/model&gt;
+</pre>
+    
+
+
+</dd>
+</dl>
+
+</body>
+</html>

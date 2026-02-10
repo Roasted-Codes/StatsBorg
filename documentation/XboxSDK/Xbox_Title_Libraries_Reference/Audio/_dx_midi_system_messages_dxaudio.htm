@@ -1,0 +1,43 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>MIDI System Messages</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_midi_system_messages_dxaudio"></A>MIDI System Messages</H4>
+
+<P>System messages are not exclusive to any channel. There are three kinds, as shown in the following table.</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=37%>Message type</TH>
+<TH align=left width=63%>Purpose</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=37%>System common</TD>
+<TD width=63%>Miscellaneous commands and data.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=37%>System exclusive</TD>
+<TD width=63%>Equipment-specific commands and data.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=37%>System real-time</TD>
+<TD width=63%>Synchronization of clock-based MIDI equipment.</TD>
+</TR>
+</TABLE><BR>
+
+<P>Unlike other MIDI messages, system exclusive messages can contain any number of data bytes. After transmitting the data, the sequencer sends a system common message called an EOX, which signals the end of the system exclusive message. </P>
+
+<P>In DirectMusic, the <A HREF="_dx_dmus_sysex_pmsg_dxaudio.htm"><B>DMUS_SYSEX_PMSG</B></A> structure contains the length of the data and a pointer to an array of data bytes.</P>
+
+</BODY>
+</HTML>

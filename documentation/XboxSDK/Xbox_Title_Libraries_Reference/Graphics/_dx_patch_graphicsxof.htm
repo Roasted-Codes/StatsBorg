@@ -1,0 +1,82 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Patch</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_patch_graphicsxof"></A>Patch</H4>
+
+<P>Defines a b&#233;zier control patch. The array defines the control points for the patch. </P>
+
+<H4>UUID</H4>
+
+<PRE>&lt;A3EB5D44-FC22-429D-9AFB-3221CB9719A6&gt;
+</PRE>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=23%>Member name</TH>
+<TH align=left width=17%>Type</TH>
+<TH align=left width=25%>Optional array size</TH>
+<TH align=left width=35%>Optional data objects</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=23%><B>nControlIndices</B> </TD>
+<TD width=17%><B>DWORD</B></TD>
+<TD width=25%>&nbsp;</TD>
+<TD width=35%>None</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=23%><B>controlIndices</B> </TD>
+<TD width=17%>array <B>DWORD</B></TD>
+<TD width=25%><B>nControlIndices</B> </TD>
+<TD width=35%>&nbsp;</TD>
+</TR>
+</TABLE><BR>
+
+<P>The type of patch is defined by the number of control points, as shown in the following table.</P>
+
+<PRE></PRE>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=40%>Number of control points</TH>
+<TH align=left width=60%>Type</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=40%>10</TD>
+<TD width=60%>Cubic B&#233;zier Triangular Patch</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=40%>15</TD>
+<TD width=60%>Quatric B&#233;zier Triangular Patch</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=40%>16</TD>
+<TD width=60%>Cubic B&#233;zier Quad (Rectangular) Patch</TD>
+</TR>
+</TABLE><BR>
+
+<P>The order of the control points are given in a spiral pattern, as shown in the following diagrams for triangular and rectangular patches.</P>
+
+<P>Triangular patches used the following pattern.</P>
+
+<P><IMG SRC="../../images/tripatch.gif" ALT="" BORDER=0></P>
+
+<P>Rectangular patches use the following pattern.</P>
+
+<P><IMG SRC="../../images/quadpatch.gif" ALT="" BORDER=0></P>
+
+</BODY>
+</HTML>

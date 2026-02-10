@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>VolumeSprites Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>VolumeSprites Sample</h1>
+<p>The VolumeSprites sample displays a system of particles, or point sprites, 
+and applies texels to them taken from a 3D volume texture. Normally, a texture 
+is thought of as a 2D image that has a width and a height and whose texels are 
+addressed with two coordinates, tu and tv. Volume textures are the 3D counterparts, 
+with a width, height, and depth, and they are addressed with three coordinates, tu, 
+tv, and tw.</p>
+
+<p>Volume textures can be used for interesting effects, such as patchy fog, 
+explosions, and so on. </p>
+<h2><a name="IDAKFUM"></a>Overview</h2>
+<p>Volume textures are 3D collections of pixels (texels) that can be used to paint a 2D primitive such as a triangle or a line. Three-element texture coordinates are required for each vertex of a primitive that is to be textured with a volume. As the primitive is drawn, each contained pixel is filled with the color value from some pixel within the volume, in 
+accordance with rules analogous to the 2D texture case. Volumes are not rendered directly because there are no 3D primitives that can be painted with them.</p><h2><a name="IDAQFUM"></a>Remarks</h2>
+<p>This sample renders a group of particles onto the screen and applies texels from
+a 3D texture. As a result, the particles change color as their changing x,y,z 
+locations map to different tu,tv,tw locations in the volume texture.</p><p>Note that using 3D textures can reduce the fill-rate potential by as much as
+50 percent over using 2D textures.</p>
+</body>
+</html>

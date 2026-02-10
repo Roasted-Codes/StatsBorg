@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>FocusBlur Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>FocusBlur Sample</h1>
+<p>The FocusBlur sample demonstrates how to generate the focus effects that could 
+be produced when filming a real scene with a camera.</p>
+<h2><a name="IDAVZUM"></a>Overview</h2>
+<p>The FocusBlur sample approximates focus effects by blurring the back buffer with the 
+GPU and then cross-dissolving based on a range of z-values.  This simulates a camera 
+focus, where only a range of values near the focal plane are in sharp focus and the rest 
+of the scene is blurred.</p><h2><a name="IDA1ZUM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Graphics\FocusBlur</p><h2><a name="IDAB0UM"></a>Remarks</h2>
+<p>The FilterCopy function is the workhorse routine of this sample program. It 
+takes as input a general filter expressed as an array of filter coefficients and
+pixel offsets.  The source texture is drawn repeatedly at the different offset positions 
+to align the input samples with the output samples and the pixel shader constants are set 
+to multiply the filter coefficients.</p>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGCompileDrawIndexedVertices</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XGCompileDrawIndexedVertices [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="XGBufferCreate"></A>XGCompileDrawIndexedVertices</H1>
+
+<P>Creates an <a href="xbox_dxg_IDirect3DDevice8_DrawIndexedVertices.htm"><b>IDirect3DDevice8::DrawIndexedVertices</b></a> push-buffer. This can be run on either the Xbox or on the PC at author time.</P>
+
+<PRE class=syntax><B>HRESULT</B> <B>XGCompileDrawIndexedVertices(</B>
+  <b>void</b> <i>*pBuffer</i>,
+  <b>DWORD</b> <i>*pSize</i>,
+  <b>D3DPRIMITIVETYPE</b> <i>PrimitiveType</i>,
+  <b>UINT</b> <i>VertexCount</i>,
+  <b>CONST WORD</b> <i>*pIndexData</i>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pBuffer</I></DT>
+
+<DD>[out] Pointer to a previously allocated buffer that will hold the data for the push-buffer.</DD>
+
+<DT><I>pSize</I></DT>
+
+<DD>[in, out] At call time, <i>pSize</i> is a pointer to a DWORD value containing the size of the buffer pointed at by <i>pBuffer</i>. On the return of the function, <i>pSize</i> will point to a DWORD value containing the size of the resulting push-buffer. This value is set even if the function fails.
+</DD>
+
+<DT><I>PrimitiveType</I></DT>
+
+<DD>[in] Member of the <A HREF="_dx_d3dprimitivetype_graphics.htm"><B>D3DPRIMITIVETYPE</B></A> enumerated type, describing the type of primitive that will be rendered when the push-buffer is run.</DD>
+
+<DT><I>VertexCount</I></DT>
+
+<DD>[in] Number of vertices to render. The maximum number of primitives is 32 million.
+</DD>
+
+<DT><I>pIndexData</I></DT>
+
+<DD>[in] Pointer to an array of 16-bit indices.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If this method succeeds, it returns S_OK. If the buffer pointed to by <i>pBuffer</i> is too small, the function returns D3DERR_BUFFERTOOSMALL.</P>
+
+<h4>Remarks</h4>
+
+<p>This function may be used to save a pre-compiled push-buffer data to a file.  For example,</p>
+<blockquote>
+<pre>// Set up the vertex buffer and array of indices.
+// Set the stream source and vertex shader.
+// ...
+
+DWORD Size = INIT_SIZE;		// Needs to be >= push-buffer size
+
+// Get the compiled push-buffer data.
+void *pData = D3D_AllocContiguousMemory( Size, D3DPUSHBUFFER_ALIGNMENT );
+XGCompileDrawIndexedVertices( pData,
+                              &amp;Size,
+                              D3DPT_TRIANGLELIST,
+                              VertexCount,
+                              pIndexData );
+
+// Now copy the buffer pointed to by pData to a file
+</pre></blockquote>
+
+<p>To use the push-buffer data you will need to manually fill an <a href="_dx_idirect3dpushbuffer8_graphics.htm"><b>IDirect3DPushBuffer8</b></a> object.</p>
+<blockquote>
+<pre>void *pData = D3D_AllocContiguousMemory( Size, D3DPUSHBUFFER_ALIGNMENT );
+
+// Copy the push-buffer data from the file to the buffer pointed to by pData
+// ...
+
+// Now set up the push-buffer resource
+IDirect3DPushBuffer8 PushBuffer;
+ZeroMemory( &amp;PushBuffer, sizeof ( PushBuffer ) );
+PushBuffer.Common = 1 | D3DCOMMON_TYPE_PUSHBUFFER;
+PushBuffer.Size = Size;
+PushBuffer.AllocationSize = Size;
+PushBuffer.Register( pData );
+
+// Finally, you can run the push-buffer.
+pDevice->RunPushBuffer( &amp;PushBuffer, NULL );
+</pre></blockquote>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgraphics.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use xgraphics.lib.</P>
+
+
+<h4>See Also</h4>
+
+<p><a href="_dx_pushbuffer_overview_graphics.htm"><b>Push-Buffer Overview</b></a></p>
+
+</BODY>
+</HTML>

@@ -1,0 +1,147 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Using Thread Local Storage</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H3><A NAME="_win32_using_thread_local_storage"></A>Using Thread Local Storage</H3>
+
+<P>Thread local storage (TLS) enables multiple threads to use an index allocated by the <A HREF="prothred_986b.htm"><B>TlsAlloc</B></A> function to store and retrieve a value that is local to the thread. In this example, an index is allocated when the title starts. When each thread starts, it allocates a block of dynamic memory and stores a pointer to this memory at the TLS index. The TLS index is used by the locally defined <CODE>CommonFunc</CODE> function to access the data local to the calling thread. In this case, the data is a text string identifying the thread.  Before each thread terminates, it releases its dynamic memory. </P>
+
+<PRE>
+//------------------------------------------------------------------------------ 
+// tls.cpp
+//
+// Simple example that demonstrates the use of thread local storage.
+// 
+//------------------------------------------------------------------------------ 
+
+#undef UNICODE
+#undef _UNICODE
+
+#include &lt;xtl.h&gt;
+
+
+// Number of threads to create. 
+#define THREADCOUNT 4 
+
+// Global TLS index to use.
+DWORD g_dwTlsIndex; 
+ 
+
+//
+// Error reporting function.
+//
+DWORD DoError( LPTSTR ptszMessage )
+{
+    TCHAR tszBuf[50];
+
+    wsprintf( tszBuf, TEXT(" failed, error: %u.\r\n"), GetLastError() );
+    OutputDebugString( ptszMessage );
+    OutputDebugString( tszBuf );
+    return 0;
+}
+
+
+//
+// Example function that uses thread local variables.
+// 
+void CommonFunc( void ) 
+{ 
+    LPTSTR ptszText; 
+
+
+    // Retrieve the data pointer for the current thread. 
+    ptszText = (LPTSTR)TlsGetValue( g_dwTlsIndex ); 
+
+    // Print out the string.
+    if( ptszText ) {
+        OutputDebugString( ptszText );
+    } else {
+        if( NO_ERROR != GetLastError() ) {
+            DoError( TEXT("TlsGetValue") );
+        }
+    }
+
+    return;  
+} 
+
+
+//
+// The thread entry point (thread function).
+// 
+DWORD WINAPI ThreadFunc( LPVOID pvParam ) 
+{ 
+    LPTSTR ptszText;
+
+
+    // Alloc the data for this thread.
+    ptszText = (LPTSTR)HeapAlloc( GetProcessHeap(), 0, 50 * sizeof(TCHAR) );
+    wsprintf( ptszText, TEXT("Thread number: %d.\r\n"), (int)pvParam );
+
+    // Set this thread's value at the TLS index.
+    if( !TlsSetValue( g_dwTlsIndex, ptszText ) ) { 
+        DoError( TEXT("TlsSetValue") );
+    }
+
+    // Perform processing for this thread.
+    CommonFunc(); 
+ 
+    // Release the dynamic memory before the thread returns. 
+    if( ptszText = (LPTSTR)TlsGetValue( g_dwTlsIndex ) ) { 
+        HeapFree( GetProcessHeap(), 0, ptszText ); 
+    }
+     
+    return 0; 
+} 
+ 
+
+void __cdecl main( void ) 
+{ 
+    DWORD dwThreadId; 
+    HANDLE hThread;
+    int i; 
+ 
+
+    // Allocate a TLS index. 
+    if( (g_dwTlsIndex = TlsAlloc()) != -1 ) {
+ 
+        // Create multiple threads. 
+        for( i = 0; i &lt; THREADCOUNT; i++ ) {
+            hThread = CreateThread(
+                            NULL,
+                            0,
+                            ThreadFunc,
+                            (LPVOID)i,
+                            0,
+                            &amp;dwThreadId );
+            if( INVALID_HANDLE_VALUE != hThread ) {
+                CloseHandle( hThread );
+            } else {
+                DoError( TEXT("CreateThread") );
+            }
+        }
+
+    } else {
+        DoError( TEXT("TlsAlloc") );
+    }
+
+     
+    // Don't return from main!
+    Sleep( INFINITE );
+} 
+</PRE>
+
+
+</BODY>
+</HTML>

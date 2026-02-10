@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageDelete</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageDelete</h1>
+            <p>Deletes a message received from the server.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageDelete(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>DWORD</b> <i>dwMessageID</i><b>,</b>
+    <b>BOOL</b> <i>fBlockSender</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwUserIndex</i></dt>
+				<dd>[in]  Controller index (zero-based) of the player that received the message to be deleted.</dd>
+			
+            <dt><i>dwMessageID</i></dt>
+				<dd>[in]  Unique integer that identifies the message.</dd>
+			
+            <dt><i>fBlockSender</i></dt>
+				<dd>[in]  If this parameter is TRUE, all future communication from this message's sender is deleted 
+				automatically. The default is FALSE.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="XOnlineMessageCreate.htm">XOnlineMessageCreate</a></p>
+        
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveFriendsList::ITitlePlayersListItem</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitlePlayersListItem</h1>
+<p><b>ITitlePlayersListItem</b> implements the player information interface to the Xbox Drop-in UI Players feature.
+		The Players feature calls methods on the interface to obtain information from the title about players displayed in the Players List.  Titles must provide their own implementation of <b>ITitlePlayersListItem</b>.</p>
+		<p><b>ITitlePlayersListItem</b> instances are added to and removed from the Players List with <a href="ILivePlayersList_RegisterPlayer.htm">ILivePlayersList::RegisterPlayer</a> and <a href="ILivePlayersList_UnregisterPlayer.htm">ILivePlayersList::UnregisterPlayer</a>.</p><table>
+<tr>
+<td><b>ITitlePlayersListItem methods</b></td>
+<td><a href="ITitlePlayersListItem_Compare.htm">Compare</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="ITitlePlayersListItem_GetBitflags.htm">GetBitflags</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="ITitlePlayersListItem_GetName.htm">GetName</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="ITitlePlayersListItem_GetVoiceStatus.htm">GetVoiceStatus</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="ITitlePlayersListItem_GetXUID.htm">GetXUID</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="ITitlePlayersListItem_IsTalking.htm">IsTalking</a></td>
+</tr>
+</table>
+<p>The <b>ITitlePlayersListItem</b> interface also supports the <a href="_dx_iunknown_addref_dxintro.htm"><b>AddRef</b></a> and <a href="_dx_iunknown_release_dxintro.htm"><b>Release</b></a> methods. The <b>QueryInterface</b> method is not supported on Xbox.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Uix.lib.</p>
+    
+</body>
+</html>

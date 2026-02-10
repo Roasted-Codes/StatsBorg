@@ -1,0 +1,82 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineStatUnitEnumerate</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineStatUnitEnumerate</h1>
+<p>Retrieves a contiguous set of units from a specified leaderboard that a user belongs to.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineStatUnitEnumerate(</b>
+    <b>XUID</b> <i>xuidUnitMember</i><b>,</b>
+    <b>DWORD</b> <i>dwLeaderboardID</i><b>,</b>
+    <b>XONLINE_STAT_SORTORDER</b> <i>SortOrder</i><b>,</b>
+    <b>DWORD</b> <i>dwMaxUnitsToReturn</i><b>,</b>
+    <b>DWORD</b> <i>dwNumStatsPerUnit</i><b>,</b>
+    <b>const WORD</b> *<i>pStatsPerUnit</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+<dt><i>xuidUnitMember</i></dt>
+<dd>[in]  <a href="xuid.htm">XUID</a> structure containing the member identifier to use for the enumeration.</dd>
+
+<dt><i>dwLeaderboardID</i></dt>
+<dd>[in]  Leaderboard from which to retrieve the entries. Leaderboards are defined by the title developer.</dd>
+
+<dt><i>SortOrder</i></dt>
+<p><dd>[in]  Value indicating the sort order of the data as specified by <a href="XONLINE_STAT_SORTORDER.htm">XONLINE_STAT_SORTORDER</a>. Can be the following:</dd>
+<table>
+	<tr>
+		<th>Identifier</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>XONLINE_STAT_SORTORDER_LASTACTIVITY</td>
+		<td>Stats data should be sorted by most recent activity.</td>
+	</tr>
+	<tr>
+		<td>XONLINE_STAT_SORTORDER_RATING</td>
+		<td>Stats data is sorted by rating in descending order.</td>
+	</tr>
+</table>
+</p>
+
+
+<dt><i>dwMaxUnitsToReturn</i></dt>
+<dd>[in]  Maximum number of units that should be returned from the enumeration. This can be up to XONLINE_STAT_MAX_UNITS.</dd>
+
+<dt><i>dwNumStatsPerUnit</i></dt>
+<dd>[in]  Number of stats to retrieve per unit. This value is equal to the number of elements in the array pointed to by the <i>pStatsPerUnit</i> parameter.</dd>
+
+<dt><i>pStatsPerUnit</i></dt>
+<dd>[in]  Pointer to an array of IDs that specify stats (see the <a href="XONLINE_STAT_SPEC_UNIT.htm">XONLINE_STAT_SPEC_UNIT</a> structure). The number of IDs in this array should be equal to the value specified by the <i>dwNumStatPerUnit</i> parameter.</dd>
+
+<dt><i>hWorkEvent</i></dt>
+<dd>[in, optional]  Handle to a caller-created event object. This object will be signaled when there is work to do by calling <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>. The caller may pass in NULL instead, indicating that the caller will poll <b>XOnlineTaskContinue</b> itself.</dd>
+
+<dt><i>phTask</i></dt>
+<dd>[out]  Address of an <b>XONLINETASK_HANDLE</b> that receives the stats enumeration task. This task sends the enumeration request to the Statistics Service and receives the enumeration response. Pump this handle to completion by calling <b>XOnlineTaskContinue</b>. When the task is complete, call <a href="XOnlineStatUnitEnumerateGetResults.htm">XOnlineStatUnitEnumerateGetResults</a> to get the enumeration results. Call <a href="XOnlineTaskClose.htm">XOnlineTaskClose</a> to close the task.</dd>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;To throttle requests sent to the Statistics Service, <b>XOnlineTaskContinue</b> will return XONLINE_E_TASK_ABORTED_BY_DUPLICATE if the task is still being pumped when a second operation is started.</p>
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+		<p>This function can be called only with direct user input related to Statistics.</p>
+	
+		<p>This function must not be called more often than once a second between game sessions. During a game session, this function can only be called once at the beginning, once at the end and every five minutes if the game session lasts longer than five minutes. Contact your Technical Game Manager or consult the Technical Certification Requirements for details.</p>	
+	<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="XOnlineStatUnitEnumerateGetResults.htm">XOnlineStatUnitEnumerateGetResults</a></p>
+
+</body>
+</html>

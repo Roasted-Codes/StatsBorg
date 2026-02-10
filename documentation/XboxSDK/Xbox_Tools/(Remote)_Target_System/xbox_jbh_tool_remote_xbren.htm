@@ -1,0 +1,45 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Remote Rename Tool (XbRen)</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Remote Rename Tool (XbRen)</H1>
+
+
+<P class="content">The Remote Rename tool (XbRen) renames a file that resides on the Microsoft&#174 Xbox&#174; target system's file system. <!-- This tool can also be used to move files by specifying a different path for the [newname] file. --></P>
+
+<PRE>USAGE: xbren [-x xboxname] [options] oldname newname</PRE>
+
+<TABLE class="tblcontrols">
+<!--**Stock Text. Do not change.****-->
+<TR VALIGN="top"><TH align=left width=25%>Option</TH><TH align=left width=75%>Description</TH></TR>
+<!--**Use this set of tags for a row. Copy and paste for additional rows.**-->
+<TR><td><b>-x</b></td>    <td>Xbox name or Xbox IP. Specify a particular target machine.</td></TR>
+<TR><td><b>-s</b></td>    <td>Search in subdirectories for files to rename. Performs a
+                       recursive search for files that match <i>oldname</i> and
+                       renames them to <i>newname</i>.</td></TR>
+<TR><td><b>-?</b></td>    <td>Display a complete list of available options.</td></TR>
+</TABLE>
+
+<P class="note"><B>Note</B>&nbsp;&nbsp;&nbsp;The <I>newname</I> parameter must not contain any path information. This tool cannot be used to move files.</P>
+
+<P class="content">See the <A href="xbox_jbh_tool_remote_intro.htm">(Remote) Target System Tools</A> topic for more information about this and other remote target system tools.</P>
+
+<h4>Known Issues</h4>
+
+<p>The Xbox kernel supports ANSI file names only. As a result, any attempt to rename a file or folder with non-ANSI characters will result in an error saying it's an invalid file name.</p>
+
+
+</BODY>
+</HTML>

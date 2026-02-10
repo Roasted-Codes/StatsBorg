@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVRESULT</title>
+</head>
+		
+    <body topmargin="0">
+        
+
+
+        <h1>XMVRESULT</h1>
+
+                
+        
+<p>Used in the return value of <span class="clsWarning">DOCERROR: name is not a valid attribute...</span><a href="xmvdecoder_getnextframe_media.htm">XMVDecoder::GetNextFrame</a> to describe the status of the new frame.</p>
+                
+
+<pre class="syntax">typedef enum _XMVRESULT {
+    XMV_NOFRAME,
+    XMV_NEWFRAME,
+    XMV_ENDOFFILE,
+    XMV_FAIL,
+    XMV_FORCELONG = 0xFFFFFFFF,
+} XMVRESULT;</pre>
+            
+
+            
+                <h4><a name="constants"></a>Constants</h4>
+<dl>
+            <dt><a name="XMV_NOFRAME"></a>XMV_NOFRAME</dt>
+                <dd>There is no new data, and the surface passed into <span class="clsWarning">DOCERROR: name is not a valid attribute...</span><a href="xmvdecoder_getnextframe_media.htm">XMVDecoder::GetNextFrame</a> is unchanged.</dd>
+            
+			<dt><a name="XMV_NEWFRAME"></a>XMV_NEWFRAME</dt>
+                <dd>The surface passed into <span class="clsWarning">DOCERROR: name is not a valid attribute...</span><b>XMVDecoder::GetNextFrame</b> contains a new frame that needs to be displayed.</dd>
+            
+			<dt><a name="XMV_ENDOFFILE"></a>XMV_ENDOFFILE</dt>
+                <dd>The movie is over. The decoder has reached the end of the file.</dd>
+            
+			<dt><a name="XMV_FAIL"></a>XMV_FAIL</dt>
+                <dd>An error has occured that prevents the video from being decoded. This could happen through either major data corruption or a read error.</dd>
+            
+			<dt><a name="XMV_FORCELONG"></a>XMV_FORCELONG</dt>
+				<dd>Forces the enumeration to compile to 32 bits in size. This value is not used.</dd>
+			
+        </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><span class="clsWarning">DOCERROR: name is not a valid attribute...</span><a href="xmvdecoder_getnextframe_media.htm">XMVDecoder::GetNextFrame</a></p>
+
+        
+    </body>
+    </html>

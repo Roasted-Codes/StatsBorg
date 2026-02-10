@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_LATEST_ACCEPTED_GAMEINVITE</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_LATEST_ACCEPTED_GAMEINVITE</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_LATEST_ACCEPTED_GAMEINVITE{
+    XUID xuidAcceptedUser;
+    XUID xuidInvitingUser;
+    CHAR szInvitingUserGamertag[XONLINE_GAMERTAG_SIZE];
+    XNKID SessionID;
+    FILETIME InviteAcceptTime;
+    XUID xuidLogonUsers[XONLINE_MAX_LOGON_USERS];
+} XONLINE_LATEST_ACCEPTED_GAMEINVITE, *PXONLINE_LATEST_ACCEPTED_GAMEINVITE;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+		<dt><b>xuidAcceptedUser</b></dt>
+<dd>An <a href="xuid.htm">XUID</a> structure uniquely identifying the user accepting the game invitation.</dd>
+
+		<dt><b>xuidInvitingUser</b></dt>
+<dd>An <b>XUID</b> structure uniquely identifying the user making the game invitation.</dd>
+
+		<dt><b>szInvitingUserGamertag</b></dt>
+<dd>Character string containing the Gamertag of the user making the game invitation.</dd>
+
+		<dt><b>SessionID</b></dt>
+<dd>An <a href="xbox_xnkid_xsnl.htm">XNKID</a> structure representing the session.</dd>
+
+		<dt><b>InviteAcceptTime</b></dt>
+<dd>A <a href="time_0fzm.htm">FILETIME</a> structure containing the date and time of the game invitation acceptance.</dd>
+
+		<dt><b>xuidLogonUsers</b></dt>
+<dd>Array of <b>XUID</b> structures that specify the users that were logged in at the time the cross-title invitation was accepted. Use the <a href="XOnlineGetUsers.htm">XOnlineGetUsers</a> function to retrieve information for these users.</dd>
+	</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineGameInviteGetLatestAccepted.htm">XOnlineGameInviteGetLatestAccepted</a></p>
+
+        
+    </body>
+    </html>

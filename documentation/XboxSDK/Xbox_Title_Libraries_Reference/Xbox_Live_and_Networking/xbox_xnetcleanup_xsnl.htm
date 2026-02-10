@@ -1,0 +1,34 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XNetCleanup</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XNetCleanup [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_xtl_winsock_xnetcleanup"></A>XNetCleanup</H1>
+
+<P>Terminates network services on the Xbox.</P>
+
+<PRE class="syntax"><B>INT XNetCleanup();</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT>None.</DT>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns zero if successful or <A HREF="xbox_winsock_error_codes_winsock.htm#_win32_wsanotinitialised_2"><B>WSANOTINITIALISED</B></A> if networking has not been initialized.</P>
+
+<H4>Requirements </H4>
+<P><B>Header: </B>Declared in Winsockx.h, for include use Xtl.h.</P>
+<P><B>Import Library: </B>Use Xnet.lib for titles that only support system link play, XOnline.lib for titles that support online play. Use the secure versions of the library file (Xnets.lib or XOnlines.lib) for final testing.</P>
+
+
+</BODY>
+</HTML>

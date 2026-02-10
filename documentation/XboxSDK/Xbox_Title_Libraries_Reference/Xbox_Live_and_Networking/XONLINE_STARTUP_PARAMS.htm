@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STARTUP_PARAMS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_STARTUP_PARAMS</h1>
+
+        
+        
+<p>Contains the startup parameters for Xbox <i>Live</i>.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    DWORD dwMaxPrivatePool;
+} XONLINE_STARTUP_PARAMS, *PXONLINE_STARTUP_PARAMS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>dwMaxPrivatePool</b></dt>
+                <dd>Maximum size, in bytes, of the private heap that the online functions will collectively use.  This heap is used for allocations that must occur during asynchronous task pumping, so that the amount of available memory will not change while tasks are being pumped.  Available memory can (and will) still change during creation of the asynchronous tasks.  If this value is zero, or NULL is specified for the <i>pxosp</i> parameter of <a href="xonlinestartup.htm">XOnlineStartup</a>, then a reasonable default value will be used.</dd>
+            
+        </dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>If asynchronous tasks are returning XONLINE_E_OUT_OF_MEMORY when being pumped by <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>, then likely the size of the private pool needs to be increased when the network is initialized.</p>
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> |
+<a href="xonlinestartup.htm">XOnlineStartup</a>
+</p>
+
+
+        
+    </body>
+    </html>

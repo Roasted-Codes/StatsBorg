@@ -1,0 +1,25 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Processing Mode</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_processing_mode_dxaudio"></A>Processing Mode</H4>
+
+<P>Sound buffers have three processing modes: normal, head-relative, and disabled. </P>
+
+<P>In normal mode, the sound source is positioned and oriented absolutely in world space. This is the default mode. </P>
+
+<P>In head-relative mode, the buffer is automatically repositioned in world space as the listener moves and turns. Values set through methods such as <A HREF="xbox_jc_idirectsoundbuffer8_setposition_dxaudio.htm"><B>IDirectSoundBuffer8::SetPosition</B></A> and <A HREF="xbox_jc_idirectsoundbuffer8_setvelocity_dxaudio.htm"><B>IDirectSoundBuffer8::SetVelocity</B></A> are all relative to the current position, velocity, and orientation of the listener. </P>
+
+<P>In disabled mode, 3D sound processing is disabled and the sound seems to originate from the center of the listener's head.</P>
+
+<P>An application sets the mode for a 3D sound buffer by using the <A HREF="xbox_jc_idirectsoundbuffer8_setmode_dxaudio.htm"><B>IDirectSoundBuffer8:SetMode</B></A> method.</P>
+
+
+</BODY>
+</HTML>

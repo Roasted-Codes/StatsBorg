@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageSetSummaryRefresh</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageSetSummaryRefresh</h1>
+            <p>Enables or disables automatic summary refreshing, and returns the previous setting. </p>
+        <pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>XOnlineMessageSetSummaryRefresh(</b>
+    <b>BOOL</b> <i>fEnable</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>fEnable</i></dt>
+				<dd>[in]  If this parameter is TRUE, automatic summary refreshing is enabled. If <i>fEnable</i> is 
+				FALSE, it is disabled.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns the previous setting.</p>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>By default, automatic summary refreshing is enabled.  Titles can receive notifications that 
+			new messages have arrived if this is disabled, However, they will be unable to access any information 
+			about the summaries.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

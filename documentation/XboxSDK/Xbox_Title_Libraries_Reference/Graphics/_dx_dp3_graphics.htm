@@ -1,0 +1,70 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>dp3</TITLE>
+<META NAME="MS-HKWD" CONTENT="dp3">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_dp3_graphics"></A>dp3</H1>
+
+<P>Loads the three-component vector dot-product of the two colors in the source operand registers.</P>
+
+<PRE class=syntax>dp3   tDest, tSrc0, tSrc1
+</PRE>
+
+<H4>Registers</H4>
+
+<DL>
+<DT><B>tDest</B></DT>
+
+<DD>Destination register, holding the result of the operation.</DD>
+
+<DT><B>tSrc0</B></DT>
+
+<DD>Source register, specifying the input argument.</DD>
+
+<DT><B>tSrc1</B></DT>
+
+<DD>Source register, specifying the input argument.
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>This instruction generates a scalar result, but replicates it to all specified output channels.</P>
+
+<PRE>dp3 r, s1, s2    ; s1 dot s2 replicated to all channels
+</PRE>
+
+<P>Note that the <B>dp3</B> instruction is fundamentally a vector operation, and is therefore always performed in the vector pipeline. Using it with the <A HREF="_dx_alpha_replicate_graphics.htm">Alpha Replicate</A> input argument modifier (.a) just indicates that its result should be propagated to the alpha channel as well. In other words, <B>dp3</B> can be specified as an alpha operation only when it is also the color operation, and must also use the same arguments. </P>
+
+<PRE>dp3 r0.rgb, t0, v0
+dp3 r0.a,   t0, v0
+</PRE>
+
+<P>Or equivalently,</P>
+
+<PRE>dp3 r0, t0, v0
+</PRE>
+
+<P>will cause the grayscale result of the <B>dp3</B> operation to be copied into both the color and alpha channels of r0.</P>
+
+<P>A different instruction can be specified in the alpha channel of the result.</P>
+
+<PRE>dp3 r0.rgb, t0, v0
+mul r0.a,   t0, v0
+</PRE>
+
+<P>The <B>dp3</B> instruction usually benefits from the <A HREF="_dx_signed_scaling_graphics.htm"><B>Signed Scaling</B></A> input argument modifier (<B>_bx2</B>) applied to its input arguments if they have not already been expanded to signed dynamic range. When used for lighting, the saturate modifier (<B>_sat</B>) is often used to clamp the negative values to black, as shown in the following example.</P>
+
+<p class="note"><i>Note:</i>&nbsp;&nbsp;Unlike in DirectX 8.0, on Xbox, the <b>_sat</b> modifier can not be applied to a destination register.</p>
+
+<PRE>dp3 r0, t0_bx2, v0_bx2    ; t0 is bump, v0 is light direction
+mul r0, c0, r0_sat            ; c0 is light color</PRE>
+
+</BODY>
+</HTML>

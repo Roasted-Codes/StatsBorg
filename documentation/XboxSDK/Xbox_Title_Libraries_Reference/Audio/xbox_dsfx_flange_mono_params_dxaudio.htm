@@ -1,0 +1,42 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DSFX_FLANGE_MONO_PARAMS</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DSFX_FLANGE_MONO_PARAMS [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_dsfx_flange_mono_params_dxaudio"></A>DSFX_FLANGE_MONO_PARAMS</H1>
+
+<P>Contains the parameters used by the mono flange effect.</P>
+
+<PRE class="syntax">typedef struct _DSFX_FLANGE_MONO_PARAMS{
+    DSFX_FLANGE_MONO_STATE State;
+    DWORD dwFeedback;
+    DWORD dwModScale;
+} DSFX_FLANGE_MONO_PARAMS, *LPDSFX_FLANGE_MONO_PARAMS;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>State</B></DT>
+    <DD><A HREF="xbox_dsfx_flange_mono_state_dxaudio.htm">DSFX_FLANGE_MONO_STATE</A> structure that contains the state information for this effect.</DD>
+
+<TD></TD><DT><B>dwFeedback</B></DT>
+    <DD>Value that specifies how much of the effect's output should be mixed with the dry signal. Can be a value between 0 and 2^23 (which is 0.0 to 1.0 in 24 bit).</DD>
+
+<DT><B>dwModScale</B></DT>
+    <DD>Value that specifies how much of the delay line to tap. Can be a value between 0 and 2^23 (which is 0.0 to 1.0 in 24 bit). Should be left at its default value.</DD>
+</DL>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSFXParm.h.</P>
+
+
+</BODY>
+</HTML>

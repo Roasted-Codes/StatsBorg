@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_TEAM_PROPERTIES</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_TEAM_PROPERTIES</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_TEAM_PROPERTIES{
+    WCHAR wszTeamName[XONLINE_MAX_TEAM_NAME_SIZE];
+    WCHAR wszDescription[XONLINE_MAX_TEAM_DESCRIPTION_SIZE];
+    WCHAR wszMotto[XONLINE_MAX_TEAM_MOTTO_SIZE];
+    WCHAR wszURL[XONLINE_MAX_TEAM_URL_SIZE];
+    WORD TeamDataSize;
+    BYTE TeamData[XONLINE_MAX_TEAM_DATA_SIZE];
+} XONLINE_TEAM_PROPERTIES, *PXONLINE_TEAM_PROPERTIES;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>wszTeamName</b></dt>
+<dd>Wide character string containing the team name.</dd>
+<dt><b>wszDescription</b></dt>
+<dd>Wide character string containing the team description.</dd>
+<dt><b>wszMotto</b></dt>
+<dd>Wide character string containing the team motto.</dd>
+<dt><b>wszURL</b></dt>
+<dd>Wide character string containing the team URL.</dd>
+<dt><b>TeamDataSize</b></dt>
+<dd>Size of the team data, in bytes.</dd>
+<dt><b>TeamData</b></dt>
+<dd>Block containing the team data.</dd>
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineTeamCreate.htm">XOnlineTeamCreate</a>, <a href="XOnlineTeamSetProperties.htm">XOnlineTeamSetProperties</a></p>
+
+        
+    </body>
+    </html>

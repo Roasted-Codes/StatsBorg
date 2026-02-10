@@ -1,0 +1,24 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Field Rendering</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1>Field Rendering</H1>
+
+<p>Field rendering is a special video mode where the back buffer size is assumed to be half the vertical height of the output display and the output format is defined to be interlaced. In this mode, the even lines of the display are rendered during one field and the odd lines are rendered during the next field. When using field rendering, the flicker filter is disabled. Field rendering can reduce the fill-rate and bandwidth requirements of a game substantially; however, since there is no flicker filter, display quality can also be somewhat degraded.</p>
+
+<p>Field rendering is supported with all AV packs.</p>
+
+<p>This video mode is enabled by specifying D3DPRESENTFLAG_FIELD as one of the flags ORed into the <b>Flags</b> member of <a href="_dx_d3dpresent_parameters_graphics.htm"><b>D3DPRESENT_PARAMETERS</b></a>.</p>
+
+<p>To minimize flickering, a screen offset needs to be applied during the rendering of even fields. <a href="xbox_dxg_IDirect3DDevice8_GetDisplayFieldStatus.htm"><b>IDirect3DDevice8::GetDisplayFieldStatus</b></a> can be used to determine if the field is even or odd. Before rendering the even fields, the title should apply an offset of (0.0f, 0.5f) using <a href="_dx_idirect3ddevice8_setscreenspaceoffset_graphics.htm"><b>IDirect3DDevice8::SetScreenSpaceOffset</b></a>.</p>
+
+
+</BODY>
+</HTML>

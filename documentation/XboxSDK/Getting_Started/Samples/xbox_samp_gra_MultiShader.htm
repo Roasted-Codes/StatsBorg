@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>MultiShader Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>MultiShader Sample</h1>
+	<p>This sample demonstrates a technique for keeping multiple small vertex shaders 
+	resident in memory at the same time.</p>
+<h2><a name="IDATJUM"></a>Overview</h2>
+<p>Applications can generally use only one vertex shader at a time. Therefore, 
+	they use the <a href="_dx_idirect3ddevice8_setvertexshader_graphics.htm">SetVertexShader</a> function to load and select a vertex shader. However, 
+	because there are 136 instruction slots available, several small vertex shaders can 
+	potentially be resident in memory at the same time.</p><h2><a name="IDA3JUM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Graphics\VertexShader\MultiShader</p><h2><a name="IDADKUM"></a>Remarks</h2>
+<p>Xbox programs can load several small shaders into memory with the 
+	<a href="xbox_dxg_IDirect3DDevice8_loadvertexshader.htm">LoadVertexShader</a> function. Next, they can select a particular 
+	shader by calling the <a href="xbox_dxg_IDirect3DDevice8_selectvertexshader.htm">SelectVertexShader</a> function.</p><p>The biggest caveat here is that the fixed pipeline, when used with transformed 
+	vertices, will overwrite the first several vertex shader instruction slots. 
+	Therefore, it is often advisable to skip the first instruction slots entirely. See 
+	the source code for this sample for details.</p>
+</body>
+</html>

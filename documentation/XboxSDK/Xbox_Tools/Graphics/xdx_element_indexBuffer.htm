@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>indexBuffer Element</title>
+</head>
+<body topmargin="0">
+
+
+<h1>indexBuffer Element</h1>
+<p>This element is used to specify an array of vertex indices.</p>
+<pre class="syntax" xml:space="preserve">&lt;indexBuffer
+   id = string
+/&gt;</pre>
+<h4>Required Attributes</h4>
+<dl id="idXML">
+<dt><b>id</b></dt>
+<dd>
+				<p>Identifier used for referencing from &lt;<a href="xdx_element_draw.htm">draw</a>&gt; elements. For more details, see <a href="xdx_id_attribute.htm">XDX id Attribute</a>.</p>
+			</dd>
+</dl>
+<h4>Optional Attributes</h4>
+<p>None.</p><h4>Element Information</h4>
+<table>
+<tr>
+<td><b>Parent Elements</b></td>
+<td><a href="xdx_element_xdx.htm">XDX</a></td>
+</tr>
+<tr>
+<td><b>Child Elements</b></td>
+<td>None.</td>
+</tr>
+</table>
+<h4><a name="remarks"></a>Remarks</h4>Index buffers are always made up of short unsigned integer data.<h4><a name="examples"></a>Examples</h4>
+<dl><dt><b>Setting up an index buffer</b></dt>
+<dd><p>The following example sets up an index buffer that says to use the zeroth, first, and second vertices.</p>
+
+<pre class="clsCode">
+&lt;indexBuffer id="indexBuffer1"&gt;0 1 2&lt;/indexBuffer&gt;
+</pre>
+    
+</dd>
+</dl>
+<h4><a name="seealso"></a>See Also</h4>
+<p>&lt;<a href="xdx_element_draw.htm">draw</a>&gt;</p>
+
+</body>
+</html>

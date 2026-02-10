@@ -1,0 +1,81 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>GetTimeZoneInformation</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="GetTimeZoneInformation">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_gettimezoneinformation"></A>GetTimeZoneInformation</H1>
+
+<P>The <B>GetTimeZoneInformation</B> function retrieves the current time-zone parameters. These parameters control the translations between the Universal Time Coordinate (UTC) and local time. </P>
+
+<PRE class=syntax><B>DWORD GetTimeZoneInformation(
+  LPTIME_ZONE_INFORMATION</B><I> lpTimeZoneInformation</I> // time zone
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpTimeZoneInformation</I></DT>
+
+<DD>[out] Pointer to a <A HREF="time_8bqq.htm">TIME_ZONE_INFORMATION</a> structure to receive the current time-zone parameters. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the function succeeds, the return value is one of the following values: </P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=28%>Value</TH>
+<TH align=left width=72%>Meaning</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=28%>TIME_ZONE_ID_UNKNOWN</TD>
+<TD width=72%>This value is returned if daylight saving time is not used in the current time zone, because there are no transition dates.  This value is also returned if the system cannot determine the current time zone. 
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=28%>TIME_ZONE_ID_STANDARD</TD>
+<TD width=72%>The system is operating in the range covered by the <B>StandardDate</B> member of the <B>TIME_ZONE_INFORMATION</B> structure. 
+</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=28%>TIME_ZONE_ID_DAYLIGHT</TD>
+<TD width=72%>The system is operating in the range covered by the <B>DaylightDate</B> member of the <B>TIME_ZONE_INFORMATION</B> structure.</TD>
+</TR>
+</TABLE><BR>
+
+<P>If the function fails, the return value is TIME_ZONE_ID_INVALID. To get extended error information, call <A HREF="errors_3uwi.htm">GetLastError</a>. </P>
+
+<H4>Remarks</H4>
+
+<P>All translations between the UTC and local time are based on the following formula: </P>
+
+<PRE>UTC = local time + bias </PRE>
+
+<P>The bias is the difference, in minutes, between the UTC and local time. </P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p><H4>See Also</H4>
+<P> 
+
+<a href="xbox_mt_xtl_sll_time_functions.htm">Time Functions</a> | 
+<A HREF="time_8bqq.htm">TIME_ZONE_INFORMATION</a> </P>
+
+
+</BODY>
+</HTML>

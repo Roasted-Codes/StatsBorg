@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicSegment8::SetStartPoint</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicSegment8::SetStartPoint [C++]">
+<META NAME="MS-HKWD" CONTENT="SetStartPoint (IDirectMusicSegment8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetStartPoint [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicsegment8_setstartpoint_dxaudio"></A>IDirectMusicSegment8::SetStartPoint</H1>
+
+<P>Sets the point within the segment at which it will start playing.</P>
+
+<PRE class="syntax"><B>HRESULT SetStartPoint(</B>
+    <B>MUSIC_TIME</B> <I>mtStart</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>mtStart</I></DT>
+
+<DD>Point within the segment at which it is to start playing. Must be greater than or equal to zero and less than the length of the segment.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<p>Returns S_OK if successful, an error code otherwise.</p>
+
+<H4>Remarks</H4>
+
+<P>The start point is the first point in the segment that can possibly be heard. However, the actual first point heard may be later, if the start point of the segment is aligned to a past time. For more information, see <A HREF="_dx_segment_timing_dxaudio.htm"><B>Segment Timing</B></A>.</P>
+
+<P>By default, the start point is 0, meaning that the segment starts from the beginning.</P>
+
+<P>If the segment does not already have a length, <A HREF="_dx_idirectmusicsegment8_setlength_dxaudio.htm"><B>IDirectMusicSegment8::SetLength</B></A> must be called before this method. </P>
+
+<P>The method does not affect any currently playing segment states created from this segment.</P>
+
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusicI.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirectmusicsegment8_getstartpoint_dxaudio.htm"><B>IDirectMusicSegment8::GetStartPoint</B></A>, <A HREF="_dx_idirectmusicsegment8_setlength_dxaudio.htm"><B>IDirectMusicSegment8::SetLength</B></A>, <A HREF="_dx_idirectmusicsegment8_setlooppoints_dxaudio.htm"><B>IDirectMusicSegment8::SetLoopPoints</B></A>, <A HREF="_dx_segment_timing_dxaudio.htm"><B>Segment Timing</B></A> </P>
+
+
+</BODY>
+</HTML>

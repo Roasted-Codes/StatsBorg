@@ -1,0 +1,61 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3D8::CreatePalette</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::CreatePalette [C++]">
+<META NAME="MS-HKWD" CONTENT="CreatePalette (IDirect3D8) [C++]">
+<META NAME="MS-HKWD" CONTENT="CreatePalette [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="CreatePalette"></A>IDirect3DDevice8::CreatePalette</H1>
+
+<P>Creates a palette resource.</P>
+
+<PRE class=syntax><B>HRESULT</B> <B>CreatePalette(</B>
+<B>D3DPALETTESIZE</B><I> Size</I><B>,</B>
+  <B>D3DPalette**</B> <I>ppPalette</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>Size</I></DT>
+
+<DD>[in] Specifies the number of entries to be placed in the palette. Any of the following constants are valid values:
+	<DL>
+		<DT>D3DPALETTE_256 </DT>
+    	<DT>D3DPALETTE_128 </DT>
+    	<DT>D3DPALETTE_64</DT>
+    	<DT>D3DPALETTE_32</DT>
+	</DL>	
+</DD>
+
+<DT><I>ppPalette</I></DT>
+
+<DD>[out, retval] Address of a pointer to the returned <b>IDirect3DPalette8</b> interface, representing the created palette. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is <A HREF="_dx_return_values_graphics.htm#_dx_d3d_ok_graphics">D3D_OK</A>.</P>
+
+<P>If the method fails, the return value is <A HREF="_dx_return_values_graphics.htm#_dx_e_outofmemory_graphics">E_OUTOFMEMORY</A>.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><a href="xbox_dxg_IDirect3DPalette8_graphics.htm"><b>IDirect3DPalette8</b></a>, <a href="_dx_idirect3dresource8_graphics.htm"><b>IDirect3DResource8</b></a></P>
+
+
+</BODY>
+</HTML>

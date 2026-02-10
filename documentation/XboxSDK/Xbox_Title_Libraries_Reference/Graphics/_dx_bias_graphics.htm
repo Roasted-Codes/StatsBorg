@@ -1,0 +1,31 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Bias</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_bias_graphics"></A>Bias</H1>
+
+<P><I><B>r</B><SUB>n</SUB></I><B>_bias</B></P>
+
+<P>Shift each channel down by 0.5. So it performs y = (x&minus;0.5) before the register is operated on. </P>
+
+<P>The following example shows how to use this modifier.</P>
+
+<PRE>add r0, r0, t0_bias    ; Shift down by 0.5.
+</PRE>
+
+<P>This example shows how to use <A HREF="_dx_add_graphics.htm">add</A> to perform the same operation as D3DTOP_ADDSIGNED in Microsoft&#174; DirectX&#174; 6.0 and 7.0 multitexture syntax.</P>
+
+<P>This modifier has the effect of modifying data that was in the range 0 to 1 to be in the range &minus;0.5 to 0.5. This is commonly used for applying detail textures. It can also enable the input data to be processed as a signed quantity while reserving dynamic range before overflow clamping that can occur on implementations limited to the range &minus;1 to 1.</P>
+
+<P>Note that this modifier is mutually exclusive with <A HREF="_dx_invert_graphics.htm">Invert</A>, so it cannot be applied to the same register.</P>
+
+<P>This modifier is for use with the color and alpha blending instructions.</P>
+
+</BODY>
+</HTML>

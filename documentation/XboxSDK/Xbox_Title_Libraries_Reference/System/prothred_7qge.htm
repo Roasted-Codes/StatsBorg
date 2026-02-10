@@ -1,0 +1,31 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Suspending Thread Execution</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H3><A NAME="_win32_suspending_thread_execution"></A>Suspending Thread Execution</H3>
+
+<P>A thread can suspend and resume the execution of another thread using the <A HREF="prothred_7gkk.htm"><B>SuspendThread</B></A> and <A HREF="prothred_59no.htm"><B>ResumeThread</B></A> functions. While a thread is suspended, it is not scheduled for time on the processor. </P>
+
+<P>The <B>SuspendThread</B> function is not particularly useful for synchronization because it does not control the point in the code at which the thread's execution is suspended. However, you might want to suspend a thread in a situation where you are waiting for user input that could cancel the work the thread is performing. If the user input cancels the work, have the thread exit; otherwise, call <B>ResumeThread</B>. </P>
+
+<P>If a thread is created in a suspended state (with the CREATE_SUSPENDED flag), it does not begin to execute until another thread calls <A HREF="prothred_59no.htm"><B>ResumeThread</B></A> with a handle to the suspended thread. This can be useful for initializing the thread's state before it begins to execute.  Suspending a thread at creation can be useful for one-time synchronization, because this ensures that the suspended thread will execute the starting point of its code when you call <B>ResumeThread</B>. </P>
+
+<P>A thread can temporarily yield its execution for a specified interval by calling the <A HREF="prothred_7jxs.htm"><B>Sleep</B></A> or <A HREF="prothred_0o8o.htm"><B>SleepEx</B></A> functions.  During the sleep interval, the thread is not scheduled for time on the processor.</P>
+
+<P>The <A HREF="prothred_30h0.htm"><B>SwitchToThread</B></A> function is similar to <B>Sleep</B> and <B>SleepEx</B>, except that you cannot specify the interval. <B>SwitchToThread</B> allows the thread to give up the remainder of its time slice.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTEngine::SetMasterVolume</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTEngine::SetMasterVolume</h1>
+<p>Sets the master volume for all audio output from XACT engine.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetMasterVolume(</b>
+    <b>WORD</b> <i>wCategory</i><b>,</b>
+    <b>LONG</b> <i>lVolume</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>wCategory</i></dt>
+				<dd>[in]  Value specifying the category of sounds to set the volume for. XACT allows the sound designer to define a category for each sound. For example, <i>Music</i>, <i>Sound Effects</i>, and <i>Voice</i> may be three categories. This allows the game to have a separate control for each of these game sound elements. To set the volume for all categories, the special category XACT_CATEGORY_INDEX_UNUSED may be used. XACT supports up to 255 categories.</dd>
+			
+			<dt><i>lVolume</i></dt>
+				<dd>[in]  Value specifying the attenuation, in 100th of a decibel (millibells) to attenuate the sound. A setting of 0 (default) represents full volume.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful; returns an error code otherwise.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    
+</body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Pixel Shader Instructions</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_instructions_graphics"></A>Pixel Shader Instructions</H1>
+
+<P>There are two main categories of operations understood by the Direct3DX compiler for the pixel shader: pixel color and alpha blending operations and texture addressing operations. The assembler represents these operations using instructions. Pixel color and alpha blending operations modify color data, and texture addressing operations affect and process texture coordinate data. All of the pixel shader instructions are performed on a per-pixel basis (that is, they have no knowledge of other pixels in the pipeline).
+
+<UL>
+	<LI><A HREF="_dx_color_and_alpha_blending_instructions_graphics.htm">Color and Alpha Blending Instructions</A></LI>
+
+	<LI><A HREF="_dx_version_and_constant_definition_instructions_graphics.htm">Version and Constant Definition Instructions</A></LI>
+
+	<LI><A HREF="_dx_texture_addressing_instructions_graphics.htm">Texture Addressing Instructions</A></LI>
+</UL>
+
+<P>The blending operations can be used for independent processing of RGB color and scalar alpha. In most cases, pixel blending (color or alpha) operations can support both a color and an alpha instruction in one slot.</P>
+
+<P>Implementations must support programs of at least eight blending instructions and four addressing instructions to be compliant. </P>
+
+<P>Texture addressing operations each consume one slot, but pixel blending (color and alpha) operations can be paired to enable both a color and a alpha instruction in a single slot. In Microsoft&#174; DirectX&#174; 8.0, the texture addressing instructions must precede the color blending instructions.</P>
+
+<P>The syntax for texture address perturbation operation is included within the shader program itself in the form of texture declarations. These control how address perturbation operations are applied to the color values sampled from the textures during their preloading into the temporary register file for use in the body of the pixel shader.</P>
+
+</BODY>
+</HTML>

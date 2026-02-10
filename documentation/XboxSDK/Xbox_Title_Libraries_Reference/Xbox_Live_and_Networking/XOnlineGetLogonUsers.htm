@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineGetLogonUsers</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineGetLogonUsers</h1>
+<p>Retrieves the status of each user participating in a logon session, including the success or failure of user logons performed by <a href="XOnlineLogon.htm">XOnlineLogon</a>.</p>
+<pre class="syntax" xml:space="preserve"><b>PXONLINE_USER</b> <b>XOnlineGetLogonUsers(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+        <p>If the function fails, the return value is NULL.</p>
+		<p>If the function succeeds, the return value is an array of <a href="XONLINE_USER.htm">XONLINE_USER</a> structures that represent the status of each of the currently logged on users.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>Use the <b>XOnlineGetLogonUsers</b> function to determine the logon status of users specified in a call to <b>XOnlineLogon</b>.  Call <b>XOnlineGetLogonUsers</b> only after the logon task has returned XONLINE_S_LOGON_CONNECTION_ESTABLISHED.</p>
+
+<p>The <b>hr</b> member of each <b>XONLINE_USER</b> structure indicates the success or failure of that individual user's logon.  The <b>hr</b> member can be one of the following values:</p>
+
+
+<ul>
+<li>S_OK:  The user was successfully logged on, and has no messages.</li>
+<li>XONLINE_S_LOGON_USER_HAS_MESSAGE:  The user was successfully logged on, and has a dynamic message available for viewing.  The user should be given the option of rebooting into the accounts management section of the Xbox Dashboard in order to view the message.</li>
+<li>XONLINE_E_LOGON_USER_ACCOUNT_REQUIRES_MANAGEMENT:  The user cannot be successfully logged on.  The title will need to reboot the user into the accounts management section of the Xbox Dashboard, where the user can determine the reason for this failure and resolve the issue so they may participate in online game play.  Note that the failure may simply be caused by a required message that must be read.</li>
+</ul>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;When rebooting into the accounts management section of the Xbox Dashboard, the title should <i>not</i> close the logon task handle (by calling <a href="XOnlineTaskClose.htm">XOnlineTaskClose</a>) before calling <a href="x_jsk_xlaunchnewtitle.htm">XLaunchNewImage</a> to launch the Dashboard.  The title should have a valid, active Xbox Live session when rebooting into the dashboard, so that the Dashboard can use the logon state to determine user messages or other problems.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | 
+<a href="XOnlineLogon.htm">XOnlineLogon</a>,
+<a href="XONLINE_USER.htm">XONLINE_USER</a>
+</p>
+
+</body>
+</html>

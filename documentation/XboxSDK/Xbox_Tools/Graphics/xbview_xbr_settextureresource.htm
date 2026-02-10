@@ -1,0 +1,17 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XBR::SetTextureResource (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XBR::SetTextureResource (XbView)</h1>
+<pre class="clsCode">
+HRESULT SetTextureResource( DWORD iTextureStage, DWORD TextureResourceIndex );
+</pre>
+    <p>This function uses the <i>TextureResourceIndex</i> to determine which texture resource should be set. It gets the appropriate texture and sets it at texture stage <i>iTextureStage</i> using <a href="_dx_idirect3ddevice8_settexture_graphics.htm">IDirect3DDevice8::SetTexture</a>. If the <i>textureResourceIndex</i> is out of range, or the resource at the index is not a texture, the function returns a failure result. Otherwise, the function returns the result of the <b>IDirect3DDevice8::SetTexture</b> call. </p>
+</body>
+</html>

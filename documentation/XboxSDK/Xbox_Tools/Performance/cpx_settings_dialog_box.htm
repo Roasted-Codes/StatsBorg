@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>CPX Settings Dialog Box</title>
+</head>
+<body topmargin="0">
+
+
+<h1>CPX Settings Dialog Box</h1>
+<p>This dialog box is used to set symbol paths, the event sampled, and the frequency of the sampling.</p><p><img src="../../images/cpx_settings_dialog.jpg"></p><h2><a name="IDAAZ2AB"></a>Setting Symbol Paths</h2>
+<p>The symbol paths are used to resolve the symbols found while profiling. Multiple paths can be separated by a semicolon. Use this field if function names are not resolving when viewing results after a profiling session.</p><h2><a name="IDAGZ2AB"></a>Choosing the Sampling Event and Frequency</h2>
+<p>CPX supports the sampling of two different events: <b>Timer</b> and <b>Number of L2 Cache Misses</b>.</p><dl>
+<dt><b>Timer</b></dt>
+<dd><p>If the <b>Timer</b> event is used, sampling occurs every <i>threshold</i> clock cycles, where <i>threshold</i> is the value in the <b>Threshold</b> text box. The value in <b>Threshold</b> should be 2,000,000 or greater.</p></dd>
+
+<dt><b>Number of L2 Cache Misses</b></dt>
+<dd><p>If the <b>Number of L2 Cache Misses</b> event is used, sampling occurs periodically every <i>threshold</i> number of L2 data misses, where <i>threshold</i> is the value in the <b>Threshold</b> text box. The value in <b>Threshold</b> should be 40,960 or greater.</p>
+<p>The L2 data cache is a memory cache on the CPU used to minimize memory reads. An L2 data cache miss occurs when the CPU requests data that is not in the L2 cache, forcing it to go to memory for the data.</p>
+</dd>
+
+</dl>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ContentDownload Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ContentDownload Sample</h1>
+<p>Illustrates Xbox <i>Live</i> content enumeration for the hard disk and online servers.</p>
+
+<h2><a name="IDAFPUM"></a>Overview</h2>
+<p>The sample demonstrates content download, online content details, content purchase, subscription purchase and
+	cancellation, installation, verification, hard-disk content metadata and content removal.</p><h2><a name="IDA3OUM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Networking\ContentDownload</p><h2><a name="IDATOUM"></a>Remarks</h2>
+<p>Copy the media tree to the target machine before running this sample.</p><p>If installation is canceled, the title must handle removing the content that was installed. 
+	Therefore, this sample demonstrates how to properly handle installation cancellation.</p><p>The sample assumes that all subscriptions are needed only once, and attempts to cancel them if their 
+	instance count is above 0.</p><p>Once a piece of content has been purchased, it can be downloaded multiple times without being repurchased 
+	(even if it has been deleted). Note that content ownership is Xbox specific, while subscriptions are user
+    specific. This means that if a user moves to a different Xbox, his subscriptions will be valid but any 
+	content must be repurchased for the other Xbox.</p>
+</body>
+</html>

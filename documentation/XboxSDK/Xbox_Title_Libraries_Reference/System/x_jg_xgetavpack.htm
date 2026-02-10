@@ -1,0 +1,80 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGetAVPack</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="XGetAVPack">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_xbox_xgetavpack"></A>XGetAVPack</H1>
+
+<P>The <B>XGetAVPack</B> function returns a value indicating the type of AV pack currently connected to the Xbox console.</P>
+
+<PRE class=syntax><B>DWORD XGetAVPack();</B></PRE>
+
+<H4>Parameters</H4>
+
+<p>This function has no parameters.</p>
+
+<H4>Return Values</H4>
+
+<p>The function returns one of the following values to indicate the currently connected AV pack type:</p>
+
+<table>
+<tr>
+<th align=left>Value</th>
+<th align=left>Meaning</th>
+</tr>
+
+<tr>
+<td>XC_AV_PACK_SCART</td>
+<td>Xbox Advanced SCART AV Pack</td>
+</tr>
+
+<tr>
+<td>XC_AV_PACK_HDTV</td>
+<td>Xbox High Definition AV Pack</td>
+</tr>
+
+<tr>
+<td>XC_AV_PACK_RFU</td>
+<td>Xbox RF Adapter</td>
+</tr>
+
+<tr>
+<td>XC_AV_PACK_SVIDEO</td>
+<td>Xbox Advanced AV Pack</td>
+</tr>
+
+<tr>
+<td>XC_AV_PACK_STANDARD</td>
+<td>Xbox Standard AV Cable</td>
+</tr>
+
+</table>
+
+<h4>Remarks</h4>
+
+<p>When a new AV pack is inserted, the Xbox console may reboot in order to reset the audio and video signals.  If the new and previous AV packs are of the same or similar type, a reboot is not required.</p>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Xbox.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+
+<H4>See Also</H4>
+<P>
+<A HREF="x_mt_settings_functions.htm">Settings Functions</a> |
+<a href="x_jg_xgetvideoflags.htm">XGetVideoFlags</a>,
+<a href="x_jg_xgetvideostandard.htm">XGetVideoStandard</a>,
+<a href="x_jg_xgetaudioflags.htm">XGetAudioFlags</a>
+</P>
+
+
+</BODY>
+</HTML>

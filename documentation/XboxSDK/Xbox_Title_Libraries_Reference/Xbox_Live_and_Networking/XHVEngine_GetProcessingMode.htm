@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::GetProcessingMode</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::GetProcessingMode</h1>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetProcessingMode(</b>
+    <b>DWORD</b> <i>dwLocalPort</i><b>,</b>
+    <b>XHV_PROCESSING_MODE</b> *<i>pProcessingMode</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwLocalPort</i></dt>
+<dd>[in]  Controller port of the local talker.</dd>
+
+	<dt><i>pProcessingMode</i></dt>
+<dd>[in]  An XHV_PROCESSING_MODE value returned.  See the <a href="XHVEngine_SetProcessingMode.htm">SetProcessingMode</a> function for a list of possible values.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

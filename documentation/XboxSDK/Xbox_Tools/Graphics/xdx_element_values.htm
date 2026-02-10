@@ -1,0 +1,60 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>values Element</title>
+</head>
+<body topmargin="0">
+
+
+<h1>values Element</h1>
+<p>The &lt;<b>values</b>&gt; element groups the data used for animation.</p>
+<pre class="syntax" xml:space="preserve">&lt;values/&gt;</pre>
+<h4>Required Attributes</h4>
+<p>None.</p><h4>Optional Attributes</h4>
+<p>None.</p><h4>Element Information</h4>
+<table>
+<tr>
+<td><b>Parent Elements</b></td>
+<td><a href="xdx_element_rotate.htm">rotate</a>, <a href="xdx_element_scale.htm">scale</a>, <a href="xdx_element_translate.htm">translate</a></td>
+</tr>
+<tr>
+<td><b>Child Elements</b></td>
+<td>None.</td>
+</tr>
+</table>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The nature of the data enclosed by &lt;<b>values</b>&gt; is dependent on its parent element.</p>
+
+<table>
+<tr>
+<th>Parent Element</th>
+<th>Types of Data</th>
+</tr>
+
+<tr>
+<td>&lt;<a href="xdx_element_translate.htm">translate</a>&gt;</td>
+<td>Groups of three space-delimited floating-point values comprising the translation vector.</td>
+</tr>
+
+<tr>
+<td>&lt;<a href="xdx_element_rotate.htm">rotate</a>&gt;</td>
+<td>Groups of four space-delimited floating-point values comprising the rotation quaternion.</td>
+</tr>
+
+<tr>
+<td>&lt;<a href="xdx_element_scale.htm">scale</a>&gt;</td>
+<td>Groups of three space-delimited floating-point values comprising the x, y, and z scaling factors.</td>
+</tr>
+</table>
+
+<p>Each group of values needs to have a corresponding key time value in the sibling &lt;<a href="xdx_element_keytimes.htm">keyTimes</a>&gt; element.</p>
+
+<p>For examples on how this element is used in actual animations, see <a href="xdx_element_translate.htm#animation">Translations With Animation</a>, <a href="xdx_element_animate.htm#animation">Rotations With Animation</a>, and <a href="xdx_element_scale.htm#animation">Scaling With Animation</a></p>
+
+<h4><a name="seealso"></a>See Also</h4>
+<p><a href="xdx_element_translate.htm#animation">Translations With Animation</a>, <a href="xdx_element_animate.htm#animation">Rotations With Animation</a>, <a href="xdx_element_scale.htm#animation">Scaling With Animation</a></p>
+
+</body>
+</html>

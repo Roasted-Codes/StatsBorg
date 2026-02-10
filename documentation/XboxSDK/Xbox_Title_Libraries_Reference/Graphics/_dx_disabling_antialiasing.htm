@@ -1,0 +1,52 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Disabling Antialiasing</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1>Disabling Antialiasing</H1>
+
+<p>There are two ways to turn off antialiasing after it has been enabled. The first method is to reset the device using <a href="_dx_idirect3ddevice8_reset_graphics.htm">IDirect3DDevice8::Reset</a> and specify D3DMULTISAMPLE_NONE for the <b>MultiSampleType</b> member of <a href="_dx_d3dpresent_parameters_graphics.htm">D3DPRESENT_PARAMETERS</a>.
+
+Depending on the situation, you may not want to reset the device. Perhaps antialiasing only needs to be turned off for some selected frames.
+
+<p>The second method of disabling antialiasing is to use the <a href="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_multisamplemode_graphics">D3DRS_MULTISAMPLEMODE</a> render state and <a href="_dx_idirect3ddevice8_setbackbufferscale_graphics.htm">IDirect3DDevice8::SetBackBufferScale</a>.<p>
+
+<p>Disabling antialiasing should be done before any rendering calls, right after the previous call to <a href="_dx_idirect3ddevice8_swap_graphics.htm">Swap</a> or <a href="_dx_idirect3ddevice8_present_graphics.htm">Present</a>.</p>
+<p>If supersampling is being used, simply disable antialiasing by calling <b>SetBackBufferScale</b> with a scale appropriate to the size of the sampling. Here are some examples:</p>
+
+<pre>// Assume that pDevice is a valid pointer to the
+// IDirect3DDevice8 interface.
+
+// Example 1. The title is doing 2x horizontal supersampling.
+pDevice-&gt;SetBackBufferScale( 0.5f, 1.0f );
+
+// Example 2. The title is doing 4x supersampling.
+pDevice-&gt;SetBackBufferScale( 0.5f, 0.5f );
+
+// Example 3. The title is doing 9x supersampling.
+pDevice-&gt;SetBackBufferScale( 0.3333333f, 0.3333333f );</pre>
+
+<p>If title is using multisampling, then it is necessary to use both D3DRS_MULTISAMPLEMODE and <b>SetBackBufferScale</b> to disable the antialiasing. Here are some more examples:</p>
+
+<pre>// Assume that pDevice is a valid pointer to the
+// IDirect3DDevice8 interface.
+
+// Example 1. The title is doing 4x multisampling.
+// pDevice-&gt;SetRenderState( D3DRS_MULTISAMPLEMODE, D3DMULTISAMPLEMODE_1X );
+// pDevice-&gt;SetBackBufferScale( 0.5f, 0.5f );
+
+// Example 2. The title is doing 2x multisampling.
+// pDevice-&gt;SetRenderState( D3DRS_MULTISAMPLEMODE, D3DMULTISAMPLEMODE_1X );
+// pDevice-&gt;SetBackBufferScale( 0.5f, 1.0f );</pre>
+
+<p>Changing the multisample mode has the effect of changing the ratio of the sample size to the number of pixels sent to the pixel shader. With a multisample mode of D3DMULTISAMPLEMODE_4X, the sample size will be four and a single pixel will be sent to the pixel shader. With a multisample mode of D3DMULTISAMPLEMODE_1X, the sampling size will be one and a single pixel will be sent on the pixel shader. Setting the mode to D3DMULTISAMPLEMODE_1X turns off multisampling and effectively turns on supersampling, which is why it is necessary to call <b>SetBackBufferScale</b>.</p>
+
+
+</BODY>
+</HTML>

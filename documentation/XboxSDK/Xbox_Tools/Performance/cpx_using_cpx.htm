@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Using CPX</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Using CPX</h1>
+<p>The process of using CPX is fairly straightforward. The following example is designed to familiarize you with the tool.</p><ol>
+<li>Using a debug configuration, compile and deploy the <a href="xbox_jbh_samp_gra_dolphinclassic.htm">DolphinClassic</a> sample. In a default installation, the sample is in:
+
+<pre class="clsCode">
+C:\Program Files\Microsoft Xbox SDK\Samples\Xbox\Graphics\DolphinClassic
+</pre>
+    </li>
+<li>Using the XDK Launcher, start the sample running.</li>
+<li>From the <b>Start</b> menu, run CPX. It is located under <b>Programs</b>, <b>Microsoft Xbox SDK</b>, <b>CPU Profiler for Xbox</b>.</li>
+<li>From the CPX <b>File</b> menu, select <b>Record</b>. This launches the <b>Record</b> dialog box.</li>
+<li>To set the path to the debug symbols and choose a sampling method, click <b>Settings</b>, which launches the <b>Settings</b> dialog box.</li>
+<li>Type the path to the symbols in the <b>Symbols Path</b> text box. In this example, type:
+
+<pre class="clsCode">
+C:\Program Files\Microsoft Xbox SDK\Samples\Xbox\Graphics\DolphinClassic\Debug
+</pre>
+    
+<p>In general, the path should include both the location of the .pdb and .exe files.</p></li>
+<li>Choose the Timer event in the <b>Event Name</b> drop down list and make sure that the threshold is set to 2000000.</li>
+<li>Click <b>OK</b> to close the <b>Settings</b> dialog box.</li>
+<li>Click <b>Start</b> to begin profiling. The <b>Status</b> pane will update to show the elapsed sampling time, the total number of samples, and the number of overhead interrupts.</li>
+<li>Click <b>Stop</b> to stop the profiling session.</li>
+<li>Use the <a href="cpx_topx_view.htm">TopX View</a> and <a href="cpx_call_stack_view.htm">Call Stack View</a> to investigate the profiling of the title.</li>
+
+</ol>
+
+</body>
+</html>

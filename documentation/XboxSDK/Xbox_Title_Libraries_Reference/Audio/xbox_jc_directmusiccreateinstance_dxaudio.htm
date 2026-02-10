@@ -1,0 +1,48 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DirectMusicCreateInstance</TITLE>
+<META NAME="MS-HKWD" CONTENT="DirectMusicCreateInstance  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_directmusiccreateinstance_dxaudio"></A>DirectMusicCreateInstance</H1>
+
+<P>Creates a DirectMusic object.</P>
+
+<PRE class=syntax><B>HRESULT DirectMusicCreateInstance(</B>
+<B>  REFCLSID  </B><I>clsid</I><B>,</B>
+<B>  LPUNKNOWN  </B><I>pUnkOuter</I><B>,</B>
+<B>  REFIID  </B><I>*iid</I><B>,</B>
+<B>  LPVOID  </B><I>*ppvInterface</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>clsid</I></DT>
+<DD>Class ID of the instance to be created.</DD>
+
+<DT><I>pUnkOuter</I></DT>
+<DD>Pointer to unknown.  Must be NULL.</DD>
+
+<DT><I>iid</I></DT>
+<DD>Pointer to IID.</DD>
+
+<DT><I>ppvInterface</I></DT>
+<DD>Pointer to interface returned.</DD>
+
+</DL>
+
+<H4>Remarks</H4>
+<P><B>DirectMusicCreateInstance</B> provides a replacement for the COM function <B>CoCreateInstance</B>, which is not supported on the Xbox.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dmusici.h.</P>
+
+
+</BODY>
+</HTML>

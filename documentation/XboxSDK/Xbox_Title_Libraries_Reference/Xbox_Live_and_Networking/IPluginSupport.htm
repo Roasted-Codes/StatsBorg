@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IPluginSupport::IPluginSupport</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IPluginSupport</h1>
+<p><b>IPluginSupport</b> provides Xbox Drop-in UI engine support functions to custom <a href="ITitleUIPlugin.htm">ITitleUIPlugin</a> plug-ins.  UI plug-ins use the support functions primarily to obtain skin file information.</p>
+<p>The <b>IPluginSupport</b> interface is passed to <a href="ITitleUIPlugin_SetPluginSupport.htm">ITitleUIPlugin::SetPluginSupport</a> by the engine when the UI plug-in is registered with <a href="ILiveEngine_SetUIPlugin.htm">ILiveEngine::SetUIPlugin</a>.</p>
+<table>
+<tr>
+<td><b>IPluginSupport methods</b></td>
+<td><a href="IPluginSupport_GetImage.htm">GetImage</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="IPluginSupport_GetLayout.htm">GetLayout</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="IPluginSupport_GetScreenImage.htm">GetScreenImage</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="IPluginSupport_GetString.htm">GetString</a></td>
+</tr>
+<tr>
+<td></td>
+<td><a href="IPluginSupport_GetWordLength.htm">GetWordLength</a></td>
+</tr>
+</table>
+<p>The <b>IPluginSupport</b> interface also supports the <a href="_dx_iunknown_addref_dxintro.htm"><b>AddRef</b></a> and <a href="_dx_iunknown_release_dxintro.htm"><b>Release</b></a> methods. The <b>QueryInterface</b> method is not supported on Xbox.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

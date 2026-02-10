@@ -1,0 +1,44 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicSegment8::GetClockTimeLength</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectMusicSegment8::GetClockTimeLength [C++]">
+<META NAME="MS-HKWD" CONTENT="GetClockTimeLength (IDirectMusicSegment8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetClockTimeLength [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectmusicsegment8_getclocktimelength_dxaudio"></A>IDirectMusicSegment8::GetClockTimeLength</H1>
+
+<P>Retrieves the length of the segment in REFERENCE_TIME.</P>
+
+<PRE class="syntax"><B>HRESULT GetClockTimeLength(</B>
+    <B>REFERENCE_TIME</B> <I>*prtLength</I>,
+    <B>BOOL</B> <I>*pfClockTime</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>prtLength</I></DT>
+    <DD>Address of a REFERENCE_TIME value that receives the segment length if it is using clock time, zero if it is using music time.</DD>
+<DT><I>pfClockTime</I></DT>
+    <DD>Address of a Boolean value that indicates whether the REFERENCE_TIME length is being used by the segment. TRUE indicates that the REFERENCE_TIME value received by the <I>prtLength</I> parameter is being used. FALSE indicates that the MUSIC_TIME value is being used.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dmusici.h.</P>
+
+<H4>See Also</H4>
+<P><A HREF="xbox_idirectmusicsegment8_setclocktimelength_dxaudio.htm"><B>IDirectMusicSegment8::SetClockTimeLength</B></A></P>
+
+
+</BODY>
+</HTML>

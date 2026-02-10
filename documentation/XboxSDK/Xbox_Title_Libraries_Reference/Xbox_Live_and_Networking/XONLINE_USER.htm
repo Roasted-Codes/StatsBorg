@@ -1,0 +1,156 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_USER</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_USER</h1>
+
+        
+        
+<p>Contains information about an online user.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    XUID xuid;
+    CHAR szGamertag[XONLINE_GAMERTAG_SIZE];
+    DWORD dwUserOptions;
+    BYTE passcode[XONLINE_PASSCODE_LENGTH];
+    BYTE reserved[XONLINE_USER_RESERVED_SIZE];
+    HRESULT hr;
+} XONLINE_USER, *PXONLINE_USER;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>xuid</b></dt>
+<dd> <a href="xuid.htm">XUID</a> structure that contains information about the user.</dd>
+            <dt><b>szGamertag</b></dt>
+<p>
+                    <dd>
+                        Null-terminated string that contains the user's Gamertag. The format 
+                        of the Gamertag must adhere to the following rules:
+                    </dd>
+                    <ul>
+                        <li>Minimum of one character in length.</li>
+                        <li>Maximum of 15 characters in length.</li>
+                        <li>Can include only the following characters: A&#8211;Z,
+						    a&#8211;z, 0&#8211;9, and [space].</li>
+                        <li>Cannot begin with a [space] character.</li>
+                        <li>Cannot have multiple contiguous [space] characters.</li>
+                        <li>Must begin with an alphabetic character (A&#8211;Z, a&#8211;z).</li>
+                        <li>Cannot end with space.</li>
+                    </ul>
+                    <p>
+                        The Gamertag is case insensitive for comparisons, but case should be preserved 
+                        when stored.  For example, Ubba and UBBA are the same and hence cannot both 
+                        exist as accounts in the system, but which ever one was entered into the system, 
+                        the case is preserved.
+                    </p>
+
+                </p>
+            <dt><b>dwUserOptions</b></dt>
+<dd>Value that specifies user options. Can be a combination of the following values:</dd>
+
+                <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                    <tr>
+<td>XONLINE_USER_OPTION_CAME_FROM_MU</td>
+<td>
+                        Indicates the user account information came from an Xbox Memory Unit (MU).
+                    </td>
+</tr>
+                    <tr>
+<td>XONLINE_USER_OPTION_REQUIRE_PASSCODE</td>
+<td>
+                        Indicates the user requires a pass code to log on.
+                    </td>
+</tr>
+                </table>
+
+                <p>For a user account that came from an Xbox MU, you can use the following values to determine the port and slot associated with that user.</p>
+                <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                    <tr>
+<td>XONLINE_USER_OPTION_MU_PORT_MASK</td>
+<td>
+                        Value to use with <b>dwUserOptions</b> to determine the port associated with the user.
+                    </td>
+</tr>
+                    <tr>
+<td>XONLINE_USER_OPTION_MU_PORT_SHIFT</td>
+<td>
+                        Value to shift right after using the XONLINE_USER_OPTION_MU_PORT_MASK value.
+                    </td>
+</tr>
+                    <tr>
+<td>XONLINE_USER_OPTION_MU_SLOT_MASK</td>
+<td>
+                        Value to use with <b>dwUserOptions</b> to determine the slot associated with the user.
+                    </td>
+</tr>
+                    <tr>
+<td>XONLINE_USER_OPTION_MU_SLOT_SHIFT</td>
+<td>
+                        Value to shift right after using the XONLINE_USER_OPTION_MU_SLOT_MASK value.
+                    </td>
+</tr>
+                </table>
+
+            <dt><b>passcode</b></dt>
+<dd>Array of <b>BYTE</b> values that contain the pass code used to authorize access to this user account. If the <b>dwUserOptions</b> member does not contain the XONLINE_USER_OPTION_REQUIRE_PASSCODE flag, this member is ignored.</dd>
+            <dt><b>reserved</b></dt>
+<dd>Reserved. Do not use.</dd>
+            <dt><b>hr</b></dt>
+<dd> <b>HRESULT</b> value that is used to report any warnings or errors specific to this user after sign-in.</dd> <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                    <tr>
+<td>XONLINE_S_LOGON_USER_HAS_MESSAGE</td>
+<td>
+                        The sign-in succeeded, but the user has at least one unread Xbox <i>Live</i> message. The title must provide the option of booting into the Xbox Dashboard to allow the user to view the message. Use <a href="x_jsk_xlaunchnewtitle.htm">XLaunchNewImage</a> with a reason code of XLD_LAUNCH_DASHBOARD_ACCOUNT_MANAGEMENT to boot to the Dashboard.
+                    </td>
+</tr>
+                    <tr>
+<td>XONLINE_E_LOGON_USER_ACCOUNT_REQUIRES_MANAGEMENT</td>
+<td>
+                        The sign-in failed because of a problem with the user's account. The title must provide the option of booting into the Xbox Dashboard to allow the user to address the problem. Use <b>XLaunchNewImage</b> with a reason code of XLD_LAUNCH_DASHBOARD_ACCOUNT_MANAGEMENT to boot to the Dashboard.
+                    </td>
+</tr>
+
+                </table>
+            
+        </dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+            <p>Use the <a href="XOnlineGetUsers.htm">XOnlineGetUsers</a> function to obtain an array of <a href="XONLINE_USER.htm">XONLINE_USER</a> structures that contain user information stored on the local Xbox console's hard disk or in memory units.</p>
+            <p>Use the <a href="XOnlineGetLogonUsers.htm">XOnlineGetLogonUsers</a> function to obtain an array of <a href="XONLINE_USER.htm">XONLINE_USER</a> structures for users that are currently logged on.</p>
+            <p>Use the <a href="XOnlineAreUsersIdentical.htm">XOnlineAreUsersIdentical</a> macro to determine if two different <b>XONLINE_USER</b> structures represent the same user.</p>
+        
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XOnline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+            <p> <a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineGetLogonUsers.htm">XOnlineGetLogonUsers</a>, <a href="XOnlineGetUsers.htm">XOnlineGetUsers</a>, <a href="XOnlineLogon.htm">XOnlineLogon</a>, <a href="XOnlineAreUsersIdentical.htm">XOnlineAreUsersIdentical</a>, <a href="XOnlineIsUserGuest.htm">XOnlineIsUserGuest</a>, <a href="XOnlineIsUserNicknameAllowed.htm">XOnlineIsUserNicknameAllowed</a>, <a href="XOnlineIsUserPurchaseAllowed.htm">XOnlineIsUserPurchaseAllowed</a>, <a href="XOnlineIsUserVoiceAllowed.htm">XOnlineIsUserVoiceAllowed</a>, <a href="XOnlineSetUserGuestNumber.htm">XOnlineSetUserGuestNumber</a>, <a href="XOnlineUserGuestNumber.htm">XOnlineUserGuestNumber</a>, <a href="XOnlineUserCountryId.htm">XOnlineUserCountryId</a>, <a href="xuid.htm">XUID</a>, <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a></p>
+        
+
+        
+    </body>
+    </html>

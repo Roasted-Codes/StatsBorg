@@ -1,0 +1,36 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Full Write Mask</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_full_write_mask_graphics"></A>Full Write Mask</H1>
+
+<P><B>.rgba</B></P>
+
+<P>Requests that the same instruction be applied in both the color and alpha channels. This is the default, so no output mask needs to be specified to achieve the same result.</P>
+
+<P>For example, the following instruction</P>
+
+<PRE>mul r0, t0, v0
+</PRE>
+
+<P>is equivalent to</P>
+
+<PRE>mul r0.rgba, t0, v0
+</PRE>
+
+<P>which is also equivalent to the following instruction.</P>
+
+<PRE>  mul r0.rgb, t0, v0
++ mul r0.a,   t0, v0
+</PRE>
+
+<P>Note that even this last syntax takes only one clock due to pairing between the scalar and vector pipelines. For more information, see <A HREF="_dx_pixel_shader_assembler_reference_graphics.htm#_instruction_pairing">Pixel Shader Instruction Pairing</A>.</P>
+
+</BODY>
+</HTML>

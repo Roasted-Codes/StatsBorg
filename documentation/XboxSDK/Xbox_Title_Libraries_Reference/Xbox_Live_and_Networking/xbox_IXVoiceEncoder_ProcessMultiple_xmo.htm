@@ -1,0 +1,73 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXVoiceEncoder::ProcessMultiple</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXVoiceEncoder::ProcessMultiple</h1>
+<p>
+Compresses the data packets in the specified input array, and outputs the compressed data to the specified output array.
+</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>ProcessMultiple(</b>
+    <b>DWORD</b> <i>dwInputArraySize</i><b>,</b>
+    <b>LPCXMEDIAPACKET</b> <i>pInputPacketArray</i><b>,</b>
+    <b>DWORD</b> <i>dwOutputArraySize</i><b>,</b>
+    <b>LPCXMEDIAPACKET</b> <i>pOutputPacketArray</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+<dt><i>dwInputArraySize</i></dt>
+
+<dd>[in]  
+Number of elements in the array pointed to by the <i>pInputPacketArray</i> parameter.
+</dd>
+
+
+<dt><i>pInputPacketArray</i></dt>
+
+<dd>[in]  
+Pointer to an array of <a href="xbox_jc_xmediapacket_xmo.htm">XMEDIAPACKET</a> structures. The elements of this array contain the voice data to compress.
+</dd>
+
+
+<dt><i>dwOutputArraySize</i></dt>
+
+<dd>[in]  
+Number of elements in the array pointed to by the <i>pOutputPacketArray</i> parameter.
+</dd>
+
+
+<dt><i>pOutputPacketArray</i></dt>
+
+<dd>[out]  
+Pointer to an array of <b>XMEDIAPACKET</b> structures. The elements of this array receive the compressed output data.
+</dd>
+
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>Use the <a href="xbox_IXVoiceEncoder_GetCodecBufferSize_xmo.htm">IXVoiceEncoder::GetCodecBufferSize</a> method to determine the size of the buffers
+in the <b>elements</b> of the output array.</p>
+
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xvoice.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+
+<p>
+<a href="voice_chat_interfaces_xonline.htm">Voice Chat Interfaces</a> | 
+<a href="xbox_IXVoiceEncoder_xmo.htm">IXVoiceEncoder</a>
+</p>
+
+
+</body>
+</html>

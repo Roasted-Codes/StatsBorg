@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageDownloadAttachmentGetProgress</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageDownloadAttachmentGetProgress</h1>
+            <p>Reports the progress of downloading an attachment.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageDownloadAttachmentGetProgress(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hDownloadTask</i><b>,</b>
+    <b>DWORD</b> *<i>pdwPercentDone</i><b>,</b>
+    <b>ULONGLONG</b> *<i>pqwNumerator</i><b>,</b>
+    <b>ULONGLONG</b> *<i>pqwDenominator</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>hDownloadTask</i></dt>
+				<dd>[in]  The task handle obtained from <a href="XOnlineMessageDownloadAttachmentToDirectory.htm">XOnlineMessageDownloadAttachmentToDirectory</a> or 
+				<a href="XOnlineMessageDownloadAttachmentToMemory.htm">XOnlineMessageDownloadAttachmentToMemory</a>.</dd>
+			
+            <dt><i>pdwPercentDone</i></dt>
+				<dd>[out, optional]  Address of a <b>DWORD</b>. Upon return, the <b>DWORD</b> 
+				contains a two-digit integer indicating the percentage of the download that has been completed.</dd>
+			
+            <dt><i>pqwNumerator</i></dt>
+				<dd>[out, optional]  Address of a <b>ULONGLONG</b> variable. 
+				<b>XOnlineMessageDownloadAttachmentGetProgress</b> can optionally report the percentage of the 
+				download that has been completed as a fraction. If the address in  <i>pqwNumerator</i> 
+				is not NULL, <b>XOnlineMessageDownloadAttachmentGetProgress</b> stores the numerator 
+				of the fraction in the <b>ULONGLONG</b> variable pointed to by 
+				<i>pqwNumerator</i>.</dd>
+			
+            <dt><i>pqwDenominator</i></dt>
+				<dd>[out, optional]  Address of a <b>ULONGLONG</b> variable. 
+				<b>XOnlineMessageDownloadAttachmentGetProgress</b> can optionally report the percentage of the 
+				download that has been completed as a fraction. If the address in  <i>pqwDenominator</i> 
+				is not NULL, <b>XOnlineMessageDownloadAttachmentGetProgress</b> stores the denominator 
+				of the fraction into the <b>ULONGLONG</b> variable pointed to by 
+				<i>pqwDenominator</i>.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p> <a href="XOnlineMessageDownloadAttachmentToDirectory.htm">XOnlineMessageDownloadAttachmentToDirectory</a>, <a href="XOnlineMessageDownloadAttachmentToMemory.htm">XOnlineMessageDownloadAttachmentToMemory</a></p>
+        
+</body>
+</html>

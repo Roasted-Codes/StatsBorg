@@ -1,0 +1,55 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGPlaneTransform</TITLE>
+<META NAME="MS-HKWD" CONTENT="XGPlaneTransform">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxplanetransform_graphicsd3dx"></A>XGPlaneTransform</H1>
+
+<P>Transforms a plane by a given matrix.</P>
+
+<PRE class=syntax><B>XGPLANE* XGPlaneTransform(
+</B>  <B>XGPLANE* </B><I>pOut</I><B>,</B>
+<B>  CONST XGPLANE* </B><I>pP</I><B>,</B>
+<B>  CONST XGMATRIX*</B><I> pM</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to the <A HREF="xgraphics_xgplane.htm"><B>XGPLANE</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pP</I></DT>
+
+<DD>[in] Pointer to the source <B>XGPLANE</B> structure.</DD>
+
+<DT><I>pM</I></DT>
+
+<DD>[in] Pointer to the source <A HREF="xgraphics_xgmatrix.htm"><B>XGMATRIX</B></A> structure.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Pointer to a <B>XGPLANE</B> structure, representing the transformed plane.</P>
+
+<H4>Remarks</H4>
+
+<P>The matrix, <I>pM</I>, must be an affine transform. </P>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>XGPlaneTransform</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgmath.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use xgraphics.lib.</P>
+
+</BODY>
+</HTML>

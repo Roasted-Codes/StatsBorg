@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXQUATERNION Extensions</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXQUATERNION Extensions">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxquaternion_extensions_graphicsd3dx"></A>D3DXQUATERNION Extensions</H1>
+
+<P>Supplies the following operator overloads and type casts for <A HREF="_dx_d3dxquaternion_graphicsd3dx.htm"><B>D3DXQUATERNION</B></A> structures.</P>
+
+<PRE class=syntax>#ifdef __cplusplus
+public:
+    D3DXQUATERNION() {}
+    D3DXQUATERNION( CONST FLOAT * );
+    D3DXQUATERNION( FLOAT x, FLOAT y, FLOAT z, FLOAT w );
+
+    // casting
+    operator FLOAT* ();
+    operator CONST FLOAT* () const;
+
+    // assignment operators
+    D3DXQUATERNION&amp; operator += ( CONST D3DXQUATERNION&amp; );
+    D3DXQUATERNION&amp; operator -= ( CONST D3DXQUATERNION&amp; );
+    D3DXQUATERNION&amp; operator *= ( CONST D3DXQUATERNION&amp; );
+    D3DXQUATERNION&amp; operator *= ( FLOAT );
+    D3DXQUATERNION&amp; operator /= ( FLOAT );
+
+    // unary operators
+    D3DXQUATERNION  operator + () const;
+    D3DXQUATERNION  operator - () const;
+
+    // binary operators
+    D3DXQUATERNION operator + ( CONST D3DXQUATERNION&amp; ) const;
+    D3DXQUATERNION operator - ( CONST D3DXQUATERNION&amp; ) const;
+    D3DXQUATERNION operator * ( CONST D3DXQUATERNION&amp; ) const;
+    D3DXQUATERNION operator * ( FLOAT ) const;
+    D3DXQUATERNION operator / ( FLOAT ) const;
+
+    friend D3DXQUATERNION operator * (FLOAT, CONST D3DXQUATERNION&amp; );
+
+    BOOL operator == ( CONST D3DXQUATERNION&amp; ) const;
+    BOOL operator != ( CONST D3DXQUATERNION&amp; ) const;
+
+#endif //__cplusplus
+</PRE>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8mesh.h.</P>
+
+</BODY>
+</HTML>

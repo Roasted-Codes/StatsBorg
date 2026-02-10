@@ -1,0 +1,49 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::GetPersistedSurface</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_getpersistedsurface_graphics"></A>IDirect3DDevice8::GetPersistedSurface</H1>
+
+<P>Retrieves a surface that holds the bits being displayed after a call to <A HREF="_dx_idirect3ddevice8_persistdisplay_graphics.htm"><B>IDirect3DDevice8::PersistDisplay</B></A>.</P>
+
+<PRE class=syntax><B>HRESULT GetPersistedSurface(
+   IDirect3DSurface8</B> <I>**ppSurface</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>ppSurface</I></DT>
+
+<DD>[out, retval] Address of a pointer to an <a href="_dx_idirect3dsurface8_graphics.htm"><b>IDirect3DSurface8</b></a> interface, representing the returned persistent surface.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<p>If the method succeeds, the return value is D3D_OK.</p>
+<p>If <B>PersistDisplay</B> has not been called since the last <B>Present</B> call, there is no persistent surface and the pointer returned is NULL.</p>
+<p>The persistent surface exists only until the next call to <a href="_dx_idirect3ddevice8_present_graphics.htm"><b>IDirect3DDevice8::Present</b></a>. The pointer returned from <b>GetPersistentSurface</b> is no longer valid after <b>IDirect3DDevice8::Present</b> has been called.</p>
+<p>The persistent surface should not be modified in any way. The graphics hardware refreshes the display directly from this buffer, and any attempt to modify its contents may result in display tearing or other problems.</p>
+
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;Unlike other Direct3D functions such as <a href="_dx_idirect3ddevice8_getbackbuffer_graphics.htm"><b>IDirect3DDevice8::GetBackBuffer</b></a>, calling this method will not increase the internal reference count on the returned <b>IDirect3DSurface8</b> interface. The persistent surface is not reference-counted and only exists until the next call to <b>Present</b>.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirect3ddevice8_persistdisplay_graphics.htm"><B>IDirect3DDevice8::PersistDisplay</B></A></P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMatchSearchResultsLen</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMatchSearchResultsLen</h1>
+<p>
+            Returns the size in bytes of 
+            the results returned by the <a href="XOnlineMatchSearch.htm">XOnlineMatchSearch</a> function. Pass this size 
+            as the value of the <i>dwResultsLen</i> parameter to the <b>XOnlineMatchSearch</b> 
+            function.
+        </p>
+<pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>XOnlineMatchSearchResultsLen(</b>
+    <b>DWORD</b> <i>dwNumResults</i><b>,</b>
+    <b>DWORD</b> <i>dwNumSessionAttributes</i><b>,</b>
+    <b>const XONLINE_ATTRIBUTE_SPEC</b> *<i>pSessionAttributeSpec</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+            <dt><i>dwNumResults</i></dt>
+                <dd>[in]  
+Number of search results to retrieve.
+                </dd>
+
+            
+            <dt><i>dwNumSessionAttributes</i></dt>
+                <dd>[in]  
+Number of <a href="XONLINE_ATTRIBUTE_SPEC.htm">XONLINE_ATTRIBUTE_SPEC</a> structures pointed to by
+the <i>pSessionAttributeSpec</i> parameter.
+                </dd>
+
+            
+            <dt><i>pSessionAttributeSpec</i></dt>
+                <dd>[in]  
+Pointer to an array of <a href="XONLINE_ATTRIBUTE_SPEC.htm">XONLINE_ATTRIBUTE_SPEC</a> structures that
+contain the attributes returned by the stored procedure on the matchmaking 
+server.
+                </dd>
+
+            
+
+        </dl>
+<h4><a name="return"></a>Return Values</h4>The return value is the size in bytes of the results 
+        returned by the <b>XOnlineMatchSearch</b> function.<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+
+            <p>
+                <a href="xbox_online_matchmaking.htm">Matchmaking Overview</a> | <a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="XOnlineMatchSearchParse.htm">XOnlineMatchSearchParse</a>
+            </p>
+
+        
+</body>
+</html>

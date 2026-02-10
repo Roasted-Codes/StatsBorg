@@ -1,0 +1,55 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XFindFirstSoundtrack</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="XFindFirstSoundtrack">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_xbox_XFindFirstSoundtrack"></A>XFindFirstSoundtrack</H1>
+
+<P>The <B>XFindFirstSoundtrack</B> function begins an enumeration of the soundtracks on the media and returns the first soundtrack.</P>
+
+<PRE class=syntax><B>HANDLE WINAPI XFindFirstSoundtrack(
+  PXSOUNDTRACK_DATA</b> <i>pSoundtrackData</i> 	
+<b>);</b>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pSoundtrackData</I></DT>
+<DD>[out] Pointer to an <a href="x_soundtrack_data.htm">XSOUNDTRACK_DATA</a> structure that receives information about the first soundtrack found.
+</DD>
+</dl>
+
+<H4>Return Values</H4>
+
+<p>If the function succeeds, the return value is a search handle that can be used in subsequent calls to <A HREF="x_xfindnextsoundtrack.htm">XFindNextSoundtrack</a>.</p>
+
+<p>If the function fails, the return value is INVALID_HANDLE_VALUE.</p>
+
+<H4>Remarks</H4>
+<B>XFindFirstSoundtrack</B> opens a search handle and returns information about the first soundtrack found. The search handle can then be used in <b>XFindNextSoundtrack</b> to continue enumeration of the available soundtracks. When the search handle is no longer needed, close it using the <A HREF="x_jsk_xfindclose.htm">XFindClose</a> function.
+
+
+<h4>Requirements</h4>
+
+<p><b>Header: </b>Declared in Xbox.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib</p>
+
+<H4>See Also</H4>
+<p>
+<a href="x_xfindnextsoundtrack.htm">XFindNextSoundtrack</a>,
+<A HREF="x_xgetsoundtracksonginfo.htm">XGetSoundtrackSongInfo</a>,
+<a href="x_xopensoundtracksong.htm">XOpenSoundtrackSong</a>
+<p>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>TitleServerClient Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>TitleServerClient Sample</h1>
+	<p>Demonstrates how to connect to a dedicated title server running in a datacenter.</p>
+<h2><a name="IDAMZUM"></a>Overview</h2>
+<p>This client connects to a sample title server running in the PartnerNet datacenter. The server merely acts 
+	as a UDP echo service. To run the sample, you must have a valid account on your Xbox and be running 
+	an output viewer such as Visual Studio .NET or XbWatson.</p><h2><a name="IDASZUM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Networking\TitleServerClient</p><h2><a name="IDAYZUM"></a>Remarks</h2>
+<p>Connecting to a title server is straightforward.  The first step is to include the title server 
+	service ID in the list of services passed to <a href="XOnlineLogon.htm">XOnlineLogon</a> during authentication. This ID is 
+	assigned by the Xbox <i>Live</i> Administrators and is typically the same as the ID 
+	assigned to the title.</p><p>After authentication succeeds, the title then calls <a href="XOnlineGetServiceInfo.htm">XOnlineGetServiceInfo</a> to obtain the title server 
+	Internet address and port. Once this is done, the title can create a socket and communicate with the service 
+	using the Winsock API.</p><p>Because game server development will most likely be done on a development system located outside 
+	the datacenter, this sample also demonstrates how to connect to a title server running on a development system.
+	If the USE_LOCAL_MACHINE preprocessor symbol is defined, the sample will connect to the machine 
+	whose IP address is identified by the global constants strHostAddress and PORT.  Please note that when 
+	connecting to the development PC, you will need to use the non-secure debug libraries.</p>
+</body>
+</html>

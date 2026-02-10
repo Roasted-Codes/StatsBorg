@@ -1,0 +1,53 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Setting Leaderboard Properties for Legacy Versions</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Setting Leaderboard Properties for Legacy Versions</h1>
+<p>Clicking on an individual leaderboard in the project tree in the 
+<b>Document View</b> window enables you to set the properties for that 
+leaderboard. The indvidual leaderboards support the following properties.</p><dl>
+	<dt><b>Reset Type</b></dt>
+	<dd>Indicates how often the leaderboards should be reset to zero. This can be
+	set to Never, Monthly, Bi-Monthly (every other month), Weekly, Bi-weekly (every 
+	other week), or Daily.</dd>
+
+	<dt><b>Maximum Number of Attachments</b></dt>
+	<dd>Specifies the maximum number of attachments any given leaderboard may have.</dd>
+
+	<dt><b>Maximum Attachments Size</b></dt>
+	<dd>Contains the maximum size, in bytes, of any single attachment.</dd>
+
+	<dt><b>Decay</b></dt>
+	<dd>Specifies the decay rate, in days, of the stats in the leaderboard. This 
+	information is used in conjunction with the Reset Type to determine when 
+	stats information is cleared from the leaderboard.</dd>
+
+	<dt><b>Attributes Visible on the Web</b></dt>
+	<dd>Selects which of the leaderboard's attributes are visible on the Web. These are 
+	displayed on the Web only if the leaderboard itself is visible on the Web. This property 
+	contains a list of attribute ID numbers, separated by commas.</dd>
+
+	<dt><b>Attributes Containing PUIDs</b></dt>
+	<dd>Contains a Passport User ID for the leaderboard. Currently, this property is not 
+	used by the Statistics Service API functions. It is provided for compatibility with 
+	future versions of the Statistics Service.</dd>
+	
+	<dt><b>Top 100</b></dt>
+	<dd>Specifies that this leaderboard contains only the top 100 rankings.</dd>
+
+	<dt><b>Localized Soureboard Title</b></dt>
+	<dd>Uses a drop-down list of locales to enable you to specify a set of localized 
+	leaderboard titles. You can add locales to this list by clicking 
+	<b>Manage Locales</b> on the project property page.</dd>
+</dl>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;You can renumber the currently-selected leaderboard by clicking on its ID number, and 
+then typing a new  number for it. Likewise, you can rename attributes by clicking on the 
+attribute name and typing a new name.</p>
+</body>
+</html>

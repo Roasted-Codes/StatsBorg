@@ -1,0 +1,41 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>tex</TITLE>
+<META NAME="MS-HKWD" CONTENT="tex">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_tex_graphics"></A>tex</H1>
+
+<P>Samples a color from the texture and copies it into the corresponding register with no modification applied to the addresses used for sampling. </P>
+
+<PRE class=syntax>tex   tDest
+</PRE>
+
+<H4>Registers</H4>
+
+<DL>
+<DT><B>tDest</B></DT>
+
+<DD>Destination register, holding the result of the operation.
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>Because this instruction is the default, the <B>tex</B> instruction is assumed for any textures whose sampling is not specified by other statements.</P>
+
+<P>The following example shows how this instruction might be used.</P>
+
+<PRE>tex r0    ; Declare register 0 as color from the
+          ; texture currently set at stage 0.
+</PRE>
+
+<P>Note that this instruction has an unnamed input which is the assigned texture that corresponds to this texture stage.</P>
+
+</BODY>
+</HTML>

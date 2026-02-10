@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Scene::Sort (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Scene::Sort (XbView)</h1>
+<p><b>Scene::Sort</b> implements a very rough alpha sort. All it does is push the models with alpha blending in them to the end of the list to draw. It does not try to sort based on depth. There is a parameter passed into sort that can enable a rigorous depth sort, but the code to do that sort does not yet exist. Since we don't do a rigorous sort, we only need to sort the list once. Once the models with alpha blending are at the end of the list, there is no need to resort the list. Thus, there is a member flag (<b>m_bIsAlphaSorted</b>) that informs us that the sort has been done. Once this flag is set to TRUE, further calls to <b>Scene::Sort</b> exit early. In this way, a rigorous sort is easily implemented when and if it is desired by simply setting this flag to FALSE whenever the camera is rotated. </p><p>The current sort is the standard STL list sort with the functor <b>CompareBaseSkeletonNodeLessThan</b>. Here's the source for the functor:</p>
+<pre class="clsCode">
+//-----------------------------------------------------------------------------
+// function object to compare two Skeletons based on Alpha
+class CompareBaseSkeletonNodeLessThan
+{
+public:
+   bool operator()(const BaseSkeletonNode *arg1, const BaseSkeletonNode *arg2) const
+   { 
+       return arg1-&gt;NodeHasAlpha() &lt; arg2-&gt;NodeHasAlpha(); 
+   }
+};
+</pre>
+    <p>The functor simply does a straight compare using the Boolean, which tells us if the node has any alpha blend requirement. </p>
+</body>
+</html>

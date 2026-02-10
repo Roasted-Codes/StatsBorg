@@ -1,0 +1,59 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>def</TITLE>
+<META NAME="MS-HKWD" CONTENT="def">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_def_graphics"></A>def</H1>
+
+<P>Provides a method to define constants to be used with the pixel shader.</P>
+
+<PRE class=syntax>def   vDest, fVal0, fVal1, fVal2, fVal3
+</PRE>
+
+<H4>Registers</H4>
+
+<DL>
+<DT><B>vDest</B></DT>
+
+<DD>Destination register, holding the result of the operation.</DD>
+
+<DT><B>fVal0</B></DT>
+
+<DD>Source register, specifying the input argument.</DD>
+
+<DT><B>fVal1</B></DT>
+
+<DD>Source register, specifying the input argument.</DD>
+
+<DT><B>fVal2</B></DT>
+
+<DD>Source register, specifying the input argument.</DD>
+
+<DT><B>fVal3</B></DT>
+
+<DD>Source register, specifying the input argument.
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>The following example illustrates how the <B>def</B> instruction might be used. Note that the <B>def</B> instruction must come before other shader instructions.</P>
+
+<p>Each of the input arguments must be between 0.0 and 1.0. Each component value is stored with 8-bit precision. </p>
+
+<PRE>Ps.1.0
+def c0, 0.0f, 0.0f, 0.0f, 1.0f
+def c7, 1.0f, 0.2f, 0.3f, 0.2f
+tex t0
+mov r0, t0</PRE>
+
+<P>These constants are defined in the instruction stream.</P>
+
+</BODY>
+</HTML>

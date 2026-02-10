@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>The Game Loop</title>
+</head>
+<body topmargin="0">
+
+
+<h1>The Game Loop</h1>
+<p>Here is the simple main loop that works in conjunction with the subroutines discussed in previous topics. Once initialization is complete, we enter the main loop.  <a href="xbox_xactenginedowork_dxaudio.htm">XACTEngineDoWork</a> is a function defined in the XACT libraries and is responsible for driving internal XACT processing (for example, sending notifications). After that, we're free to act on notifications received from XACT and input state changes received from the user.</p>
+<pre class="clsCode">
+//
+//  Main loop for XACT soundtrack sample
+//
+void main( void )
+{
+    CreateXACTEngine();
+    CreateSoundBank();
+    DownloadDSPEffectsImage();
+    RegisterXACTNotifications();
+    EnumerateSoundtracks();
+    SetXACTPlayList( 0 );
+    InitializeInput();
+
+    // Main Loop
+    while( TRUE )
+    {
+        XACTEngineDoWork();
+        ProcessXACTNotifications();
+        ProcessInput();
+    }
+}
+</pre>
+    <p>To successfully compile and link the code in the entire <b>Soundtrack Management Using XACT</b> section, you'll need to link with xactengi.lib and dsound.lib (or their equivalent debug versions).</p>
+
+</body>
+</html>

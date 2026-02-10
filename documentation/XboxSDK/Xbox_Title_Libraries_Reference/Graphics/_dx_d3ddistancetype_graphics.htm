@@ -1,0 +1,51 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>D3DDISTANCETYPE</title>
+</head>
+		
+    <body topmargin="0">
+        
+
+
+        <h1>D3DDISTANCETYPE</h1>
+
+                
+        
+<p>Used by <a href="_dx_idirect3ddevice8_getpushdistance_graphics.htm">IDirect3DDevice8::GetPushDistance</a> to determine how close the GPU is to idling or waiting.</p>
+                
+
+<pre class="syntax">typedef enum _D3DDISTANCETYPE{
+    D3DDISTANCE_FENCES_TOIDLE = 2,
+    D3DDISTANCE_FENCES_TOWAIT = 4,
+    D3DDISTANCE_FORCE_DWORD = 0x7fffffff,
+} D3DDISTANCETYPE;</pre>
+            
+
+            
+                <h4><a name="constants"></a>Constants</h4>
+<dl>
+            <dt><a name="D3DDISTANCE_FENCES_TOIDLE"></a>D3DDISTANCE_FENCES_TOIDLE</dt>
+                <dd><a href="_dx_idirect3ddevice8_getpushdistance_graphics.htm">GetPushDistance</a> will return the current number of fences that the GPU must process before it becomes idle.</dd>
+            
+			<dt><a name="D3DDISTANCE_FENCES_TOWAIT"></a>D3DDISTANCE_FENCES_TOWAIT</dt>
+                <dd><b>GetPushDistance</b> will return the current number of fences that the GPU must process before the resource being waited upon in the <a href="_dx_idirect3ddevice8_setwaitcallback_graphics.htm">IDirect3DDevice8::SetWaitCallback</a> callback is ready to be freed. If the GPU has already passed the waiting point, <b>GetPushDistance</b> would return zero.</dd>
+            
+			<dt><a name="D3DDISTANCE_FORCE_DWORD"></a>D3DDISTANCE_FORCE_DWORD</dt>
+                <dd>Forces this enumeration to compile to 32 bits in size. This value is not used.</dd>
+            
+        </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8typs.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_idirect3ddevice8_getpushdistance_graphics.htm">IDirect3DDevice8::GetPushDistance</a>, <a href="_dx_idirect3ddevice8_setwaitcallback_graphics.htm">IDirect3DDevice8::SetWaitCallback</a></p>
+
+        
+    </body>
+    </html>

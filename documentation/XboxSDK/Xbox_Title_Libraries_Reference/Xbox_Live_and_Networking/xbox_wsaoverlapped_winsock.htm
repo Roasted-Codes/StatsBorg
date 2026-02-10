@@ -1,0 +1,66 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>WSAOVERLAPPED</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="WSAOVERLAPPED">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="xbox_wsaoverlapped_winsock"></A>WSAOVERLAPPED</H1>
+
+<P>The <B>WSAOVERLAPPED</B> structure provides a communication medium between the initiation of an overlapped I/O operation and its subsequent completion.</P>
+
+<PRE class=syntax>typedef struct _WSAOVERLAPPED {
+  DWORD        Internal;
+  DWORD        InternalHigh;
+  DWORD        Offset;
+  DWORD        OffsetHigh;
+  WSAEVENT     hEvent;
+} WSAOVERLAPPED, *LPWSAOVERLAPPED;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>Internal</B></DT>
+
+<DD>Reserved for internal use. This member is used internally by the entity that implements overlapped I/O. For service providers that create sockets as installable file system (IFS) handles, this parameter is used by the underlying operating system. Other service providers (non-IFS providers) are free to use this parameter as necessary.</DD>
+
+<DT><B>InternalHigh</B></DT>
+
+<DD>Reserved. Used internally by the entity that implements overlapped I/O. For service providers that create sockets as IFS handles, this parameter is used by the underlying operating system. Non-IFS providers are free to use this parameter as necessary.</DD>
+
+<DT><B>Offset</B></DT>
+
+<DD>Reserved for use by service providers.</DD>
+
+<DT><B>OffsetHigh</B></DT>
+
+<DD>Reserved for use by service providers.</DD>
+
+<DT><B>hEvent</B></DT>
+
+<DD>A valid handle to a <B>WSAEVENT</B> object.
+</DD>
+</DL>
+
+<H4>Requirements</H4>
+<p>
+<b>Header: </b>Declared in winsockx.h, for include use Xtl.h.
+</p>
+
+
+<H4>See Also</H4>
+
+<P>
+<a href="xbox_winsock_overview_winsock.htm"><b>Winsock Overview</b></a>,
+<a href="xbox_winsock_structures_winsock.htm"><b>Winsock Structures</b></a> |
+<A HREF="xbox_wsasend_winsock.htm"><B>WSASend</B></A>, <A HREF="xbox_wsarecv_winsock.htm"><B>WSARecv</B></A>, <A HREF="xbox_wsagetoverlappedresult_winsock.htm"><B>WSAGetOverlappedResult</B></A></P>
+
+
+</BODY>
+</HTML>

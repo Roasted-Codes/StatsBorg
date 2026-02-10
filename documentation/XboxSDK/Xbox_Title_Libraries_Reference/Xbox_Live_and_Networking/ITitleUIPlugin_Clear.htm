@@ -1,0 +1,43 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleUIPlugin::Clear</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleUIPlugin::Clear</h1>
+<p>Destroys all items in the specified list box object.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>Clear(</b>
+    <b>DWORD</b> <i>ObjectID</i><b>,</b>
+    <b>BOOL</b> <i>ResetSelectionIndex</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>ObjectID</i></dt>
+<dd>[in]  Object identifier of the list box UI object to clear; must have been previously returned by a call to <a href="ITitleUIPlugin_CreateObject.htm">CreateObject</a>.</dd>
+<dt><i>ResetSelectionIndex</i></dt>
+<dd>[in]  Value indicating whether the selection index for the list box should be reset.  If this value is TRUE, the plug-in should call <a href="ITitleUIPlugin_SetObjectState.htm">SetObjectState</a> to set the UIX_OBJSTATE_LIST_SELECTION_INDEX state to zero.  If FALSE, the selection index for the list box is retained.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>To remove an item from a list, the engine clears all items in the list (by calling the <b>Clear</b> method), and then adds back all items except for the one removed.  The selection index is retained (unless <i>ResetSelectionIndex</i> is TRUE), so that when the list is displayed again the selection point in the list remains at the same index.</p>
+
+<p>If the selection index is greater than the number of items in the list, the UI plug-in should place the selection on the last item in the list.</p>
+
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleUIPlugin_SetObjectState.htm">ITitleUIPlugin::SetObjectState</a>,
+<a href="ITitleUIPlugin_CreateObject.htm">ITitleUIPlugin::CreateObject</a>
+</p>
+
+</body>
+</html>

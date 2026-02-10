@@ -1,0 +1,79 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>UIX_EXIT_INFO</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>UIX_EXIT_INFO</h1>
+
+        
+        
+<p>Feature exit information obtained with <a href="ILiveEngine_GetExitInfo.htm">ILiveEngine::GetExitInfo</a></p>
+
+	
+		
+
+<pre class="syntax">typedef struct _UIX_EXIT_INFO{
+    UIX_FEATURE FeatureID;
+    UIX_EXIT_CODE_TYPE ExitCode;
+    HRESULT hr;
+    PVOID pExitData;
+} UIX_EXIT_INFO, *PUIX_EXIT_INFO;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>FeatureID</b></dt>
+<dd>The feature for which exit information was returned.  The exit information will be for the feature that most recently exited (and thus caused the UIX_DOWORK_FEATURE_EXIT flag to be set).</dd>
+<dt><b>ExitCode</b></dt>
+<dd>A <a href="UIX_EXIT_CODE.htm">UIX_EXIT_CODE_TYPE</a> value containing the exit code for the feature.</dd>
+<dt><b>hr</b></dt>
+<dd>The success or failure result code returned by the feature.</dd>
+
+<dt><b>pExitData</b></dt>
+<p>
+<dd>Exit data returned by the feature.  This data varies depending on the feature and exit code.</dd>
+
+<table>
+<tr>
+<th>FeatureID</th>
+<th>ExitCode</th>
+<th>pExitData</th>
+</tr>
+<tr>
+<td>UIX_LOGON_FEATURE</td>
+<td>UIX_EXIT_LOGON_SUCCESSFUL</td>
+<td>A pointer to an array of <a href="XONLINE_USER.htm">XONLINE_USER</a> structures representing the logged on users.</td>
+</tr>
+<tr>
+<td>UIX_FRIENDS_FEATURE</td>
+<td>UIX_EXIT_FRIENDS_JOIN_GAME</td>
+<td>A pointer to the <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure of the friend that sent the game invite.</td>
+</tr>
+</table>
+<p><b>pExitData</b> is NULL for any other combination of <b>FeatureID</b> and <b>ExitCode</b>.</p>
+</p>
+
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_GetExitInfo.htm">ILiveEngine::GetExitInfo</a>,
+<a href="UIX_EXIT_CODE.htm">UIX_EXIT_CODE_TYPE</a>,
+<a href="XONLINE_USER.htm">XONLINE_USER</a>
+</p>
+
+        
+    </body>
+    </html>

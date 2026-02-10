@@ -1,0 +1,43 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundBuffer8::SetEG</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundBuffer8::SetEG [C++]">
+<META NAME="MS-HKWD" CONTENT="SetEG (IDirectSoundBuffer8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetEG [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectsoundbuffer8_seteg_dxaudio"></A>IDirectSoundBuffer8::SetEG</H1>
+
+<P>Sets one of the two envelope generators on the buffer.</P>
+
+<PRE class="syntax"><B>HRESULT SetEG(</B>
+    <B>LPCDSENVELOPEDESC</B> <I>pEnvelopeDesc</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pEnvelopeDesc</I></DT>
+    <DD>Sets the amplitude envelope for this voice according to the specified <A HREF="xbox_jc_dsenvelopedesc_dxaudio.htm"><B>DSENVELOPEDESC</B></A> structure.</DD>
+</DL>
+
+
+<H4>Remarks</H4>
+<P>The envelope generators (EGs) are used to vary the voice parameters at a sub-audio rate (less than about 23 Hz). There are two EGs per voice. One EG is used to modify the amplitude of the voice (EG1).  The second can modify the pitch and/or filter cutoff frequency for the voice (EG2).</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="xbox_jc_dsenvelopedesc_dxaudio.htm"><B>DSENVELOPEDESC</B></A></P>
+
+
+</BODY>
+</HTML>

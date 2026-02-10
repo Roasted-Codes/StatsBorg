@@ -1,0 +1,47 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVCompare Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XMVCompare Sample</h1>
+	<p>The XMVCompare sample compares two XMV videos side-by-side for visual quality differences.</p>
+<h2><a name="IDAE3UM"></a>Overview</h2>
+<p>This sample enumerates videos from media\videos directory and enables you to select two XMV files for
+	comparison. It displays the videos in split-screen mode.</p><h2><a name="IDAK3UM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Video\XMVCompare</p><h2><a name="IDAQ3UM"></a>Remarks</h2>
+<p>Before running this sample, please be sure and copy the media tree to the target Xbox. </p><p>Prior to using this sample, perform two different encodings of a video. Copy the files to media\videos 
+	directory.You can then run this sample and compare the visual quality of encoder's settings. </p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;You'll need to encode video only with no audio using -a_setting 0</p><p>The sample enumerates videos stored in the media\videos directory. Use the A and B buttons to cycle through 
+	the enumerated list. Press the A button to select the video for the left pane. Pressing the B button selects the 
+	video for the right pane. </p><p>To start both videos, press the X button. Pause playback with the Start button. While the video is paused, you
+	can use the left thumb stick to move the splitter left or right. If the videos get out of sync, press the left 
+	or right thumb sticks to advance the left or right video one video frame, respectively.</p><p>This program uses the left and right triggers to display the left and right panes, respectively, in "full 
+	screen" mode. The splitter actually moves to far left or right. Use the left thumbstick to scroll it back to 
+	viewable position.</p><p>Other options:</p><dl>
+   		<dt><i>Black and white buttons</i></dt>
+		<dd>Select and change display modes supported with the current AV pack.</dd>
+		
+		<dt><i>Back button</i></dt>
+		<dd>Display the help screen.</dd>
+
+		<dt><i>Start button</i></dt>
+		<dd>Pause both videos.</dd>
+		<dt></dt>
+		<dd></dd>
+
+		<dt><i>Dpad left/right</i></dt>
+		<dd>Change splitter color.</dd>
+		
+		<dt><i>Dpad up/down</i></dt>
+		<dd>Change splitter scroll rate.</dd>
+		
+		<dt><i>Y button</i></dt>
+		<dd>Toggle on-screen text display.</dd>
+   </dl>
+<p>The example videos have the following encodings:</p><p>VideoA: -v_mode 1 -v_quality 100 -v_bitrate 2000000 -v_buffer 5000</p><p>VideoB: -v_mode 1 -v_quality 50 -v_bitrate 500000 -v_buffer 5000</p>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>VisibilityTest Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>VisibilityTest Sample</h1>
+	<p>This sample illustrates how to do visibility testing on the XBox</p>
+<h2><a name="IDACMUM"></a>Overview</h2>
+<p>This sample draws two objects, one of which is possibly occluded by the other. 
+	After starting the visibility test on the back object, the program waits for the 
+	test to complete before either rendering or not rendering the object.</p><h2><a name="IDAIMUM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Graphics\VisibilityTest</p><h2><a name="IDAOMUM"></a>Remarks</h2>
+<p>In a real game situation, you would do the following tasks.</p><ol>
+		<li>Intertwine visibility tests with actual rendering so the visibility test 
+		would have time to complete before you check the results.</li>
+		
+		<li>While you check the results, if a test has not yet concluded, draw additional 
+		geometry. If no additional geometry is able to be drawn, proceed as if the object 
+		is visible. It is important not to wait for tests to conclude. As much as possible,
+		the graphics pipeline needs to be busy 100 percent of the time.</li>
+	</ol>
+<p>This sample uses a low-resolution version of the object to do the visibility test, and 
+	draws the high-resolution object only if the visibility test suggests we should. Another
+	suggestion is to render the real object and check vis test results the following frame.
+	Then use the logic that if an object was not visible in frame n, it probably won't be
+	visible in frame n+1.</p>
+</body>
+</html>

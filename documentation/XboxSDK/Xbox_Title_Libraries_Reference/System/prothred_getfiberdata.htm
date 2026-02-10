@@ -1,0 +1,45 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>GetFiberData</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="GetFiberData">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_getfiberdata"></A>GetFiberData</H1>
+
+<P>The <B>GetFiberData</B> macro returns the fiber data associated with the current fiber.</P>
+
+<PRE class=syntax><B>PVOID GetFiberData(VOID);</B></PRE>
+
+<H4>Parameters</H4>
+
+<P>This macro has no parameters.</P>
+
+<H4>Return Values</H4>
+
+<P>The return value is the fiber data for the currently running fiber.</P>
+
+<H4>Remarks</H4>
+
+<P>The fiber data is the value passed to the <A HREF="prothred_createfiber.htm">CreateFiber</a> or <A HREF="prothred_converttofiber.htm">ConvertThreadToFiber</a> functions in the <I>lpParameter</I> parameter. This value is also received as the parameter to the fiber function. It is stored as part of the fiber state information.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p><H4>See Also</H4>
+<P>
+<a href="xbox_mt_xtl_sll_threads_overview.htm">Thread Overview</a>,
+<a href="xbox_mt_xtl_sll_threads_functions.htm">Thread Functions</a> | 
+<A HREF="prothred_createfiber.htm">CreateFiber</a>,
+<A HREF="prothred_converttofiber.htm">ConvertThreadToFiber</a>
+</P>
+
+
+</BODY>
+</HTML>

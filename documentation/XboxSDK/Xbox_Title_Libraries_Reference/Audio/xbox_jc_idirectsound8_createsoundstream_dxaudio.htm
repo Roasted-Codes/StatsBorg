@@ -1,0 +1,49 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::CreateSoundStream</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::CreateSoundStream [C++]">
+<META NAME="MS-HKWD" CONTENT="CreateSoundStream (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="CreateSoundStream [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsound8_createsoundstream_dxaudio"></A>IDirectSound8::CreateSoundStream</H1>
+
+<P>Creates an <A HREF="xbox_jc_idirectsoundstream_dxaudio.htm"><B>IDirectSoundStream</B></A> interface.</P>
+
+<PRE class="syntax"><B>HRESULT CreateSoundStream(</B>
+	<B>LPCDSSTREAMDESC</B> <I>pdssd</I>,
+	<B>LPDIRECTSOUNDSTREAM</B> <I>*ppStream</I>,
+	<B>LPUNKNOWN</B> <I>pUnkOuter</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+
+<DT><I>pdssd</I></DT>
+<DD>Address of a <A HREF="xbox_jc_dsstreamdesc_dxaudio.htm"><B>DSSTREAMDESC</B></A> structure that describes the sound stream to create.</DD>
+
+<DT><I>ppStream</I></DT>
+<DD>Address of a variable that receives the <A HREF="xbox_jc_idirectsoundstream_dxaudio.htm"><B>IDirectSoundStream</B></A> interface pointer of the new stream object. </DD>
+
+<DT><I>pUnkOuter</I></DT>
+<DD>Must be NULL.</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P><B>CreateSoundStream</B> returns DS_OK if successful.</P>
+
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+
+</BODY>
+</HTML>

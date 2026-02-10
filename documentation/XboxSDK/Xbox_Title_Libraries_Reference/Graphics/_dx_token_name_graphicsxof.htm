@@ -1,0 +1,47 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>TOKEN_NAME</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_token_name_graphicsxof"></A>TOKEN_NAME</H4>
+
+<P>A variable-length record. The token is followed by a <I>count</I> value that specifies the number of bytes that follow in the <I>name</I> field. An ASCII name of length <I>count</I> completes the record. </P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=20%>Field</TH>
+<TH align=left width=21%>Type</TH>
+<TH align=left width=23%>Size (bytes)</TH>
+<TH align=left width=36%>Contents</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=20%><B>token</B> </TD>
+<TD width=21%><B>WORD</B> </TD>
+<TD width=23%>2</TD>
+<TD width=36%><B>TOKEN_NAME</B></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=20%><B>count</B> </TD>
+<TD width=21%><B>DWORD</B> </TD>
+<TD width=23%>4</TD>
+<TD width=36%>Length of name field, in bytes</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=20%><B>name</B> </TD>
+<TD width=21%><B>BYTE</B> array </TD>
+<TD width=23%><B>count</B></TD>
+<TD width=36%>ASCII name</TD>
+</TR>
+</TABLE><BR>
+
+</BODY>
+</HTML>

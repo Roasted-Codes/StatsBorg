@@ -1,0 +1,49 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XNetInAddrToString</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XNetInAddrToString [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_xnetinaddrtostring_xsnl"></A>XNetInAddrToString</H1>
+
+<P>Converts the specified Internet address to a string.</P>
+
+<PRE class="syntax"><B>void XNetInAddrToString(</B>
+    <B>const IN_ADDR</B> <I>ina</I>,
+    <B>char</B> <I>*pchBuf</I>,
+    <B>INT</B> <I>cchBuf</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>ina</I></DT>
+    <DD><a href="xbox_in_addr_winsock.htm">IN_ADDR</a> structure that contains the Internet address to transform.</DD>
+<DT><I>pchBuf</I></DT>
+    <DD>Address of a buffer that receives the string.</DD>
+<DT><I>cchBuf</I></DT>
+    <DD>Number of characters in the buffer.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns zero if successful, an error code otherwise.</P>
+
+<!-- OMIT: 
+<H4>Remarks</H4>
+<P></P>
+
+-->
+
+<H4>Requirements </H4>
+<P><B>Header: </B>Declared in Winsockx.h, for include use Xtl.h.</P>
+<P><B>Import Library: </B>Use Xnet.lib for titles that only support system link play, XOnline.lib for titles that support online play. Use the secure versions of the library file (Xnets.lib or XOnlines.lib) for final testing.</P>
+
+
+</BODY>
+</HTML>

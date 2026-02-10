@@ -1,0 +1,96 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_PRICE</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_PRICE</h1>
+
+        
+        
+<p>Contains the price of an online offering.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    DWORD dwWholePart;
+    DWORD dwFractionalPart;
+    WCHAR rgwchISOCurrencyCode[3];
+    BOOL fOfferingIsFree;
+    XONLINE_TAX_TYPE Tax;
+    BYTE bCurrencyFormat;
+} XONLINE_PRICE, *PXONLINE_PRICE;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+    <dt><b>dwWholePart</b></dt>
+        <dd>Value that contains the whole currency amounts of the price (for example, number of dollars in US currency).</dd>
+    
+    <dt><b>dwFractionalPart</b></dt>
+        <dd>Value that contains the fractional portion of the price (for example, number of cents in US currency).</dd>
+    
+    <dt><b>rgwchISOCurrencyCode</b></dt>
+        <dd>Array of wide characters that contains the currency code for the price.</dd>
+    
+    <dt><b>fOfferingIsFree</b></dt>
+        <dd>Value indicating whether the offering is free or not (if the offering is not free, it needs to be purchased).</dd>
+    
+    <dt><b>Tax</b></dt>
+        <p><dd>Type of tax that applies to the offering.  Can be one of the following values:</dd>
+<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>NO_TAX</td>
+<td>Net pre-tax price (tax will be added later)</td>
+</tr>
+<tr>
+<td>DEFAULT</td>
+<td>Net price with default tax for the title's region included</td>
+</tr>
+<tr>
+<td>GST</td>
+<td>Net price with general sales tax included</td>
+</tr>
+<tr>
+<td>VAT</td>
+<td>Net price with value added tax included</td>
+</tr>
+<tr>
+<td>TAX_NOT_APPLICABLE</td>
+<td>Net price (tax not applicable)</td>
+</tr>
+</table>
+</p>
+    
+    <dt><b>bCurrencyFormat</b></dt>
+        <dd><b>BYTE</b> value that indicates the currency format of the price.</dd>
+    
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> |
+<a href="XOnlineOfferingDetailsGetResults.htm">XOnlineOfferingDetailsGetResults</a>,
+<a href="XOnlineOfferingPriceFormat.htm">XOnlineOfferingPriceFormat</a>
+</p>
+
+
+        
+    </body>
+    </html>

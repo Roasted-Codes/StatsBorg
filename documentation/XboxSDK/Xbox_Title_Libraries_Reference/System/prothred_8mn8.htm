@@ -1,0 +1,47 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>GetCurrentThread</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="GetCurrentThread">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_getcurrentthread"></A>GetCurrentThread</H1>
+
+<P>The <B>GetCurrentThread</B> function retrieves a pseudo handle for the current thread. </P>
+
+<PRE class=syntax><B>HANDLE GetCurrentThread(VOID);</B></PRE>
+
+<H4>Parameters</H4>
+
+<P>This function has no parameters. </P>
+
+<H4>Return Values</H4>
+
+<P>The return value is a pseudo handle for the current thread. </P>
+
+<H4>Remarks</H4>
+
+<P>A pseudo handle is a special constant that is interpreted as the current thread handle. The calling thread can use this handle to specify itself whenever a thread handle is required.</P>
+
+<P>The function cannot be used by one thread to create a handle that can be used by other threads to refer to the first thread. The handle is always interpreted as referring to the thread that is using it. A thread can create a "real" handle to itself that can be used by other threads, by specifying the pseudo handle as the source handle in a call to the <B>DuplicateHandle</B> function. </P>
+
+<P>The pseudo handle need not be closed when it is no longer needed. Calling the <A HREF="handobj_289x.htm">CloseHandle</a> function with this handle has no effect. If the pseudo handle is duplicated by <A HREF="handobj_2pyd.htm">DuplicateHandle</a>, the duplicate handle must be closed. </P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p><H4>See Also</H4>
+<P> 
+<a href="xbox_mt_xtl_sll_threads_overview.htm">Thread Overview</a>,
+<a href="xbox_mt_xtl_sll_threads_functions.htm">Thread Functions</a> | 
+<A HREF="handobj_289x.htm">CloseHandle</a>,  <A HREF="handobj_2pyd.htm">DuplicateHandle</a>,  <A HREF="prothred_4nfo.htm">GetCurrentThreadId</a></P>
+
+
+</BODY>
+</HTML>

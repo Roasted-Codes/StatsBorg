@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XNetDnsLookup</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XNetDnsLookup</h1>
+<p>Initiates a DNS lookup.</p>
+<pre class="syntax" xml:space="preserve"><b>INT</b> <b>XNetDnsLookup(</b>
+    <b>const char</b> *<i>pszHost</i><b>,</b>
+    <b>WSAEVENT</b> <i>hEvent</i><b>,</b>
+    <b>XNDNS</b> **<i>ppxndns</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pszHost</i></dt>
+                <dd>String value that specifies the host name to lookup.</dd>
+            
+            <dt><i>hEvent</i></dt>
+                <dd>Optional. Handle to an event object.</dd>
+            
+            <dt><i>ppxndns</i></dt>
+                <dd>Address of a pointer to a <a href="xbox_xndns_xsnl.htm">XNDNS</a> structure that will receive the IP addresses associated with the specified host name.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns zero if successful, an error code otherwise.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Winsockx.h. for include use Xtl.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xnet.lib for titles that only support system link play, XOnline.lib for titles that support online play. For online titles, use the secure version of the library file (XOnlines.lib) for final testing (not available for system link play).</p>
+    
+</body>
+</html>

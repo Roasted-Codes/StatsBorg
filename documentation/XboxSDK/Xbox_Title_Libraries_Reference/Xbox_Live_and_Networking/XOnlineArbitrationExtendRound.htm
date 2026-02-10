@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineArbitrationExtendRound</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineArbitrationExtendRound</h1>
+            <p>Extends the time length of an arbitrated round by a specified number of seconds.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineArbitrationExtendRound(</b>
+    <b>const XONLINE_ARB_ID</b> *<i>pArbID</i><b>,</b>
+    <b>WORD</b> <i>wMaxSecondsFromNow</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pArbID</i></dt>
+				<dd>[in]  Arbitration session ID.</dd>
+			
+
+            <dt><i>wMaxSecondsFromNow</i></dt>
+				<dd>[in]  Number of seconds that the round is to be extended. Note 
+				that this is relative to the current time.</dd>
+			
+
+            <dt><i>hWorkEvent</i></dt>
+				<dd>[in, optional]  Handle to an event that will be signaled when there is work to be done on this task. 
+				This parameter can be NULL if no such event is required.</dd>
+			
+
+            <dt><i>phTask</i></dt>
+				<dd>[out]  Address of an <b>XONLINETASK_HANDLE</b> 
+				variable. Upon return, this variable 
+				contains the handle of the task initiated by this function.</dd>
+			
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>This functions transmits a request to the Xbox <i>Live</i> service to 
+			extend the time allowed for the specified round to complete and for 
+			reports to be sent.  The session must have originally been registered 
+			with the <b>XONLINE_ARB_REGISTER_FLAG_TIME_EXTENDABLE</b> 
+			flag.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+			<p><a href="XOnlineArbitrationRegister.htm">XOnlineArbitrationRegister</a></p>
+		
+</body>
+</html>

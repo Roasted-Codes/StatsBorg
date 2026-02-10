@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundStream::SetAllParameters</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundStream::SetAllParameters [C++]">
+<META NAME="MS-HKWD" CONTENT="SetAllParameters (IDirectSoundStream) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetAllParameters [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsoundstream_setallparameters_dxaudio"></A>IDirectSoundStream::SetAllParameters</H1>
+
+<P>Sets all 3D sound buffer parameters.</P>
+
+<PRE class="syntax"><B>HRESULT SetAllParameters(</B>
+    <B>LPCDS3DBUFFER</B> <I>pds3db</I>,
+    <B>DWORD</B> <I>dwApply</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pds3db</I></DT>
+
+<DD>Address of a <A HREF="_dx_ds3dbuffer_dxaudio.htm"><B>DS3DBUFFER</B></A> structure that describes the 3D characteristics of the sound buffer.</DD>
+
+<DT><I>dwApply</I></DT>
+
+<DD>Value that specifies when the setting should be applied. This value must be one of the following:</DD>
+
+<DL>
+<DT>DS3D_DEFERRED </DT>
+
+<DD>Settings are not applied until the application calls the <A HREF="xbox_jc_idirectsound8_commitdeferredsettings_dxaudio.htm"><B>IDirectSound8::CommitDeferredSettings</B></A>
+ method. This allows the application to change several settings and generate a single recalculation. </DD>
+
+<DT>DS3D_IMMEDIATE </DT>
+
+<DD>Settings are applied immediately, causing the system to recalculate the 3D coordinates for all 3D sound buffers. 
+</DD>
+</DL>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, an error code otherwise.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

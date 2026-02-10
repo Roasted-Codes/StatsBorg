@@ -1,0 +1,48 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DResource8::IsBusy</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DResource8::IsBusy [C++]">
+<META NAME="MS-HKWD" CONTENT="IsBusy (IDirect3DResource8) [C++]">
+<META NAME="MS-HKWD" CONTENT="IsBusy [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="IDirect3DResource8_IsBusy"></A>IDirect3DResource8::IsBusy</H1>
+
+<P> Returns whether or not the data for this resource is currently being used by the GPU.
+</P>
+
+<PRE class=syntax><B>BOOL</B> <B>IsBusy(</B><B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+<p>None.</p>
+
+
+<H4>Return Values</H4>
+
+<P>Returns TRUE if the data is being used by the GPU.</P>
+<p>Returns FALSE if the data is not in use.</p>
+
+
+<H4>Remarks</H4>
+
+<P>This method will always return TRUE if this resource is set as one of the resources currently being used by IDirect3DDevice8.  It sets the Lock field in the resource to zero when it returns FALSE.</P>
+<P>It is safe to call this method from any thread.  This method may safely be called within a tight loop without affecting the performance of the graphics processor.</P>
+<P>This method can be used to check to see if a call to Lock or if the final Release would block.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+<p><a href="xbox_dxg_IDirect3DResource8_Deregister.htm"><b>IDirect3DResource8::BlockUntilNotBusy</b></a></p>
+
+
+</BODY>
+</HTML>

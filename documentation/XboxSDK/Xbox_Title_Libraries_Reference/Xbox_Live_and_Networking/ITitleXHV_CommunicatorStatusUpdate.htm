@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleXHV::CommunicatorStatusUpdate</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleXHV::CommunicatorStatusUpdate</h1>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>CommunicatorStatusUpdate(</b>
+    <b>DWORD</b> <i>dwLocalPort</i><b>,</b>
+    <b>XHV_VOICE_COMMUNICATOR_STATUS</b> <i>communicatorStatus</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>dwLocalPort</i></dt>
+				<dd>[in]  Port causing the communicator callback.</dd>
+			
+			<dt><i>communicatorStatus</i></dt>
+				<dd>[in]  An <a href="XHV_VOICE_COMMUNICATOR_STATUS.htm">XHV_VOICE_COMMUNICATOR_STATUS</a> value describing the status of the port.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="IXHVEngine_SetCallbackInterface.htm">IXHVEngine::SetCallbackInterface</a>
+</p>
+
+</body>
+</html>

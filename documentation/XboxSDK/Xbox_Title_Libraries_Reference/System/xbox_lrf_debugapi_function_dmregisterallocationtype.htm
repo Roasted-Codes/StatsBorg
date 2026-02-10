@@ -1,0 +1,72 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>DmRegisterAllocationType</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME=""></A>DmRegisterAllocationType</H1>
+
+
+<P class="intro">Registers a
+custom memory allocation type for use with the <a
+href="xbox_jbg_tool_xbmemdump.htm">XbMemDump</a> tool.</P>
+
+
+<PRE class=syntax><b>HRESULT DmRegisterAllocationType(</b>
+  <b>LPCSTR</b>   <i>pszName</i><b>,</b>
+  <b>USHORT*</b>  <i>AllocationType</i><b>,</b>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<dl>
+  <dt><i>pszName</i></dt>
+  <dd>Pointer to a string to use as a description for your custom allocation
+      type. Because tracking custom data types is dependent on the
+      <i>AllocationType</i> value (rather than on the name), you may assign duplicate
+      string names to different custom allocation types.</dd>
+
+  <dt><i>AllocationType</i></dt>
+  <dd>Pointer that receives the allocation type number assigned to the new
+      custom data type. Custom allocations are in the range 14&#8211;65535,
+      inclusive.</dd>
+</dl>
+
+<H4>Return Values</H4>
+
+<p class="content">If <b>DmRegisterAllocationType</b> successfully registers the
+custom data type, it returns XBDM_NOERR. If there are no remaining custom data
+types available, <b>DmRegisterAllocationType</b> returns
+ERROR_NO_LOG_SPACE.</p>
+
+<h4>Requirements</h4>
+
+<p class="content">
+<b>Header:</b> Declared in XbDm.h
+<br><b>Import Library:</b> Use XbDm.lib
+</p>
+
+<h4>See Also</h4>
+
+<p class="content">
+<a href="xbox_jbg_tool_xbmemdump.htm">XbMemDump</a>
+|
+<a href="xbox_lrf_debugapi_function_dminsertallocationentry.htm">DmInsertAllocationEntry</a>,
+<a href="xbox_lrf_debugapi_function_dmqueryallocationtypename.htm">DmQueryAllocationTypeName</a>,
+<a href="xbox_lrf_debugapi_function_dmremoveallocationentry.htm">DmRemoveAllocationEntry</a>
+</p>
+
+
+</BODY>
+</HTML>

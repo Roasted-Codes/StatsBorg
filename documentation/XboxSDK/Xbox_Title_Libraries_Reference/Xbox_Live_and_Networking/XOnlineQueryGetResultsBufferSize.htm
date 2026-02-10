@@ -1,0 +1,45 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineQueryGetResultsBufferSize</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineQueryGetResultsBufferSize</h1>
+            <p>Retrieves the buffer size required for the results of a search initiated by 
+			<a href="XOnlineQuerySearch.htm">XOnlineQuerySearch</a>.</p>
+        <pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>XOnlineQueryGetResultsBufferSize(</b>
+    <b>DWORD</b> <i>dwNumResults</i><b>,</b>
+    <b>DWORD</b> <i>dwNumSpecs</i><b>,</b>
+    <b>const XONLINE_ATTRIBUTE_SPEC</b> *<i>pSpecs</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwNumResults</i></dt>
+				<dd>[in]  Number of results per page.</dd>
+			
+            <dt><i>dwNumSpecs</i></dt>
+				<dd>[in]  Number of attribute specifiers.</dd>
+			
+            <dt><i>pSpecs</i></dt>
+				<dd>[in]  Array of <a href="XONLINE_ATTRIBUTE_SPEC.htm">XONLINE_ATTRIBUTE_SPEC</a> structures that specify the type and size, in bytes, 
+				of each attribute.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns the size, in bytes, required for the results buffer.</p>
+            
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+			<p><a href="XOnlineQuerySearch.htm">XOnlineQuerySearch</a>, <a href="XOnlineQuerySearchGetResults.htm">XOnlineQuerySearchGetResults</a></p>
+		
+</body>
+</html>

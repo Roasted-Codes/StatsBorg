@@ -1,0 +1,51 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::GetDisplayFieldStatus</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::GetDisplayFieldStatus [C++]">
+<META NAME="MS-HKWD" CONTENT="GetDisplayFieldStatus (IDirect3DDevice8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetDisplayFieldStatus [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="GetDisplayFieldStatus"></A>IDirect3DDevice8::GetDisplayFieldStatus</H1>
+
+<P>Retrieves the number of Vblank interrupts since startup. For TV output, this function also returns whether the display field is EVEN or ODD.  
+</P>
+
+<PRE class=syntax><B>HRESULT</B> <B>GetDisplayFieldStatus(</B>
+<B>  D3DFIELD_STATUS*</B><I> pFieldStatus</I><B>,</B>
+
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pFieldStatus</I></DT>
+
+<DD>[out] A pointer to a D3DFIELD_STATUS structure that contains the number of Vblank interrupts and the display field type. If the output is to a monitor, the type returned is D3DFIELD_PROGRESSIVE.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If this method succeeds, it returns S_OK.</P>
+
+<H4>Remarks</H4>
+
+<P>The Vblank counter can be used to syncronize your application.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+<H4>See Also</H4>
+
+<p><a href="xbox_dxg_D3DFIELD_STATUS.htm"><b>D3DFIELD_STATUS</b></a>, <a href="xbox_dxg_D3DFIELDTYPE.htm"><b>D3DFIELDTYPE</b></a></p>
+
+</BODY>
+</HTML>

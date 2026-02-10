@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirectSoundBuffer8::SetPlayRegion</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirectSoundBuffer8::SetPlayRegion</h1>
+<p>Sets the buffer play region.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetPlayRegion(</b>
+    <b>DWORD</b> <i>dwPlayStart</i><b>,</b>
+    <b>DWORD</b> <i>dwPlayLength</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwPlayStart</i></dt>
+                <dd>Value that specifies the starting position of the play region.</dd>
+            
+            <dt><i>dwPlayLength</i></dt>
+                <dd>Value that specifies the length, in bytes, of the play region.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+			<p>Data alignment restrictions apply when using this function.  PCM data must be DWORD  aligned (4 bytes), and ADPCM data must be block aligned (36 bytes).</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+</body>
+</html>

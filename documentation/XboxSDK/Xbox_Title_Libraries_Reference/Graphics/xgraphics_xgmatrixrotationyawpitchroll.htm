@@ -1,0 +1,62 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGMatrixRotationYawPitchRoll</TITLE>
+<META NAME="MS-HKWD" CONTENT="XGMatrixRotationYawPitchRoll">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxmatrixrotationyawpitchroll_graphicsd3dx"></A>XGMatrixRotationYawPitchRoll</H1>
+
+<P>Builds a matrix with a specified yaw, pitch, and roll.</P>
+
+<PRE class=syntax><B>XGMATRIX* XGMatrixRotationYawPitchRoll(
+</B>  <B>XGMATRIX* </B><I>pOut</I><B>,</B>
+<B>  FLOAT</B> <I>Yaw</I><B>,</B>
+<B>  FLOAT</B> <I>Pitch</I><B>,</B>
+<B>  FLOAT</B> <I>Roll</I><B>,</B>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to the <A HREF="xgraphics_xgmatrix.htm"><B>XGMATRIX</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>Yaw</I></DT>
+
+<DD>[in] Yaw around the y-axis, in radians.</DD>
+
+<DT><I>Pitch</I></DT>
+
+<DD>[in] Pitch around the x-axis, in radians.</DD>
+
+<DT><I>Roll</I></DT>
+
+<DD>[in] Roll around the z-axis, in radians.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Pointer to a <B>XGMATRIX</B> structure with the specified yaw, pitch, and roll.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>XGMatrixRotationYawPitchRoll</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgmath.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use xgraphics.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="xgraphics_xgmatrixrotationaxis.htm"><B>XGMatrixRotationAxis</B></A>, <A HREF="xgraphics_xgmatrixrotationquaternion.htm"><B>XGMatrixRotationQuaternion</B></A>, <A HREF="xgraphics_xgmatrixrotationx.htm"><B>XGMatrixRotationX</B></A>, <A HREF="xgraphics_xgmatrixrotationy.htm"><B>XGMatrixRotationY</B></A>, <A HREF="xgraphics_xgmatrixrotationz.htm"><B>XGMatrixRotationZ</B></A> </P>
+
+</BODY>
+</HTML>

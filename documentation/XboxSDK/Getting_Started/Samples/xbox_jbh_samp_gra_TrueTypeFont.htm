@@ -1,0 +1,44 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>TrueTypeFont Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>TrueTypeFont Sample</H1>
+
+
+   
+
+<P class="intro">The TrueTypeFont sample shows how to use a Windows TrueType font and bitmap fonts created by the MakeFont.exe tool to draw text on the Xbox.</P>
+
+<P class="intro">To compile the Bitmap files using the makefont.exe tool, run:</P>
+
+<PRE>   makefont -d media\fonts arial16Normal.rsp arial16normal.bmf</PRE>
+<PRE>   makefont -s ITALICS -d media\fonts arial24Italic.rsp arial24Italic.bmf</PRE>
+<PRE>   makefont -d media\fonts arial16kanji.rsp arial16kanji.bmf</PRE>
+<PRE>   makefont -d media\fonts arial16katakana.rsp arial16katakana.bmf</PRE>
+<PRE>   makefont -d media\fonts arial16hiragana.rsp arial16hiragana.bmf</PRE>
+
+<P class="intro">The sample loads five fonts.  The first is the default font supplied with the XDK libraries. The second is arialuni.ttf. Loading it as a TrueType font allows you to set the font parameters such as height, style, and antialias on the fly. The third is a bitmap font created by the MakeFont tool from a TrueType font. It shows how to create the font with just a file name. The fourth was also created using the MakeFont tool and it is loaded by passing in the memory image of the file instead of the file name. This enables games to control the allocation of the memory for the raw font data.  It is important that the memory for the font <I>not</I> be deleted until you no longer need it to draw text. The fifth shows how to display non-Western characters from a non-Western bitmap font.</P>
+
+<P class="intro">It is important to <I>always</I> include the lowercase 'g' (U+0067) with any font created using the MakeFont tool or the font will not load on the Xbox console.</P>
+
+<h3 class="overview">See Also</h3>
+
+<p class="content">
+<a href="xbox_lrf_tool_makefont.htm">MakeFont Tool</a>
+</p>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Synchronizing Execution of Multiple Threads</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H3><A NAME="_win32_synchronizing_execution_of_multiple_threads"></A>Synchronizing Execution of Multiple Threads</H3>
+
+<P>To avoid race conditions and deadlocks, it is necessary to synchronize access of shared resources by multiple threads. Synchronization is also necessary to ensure that interdependent code is executed in the proper sequence.</P>
+
+<P>The XTL provides a number of objects whose handles can be used to synchronize multiple threads. These objects include: 
+
+<UL>
+	<LI>Events </LI>
+
+	<LI>Mutexes </LI>
+
+	<LI>Semaphores </LI>
+
+	<LI>Critical Sections</LI>
+
+	<LI>Threads </LI>
+
+	<LI>Timers </LI>
+	
+</UL>
+
+<P>The state of each of these objects is either signaled or not signaled. When you specify a handle to any of these objects in a call to one of the <A HREF="synchro_5vqr.htm"><B>wait functions</B></A>, the execution of the calling thread is blocked until the state of the specified object becomes signaled.
+
+<P>Some of these objects are useful in blocking a thread until some event occurs. For example, a thread handle is signaled when the thread terminates.</P>
+
+<P>Other objects are useful in protecting shared resources from simultaneous access. For example, multiple threads can each have a handle to a mutex object. Before accessing a shared resource, the threads must call one of the wait functions to wait for the state of the mutex to be signaled. When the mutex becomes signaled, only one waiting thread is released to access the resource. The state of the mutex is immediately reset to not signaled so any other waiting threads remain blocked. When the thread is finished with the resource, it must set the state of the mutex to signaled to allow other threads to access the resource. </P>
+
+<P>Critical-section objects provide a more efficient means of synchronization than mutexes. A critical section is used like a mutex to enable one thread at a time to use the protected resource. A thread can use the <A HREF="synchro_3xym.htm"><B>EnterCriticalSection</B></A> function to request ownership of a critical section. If it is already owned by another thread, the requesting thread is blocked. A thread can use the <A HREF="synchro_7p2m.htm"><B>TryEnterCriticalSection</B></A> function to request ownership of a critical section, without blocking upon failure to obtain the critical section. After it receives ownership, the thread is free to use the protected resource. The execution of other threads is not affected unless they attempt to enter the same critical section.</P>
+
+
+</BODY>
+</HTML>

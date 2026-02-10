@@ -1,0 +1,36 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>XACTBasicSound Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>XACTBasicSound Sample</H1>
+
+
+<P class="intro">The XACTBasicSound sample demonstrates how to use the basic functionality of  XACT and its run-time engine. This sample does not include the graphics framework. It is designed strictly to sample basic XACT functionality.</P>
+
+
+<p class="content">To get started with XACT, all you have to do is create the engine via <a href="xbox_xactenginecreate_dxaudio.htm">XACTEngineCreate</a>, and then call <a href="xbox_xactenginedowork_dxaudio.htm">XACTEngineDoWork</a> every frame. From here, you can connect XACT on your PC and start auditioning waves and sounds.</p>
+<p class="content">Loading content depends on the type of content:
+<ul>
+	<li>In-memory wave banks: Load the entire wave bank from disk to a buffer in memory, and register the buffer with the XACT engine.</li>
+	<li>Streaming wave banks: Create a file handle, and register the file handle with the XACT engine.</li>
+	<li>Sound banks: Just like in-memory banks, load the entire sound bank from disk to a buffer in memory, and register the buffer with XACT.</li>
+</ul></p>
+<p class="content">Currently, the XACT GUI does not produce header files with #defines for sound cue indices, so you must look up cue indices by using their friendly name. Once you've got a sound cue index, you can call <a href="xbox_ixactsoundbank_play_dxaudio.htm">IXACTSoundBank::Play</a>, passing in the cue index you wish to play.</p>
+<p class="content">Copy the media tree to the target machine before running this sample.</p>
+<p class="content">You can use XACT on your development system to audition waves and sounds while running the XACTBasicSound sample, because it links with the instrumented (i) version of XACTeng.lib.</p>
+
+
+</BODY>
+</HTML>

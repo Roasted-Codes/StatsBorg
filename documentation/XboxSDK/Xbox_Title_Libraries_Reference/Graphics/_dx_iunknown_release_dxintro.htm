@@ -1,0 +1,35 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IUnknown::Release</TITLE>
+<META NAME="MS-HKWD" CONTENT="IUnknown::Release">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_iunknown_release_dxintro"></A>Release</H1>
+
+<P>Decreases the reference count of the object by 1.</P>
+
+<PRE class=syntax><B>ULONG Release();
+</B></PRE>
+
+<H4>Parameters</H4>
+
+<P>There are no parameters.</P>
+
+<H4>Return Values</H4>
+
+<P>Returns the new reference count. This value is for diagnostic and testing purposes only.</P>
+
+<H4>Remarks</H4>
+
+<P>The object deallocates itself when its reference count reaches 0. Use the <a href="_dx_iunknown_addref_dxintro.htm">AddRef</a> method to increase the object's reference count by 1.</P>
+
+<P>Applications must call this method to release only interfaces that the method explicitly created in a previous call to <B>AddRef</B> or a creation function such as <A HREF="_dx_direct3dcreate8_graphics.htm">Direct3DCreate8</A>. </P>
+
+
+</BODY>
+</HTML>

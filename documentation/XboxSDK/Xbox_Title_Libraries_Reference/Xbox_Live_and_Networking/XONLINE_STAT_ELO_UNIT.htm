@@ -1,0 +1,81 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STAT_ELO_UNIT</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_STAT_ELO_UNIT</h1>
+
+        
+        
+
+			<p>Contains information for calculating the ELO rating for a pair of units (teams) in a competition.</p>
+		
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    XUID xuidUnit1Members[XONLINE_STAT_MAX_MEMBERS_IN_UNIT];
+    XUID xuidUnit2Members[XONLINE_STAT_MAX_MEMBERS_IN_UNIT];
+    DWORD dwLeaderBoardID;
+    DWORD dwConditionalUnitIndex;
+    double W;
+    double C1;
+    double C2;
+} XONLINE_STAT_ELO_UNIT, *PXONLINE_STAT_ELO_UNIT;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+			<dt><b>xuidUnit1Members</b></dt>
+				<dd>Array containing the IDs of all players in unit 1.</dd>
+			
+			
+			<dt><b>xuidUnit2Members</b></dt>
+				<dd>Array containing the IDs of all players in unit 2.</dd>
+			
+			
+			<dt><b>dwLeaderBoardID</b></dt>
+				<p>
+					<dd>Leaderboard to be updated.</dd>
+					<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Leaderboards are also referred to as scoreboards.</p>
+				</p>
+			
+
+			<dt><b>dwConditionalUnitIndex</b></dt>
+				<dd>One-based index of <a href="XONLINE_STAT_CONDITIONAL.htm">XONLINE_STAT_CONDITIONAL</a> procedure that determines whether this update occurs, or zero if always updated.</dd>
+			
+						
+			<dt><b>W</b></dt>
+				<dd>Score of the winner.</dd>
+			
+			
+			<dt><b>C1</b></dt>
+				<dd>Weighting value of the range in which unit 1's rating currently falls.</dd>
+			
+
+			<dt><b>C2</b></dt>
+				<dd>Weighting value of the range in which unit 2's rating currently falls.</dd>
+			
+		</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="XOnlineArbitrationReport.htm">XOnlineArbitrationReport</a>, <a href="XONLINE_STAT_PROC.htm">XONLINE_STAT_PROC</a>
+		</p>
+
+        
+    </body>
+    </html>

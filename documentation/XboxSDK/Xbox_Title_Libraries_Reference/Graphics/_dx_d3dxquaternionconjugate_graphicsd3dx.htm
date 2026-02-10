@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXQuaternionConjugate</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXQuaternionConjugate">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxquaternionconjugate_graphicsd3dx"></A>D3DXQuaternionConjugate</H1>
+
+<P>Returns the conjugate of a quaternion.</P>
+
+<PRE class=syntax><B>D3DXQUATERNION* D3DXQuaternionConjugate(
+</B>  <B>D3DXQUATERNION* </B><I>pOut</I><B>,</B>
+<B>  CONST D3DXQUATERNION* </B><I>pQ</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to the <A HREF="_dx_d3dxquaternion_graphicsd3dx.htm"><B>D3DXQUATERNION</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pQ</I></DT>
+
+<DD>[in] Pointer to the source <B>D3DXQUATERNION</B> structure.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Pointer to a <B>D3DXQUATERNION</B> structure that is the conjugate of the quaternion.</P>
+
+<H4>Remarks</H4>
+
+<P>Given a quaternion (x, y, z, w), the <B>D3DXQuaternionConjugate</B> function will return the quaternion (-x, -y, -z, w).</P>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>D3DXQuaternionConjugate</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8math.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3dx8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_d3dxquaternioninverse_graphicsd3dx.htm"><B>D3DXQuaternionInverse</B></A> </P>
+
+</BODY>
+</HTML>

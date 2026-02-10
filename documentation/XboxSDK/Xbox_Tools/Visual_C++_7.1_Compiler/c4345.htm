@@ -1,0 +1,60 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Warning (level 2) C4345</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c4345"></A>Compiler Warning (level 2) C4345</H1>
+
+
+<P><b>behavior change: an object of POD type constructed with an initializer of the form () will 
+be default-initialized</b></P>
+
+<P>This warning reports a behavior change from the Visual C++ compiler that shipped in 
+Visual Studio .NET when initializing a POD object with (); the compiler will 
+default-initialize the object.</p>
+
+<p>The following example generates C4345.</p>
+
+<pre class = "code">// C4345.cpp
+// compile with: /W2
+#include &lt;stdio.h&gt;
+
+struct S *gpS;
+
+struct S
+{
+   // this class has no user-defined default ctor
+   void *operator new (unsigned int size, void *p, int i)
+   {
+      ((S*)p)-&gt;i = i;   // ordinarily, should not initialize
+                        // memory contents inside placement new
+      return p;
+   }
+   int i;
+};
+
+int main()
+{
+   S s;
+   // Visual C++ .NET 2003 will default-initialize pS-&gt;i
+   // by assigning the value 0 to pS-&gt;i.
+   S *pS2 = new (&amp;s, 10) S();   // C4345
+   // try the following line instead:
+   // S *pS2 = new (&amp;s, 10) S;   // not zero initialized
+   printf("%d\n", pS2->i);
+}</PRE>
+
+
+</BODY>
+</HTML>

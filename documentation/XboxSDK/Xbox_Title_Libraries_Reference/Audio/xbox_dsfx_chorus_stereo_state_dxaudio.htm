@@ -1,0 +1,59 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DSFX_CHORUS_STEREO_STATE</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DSFX_CHORUS_STEREO_STATE [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_dsfx_chorus_stereo_state_dxaudio"></A>DSFX_CHORUS_STEREO_STATE</H1>
+
+<P>Contains the state information for the stereo chorus effect.</P>
+
+<PRE class="syntax">typdef struct _DSFX_CHORUS_STEREO_STATE{
+    DWORD dwScratchOffset;
+    DWORD dwScratchLength;
+    DWORD dwYMemoryOffset;
+    DWORD dwYMemoryLength;
+    DWORD dwFlags;
+    DWORD dwInMixbinPtrs[3];
+    DWORD dwOutMixbinPtrs[2];
+} DSFX_CHORUS_STEREO_STATE, *LPDSFX_CHORUS_STEREO_STATE;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwScratchOffset</B></DT>
+    <DD>Value that contains the offset in bytes of the scratch area for this effect.</DD>
+<DT><B>dwScratchLength</B></DT>
+    <DD>Value that contains the length, in DWORDs, of the scratch area for this effect.</DD>
+<DT><B>dwYMemoryOffset</B></DT>
+    <DD>Value that contains the offset, in DSP WORDS, of the Y memory area for this effect.</DD>
+<DT><B>dwYMemoryLength</B></DT>
+    <DD>Value that contains the length, in DSP WORDS, of the Y memory for this effect.</DD>
+<DT><B>dwFlags</B></DT>
+    <DD>Value that contains the flags for this effect. Can be a combination of the following values:</DD>
+    <DL>
+        <DT>DSFX_STATE_INITIALIZED</DT>
+            <DD>Indicates that the parameters for this effect have been changed. Use this flag to reset the effect state and force the effect to use any new parameters that you set using SetEffectData.</DD>
+        <DT>DSFX_STATE_GLOBAL</DT>
+            <DD>Indicates that the outputs for this effect should be mixed with the content of the output mixbins.</DD>
+    </DL>
+<DT><B>dwInMixbinPtrs</B></DT>
+    <DD>Array that contains references to the input mixbins.</DD>
+<DT><B>dwOutMixbinPtrs</B></DT>
+    <DD>Array that contains references to the output mixbins.</DD>
+</DL>
+
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSFXParm.h.</P>
+
+
+</BODY>
+</HTML>

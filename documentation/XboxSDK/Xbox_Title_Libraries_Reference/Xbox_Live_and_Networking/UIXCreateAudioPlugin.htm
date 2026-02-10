@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>UIXCreateAudioPlugin</title>
+</head>
+<body topmargin="0">
+
+
+<h1>UIXCreateAudioPlugin</h1>
+<p>Creates the default Xbox Drop-in UI audio plug-in.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>UIXCreateAudioPlugin(</b>
+    <b>VOID</b> *<i>pXactEngine</i><b>,</b>
+    <b>VOID</b> *<i>pXactSoundBank</i><b>,</b>
+    <b>ITitleAudioPlugin</b> **<i>ppAudioPlugin</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pXactEngine</i></dt>
+<dd>[in]  Pointer to the title's initialized XACT engine previously returned by <a href="xbox_xactenginecreate_dxaudio.htm">XACTEngineCreate</a>.</dd>
+<dt><i>pXactSoundBank</i></dt>
+<dd>[in]  Pointer to an initialized XACT sound bank previously returned by <a href="xbox_ixactengine_createsoundbank_dxaudio.htm">IXACTEngine::CreateSoundBank</a>.</dd>
+<dt><i>ppAudioPlugin</i></dt>
+<dd>[out]  Address of an <a href="ITitleAudioPlugin.htm">ITitleAudioPlugin</a> pointer that receives the audio plug-in interface.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p><b>ITitleAudioPlugin</b> implements the audio plug-in interface to the Xbox Drop-in UI engine.  The engine calls methods on the interface to provide sound for the user interface.  Titles can provide their own implementation or use the default <b>ITitleAudioPlugin</b> obtained with <b>UIXCreateAudioPlugin</b>.</p>
+<p>To free the audio plug-in interface when it is no longer needed, call <a href="_dx_iunknown_release_dxintro.htm">Release</a> on the <b>ITitleAudioPlugin</b> pointer.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleAudioPlugin.htm">ITitleAudioPlugin</a>,
+<a href="xbox_xactenginecreate_dxaudio.htm">XACTEngineCreate</a>,
+<a href="xbox_ixactengine_createsoundbank_dxaudio.htm">IXACTEngine::CreateSoundBank</a>
+</p>
+
+</body>
+</html>

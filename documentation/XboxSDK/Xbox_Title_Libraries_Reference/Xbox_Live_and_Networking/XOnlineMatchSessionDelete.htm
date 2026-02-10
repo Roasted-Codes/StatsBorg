@@ -1,0 +1,86 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMatchSessionDelete</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMatchSessionDelete</h1>
+<p>Creates a delete session request.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMatchSessionDelete(</b>
+    <b>XNKID</b> <i>SessionID</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>SessionID</i></dt>
+				<dd>[in]  Session identifier.</dd>
+			
+			<dt><i>hWorkEvent</i></dt>
+				<dd>[in, optional]  Optional. Handle to a caller-created event object. This object will be signaled when there  is work to do by calling <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>. The caller may pass in NULL instead, indicating that the caller will poll <b>XOnlineTaskContinue</b> itself.</dd>
+			
+			<dt><i>phTask</i></dt>
+				<dd>[out]  Address of an <b>XONLINETASK_HANDLE</b> that uniquely identifies this delete session request.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+
+
+    
+    
+    <p>Returns S_OK if successful.</p>
+	<p>Otherwise, returns one of the following error codes.</p>
+
+
+<table>
+
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>E_OUTOFMEMORY</td>
+<td>Insufficient memory. Free some memory.</td>
+</tr>
+<tr>
+<td>WSAEADDRNOTAVAIL</td>
+<td>See <a href="xbox_winsock_error_codes_winsock.htm">Winsock Error Codes</a> for more information. </td>
+</tr>
+<tr>
+<td>WSACONNRESET</td>
+<td>See <b>Winsock Error Codes</b> for more information. </td>
+</tr>
+
+<tr>
+<td>Other</td>
+<td>See <a href="xbox_online_errors.htm">Online Errors</a> for information about other possible errors.</td>     
+</tr>
+</table>
+
+
+			
+		<h4><a name="remarks"></a>Remarks</h4>
+<p>
+Call the <b>XOnlineMatchSessionDelete</b> function to stop advertising the online-game session. Only the Xbox that called <a href="XOnlineMatchSessionCreate.htm">XOnlineMatchSessionCreate</a> can call <b>XOnlineMatchSessionDelete</b>.
+</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_online_matchmaking.htm">Matchmaking Overview</a> |
+<a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | 
+<a href="XOnlineMatchSessionCreate.htm">XOnlineMatchSessionCreate</a>, 
+<a href="XOnlineMatchSessionGetInfo.htm">XOnlineMatchSessionGetInfo</a>, 
+<a href="XOnlineMatchSessionUpdate.htm">XOnlineMatchSessionUpdate</a>
+</p>
+
+</body>
+</html>

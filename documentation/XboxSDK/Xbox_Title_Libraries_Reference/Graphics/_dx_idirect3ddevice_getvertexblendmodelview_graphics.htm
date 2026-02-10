@@ -1,0 +1,48 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::GetVertexBlendModelView</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::GetVertexBlendModelView [C++]">
+<META NAME="MS-HKWD" CONTENT="GetVertexBlendModelView (IDirect3DDevice8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetVertexBlendModelView [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_GetVertexBlendModelView_graphics"></A>IDirect3DDevice8::GetVertexBlendModelView</H1>
+
+<P>Gets the last model-view transform.</P>
+
+<PRE class=syntax><B>HRESULT GetVertexBlendModelView(
+  D3DMATRIX</B><I> *pModelView</I><b>,
+  D3DMATRIX</b> <i>*pProjectionViewport</i>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pModelView</I></DT>
+
+<DD>[out] Pointer to a <a href="_dx_d3dmatrix_graphics.htm"><b>D3DMATRIX</b></a> structure containing the last model-view transform, as specified by <a href="_dx_idirect3ddevice8_setvertexblendmodelview_graphics.htm"><b>IDirect3DDevice8::SetVertexBlendModelView</b></a>.
+</DD>
+
+<dt><i>pProjectionViewport</i></dt>
+
+<dd>[out] Pointer to a <b>D3DMATRIX</b> structure containing the last projection/viewport matrix transform, as specified by <b>IDirect3DDevice8::SetVertexBlendModelView</b>.</dd>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If <b>IDirect3DDevice8::SetVertexBlendModelView</b> currently has control of the GPU's transform registers, the return value is S_OK, otherwise, the return value is S_FALSE.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+</BODY>
+</HTML>

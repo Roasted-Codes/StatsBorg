@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVDecoder::SetSynchronizationStream</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XMVDecoder::SetSynchronizationStream</h1>
+<p>Uses a specific audio stream to synchronize the video in an Xbox Media Video (XMV) file.</p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>SetSynchronizationStream(</b>
+    <b>DWORD</b> <i>AudioStream</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>AudioStream</i></dt>
+<dd>[in]  Number of the audio stream to use for synchronization This stream must have been enabled. If <i>AudioStream</i> is &#8211;1, all synchronization will be disabled.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>None.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xmv.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="xmvdecoder_enableaudiostream_media.htm">XMVDecoder::EnableAudioStream</a>, <a href="xmvdecoder_getsynchronizationstream_media.htm">XMVDecoder::GetSynchronizationStream</a></p>
+
+</body>
+</html>

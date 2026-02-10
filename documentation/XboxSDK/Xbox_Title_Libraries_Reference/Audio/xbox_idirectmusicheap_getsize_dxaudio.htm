@@ -1,0 +1,41 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicHeap::GetSize</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectMusicHeap::GetSize [C++]">
+<META NAME="MS-HKWD" CONTENT="GetSize (IDirectMusicHeap) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetSize [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectmusicheap_getsize_dxaudio"></A>IDirectMusicHeap::GetSize</H1>
+
+<P>Retrieves the size of allocated memory.</P>
+
+<PRE class="syntax"><B>HRESULT GetSize(</B>
+    <B>PVOID</B> <I>pData</I>,
+    <B>LPDWORD</B> <I>pcbSize</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>cbSize</I></DT>
+    <DD>Address of memory that was previously allocated by <A HREF="xbox_idirectmusicheap_allocate_dxaudio.htm">IDirectMusicHeap::Allocate</A>.</DD>
+<DT><I>pcbSize</I></DT>
+    <DD>Address of a DWORD value that receives the size of allocated memory in bytes.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusicI.h.</P>
+
+
+</BODY>
+</HTML>

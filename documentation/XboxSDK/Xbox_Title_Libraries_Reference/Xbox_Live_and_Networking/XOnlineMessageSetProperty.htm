@@ -1,0 +1,62 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageSetProperty</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageSetProperty</h1>
+            <p>Associates a property with a message.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageSetProperty(</b>
+    <b>XONLINE_MSG_HANDLE</b> <i>hMsg</i><b>,</b>
+    <b>WORD</b> <i>wPropTag</i><b>,</b>
+    <b>DWORD</b> <i>dwPropValueSize</i><b>,</b>
+    <b>const VOID</b> *<i>pPropValue</i><b>,</b>
+    <b>DWORD</b> <i>dwAttachmentFlags</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>hMsg</i></dt>
+				<dd>[in]  Message handle obtained from <a href="XOnlineMessageCreate.htm">XOnlineMessageCreate</a>.</dd>
+			
+            <dt><i>wPropTag</i></dt>
+				<dd>[in]  Property's unique identifier.</dd>
+			
+            <dt><i>dwPropValueSize</i></dt>
+				<dd>[in]  Size, in bytes, of the property value.</dd>
+			
+            <dt><i>pPropValue</i></dt>
+				<dd>[in]  Pointer to the property's actual value.</dd>
+			
+			<dt><i>dwAttachmentFlags</i></dt>
+				<dd>[in]  Flags indicating the attachment type. These are ignored when the property type is not 
+				XONLINE_MSG_PROP_TYPE_ATTACHMENT.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>Use the <a href="XOnlineMessageGetPropType.htm">XOnlineMessageGetPropType</a> macro to retrieve the property type from the property tag. 
+			If the property type is XONLINE_MSG_PROP_TYPE_ATTACHMENT and your title does not pass the 
+			XONLINE_MSG_ATTACHMENT_FLAG_DIRECTORY through the <i>dwAttachmentFlags</i> parameter, the 
+			property value (in the <i>pPropValue</i> parameter) must point to a memory buffer that 
+			remains valid until the send operation completes. If the property type is XONLINE_MSG_PROP_TYPE_ATTACHMENT 
+			and your title sets the XONLINE_MSG_ATTACHMENT_FLAG_DIRECTORY flag, the property value must point to an 
+			ANSI path string to a local directory whose contents must not be changed until the send operation 
+			completes.</p>
+			<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Attachments are not available in the November XDK.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="XOnlineMessageCreate.htm">XOnlineMessageCreate</a></p>
+        
+</body>
+</html>

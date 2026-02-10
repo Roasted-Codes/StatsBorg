@@ -1,0 +1,22 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Listener Orientation</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_listener_orientation_dxaudio"></A>Listener Orientation</H4>
+
+<P>Listener orientation is defined by the relationship between two vectors that share an origin at the center of the listener's head: the <I>top</I> and <I>front vectors</I>. The top vector points straight up through the top of the head, and the front vector points forward through the listener's face at right angles to the top vector, as in the following illustration.</P>
+
+<P><IMG SRC="../../images/3dlistnr.gif" ALT="" BORDER=0></P>
+
+<P>An application can set the listener's orientation by using the <A HREF="xbox_jc_idirectsound8_setorientation_dxaudio.htm"><B>IDirectSound8::SetOrientation</B></A> method.</P>
+
+<P>By default, the front vector is (0.0, 0.0, 1.0), and the top vector is (0.0, 1.0, 0.0). The two vectors must always be at right angles to one another. If necessary, DirectSound will adjust the front vector so that it is at right angles to the top vector.</P>
+
+</BODY>
+</HTML>

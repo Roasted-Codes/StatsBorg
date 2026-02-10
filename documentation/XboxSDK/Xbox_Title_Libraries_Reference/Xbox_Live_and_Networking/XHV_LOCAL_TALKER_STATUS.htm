@@ -1,0 +1,48 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XHV_LOCAL_TALKER_STATUS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XHV_LOCAL_TALKER_STATUS</h1>
+
+        
+        
+<p>Describes the current status of a local talker.  This structure is returned by <a href="XHVEngine_GetLocalTalkerStatus.htm">IXHVEngine::GetLocalTalkerStatus</a>.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _XHV_LOCAL_TALKER_STATUS{
+    XHV_VOICE_COMMUNICATOR_STATUS communicatorStatus;
+    BOOL bIsTalking;
+} XHV_LOCAL_TALKER_STATUS, *PXHV_LOCAL_TALKER_STATUS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>communicatorStatus</b></dt>
+<dd>An <a href="XHV_VOICE_COMMUNICATOR_STATUS.htm">XHV_VOICE_COMMUNICATOR_STATUS</a> structure that describes the current status of the local talker's voice communicator.</dd>
+<dt><b>bIsTalking</b></dt>
+<dd>Indicates whether the local talker is currently talking (that is, whether sound is currently detected in the local talker's microphone).</dd>
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="XHVEngine_GetLocalTalkerStatus.htm">IXHVEngine::GetLocalTalkerStatus</a>
+</p>
+
+        
+    </body>
+    </html>

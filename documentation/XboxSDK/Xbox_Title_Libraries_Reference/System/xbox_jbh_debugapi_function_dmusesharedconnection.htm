@@ -1,0 +1,56 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DmUseSharedConnection</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DmUseSharedConnection</H1>
+
+<P class="content">Enables you to share a single (socket) connection for all API commands, or to have the debugging subsystem open and close a new socket for each API call.</P>
+
+<PRE class=syntax><b>DMHRAPI DmUseSharedConnection(</b>
+  <B>BOOL</B> <I>fShare</I>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+
+<DT><I>fShare</I></DT>
+<DD>If TRUE, debugger API calls will share a single connection. If FALSE, each API call will open a connection, send a command, and close the connection.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P class="content">Returns XBDM_NOERR if successful, an error value otherwise.</P>
+
+
+<H4>Remarks</H4>
+
+<P class="content">Normally, each API call causes a connection to be opened, the command to be sent, and the connection to be closed.  If you pass TRUE to <B>DmUseSharedConnection</B>, the connection is opened only once and will be shared by all subsequent API calls.  If you pass FALSE, then any existing idle connection will be closed.</P>
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

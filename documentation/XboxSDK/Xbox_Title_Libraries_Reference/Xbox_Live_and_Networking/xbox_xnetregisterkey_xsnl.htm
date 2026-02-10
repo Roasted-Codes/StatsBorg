@@ -1,0 +1,52 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XNetRegisterKey</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XNetRegisterKey [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_xnetregisterkey_xsnl"></A>XNetRegisterKey</H1>
+
+<P>Registers the key information for a game session that a title will host or join.</P>
+
+<PRE class="syntax"><B>INT XNetRegisterKey(</B>
+    <B>const XNKID</B> <I>*pxnkid</I>,
+    <B>const XNKEY</B> <I>*pxnkey</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pxnkid</I></DT>
+    <DD>Address of the <A HREF="xbox_xnkid_xsnl.htm">XNKID</A> structure that contains the session key identifier to register.</DD>
+<DT><I>pxnkey</I></DT>
+    <DD>Address of the <A HREF="xbox_xnkey_xsnl.htm">XNKEY</A> structure that contains the session key-exchange key to register.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns zero if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+
+<P>The <B>cfgKeyRegMax</B> member of <a href="xbox_xnetstartupparams_xsnl.htm">XNetStartupParams</a> determines the maximum number of <A HREF="xbox_xnkid_xsnl.htm">XNKID</A>/<a href="xbox_xnkey_xsnl.htm">XNKEY</a> pairs that can be registered at one time (the default is 4 key pairs).  Game session key identifiers should be unregistered with <a href="xbox_xnetunregisterkey_xsnl.htm">XNetUnregisterKey</a> when the game session is finished.</P>
+
+
+<H4>Requirements </H4>
+<P><B>Header: </B>Declared in Winsockx.h, for include use Xtl.h.</P>
+
+<H4>See Also</H4>
+<P>
+<a href="xbox_xnetunregisterkey_xsnl.htm">XNetUnregisterKey</a>,
+<A HREF="xbox_xnkid_xsnl.htm">XNKID</A>,
+<a href="xbox_xnkey_xsnl.htm">XNKEY</a>,
+<a href="xbox_xnetstartupparams_xsnl.htm">XNetStartupParams</a>
+</P>
+
+
+</BODY>
+</HTML>

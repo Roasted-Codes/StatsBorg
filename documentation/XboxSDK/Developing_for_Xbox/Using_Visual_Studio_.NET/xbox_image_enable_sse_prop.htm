@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Enable SSE</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Enable SSE</h1>
+<p>The <b>Enable SSE</b> property lets developers compile Xbox
+		games using the streaming SIMD extensions (SSE). </p><h2><a name="IDAVQ2AB"></a>Remarks</h2>
+<p>The microprocessor used in the Xbox supports the enhanced instruction 
+			set for SSE. Selecting <b>Streaming SIMD Extensions (/arch:SSE)
+			</b> as the value for the <b>Enable SSE</b> property 
+			causes Visual Studio to compile games with SSE enabled. This has the same
+			effect as using the /arch:sse switch when compiling from the 
+			command line.</p><p>To set this property in the Visual Studio environment:</p><ol>
+				<li>Open the Xbox project's <b>Property Pages</b> 
+				dialog box.</li>
+				<li>Click  <b>Code Generation</b>.</li>
+				<li>Set the <b>Enable Enhanced Instruction Set</b> property to 
+				<b>Streaming SIMD Extensions (/arch:SSE)</b>.</li>
+			</ol>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;The Xbox does not support SSE2.</p>
+</body>
+</html>

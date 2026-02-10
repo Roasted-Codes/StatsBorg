@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XAudioDownloadEffectsImage</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XAudioDownloadEffectsImage</h1>
+<p>Downloads a DSP effects image from a file or an XBE section to the global processor in the Xbox Media Communications Processor (MCP).</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XAudioDownloadEffectsImage(</b>
+    <b>LPCSTR</b> <i>pszImageName</i><b>,</b>
+    <b>LPCDSEFFECTIMAGELOC</b> <i>pImageLoc</i><b>,</b>
+    <b>DWORD</b> <i>dwFlags</i><b>,</b>
+    <b>LPDSEFFECTIMAGEDESC</b> *<i>ppImageDesc</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pszImageName</i></dt>
+                <dd>String value that specifies the file or section name that contains the DSP effects image.</dd>
+            
+            <dt><i>pImageLoc</i></dt>
+                <dd>Address of a <a href="xbox_dseffectimageloc_dxaudio.htm">DSEFFECTIMAGELOC</a> structure that specifies the location of the reverberation and crosstalk effects in the effects image being downloaded. Can be set to NULL if none of the effects used by other DirectSound methods (currently reverb and crosstalk) appear in the image.</dd>
+            
+            <dt><i>dwFlags</i></dt>
+                <dd>Value that specifies the flags used to control this function. Can be one of the following values:</dd>
+                <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                    <tr>
+<td>XAUDIO_DOWNLOADFX_EXTERNFILE</td>
+<td>The DSP effects image is located in a separate file.</td>
+</tr>
+                    <tr>
+<td>XAUDIO_DOWNLOADFX_XBESECTION</td>
+<td>The DSP effects image is located in a section of the XBE.</td>
+</tr>
+                </table>
+            
+            <dt><i>ppImageDesc</i></dt>
+                <dd>Address of a pointer to the <a href="xbox_dseffectimagedesc_dxaudio.htm">DSEFFECTIMAGEDESC</a> structure that is returned by the method, which describes the DSP scratch image.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p>Before calling this function, the DirectSound object must be initialized by calling either <a href="xbox_jc_directsoundcreate_dxaudio.htm">DirectSoundCreate</a> or <a href="_dx_idirectmusicperformance8_initaudio_dxaudio.htm">IDirectMusicPerformance8::InitAudioX</a>.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XGetDeviceEnumerationStatus</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XGetDeviceEnumerationStatus</h1>
+<p>The <b>XGetDeviceEnumerationStatus</b> function determines whether the system is in the process of enumerating connected devices.</p><pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>XGetDeviceEnumerationStatus(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>If no enumeration is in progress (all connected devices have been enumerated), the return value is XDEVICE_ENUMERATION_IDLE.</p>
+<p>If an enumeration is in progress (as a result of device insertions or removals, or a call to <a href="x_mt_xinitdevices.htm">XInitDevices</a>), the return value is XDEVICE_ENUMERATION_BUSY.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xbox.h, for include use Xtl.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xapilib.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_jsk_xid_functions.htm">Input Device Functions</a> |
+<a href="x_mt_xinitdevices.htm">XInitDevices</a>,
+<a href="x_jsk_xgetdevicechanges.htm">XGetDeviceChanges</a>,
+<a href="x_jsk_xgetdevices.htm">XGetDevices</a>
+</p>
+
+</body>
+</html>

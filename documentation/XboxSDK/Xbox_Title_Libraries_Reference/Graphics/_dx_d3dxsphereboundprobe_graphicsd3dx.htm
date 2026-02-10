@@ -1,0 +1,59 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXSphereBoundProbe</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXSphereBoundProbe">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxsphereboundprobe_graphicsd3dx"></A>D3DXSphereBoundProbe</H1>
+
+<P>Determines if a ray intersects the volume of a sphere's bounding box.</P>
+
+<PRE class=syntax><B>BOOL D3DXSphereBoundProbe(
+  CONST D3DXVECTOR3*</B> <I>pCenter</I><B>,</B>
+<B>  FLOAT</B> <I>Radius</I><B>,</B>
+<B>  D3DXVECTOR3*</B> <I>pRayPosition</I><B>,</B>
+<B>  D3DXVECTOR3*</B> <I>pRayDirection</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pCenter</I></DT>
+
+<DD>[in] Pointer to a <A HREF="_dx_d3dxvector3_graphicsd3dx.htm"><B>D3DXVECTOR3</B></A> structure, specifying the center coordinate of the sphere.</DD>
+
+<DT><I>Radius</I></DT>
+
+<DD>[in] Radius of the sphere.</DD>
+
+<DT><I>pRayPosition</I></DT>
+
+<DD>[in] Pointer to a <B>D3DXVECTOR3</B> structure, specifying the origin coordinate of the ray.</DD>
+
+<DT><I>pRayDirection</I></DT>
+
+<DD>[in] Pointer to a <B>D3DXVECTOR3</B> structure, specifying the direction of the ray.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns TRUE if the ray intersects the volume of the sphere's bounding box. Otherwise, returns FALSE.</P>
+
+<H4>Remarks</H4>
+
+<P><B>D3DXSphereBoundProbe</B> determines if the ray intersects the volume of the sphere's bounding box, not just the surface of the sphere.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8mesh.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3dx8.lib.</P>
+
+</BODY>
+</HTML>

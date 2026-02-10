@@ -1,0 +1,34 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Fire Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Fire Sample</H1>
+
+
+<P class="intro">The Fire sample illustrates a cool, billboarded fire effect. Note that since this technique involves billboarding, the effect really only looks good with head-on viewing. Therefore, camera movement is restricted from top-down viewing.</P>
+
+
+<h3 class="overview">Overview</H3>
+
+
+<P class="content">The technique used to animate the fire in this sample is simple. It blends together three textures to achieve the effect. The first texture is a static picture of the fire. It has the gradient colors of the fire in the color channel and the outline of the fire in the alpha channel. The second texture is a noise texture that modulates the fire texture's alpha channel to achieve the whispy flame look. This texture is animated. (Its texture coordinates are vertically scrolled to give the effect of motion.) A third texture is used to mask the noise texture, so that the end result is more opaque towards the bottom of the fire.</P>
+
+<P class="content">In addition to the textures, the geometry is distorted like a crumpled piece of paper so that when the noise texture is scrolled, the whispy flames look turbulent, rather than simply looking as if they are scrolling upward.</P>
+
+<P class="content">The effect is achieved with a vertex and pixel shader. The vertex shader transforms the geometry and scrolls the noise texture. The pixel shader blends the three textures together.</P>
+
+
+</BODY>
+</HTML>

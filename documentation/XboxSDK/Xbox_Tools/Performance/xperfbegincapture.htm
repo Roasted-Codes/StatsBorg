@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XPerfBeginCapture</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XPerfBeginCapture</h1>
+<p>Begins capturing performance data.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XPerfBeginCapture(</b>
+    <b>CONST CHAR</b> *<i>FileName</i><b>,</b>
+    <b>DWORD</b> <i>Flags</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>FileName</i></dt>
+<dd>[in]  Location of the file to dump captured data to.</dd>
+	<dt><i>Flags</i></dt>
+<dd>[in]  Specifies which profiling methods will be used to capture data. <i>Flags</i> can be one or more of the following values:</dd>
+		<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+		<tr>
+<td>XPERF_USECPX</td>
+<td>Capture CPX data.</td>
+</tr>
+		
+		<tr>
+<td>XPERF_USEFASTCAP</td>
+<td>Capture data using FASTCAP instrumentation.</td>
+</tr>
+		</table>
+	
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>To stop capturing performance data, the title should call <a href="xperfendcapture.htm">XPerfEndCapture</a>.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xperf.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xperf.lib.</p>
+    
+</body>
+</html>

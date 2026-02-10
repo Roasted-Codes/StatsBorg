@@ -1,0 +1,34 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Point Size Computations</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_point_size_computations_graphics"></A>Point Size Computations</H1>
+
+<P>Point size is determined by <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointscaleenable_graphics">D3DRS_POINTSCALEENABLE</A>. If this value is set to FALSE, the application-specified point size is used as the screen-space (post-transformed) size. Vertices that are passed to Microsoft&#174; Direct3D&#174; in screen space do not have point sizes computed; the specified point size is interpreted as screen-space size.</P>
+
+<P>If D3DRS_POINTSCALEENABLE is TRUE, Direct3D computes the screen-space point size according to the following formula. The application-specified point size is expressed in camera space units.</P>
+
+<P><B><I>S<SUB>s</SUB></I></B> = <B><I>V<SUB>h</SUB> * S<SUB>i</SUB></I></B> * sqrt(1/(<B><I>A</I></B> + <B><I>B</I></B>*<B><I>D</I><SUB>e</SUB></B> + <B><I>C</I></B>*(<I><B>D<SUB>e</SUB><SUP>2</SUP></B>)))</I></P>
+
+<P>In this formula, the input point size, <B><I>S<SUB>i</SUB></I></B>, is either per-vertex or the value of the <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointsize_graphics">D3DRS_POINTSIZE</A> render state. The point scale factors, <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointscale_a_graphics">D3DRS_POINTSCALE_A</A>, <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointscale_b_graphics">D3DRS_POINTSCALE_B</A>, and <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointscale_c_graphics">D3DRS_POINTSCALE_C</A>, are represented by the points <B><I>A</I></B>, <B><I>B</I></B>, and <B><I>C</I></B>. The height of the viewport, <B><I>V<SUB>h</SUB></I></B>, is the <B>Height</B> member of the <A HREF="_dx_d3dviewport8_graphics.htm">D3DVIEWPORT8</A> structure representing the viewport. <B><I>D<SUB>e</SUB></I></B>, the distance from the eye to the position (the eye at the origin), is computed by taking the eye space position of the point (<B><I>X<SUB>e</SUB></I></B>, <B><I>Y<SUB>e</SUB></I></B>, <B><I>Z<SUB>e</SUB></I></B>) and performing the following operation.</P>
+
+<P><B><I>D<SUB>e</SUB></I></B> = sqrt (<B><I>X<SUB>e</SUB><SUP>2</SUP></I></B> + <B><I>Y<SUB>e</SUB><SUP>2</SUP></I></B> + <B><I>Z<SUB>e</SUB><SUP>2</SUP></I></B>)</P>
+
+<P>The maximum point size, <B><I>P<SUB>max</SUB></I></B>, is determined by taking the smaller of either 64.0f or the <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointsize_max_graphics">D3DRS_POINTSIZE_MAX</A> render state. The minimum point size, <B><I>P<SUB>min</SUB></I></B>, is determined by querying the value of <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointsize_min_graphics">D3DRS_POINTSIZE_MIN</A>. Thus the final screen-space point size, <B><I>S</I></B>, is determined in the following manner.
+
+<UL>
+	<LI>If<B><I> S<SUB>s</SUB></I></B> &gt; <B><I>P<SUB>max </SUB></I></B>, then <B><I>S</I></B> = <B><I>P<SUB>max</SUB></I></B></LI>
+
+	<LI>if <B><I>S<SUB>s</SUB></I></B> &lt; <B><I>P<SUB>min</SUB></I></B>, then <B><I>S</I></B> = <B><I>P<SUB>min</SUB></I></B></LI>
+
+	<LI>Otherwise, <B><I>S</I></B> = <B><I>S<SUB>s</SUB></I></B></LI>
+</UL>
+
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>GetFileSizeEx</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="GetFileSizeEx">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_getfilesizeex"></A>GetFileSizeEx</H1>
+
+<P>The <B>GetFileSizeEx</B> function retrieves the size of a specified file. </P>
+
+<PRE class=syntax><B>BOOL GetFileSizeEx(
+</B>  <B>HANDLE</B> <I>hFile</I>,              // handle to file
+  <B>PLARGE_INTEGER</B> <I>lpFileSize</I>  // file size
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>hFile</I></DT>
+
+<DD>[in] Handle to the file whose size is to be returned. The handle must have been created with either GENERIC_READ or GENERIC_WRITE access to the file.</DD>
+
+<DT><I>lpFileSize</I></DT>
+
+<DD>[out] Pointer to a <A HREF="filesio_72lu.htm">LARGE_INTEGER</A> structure that receives the file size. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the function succeeds, the return value is nonzero.</P>
+
+<P>If the function fails, the return value is zero. To get extended error information, call <A HREF="errors_3uwi.htm">GetLastError</A>. </P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p>
+
+<H4>See Also</H4>
+<P>
+
+<A HREF="xbox_mt_xtl_sll_file_io_functions.htm">File I/O Functions</A> | 
+<A HREF="filesio_72lu.htm">LARGE_INTEGER</A>
+</P>
+
+
+</BODY>
+</HTML>

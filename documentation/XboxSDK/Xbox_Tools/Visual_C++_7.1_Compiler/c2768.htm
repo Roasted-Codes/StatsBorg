@@ -1,0 +1,47 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Error C2768</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c2768"></A>Compiler Error C2768</H1>
+
+
+<P><B>'<I>function</I>' : illegal use of explicit template arguments</B></P>
+
+<p>The compiler was unable to determine if a function definition was supposed to be 
+an explicit specialization of a function template or if the function definition was 
+supposed to be for a new function.</p>
+
+<p>This error was introduced in Visual Studio .NET 2003, as part of the compiler 
+conformance enhancements. The following example generates C2768:</p>
+
+<pre class = "code">// C2768.cpp
+// compile with: /LD
+template &lt;typename T&gt;
+void f(T)
+{
+}
+
+// template&lt;&gt;
+void f&lt;int&gt;(int)
+// Uncomment the template&lt;&gt; line to make an explicit specialization or
+// try the following to make a global nontemplate function overload
+// void f(int)
+{   // C2768
+}
+</pre>
+
+
+</BODY>
+</HTML>

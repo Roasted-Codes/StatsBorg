@@ -1,0 +1,60 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Warning (level 4) C4347</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c4347"></A>Compiler Warning (level 4) C4347</H1>
+
+
+<P><b>behavior change: '<i>function template</i>' is called instead of '<i>function</i>'</b></P>
+
+<P>In Visual Studio .NET, if you had a template function, and a nontemplate 
+function with the same name as the template function, the compiler incorrectly treated 
+the nontemplate function as a specialization of the template function. </p>
+
+<p>For code that works the same in all versions of Visual C++, add the statement 
+template&lt;&gt; above the nontemplate function, making it a real explicit 
+specialization.</p>
+
+<p>This warning is off by default.</p>
+
+<p>The following sample generates C4347:</p>
+
+<pre class = "code">// C4347.cpp
+// compile with: /W4 /EHsc
+#pragma warning (default : 4347)
+#include &lt;iostream&gt:
+using namespace std;
+
+template &lt;typename T&gt:
+void f(T t)
+{
+   cout &lt;&lt; "in void f(T t), t = " &lt;&lt; t &lt;&lt; endl;
+}
+
+// template &lt;&gt:
+void f(int i)
+{   // C4347 uncomment template&lt;&gt;
+   cout &lt;&lt; "in void f(int i), i = " &lt;&lt; i &lt;&lt; endl;
+}
+
+int main()
+{
+   f(5);       // regular function call
+   f&lt;int&gt:(5);  // calls implicit instantiation
+}</pre>
+
+
+</BODY>
+</HTML>

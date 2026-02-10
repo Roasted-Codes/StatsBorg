@@ -1,0 +1,78 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundStream::SetMode</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundStream::SetMode [C++]">
+<META NAME="MS-HKWD" CONTENT="SetMode (IDirectSoundStream) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetMode [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsoundstream_setmode_dxaudio"></A>IDirectSoundStream::SetMode</H1>
+
+<P>Sets the operation mode for 3D sound processing.</P>
+
+<PRE class="syntax"><B>HRESULT SetMode(</B>
+    <B>DWORD</B> <I>dwMode</I>,
+    <B>DWORD</B> <I>dwApply</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>dwMode</I></DT>
+
+<DD>Flag specifying the 3D sound processing mode to be set:</DD>
+
+<DL>
+<DT>DS3DMODE_DISABLE </DT>
+
+<DD>Processing of 3D sound is disabled. The sound seems to originate from the center of the listener's head. </DD>
+
+<DT>DS3DMODE_HEADRELATIVE </DT>
+<!--
+<DD>Sound parameters (position, velocity, and orientation) are relative to the listener's parameters. In this mode, the absolute parameters of the sound are updated automatically as the listener's parameters change, so that the perception of the sound remains constant. </DD>
+-->
+<dd>Used in situations where the position, velocity, and orientation of a sound do not change as the listener moves (the listener position is ignored). For example, imagine music coming from a player's car stereo during a game. The player's car could use DS3DMODE_HEADRELATIVE, since the sound will be coming from the same position relative to the player no matter how the car moves and turns as the game progresses.</dd>
+
+<DT>DS3DMODE_NORMAL </DT>
+
+<DD>Normal processing. This is the default mode. </DD>
+</DL>
+
+<DT><I>dwApply</I></DT>
+
+<DD>Value that specifies when the setting should be applied. This value must be one of the following:</DD>
+
+<DL>
+<DT>DS3D_DEFERRED </DT>
+
+<DD>Settings are not applied until the application calls the <A HREF="xbox_jc_idirectsound8_commitdeferredsettings_dxaudio.htm"><B>IDirectSound8::CommitDeferredSettings</B></A> method. This allows the application to change several settings and generate a single recalculation. </DD>
+
+<DT>DS3D_IMMEDIATE </DT>
+
+<DD>Settings are applied immediately, causing the system to recalculate the 3D coordinates for all 3D sound buffers. </DD>
+</DL>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful; returns an error code otherwise.</P>
+
+<H4>Remarks</H4>
+<!--
+<p>DS3DMODE_HEADRELATIVE should be used in situations where the position, velocity, and orientation of a sound do not change as the listener moves. For example, if a sound is coming from a player's car, you could use DS3DMODE_HEADRELATIVE since the sound will be coming from the same position relative to the player no matter how the car moves and turns in a game.</p>
+-->
+<p>This function is only valid for streams created using the DSBCAPS_CTRL3D flag.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSound.h.</P>
+
+
+</BODY>
+</HTML>

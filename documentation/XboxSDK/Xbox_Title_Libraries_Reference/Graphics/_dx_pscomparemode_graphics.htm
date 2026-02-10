@@ -1,0 +1,65 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>PSCompareMode</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME=""></A>PSCompareMode</H1>
+
+
+<p>The final texture field specified how the <a href="_dx_pstexturemodes_graphics.htm#ps_texturemodes_clipplane"><b>PS_TEXTUREMODES_CLIPPLANE</b></a> mode works on each texture stage. This texture mode eliminates the current fragment depending on the sign of each texture address component (r, s, t, and q). The bits in this field specify the condition for each input that will cause the fragment to be eliminated. The <b>PS_COMPAREMODE(</b><i>t0</i>,<i>t1</i>,<i>t2</i>,<i>t3</i><b>)</b> macro is used to specify four flags for each texture stage. The macro is defined as below:</p>
+
+<a name="ps_comparemode"></a><pre class=syntax>#define PS_COMPAREMODE(t0,t1,t2,t3) (((t3)&lt;&lt;12)|((t2)&lt;&lt;8)|((t1)&lt;&lt;4)|(t0))</pre>
+
+<p>Each flag specifies how the comparison works for each input. For example, specifying the PS_COMPAREMODE_S_LT for stage 0 means that if the PS_TEXTUREMODES_CLIPPLANE texture mode is set on stage 0, the fragment will be eliminated if the s input is less than zero. Likewise, the PS_COMPAREMODE_S_GE means that the fragment will be eliminated if the s input is greater than or equal to zero. Four flags should be specified for each stage that is using the PS_TEXTUREMODES_CLIPPLANE mode.</p>
+
+<p>The following flags may be specified:</p>
+
+<dl>
+<a name="ps_comparemode_s_lt"></a><dt>PS_COMPAREMODE_S_LT</dt>
+
+<dd>Elimate the fragment for the specified stage if the s input is less than zero.</dd>
+
+<a name="ps_comparemode_s_ge"></a><dt>PS_COMPAREMODE_S_GE</dt>
+
+<dd>Elimate the fragment for the specified stage if the s input is greater than or equal to zero.</dd>
+
+<a name="ps_comparemode_t_lt"></a><dt>PS_COMPAREMODE_T_LT</dt>
+
+<dd>Elimate the fragment for the specified stage if the t input is less than zero.</dd>
+
+<a name="ps_comparemode_t_ge"></a><dt>PS_COMPAREMODE_T_GE</dt>
+
+<dd>Elimate the fragment for the specified stage if the t input is greater than or equal to zero.</dd>
+
+<a name="ps_comparemode_r_lt"></a><dt>PS_COMPAREMODE_R_LT</dt>
+
+<dd>Elimate the fragment for the specified stage if the r input is less than zero.</dd>
+
+<a name="ps_comparemode_r_ge"></a><dt>PS_COMPAREMODE_R_GE</dt>
+
+<dd>Elimate the fragment for the specified stage if the r input is greater than or equal to zero.</dd>
+
+<a name="ps_comparemode_q_lt"></a><dt>PS_COMPAREMODE_Q_LT</dt>
+
+<dd>Elimate the fragment for the specified stage if the q input is less than zero.</dd>
+
+<a name="ps_comparemode_q_ge"></a><dt>PS_COMPAREMODE_Q_GE</dt>
+
+<dd>Elimate the fragment for the specified stage if the q input is greater than or equal to zero.</dd>
+
+</dl>
+
+
+</BODY>
+</HTML>

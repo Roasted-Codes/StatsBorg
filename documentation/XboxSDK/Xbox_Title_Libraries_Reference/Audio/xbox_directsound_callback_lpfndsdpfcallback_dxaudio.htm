@@ -1,0 +1,47 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>LPFNDSDPFCALLBACK</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>LPFNDSDPFCALLBACK</h1>
+
+        
+        
+        
+                
+<pre class="syntax"><b>typedef BOOL</b> <b>(CALLBACK *LPFNDSDPFCALLBACK)(</b>
+    <b>DWORD</b> <i>dwLevel</i><b>,</b>
+    <b>LPCSTR</b> <i>pszString</i>
+<b>);</b>
+</pre>
+            
+                <h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>dwLevel</i></dt>
+<dd>[in]  Value indicating the current debug output level. See <a href="xbox_directsound_global_directsounddebuglevel_dxaudio.htm">g_dwDirectSoundDebugLevel</a> for more information.</dd>
+			<dt><i>pszString</i></dt>
+<dd>[in]  Null-terminated string containing the debug output text.</dd>
+		</dl>
+                <h4><a name="return"></a>Return Values</h4>
+			<p>Returning TRUE indicates that the message will be printed to the debugger. Returning FALSE prevents it from being printed.</p>
+		
+                
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_directsound_callback_functions_dxaudio.htm">DirectSound Callback Functions</a>
+		</p>
+    
+        
+    </body>
+    </html>

@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINESTORAGE_FILE_INFO</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINESTORAGE_FILE_INFO</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    DWORD dwTitleID;
+    DWORD dwTitleVersion;
+    ULONGLONG qwOwnerPUID;
+    BYTE bCountryID;
+    ULONGLONG qwReserved;
+    DWORD dwContentType;
+    DWORD dwStorageSize;
+    DWORD dwInstalledSize;
+    FILETIME ftCreated;
+    FILETIME ftLastModified;
+    WORD wAttributesSize;
+    WORD cchPathName;
+    LPCWSTR wszPathName;
+    PBYTE pbAttributes;
+} XONLINESTORAGE_FILE_INFO, *PXONLINESTORAGE_FILE_INFO;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+		<dt><b>dwTitleID</b></dt>
+<dd>Title identifier of the content.</dd>
+		
+		<dt><b>dwTitleVersion</b></dt>
+<dd>Title version of the content.</dd>
+		
+		<dt><b>qwOwnerPUID</b></dt>
+<dd>Player unique ID (PUID) of the uploaded file.</dd>
+		
+		<dt><b>bCountryID</b></dt>
+<dd>Country identifier of the user who created this content.</dd>
+		
+		<dt><b>qwReserved</b></dt>
+<dd>Reserved for future expansion.</dd>
+		
+		<dt><b>dwContentType</b></dt>
+<dd>Indicates the content type. See the <a href="XONLINESTORAGE_CONTENT_TYPE.htm">XONLINESTORAGE_CONTENT_TYPE</a> enumeration to determine which function should be used for the content download.</dd>
+		
+		<dt><b>dwStorageSize</b></dt>
+<dd>Size of the file in bytes on the server.</dd>
+		
+		<dt><b>dwInstalledSize</b></dt>
+<dd>For packages (when <i>dwContentType</i> is XONLINESTORAGE_CONTENT_TYPE_PACKAGE), this is the size in bytes, but in multiples of HD blocks. For memory blobs (when <i>dwContentType</i> is XONLINESTORAGE_CONTENT_TYPE_BLOB), this is the size of the exact memory footprint, in bytes.</dd>
+		
+		<dt><b>ftCreated</b></dt>
+<dd>Timestamp indicating creation time of the file in UTC format.</dd>
+		
+		<dt><b>ftLastModified</b></dt>
+<dd>Timestamp indicating the last modification of the file in UTC format.</dd>
+		
+		<dt><b>wAttributesSize</b></dt>
+<dd>This value must be zero.</dd>
+		
+		<dt><b>cchPathName</b></dt>
+<dd>Length of the full path name to the content.</dd>
+		
+		<dt><b>wszPathName</b></dt>
+<dd>UNICODE string of the storage path identifying this content.</dd>
+		
+		<dt><b>pbAttributes</b></dt>
+<dd>This value must be NULL.</dd>
+	</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineStorageEnumerateGetResults.htm">XOnlineStorageEnumerateGetResults</a></p>
+
+        
+    </body>
+    </html>

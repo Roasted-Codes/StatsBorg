@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTEngine::GetRealtimeData</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTEngine::GetRealtimeData</h1>
+<p>Returns data indicating the current memory usage, buffer status, and capabilities of the XACT engine.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetRealtimeData(</b>
+    <b>XACT_REALTIME_AUDIO_DATA</b> *<i>pData</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pData</i></dt>
+<dd>[out]  Pointer to an <a href="XACT_REALTIME_AUDIO_DATA.htm">XACT_REALTIME_AUDIO_DATA</a> structure that receives XACT engine status and capabilities.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns DS_OK if successful, an error code otherwise.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="XACT_REALTIME_AUDIO_DATA.htm">XACT_REALTIME_AUDIO_DATA</a>
+</p>
+
+</body>
+</html>

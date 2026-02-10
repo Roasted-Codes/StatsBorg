@@ -1,0 +1,50 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>timeKillEvent</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="timeKillEvent">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_timekillevent"></A>timeKillEvent</H1>
+
+<P>The <B>timeKillEvent</B> function cancels a specified timer event.</P>
+
+<PRE class=syntax><B>MMRESULT timeKillEvent(
+  UINT</B><I> uTimerID  </I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>uTimerID</I></DT>
+
+<DD>Identifier of the timer event to cancel. This identifier was returned by the <B>timeSetEvent</B> function when the timer event was set up.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns TIMERR_NOERROR if successful or MMSYSERR_INVALPARAM if the specified timer event does not exist.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in dsound.h, for include use xtl.h.<br><b>Import Library: </b>Use xapilib.lib
+
+<P></P>
+
+<H4>See Also</H4>
+<P>
+
+<a href="xbox_mt_xtl_sll_time_functions.htm">Time Functions</a> |
+<A HREF="mmfunc_5378.htm">timeSetEvent</a>
+</P>
+
+
+</BODY>
+</HTML>

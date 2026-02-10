@@ -1,0 +1,101 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DSFILTERDESC</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DSFILTERDESC [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_dsfilterdesc_dxaudio"></A>DSFILTERDESC</H1>
+
+<P>Describes the characteristics of a filter.</P>
+
+<PRE class="syntax">typedef struct _DSFILTERDESC{
+    DWORD dwMode;
+    DWORD dwQCoefficient;
+    DWORD adwCoefficients[4];
+} DSFILTERDESC, *LPDSFILTERDESC;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwMode</B></DT>
+    <DD>Value that specifies the filter mode. Can be one of the following values:</DD>
+    
+    <DL>
+        <DT>DSFILTER_MODE_BYPASS</DT>
+            <DD>Bypass all filtering. Not valid for 3D buffers.</DD>
+        <DT>DSFILTER_MODE_DLS2</DT>
+            <DD>Perform DLS2 filtering. On 3D buffers, it should also perform I3DL2 filtering.</DD>
+        <DT>DSFILTER_MODE_PARAMEQ</DT>
+            <DD>Perform parametric EQ processing. On 3D buffers, it should also perform I3DL2 filtering.</DD>
+        <DT>DSFILTER_MODE_MULTI</DT>
+            <DD>Perform DLS2 and parametric EQ filtering on mono 2D buffers. Perform only I3DL2 filtering on mono 3D buffers.</DD>
+    </DL>
+    
+<DT><B>dwQCoefficient</B></DT>
+    <dd>Value that corresponds to how wide a range of frequencies are affected. Can be a value from zero (narrowest) to seven (widest).</dd>
+
+<DT><B>adwCoefficients</B></DT>
+    <DD>Array of values that contains the filter coefficients.</DD>
+</DL>
+
+<H4>Remarks</H4>
+<P>For stereo buffers: 1) the first and second coefficients specified in <B>adwCoefficients</B> handle the left channel, and 2) the third and fourth coefficients handle the right channel.</P>
+
+<p>For 3D buffers, you must have at least the I3DL2 filtering enabled.</p>
+
+<p>Mathematically, the Q coefficient is the peaking curve of the filter, defined as a ratio of the center frequency to the bandwidth (as defined by the +/- 3dB point). Thus, using the same Q coefficient, doubling the center frequency will also double the width in Hz. The math used for determining these coefficients can be found in the <b>SetFilter</b> XDK sample.</p>
+
+<p>The following table shows how the <b>dwQCoefficient</b> value corresponds to the Q coefficient.</p>
+
+<table>
+    <tr>
+		<th>dwQCoefficient</th>
+        <th>Q</th>
+	</tr>
+    <tr>
+		<td>0</td>
+        <td>1</td>
+	</tr>    
+    <tr>
+		<td>1</td>
+        <td>.5</td>
+	</tr>
+    <tr>
+		<td>2</td>
+        <td>.25</td>
+	</tr>
+    <tr>
+		<td>3</td>
+        <td>.125</td>
+	</tr>
+    <tr>
+		<td>4</td>
+        <td>.0625</td>
+	</tr>
+    <tr>
+		<td>5</td>
+        <td>.03125</td>
+	</tr>         
+    <tr>
+		<td>6</td>
+        <td>.015625</td>
+	</tr>          
+    <tr>
+		<td>7</td>
+        <td>.007813</td>
+	</tr>
+</table>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

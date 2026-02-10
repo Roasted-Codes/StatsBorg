@@ -1,0 +1,51 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DSMIXBINVOLUMEPAIR</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>DSMIXBINVOLUMEPAIR</h1>
+
+        
+        
+<p>Contains the identifier for the mixbin and the volume it should be set to (when applicable).</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _DSMIXBINVOLUMEPAIR{
+    DWORD dwMixBin;<span class="clsSyntaxComment">  // MixBin identifier</span>
+    LONG lVolume;<span class="clsSyntaxComment">  // MixBin volume</span>
+} DSMIXBINVOLUMEPAIR, *LPDSMIXBINVOLUMEPAIR;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>dwMixBin</b></dt>
+                
+                <dd>Value that contains the mixbin identifier. Can be one of the <a href="xbox_mixbin_constants_dxaudio.htm">Mixbin Constants</a>.</dd>
+            
+            <dt><b>lVolume</b></dt>
+                
+                <dd>Value that specifies the volume that this mixbin should be set to (when applicable).</dd>
+            
+        </dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+			<p>For a 3D voice, it is required that the first four mixbins be the ones in DSMIXBINVOLUMEPAIRS_REQUIRED_3D. Then, either a 4-channel algorithm can be used or a 5-channel algorithm can be used. This is determined by whether the fifth mixbin is DSMIXBIN_FRONT_CENTER or not. The 5-channel algorithm is very similar to the 4-channel algorithm except that some of the sound is routed out of the front-left and front-right speakers and routed to the center speaker.</p>
+		
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+                
+
+        
+    </body>
+    </html>

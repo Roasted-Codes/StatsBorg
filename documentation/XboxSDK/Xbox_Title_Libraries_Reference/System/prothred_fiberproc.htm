@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>FiberProc</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="FiberProc">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_fiberproc"></A>FiberProc</H1>
+
+<P>The <B>FiberProc</B> function is an application-defined function used with the <A HREF="prothred_createfiber.htm">CreateFiber</a> function. It serves as the starting address for a fiber. The <B>LPFIBER_START_ROUTINE</B> type defines a pointer to this callback function. <B>FiberProc</B> is a placeholder for the application-defined function name. </P>
+
+<PRE class=syntax><B>VOID CALLBACK FiberProc(
+  PVOID</B><I> lpParameter</I>   // fiber data
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpParameter</I></DT>
+
+<DD>[in] Receives the fiber data passed to the function using the <I>lpParameter</I> parameter of the <B>CreateFiber</B> function. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function does not return a value. </P>
+
+<H4>Remarks</H4>
+
+<P>The fiber should not return from the <B>FiberProc</B>.  To delete a fiber, call <B>DeleteFiber</B> from a different fiber.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p>
+
+<H4>See Also</H4>
+<P>
+<a href="xbox_mt_xtl_sll_threads_overview.htm">Thread Overview</a>,
+<a href="xbox_mt_xtl_sll_threads_functions.htm">Thread Functions</a> | 
+<A HREF="prothred_createfiber.htm">CreateFiber</a>,
+<A HREF="prothred_deletefiber.htm">DeleteFiber</a>
+</P>
+
+
+</BODY>
+</HTML>

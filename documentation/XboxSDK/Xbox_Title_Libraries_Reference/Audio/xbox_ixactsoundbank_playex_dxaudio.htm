@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTSoundBank::PlayEx</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTSoundBank::PlayEx</h1>
+<p>Plays a sound cue. This method supersedes <a href="xbox_ixactsoundbank_play_dxaudio.htm">IXACTSoundBank::Play</a>.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>PlayEx(</b>
+    <b>PCXACT_PREPARE_SOUNDCUE</b> <i>pPrepareData</i><b>,</b>
+    <b>PXACTSOUNDCUE</b> *<i>ppSoundCue</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pPrepareData</i></dt>
+				<dd>[in]  Pointer to an <a href="xbox_xactpreparesoundcue_dxaudio.htm">XACT_PREPARE_SOUNDCUE</a> structure containing information about the sound cue to play.</dd>
+			
+			<dt><i>ppSoundCue</i></dt>
+				<dd>[out]  Pointer to an IXACTSoundCue to be returned.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful, an error code otherwise.</p>
+        <h4><a name="remarks"></a>Remarks</h4>
+<p>Titles must call <a href="xbox_ixactsoundbank_stop_dxaudio.htm">Stop</a> to release sound cue pointers returned by <b>PlayEx</b>, <b>Play</b>, <a href="xbox_ixactsoundbank_prepareex_dxaudio.htm">PrepareEx</a>, or <a href="xbox_ixactsoundbank_prepare_dxaudio.htm">Prepare</a>.  For sound cues that play to completion, call <b>Stop</b> when the cue's stop notification arrives.  Sound cue pointers are not returned (and need not be released) when XACT_FLAG_SOUNDCUE_AUTORELEASE is specified.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_ixactsoundbank_play_dxaudio.htm">IXACTSoundBank::Play</a>
+		</p>
+
+</body>
+</html>

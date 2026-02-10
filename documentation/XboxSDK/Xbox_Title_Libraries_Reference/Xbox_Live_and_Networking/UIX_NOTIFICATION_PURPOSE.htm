@@ -1,0 +1,51 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>UIX_NOTIFICATION_PURPOSE</title>
+</head>
+		
+    <body topmargin="0">
+        
+
+
+        <h1>UIX_NOTIFICATION_PURPOSE</h1>
+
+                
+        
+<p>Specifies the purpose for which <a href="ILiveEngine_GetNotifications.htm">ILiveEngine::GetNotifications</a> is being called.</p>
+                
+
+<pre class="syntax">typedef enum _UIX_NOTIFICATION_PURPOSE{
+    UIX_NOTIFICATION_MENU = 0,
+    UIX_NOTIFICATION_IN_GAME_FLASH = 1,
+    UIX_NOTIFICATION_FORCE_DWORD = 0x7fffffff,
+} UIX_NOTIFICATION_PURPOSE;</pre>
+            
+
+            
+                <h4><a name="constants"></a>Constants</h4>
+<dl>
+<dt><a name="UIX_NOTIFICATION_MENU"></a>UIX_NOTIFICATION_MENU</dt>
+<dd>Return notifications that must be indicated next to <b>Friends</b> in the main start menu.</dd>
+<dt><a name="UIX_NOTIFICATION_IN_GAME_FLASH"></a>UIX_NOTIFICATION_IN_GAME_FLASH</dt>
+<dd>Return in-game notifications that must be indicated in the lower right corner of the screen for three seconds.</dd>
+<dt><a name="UIX_NOTIFICATION_FORCE_DWORD"></a>UIX_NOTIFICATION_FORCE_DWORD</dt>
+<dd>This value is not used; it forces the enumeration to compile to 32 bits in size.</dd>
+</dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p><b>UIX_NOTIFICATION_PURPOSE</b> selects the purpose for which the title is calling <b>ILiveEngine::GetNotifications</b>.  The UIX_NOTIFICATION_IN_GAME_FLASH flags are cleared every time <b>ILiveEngine::GetNotifications</b> is called with that notification purpose.  The UIX_NOTIFICATION_MENU flags are not cleared until the user invokes the friends list and the title starts the friends feature.</p>
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_GetNotifications.htm">ILiveEngine::GetNotifications</a>
+</p>
+
+        
+    </body>
+    </html>

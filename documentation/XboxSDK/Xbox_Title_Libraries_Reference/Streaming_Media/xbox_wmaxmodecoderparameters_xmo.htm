@@ -1,0 +1,62 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>WMAXMODECODERPARAMETERS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>WMAXMODECODERPARAMETERS</h1>
+
+        
+        
+<p>Contains the parameters for creating an Xbox Media Object (XMO).</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _WMAXMODECODERPARAMETERS{
+    LPCSTR pszFileName;
+    HANDLE hFile;
+    DWORD dwFileOffset;
+    DWORD dwLookaheadBufferSize;
+} WMAXMODECODERPARAMETERS, *LPWMAXMODECODERPARAMETERS;
+
+typedef const WMAXMODECODERPARAMETERS *LPCWMAXMODECODERPARAMETERS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>pszFileName</b></dt>
+                <dd>Null-terminated string value that specifies the file path. If this value is specified, the <b>hFile</b> member must be NULL.</dd>
+            
+			<dt><b>hFile</b></dt>
+                <dd>A valid file handle. If this value is specified, the <b>pszFileName</b> member must be NULL.</dd>
+            
+			<dt><b>dwFileOffset</b></dt>
+                <dd>File offset to start reading within the specified file. This is for embedded WMA files packed in large game files.</dd>
+            
+			<dt><b>dwLookaheadBufferSize</b></dt>
+                <dd>Indicates the size of the lookahead buffer. This value should be in the order of the PacketSize*8. So if you use 8192 byte packets in Process() calls, set this to 64K. This value must be at least 16K.</dd>
+            
+        </dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_xwmadecodercreatemediaobject_xmo.htm">XWmaDecoderCreateMediaObject</a>
+		</p>
+
+        
+    </body>
+    </html>

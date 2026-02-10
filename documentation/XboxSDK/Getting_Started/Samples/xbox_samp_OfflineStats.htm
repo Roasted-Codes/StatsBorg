@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>OfflineStats Sample</title>
+</head>
+<body topmargin="0">
+
+
+<h1>OfflineStats Sample</h1>
+<p>The OfflineStats sample demonstrates the Offline stats API for feeding
+   data to Stats.xbe. This lets offline titles implement basic Xbbox <i>Live</i> statistics
+   with just a few lines of code.</p>
+
+<h2><a name="IDAFAUM"></a>Overview</h2>
+<p>For this sample to function perfectly, it needs to be renamed to Default.xbe
+   so that Stats.xbe can launch it when done.</p><p>Copy the media tree to the target machine before running this sample.
+   Be sure to rename the OfflineStats.xbe to Default.xbe so that
+   it will be launched when the Xbox Stats is exited.  Also, 
+   Stats.xbe, from XDK\redist\stats, must be stamped with the title ID
+   of the sample: (xbecert /TESTID:0xFFED9B77 Stats.xbe) and copied into
+   the same location as the Offline Stats sample.</p><p>You also need to copy from XDK\redist\stats\media to the media directory
+   the following files:</p><ul>
+	<li>ArialUni.Ttf</li>
+	<li>stats.inx</li>
+	<li>stats.xpr</li>
+	<li>stats.xsb</li>
+	<li>stats.xwb</li>
+</ul>
+<p>These files can be modified to change the look and sound of Stats.xbe.</p><p>The Leaderboards.inx file is the only file that should not be copied from this
+   directory.</p><h2><a name="IDANBUM"></a>Path</h2>
+<p>Source: (XDK Root)\Samples\Xbox\Networking\OfflineStats</p>
+</body>
+</html>

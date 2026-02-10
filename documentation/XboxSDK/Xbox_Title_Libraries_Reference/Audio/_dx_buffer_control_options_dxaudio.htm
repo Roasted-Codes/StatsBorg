@@ -1,0 +1,38 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Buffer Control Options</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_buffer_control_options_dxaudio"></A>Buffer Control Options</H4>
+
+<P>When creating a sound buffer, your application must specify the control options needed for that buffer. This is done with the <B>dwFlags</B> member of the <A HREF="_dx_dsbufferdesc_dxaudio.htm"><B>DSBUFFERDESC</B></A> structure, which can contain one or more DSBCAPS_CTRL* flags. </P>
+
+<P>The following controls are available:
+
+<UL>
+	<LI>3D properties</LI>
+
+	<LI>Effects</LI>
+
+	<LI>Frequency</LI>
+
+	<LI>Pan</LI>
+
+	<LI>Volume</LI>
+
+	<LI>Position notification</LI>
+</UL>
+
+<P>To obtain the best performance, your application should specify only control options it will use.</P>
+
+
+<P>See also <A HREF="_dx_playback_controls_dxaudio.htm"><B>Playback Controls</B></A>.</P>
+
+
+</BODY>
+</HTML>

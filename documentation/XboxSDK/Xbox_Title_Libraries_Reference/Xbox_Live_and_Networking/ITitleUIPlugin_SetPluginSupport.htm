@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleUIPlugin::SetPluginSupport</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleUIPlugin::SetPluginSupport</h1>
+<p>Receives an <a href="IPluginSupport.htm">IPluginSupport</a> interface from the Xbox Drop-in UI engine.  The <b>IPluginSupport</b> interface is used by the UI plug-in to access skin file and word-wrap support functions.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetPluginSupport(</b>
+    <b>IPluginSupport</b> *<i>pPluginSupport</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pPluginSupport</i></dt>
+<dd>[in]  Pointer to an <b>IPluginSupport</b> interface that provides support functions.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>The Xbox Drop-in UI engine calls <b>SetPluginSupport</b> when the UI plug-in is registered with <a href="ILiveEngine_SetUIPlugin.htm">ILiveEngine::SetUIPlugin</a>.  If <b>SetPluginSupport</b> returns a failure code, the engine fails the <b>ILiveEngine::SetUIPlugin</b> call.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="IPluginSupport.htm">IPluginSupport</a>,
+<a href="ILiveEngine_SetUIPlugin.htm">ILiveEngine::SetUIPlugin</a>
+</p>
+
+</body>
+</html>

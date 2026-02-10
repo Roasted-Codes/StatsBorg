@@ -1,0 +1,87 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XNetDnsRelease</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XNetDnsRelease</h1>
+<p>Releases the resources used for a DNS lookup.</p>
+<pre class="syntax" xml:space="preserve"><b>INT</b> <b>XNetDnsRelease(</b>
+    <b>XNDNS</b> *<i>pxndns</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pxndns</i></dt>
+                <dd>Address of the <a href="xbox_xndns_xsnl.htm">XNDNS</a> structure returned by <a href="xbox_xnetdnslookup_xsnl.htm">XNetDnsLookup</a>.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns zero if successful, an error code otherwise.</p>
+        <h4><a name="remarks"></a>Remarks</h4>
+            <p>Pending DNS lookups can be cancelled by calling <b>XNetDnsRelease</b> before the lookup is completed.</p>
+
+            <p>The following example shows how to handle a DNS lookup when the title provides an event handle.</p>
+
+
+<pre class="clsCode">
+
+WSAEVENT hEvent = WSACreateEvent();
+XNDNS * pxndns = NULL;
+INT err = XNetDnsLookup("sample.microsoft.com", hEvent, &amp;pxndns);
+WaitForSingleObject(hEvent, INFINITE);
+if (pxndns-&gt;iStatus == 0)
+{
+	// Look at pxndns-&gt;cina for the number of addresses returned
+	// Look at pxndns-&gt;aina for the vector of addresses returned
+}
+else
+{
+	// An error occurred.  One of the following:
+	// 	pxndns-&gt;iStatus == WSAHOST_NOT_FOUND - No such host
+	//    pxndns-&gt;iStatus == WSAETIMEDOUT - No response from DNS server(s)
+}
+XNetDnsRelease(pxndns);
+// Don't dereference pxndns after this point
+
+</pre>
+    
+
+<p>If the title does not provide an event, the title must poll <b>iStatus</b> of the <b>XNDNS</b> structure as follows.</p>
+
+
+<pre class="clsCode">
+
+XNDNS * pxndns = NULL;
+INT err = XNetDnsLookup("sample.redmond.corp.microsoft.com", NULL, &amp;pxndns);
+while (pxndns-&gt;iStatus == WSAEINPROGRESS)
+{
+	// Do something else while lookup is in progress
+}
+if (pxndns-&gt;iStatus == 0)
+{
+	// Look at pxndns-&gt;cina for the number of addresses returned
+	// Look at pxndns-&gt;aina for the vector of addresses returned
+}
+else
+{
+	// An error occurred.  One of the following:
+	// 	pxndns-&gt;iStatus == WSAHOST_NOT_FOUND - No such host
+	//    pxndns-&gt;iStatus == WSAETIMEDOUT - No response from DNS server(s)
+}
+XNetDnsRelease(pxndns);
+// Don't dereference pxndns after this point
+
+</pre>
+    
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Winsockx.h. for include use Xtl.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xnet.lib for titles that only support system link play, XOnline.lib for titles that support online play. For online titles, use the secure version of the library file (XOnlines.lib) for final testing (not available for system link play).</p>
+    
+</body>
+</html>

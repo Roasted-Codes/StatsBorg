@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlinePresenceAdd</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlinePresenceAdd</h1>
+<p>Adds one or more users to a presence subscription.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlinePresenceAdd(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>DWORD</b> <i>dwGroupID</i><b>,</b>
+    <b>DWORD</b> <i>dwUserCount</i><b>,</b>
+    <b>XUID</b> *<i>pxuidUsers</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+<dt><i>hTask</i></dt>
+<dd>[in]  An <b>XONLINETASK_HANDLE</b> returned from <a href="XOnlinePresenceInit.htm">XOnlinePresenceInit</a>.</dd>
+
+<dt><i>dwGroupID</i></dt>
+<dd>[in]  ID of the group being added.</dd>
+
+<dt><i>dwUserCount</i></dt>
+<dd>[in]  Number of users in the group being added.</dd>
+
+<dt><i>pxuidUsers</i></dt>
+<dd>[in]  Pointer to the <a href="xuid.htm">XUID</a> information for the users being added.</dd>
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

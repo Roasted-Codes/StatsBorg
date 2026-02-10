@@ -1,0 +1,45 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmIsBreakpoint</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmIsBreakpoint</h1>
+	<p>Tests whether a breakpoint is set at the specified address.</p>
+<pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmIsBreakpoint(</b>
+    <b>PVOID</b> <i>addr</i><b>,</b>
+    <b>LPDWORD</b> <i>pdwType</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+	<dt><i>addr</i></dt>
+		<dd>Pointer to the address to test.</dd>
+	
+
+	<dt><i>pdwType</i></dt>
+		<dd>Type of breakpoint for which to test. For further information, see 
+		<a href="xbox_jbh_debugapi_function_DmSetDataBreakpoint.htm">DmSetDataBreakpoint</a></dd>
+	
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns XBDM_NOERR if the address contains a breakpoint of the 
+	specified type. Otherwise, the function returns an error value.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XboxDbg.h, XbDm.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+	<p>
+		<a href="xbox_jbh_debugapi_function_dmsetbreakpoint.htm">DmSetBreakpoint</a>,
+		<a href="xbox_jbh_debugapi_function_DmSetDataBreakpoint.htm">DmSetDataBreakpoint</a>
+	</p>
+
+</body>
+</html>

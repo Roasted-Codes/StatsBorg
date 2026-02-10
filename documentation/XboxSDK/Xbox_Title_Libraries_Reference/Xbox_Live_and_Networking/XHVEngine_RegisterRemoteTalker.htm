@@ -1,0 +1,30 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::RegisterRemoteTalker</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::RegisterRemoteTalker</h1>
+<p></p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>RegisterRemoteTalker(</b>
+    <b>XUID</b> <i>xuidRemoteTalker</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>xuidRemoteTalker</i></dt>
+<dd>[in]  The <a href="xuid.htm">XUID</a> of the user to register as a remote talker.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>If the specified user is already registered as a remote talker, the function does nothing and returns S_OK.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>DolphinHDTV Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>DolphinHDTV Sample</H1>
+
+
+<P class="intro">The DolphinHDTV sample demonstrates how a game can determine if the user's Xbox is connected to an HDTV set, and how to take advantage of HDTV modes.</P>
+
+
+<h3 class="overview">Overview</H3>
+
+
+<P class="content">There are several settings in the dashboard that affect how a game should make use of HDTV modes.  First, users can select whether or not they have a widescreen TV.  This option is available no matter which AV pack is connected.  A widescreen TV has a 16x9 aspect ratio, but still uses a standard NTSC or PAL signal.  When enabling a widescreen video mode, the game can widen the field of view to more accurately fill the user's screen, rather than stretching a narrower field of view onto the wider set.</P>
+
+<P class="content">The other options are for enabling specific HDTV modes, and are only available when the HDTV AV pack is connected.  The modes are 480p, 720p, and 1080i.  Before making use of any of these modes, the game must check that the HDTV AV pack is connected, and that the mode has been specifically enabled.</P>
+
+<P class="content">If a game only wishes to make use of 480p, it can just leave the Flags field of the D3DPRESENT_PARAMS structure empty (that is, don't specify interlaced or progressive).  Direct3D will automatically select 480i or 480p as appropriate; this should have no impact on your game design or performance.</P>
+
+
+<H3 class="hdcontrols">Thanks</H3>
+<!-- Thanks to media contributors -->
+<P class="content">The model in the DolphinClassic sample, Dolphin.x, is derived from the dolphins.3ds model file provided courtesy of 3DCAFE and Platinum Pictures Multimedia, Inc. (<A HREF="http://www.3dcafe.com" target="blank">http://www.3dcafe.com</A>). If you use this model, please remember to credit 3DCAFE and Platinum Pictures Multimedia, Inc.</P>
+<!-- **************************** -->
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineFriendsGetLatest</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineFriendsGetLatest</h1>
+<p>Returns the latest Friends list for the specified user.</p><pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>XOnlineFriendsGetLatest(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>DWORD</b> <i>dwFriendBufferCount</i><b>,</b>
+    <b>PXONLINE_FRIEND</b> <i>pFriendBuffer</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>dwUserIndex</i></dt>
+<dd>[in]  Controller index (zero-based) of the user whose Friends list is to be enumerated.  The user must have been successfully logged on with a previous call to <a href="XOnlineLogon.htm">XOnlineLogon</a>.</dd>
+<dt><i>dwFriendBufferCount</i></dt>
+<dd>[in]  Number of <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structures that will fit into the buffer pointed to by <i>pFriendBuffer</i>. This value should always be MAX_FRIENDS.</dd>
+<dt><i>pFriendBuffer</i></dt>
+<dd>[out]  Pointer to a buffer that receives the Friends list as an array of <b>XONLINE_FRIEND</b> structures.  The buffer must be large enough to hold at least <i>dwFriendBufferCount</i> structures of type <b>XONLINE_FRIEND</b>.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>The return value is the actual number of friend records written to  <i>pFriendBuffer</i>.</p><h4><a name="remarks"></a>Remarks</h4>
+<p><b>XOnlineFriendsGetLatest</b> returns the latest Friends list maintained by the friends list enumeration task. The enumeration task is created when the title calls <a href="XOnlineFriendsEnumerate.htm">XOnlineFriendsEnumerate</a>. The title should not call <b>XOnlineFriendsGetLatest</b> until <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a> returns XONLINETASK_S_RESULTS_AVAIL for this task. If the title calls <b>XOnlineFriendsGetLatest</b> before receiving this return value, <b>XOnlineFriendsGetLatest</b> returns a zero-length list.</p>
+
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | 
+<a href="xbox_online_friends.htm">Friends Overview</a> |
+<a href="XOnlineFriendsEnumerate.htm">XOnlineFriendsEnumerate</a>, <a href="XOnlineFriendsStartup.htm">XOnlineFriendsStartup</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DirectMusicInitialize</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DirectMusicInitialize [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_directmusicinitialize_dxaudio"></A>DirectMusicInitialize</H1>
+
+<P>Initializes DirectMusic using its default settings.</P>
+
+<PRE class="syntax"><B>HRESULT DirectMusicInitialize();</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT>None.</DT>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+<P><B>DirectMusicInitialize</B>, <A HREF="xbox_directmusicinitializeex_dxaudio.htm"><B>DirectMusicInitializeEx</B></A>, or <A HREF="xbox_directmusicinitializefixedsizeheaps_dxaudio.htm"><B>DirectMusicInitializeFixedSizeHeaps</B></A> must be called before making calls to DirectMusic. Titles are only allowed to call one of these initialization functions once per XBE. Titles must reboot before you are allowed to call any of them a second time.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusicI.h.</P>
+
+
+</BODY>
+</HTML>

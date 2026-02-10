@@ -1,0 +1,57 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>UIX_LOGON_TYPE</title>
+</head>
+		
+    <body topmargin="0">
+        
+
+
+        <h1>UIX_LOGON_TYPE</h1>
+
+                
+        
+<p>Logon type to perform.  Used in <a href="UIX_LOGON_PARAMS.htm">UIX_LOGON_PARAMS</a>.</p>
+                
+
+<pre class="syntax">typedef enum _UIX_LOGON_TYPE{
+    UIX_LOGON_TYPE_NORMAL = 0,
+    UIX_LOGON_TYPE_SILENT = 1,
+    UIX_LOGON_TYPE_RETRIEVED_STATE = 2,
+    UIX_LOGON_TYPE_RETRIEVED_GAME_INVITE = 3,
+    UIX_LOGON_FORCE_DWORD = 0x7fffffff,
+} UIX_LOGON_TYPE;</pre>
+            
+
+            
+                <h4><a name="constants"></a>Constants</h4>
+<dl>
+<dt><a name="UIX_LOGON_TYPE_NORMAL"></a>UIX_LOGON_TYPE_NORMAL</dt>
+<dd>Perform a normal logon.</dd>
+<dt><a name="UIX_LOGON_TYPE_SILENT"></a>UIX_LOGON_TYPE_SILENT</dt>
+<dd>Perform a silent logon.</dd>
+<dt><a name="UIX_LOGON_TYPE_RETRIEVED_STATE"></a>UIX_LOGON_TYPE_RETRIEVED_STATE</dt>
+<dd>Log on using a saved state in an <a href="XONLINE_LOGON_STATE.htm">XONLINE_LOGON_STATE</a> structure.</dd>
+<dt><a name="UIX_LOGON_TYPE_RETRIEVED_GAME_INVITE"></a>UIX_LOGON_TYPE_RETRIEVED_GAME_INVITE</dt>
+<dd>Log on using a game invite in an <a href="XONLINE_ACCEPTED_GAMEINVITE.htm">XONLINE_ACCEPTED_GAMEINVITE</a> structure.</dd>
+<dt><a name="UIX_LOGON_FORCE_DWORD"></a>UIX_LOGON_FORCE_DWORD</dt>
+<dd>This value is not used; it forces the enumeration to compile to 32 bits in size.</dd>
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_StartFeature.htm">ILiveEngine::StartFeature</a>,
+<a href="UIX_LOGON_PARAMS.htm">UIX_LOGON_PARAMS</a>
+</p>
+
+        
+    </body>
+    </html>

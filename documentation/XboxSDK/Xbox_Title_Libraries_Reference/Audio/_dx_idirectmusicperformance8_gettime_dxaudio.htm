@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicPerformance8::GetTime</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicPerformance8::GetTime [C++]">
+<META NAME="MS-HKWD" CONTENT="GetTime (IDirectMusicPerformance8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetTime [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicperformance8_gettime_dxaudio"></A>IDirectMusicPerformance8::GetTime</H1>
+
+<P>Retrieves the current time of the performance.</P>
+
+<PRE class="syntax"><B>HRESULT GetTime(</B>
+    <B>REFERENCE_TIME</B> <I>*prtNow</I>,
+    <B>MUSIC_TIME</B> <I>*pmtNow</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>prtNow</I></DT>
+
+<DD>Address of a variable that receives the current time in <B>REFERENCE_TIME</B> format. Can be NULL.</DD>
+
+<DT><I>pmtNow</I></DT>
+
+<DD>Address of a variable that receives the current time in <B>MUSIC_TIME</B> format. Can be NULL.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns S_OK if successful, an error code otherwise. Can return one of the following error values:</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TD width=100%><A HREF="_dx_directmusic_return_values_by_name_dxaudio.htm#_dx_e_pointer_dxaudio"><B>E_POINTER</B></A></TD>
+</TR>
+</TABLE>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dmusici.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_timing_dxaudio.htm"><B>Timing</B></A></P>
+
+
+</BODY>
+</HTML>

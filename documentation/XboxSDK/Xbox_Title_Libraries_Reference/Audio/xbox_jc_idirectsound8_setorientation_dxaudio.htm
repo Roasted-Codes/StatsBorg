@@ -1,0 +1,72 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::SetOrientation</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::SetOrientation [C++]">
+<META NAME="MS-HKWD" CONTENT="SetOrientation (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetOrientation [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsound8_setorientation_dxaudio"></A>IDirectSound8::SetOrientation</H1>
+
+<P>Sets the listener's orientation in terms of two vectors: a front vector and a top vector.</P>
+
+<PRE class="syntax"><B>HRESULT SetOrientation(</B>
+    <B>FLOAT</B> <I>xFront</I>,
+    <B>FLOAT</B> <I>yFront</I>,
+    <B>FLOAT</B> <I>zFront</I>,
+    <B>FLOAT</B> <I>xTop</I>,
+    <B>FLOAT</B> <I>yTop</I>,
+    <B>FLOAT</B> <I>zTop</I>,
+    <B>DWORD</B> <I>dwApply</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>xFront, yFront,</I> <I>zFront</I></DT>
+
+<DD>Values that specify the coordinates of the front orientation vector.</DD>
+
+<DT><I>xTop, yTop,</I> <I>zTop</I></DT>
+
+<DD>Values that specify the coordinates of the top orientation vector.</DD>
+
+<DT><I>dwApply</I></DT>
+
+<DD>Value that specifies when the setting should be applied. This value must be one of the following:</DD>
+
+<DL>
+<DT>DS3D_DEFERRED </DT>
+
+<DD>Settings are not applied until the application calls the <A HREF="xbox_jc_idirectsound8_commitdeferredsettings_dxaudio.htm"><B>CommitDeferredSettings</B></A> method. This allows the application to change several settings and generate a single recalculation. </DD>
+
+<DT>DS3D_IMMEDIATE </DT>
+
+<DD>Settings are applied immediately, causing the system to recalculate the 3D coordinates for all 3D sound buffers. 
+</DD>
+</DL>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+
+<P>The front vector points in the direction of the listener's nose, and the top vector points out the top of the listener's head. By default, the front vector is (0,0,1.0) and the top vector is (0,1.0,0).</P>
+
+<P>The top vector must be at right angles to the front vector. If necessary, DirectSound adjusts the front vector after setting the top vector.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+
+</BODY>
+</HTML>

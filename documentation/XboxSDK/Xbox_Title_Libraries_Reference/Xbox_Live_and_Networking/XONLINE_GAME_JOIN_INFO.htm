@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_GAME_JOIN_INFO</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_GAME_JOIN_INFO</h1>
+
+        
+        
+<p>Contains the information required for a player to join a game.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_GAME_JOIN_INFO{
+    XUID xuidJoinedUser;
+    CHAR szJoinedUserGamertag[XONLINE_GAMERTAG_SIZE];
+    DWORD dwTitleID;
+    XNKID SessionID;
+} XONLINE_GAME_JOIN_INFO, *PXONLINE_GAME_JOIN_INFO;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+			<dt><b>xuidJoinedUser</b></dt>
+				<dd>Player's ID.</dd>
+			
+			<dt><b>szJoinedUserGamertag</b></dt>
+				<dd>Player's Gamertag.</dd>
+			
+			<dt><b>dwTitleID</b></dt>
+				<dd>ID of the title.</dd>
+			
+			<dt><b>SessionID</b></dt>
+				<dd>ID of the session in the competition that the player wants to 
+				join.</dd>
+			
+		</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="XOnlineGameJoin.htm">XOnlineGameJoin</a>
+		</p>
+
+        
+    </body>
+    </html>

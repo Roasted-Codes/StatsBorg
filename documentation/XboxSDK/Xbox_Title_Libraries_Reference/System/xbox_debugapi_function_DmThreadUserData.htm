@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmThreadUserData</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmThreadUserData</h1>
+	<p>Retrieves the programmer-specified data that was passed to a given thread.</p>
+<pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmThreadUserData(</b>
+    <b>DWORD</b> <i>tid</i><b>,</b>
+    <b>LPDWORD *</b> <i>ppdwData</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+	<dt><i>tid</i></dt>
+		<dd>[in]  Unique identifier of a given thread.</dd>
+	
+
+	<dt><i>ppdwData</i></dt>
+		<dd>[out]  Address of a pointer to a <b>DWORD</b>. Upon return, this parameter 
+		holds the user data.</dd>
+	
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns XBDM_NOERR if successful, an error value otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XbDm.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    
+</body>
+</html>

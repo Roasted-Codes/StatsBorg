@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3D_AllocContiguousMemory</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3D_AllocContiguousMemory [C++]">
+<META NAME="MS-HKWD" CONTENT="D3D_AllocContiguousMemory [C++]">
+<META NAME="MS-HKWD" CONTENT="D3D_AllocContiguousMemory [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="D3D_AllocContiguousMemory"></A>D3D_AllocContiguousMemory</H1>
+
+<P>Allocates a block of contiguous memory.</P>
+
+<PRE class=syntax><B>void*</B> <B>D3D_AllocContiguousMemory(</B>
+<B>  DWORD</B><I> Size</I><B>,</B>
+  <B>DWORD</B> <I>Alignment</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>Size</I></DT>
+
+<DD>The size of the allocation in bytes. This value is rounded up the nearest page size.</DD>
+
+<DT><I>Alignment</I></DT>
+
+<DD>The alignment of the allocation. This must be a power of two and is also rounded up to the nearest page size.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If this method succeeds, it returns a write-combined pointer to the block of contiguous memory.</P>
+
+<P>If the memory cannot be allocated, this method returns a NULL value.</P>
+
+<H4>Remarks</H4>
+
+<P>The memory is suitable for any Direct3D data that will be read by the GPU (this is why its write-combined). However, there will be bad performance results if this is use to allocate memory for Direct3D data read by the CPU, such as Direct3D resource header structures and index buffers.</P>
+
+<p><b>D3D_AllocContiguousMemory</b> and <a href="xbox_mt_sll_memman_xphysicalalloc.htm">XPhysicalAlloc</a> both use the same internal function. The following two function calls are equivalent:</p>
+
+<pre>D3D_AllocContiguousMemory(Size, Alignment);
+XPhysicalAlloc(Size, MAXULONG_PTR, Alignment, PAGE_READWRITE | PAGE_WRITECOMBINE);</pre>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+</BODY>
+</HTML>

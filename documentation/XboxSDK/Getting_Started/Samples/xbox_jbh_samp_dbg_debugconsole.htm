@@ -1,0 +1,49 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>DebugConsole Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>DebugConsole Sample</H1>
+
+
+<P class="intro">The DebugConsole sample demonstrates how to communicate with the target 
+system via the debug channel. It also shows how to send commands to a registered external 
+command processor running on the target system. See the 
+<a href="xbox_samp_DebugChannel.htm">DebugChannel</a> sample for more details about how 
+this is handled.</P>
+
+
+<h3 class="overview">Overview</H3>
+
+
+<P class="content">The debug monitor runs on the target system and listens for connections.
+  Once connected, commands can be sent to the debug monitor for it to execute.  In addition, 
+  a title running on the target system can register itself with the debug monitor to 
+  receive extended commands prefixed with a designated string.  This console is designed 
+  to work with the DebugChannel sample to demonstrate this.  After launching the console 
+  on your development machine and the DebugChannel sample on your target machine, type 
+  "connect" to connect to the debug monitor and DebugChannel's external command 
+  processor.</P>
+
+
+<!-- <P class=note><B>Note</B>&nbsp;&nbsp;</P> -->
+
+
+<H3 class="hdcontrols">Commands</H3>
+
+<P class="content">Type "help" for a list of commands you can execute.</P>
+
+
+</BODY>
+</HTML>

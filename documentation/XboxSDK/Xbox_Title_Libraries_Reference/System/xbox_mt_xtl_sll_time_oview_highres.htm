@@ -1,0 +1,29 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>High-Resolution Timer</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H2 class="heading"><A NAME=""></A>High-Resolution Timer</H2>
+
+<P>A counter is a general term used in programming to refer to an incrementing variable. The <I>high-resolution performance counter</I> provides high-resolution elapsed times.</P>
+
+<P>The <A HREF="timers_6mk9.htm"><B>QueryPerformanceFrequency</B></A> function is used to determine the frequency, in counts per second, of the high resolution timer.</P>
+
+<P>The <A HREF="timers_4z76.htm"><B>QueryPerformanceCounter</B></A> function retrieves the current value of the high-resolution performance counter.  By calling this function at the beginning and end of an operation to be timed and then adjusting for the frequency of the counter, a title can use this counter as a high-resolution timer.</P>
+
+For example, suppose that <B>QueryPerformanceFrequency</B> indicates that the frequency of the high-resolution performance counter is 50,000 counts per second. If the application calls <B>QueryPerformanceCounter</B> immediately before and immediately after an operation to be timed, the counter values might be 1500 counts and 3500 counts, respectively. These values would indicate that .04 seconds (2000 counts) elapsed while the operation was performed.</P>
+
+
+</BODY>
+</HTML>

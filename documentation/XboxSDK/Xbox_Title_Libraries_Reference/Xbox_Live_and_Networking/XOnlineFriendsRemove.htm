@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineFriendsRemove</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineFriendsRemove</h1>
+            <p>Removes a friend from the specified user's Friends List.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineFriendsRemove(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>const XONLINE_FRIEND</b> *<i>pFriend</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwUserIndex</i></dt>
+<dd>[in]  Controller index (zero-based) of the user whose Friends List will be modified.  The user must have been successfully logged on with a previous call to <a href="XOnlineLogon.htm">XOnlineLogon</a>.</dd>
+            <dt><i>pFriend</i></dt>
+<dd>[in]  Pointer to an <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure specifying the friend that will be removed from the user's Friends List.</dd>
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>If <b>XOnlineFriendsRemove</b> succeeds, it returns S_OK.</p>
+                <p>If <b>XOnlineFriendsRemove</b> fails, it returns one of the following error codes.</p>
+
+                <table>
+
+                    <tr>
+<th>Value</th> <th>Description</th>
+</tr>
+
+                    <tr>
+<td>XONLINE_E_NOTIFICATION_NO_TASK</td> <td>The Friends startup task is not active. You must first call <a href="XOnlineFriendsStartup.htm">XOnlineFriendsStartup</a> to create the startup task.</td>
+</tr>
+                    <tr>
+<td>S_FALSE</td> <td>The user tried to delete his friend and then tried again before the list was updated. This error should occur only if the title is currently enumerating the Friends List. This return code could also be the result of a developer error if the game allows the player to remove users that aren't on their Friends List.</td>
+</tr>
+
+                    <tr>
+<td>Other</td> <td>See <a href="xbox_online_errors.htm">Online Errors</a> for information about other possible errors.</td>
+</tr>
+                </table>
+
+
+            
+
+
+        <h4><a name="remarks"></a>Remarks</h4>
+            <p>Pump the task handle returned by <b>XOnlineFriendsStartup</b> to submit the change to the Xbox <i>Live</i> service. Pump the task handle returned by <a href="XOnlineFriendsEnumerate.htm">XOnlineFriendsEnumerate</a> to update the Friends List with the result of the removal.</p>
+            <p>The <b>XOnlineFriendsRemove</b> function may also be used to cancel a pending friend request.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p> <a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="xbox_online_friends.htm">Friends Overview</a> | <a href="XOnlineFriendsRequest.htm">XOnlineFriendsRequest</a>, <a href="XOnlineFriendsAnswerRequest.htm">XOnlineFriendsAnswerRequest</a>, <a href="XOnlineFriendsStartup.htm">XOnlineFriendsStartup</a></p>
+        
+</body>
+</html>

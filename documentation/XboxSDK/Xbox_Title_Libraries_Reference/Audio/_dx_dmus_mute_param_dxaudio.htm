@@ -1,0 +1,50 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DMUS_MUTE_PARAM</TITLE>
+<META NAME="MS-HKWD" CONTENT="DMUS_MUTE_PARAM  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_dmus_mute_param_dxaudio"></A>DMUS_MUTE_PARAM</H1>
+
+<P>Used as the <I>pParam</I> parameter in calls to the various get-parameter and set-parameter methods when the track is a mute track and <I>rguidType</I> is <A HREF="_dx_guid_muteparam_dxaudio.htm"><B>GUID_MuteParam</B></A>. </P>
+
+<PRE class="syntax">typedef struct _DMUS_MUTE_PARAM {
+    DWORD  dwPChannel;
+    DWORD  dwPChannelMap;
+    BOOL   fMute;
+} DMUS_MUTE_PARAM;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwPChannel</B></DT>
+
+<DD>Performance channel to mute or remap. If the structure is being passed to a get method, this member must be initialized.</DD>
+
+<DT><B>dwPChannelMap</B></DT>
+
+<DD>Channel to which <B>dwPChannel</B> is being mapped. This member is ignored if <B>fMute</B> is TRUE.</DD>
+
+<DT><B>fMute</B></DT>
+
+<DD>TRUE if <B>dwPChannel</B> is being muted.</DD>
+
+</DL>
+
+<H4>Remarks</H4>
+
+<P>If you wanted all the notes on <A HREF="p.htm#_dx_pchannel_glos" CLASS="POPUP"><B>PChannel</B></A> 3 to play on <B>PChannel</B> 9 instead, you would set <B>dw<B>PChannel</B></B> to 3 and <B>dw<B>PChannel</B>Map</B> to 9 before passing the structure to one of the set methods. If you wanted to mute the notes on <B>PChannel</B> 8, you would set <B>dw<B>PChannel</B></B> to 8 and <B>dw<B>PChannel</B>Map</B> to 0xFFFFFFFF.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusici.h.</P>
+
+
+</BODY>
+</HTML>

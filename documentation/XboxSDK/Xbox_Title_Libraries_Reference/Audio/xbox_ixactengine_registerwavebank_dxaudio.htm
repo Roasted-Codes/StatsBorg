@@ -1,0 +1,47 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTEngine::RegisterWaveBank</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTEngine::RegisterWaveBank</h1>
+<p>Creates a new IXACTWaveBank.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>RegisterWaveBank(</b>
+    <b>PVOID</b> <i>pvData</i><b>,</b>
+    <b>DWORD</b> <i>dwSize</i><b>,</b>
+    <b>PXACTWAVEBANK</b> *<i>ppWaveBank</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pvData</i></dt>
+				<dd>[in]  Pointer to the wave bank data.</dd>
+			
+			<dt><i>dwSize</i></dt>
+				<dd>[in]  Size of the wave bank data.</dd>
+			
+			<dt><i>ppWaveBank</i></dt>
+				<dd>[out]  Address of an IXACTWaveBank pointer to be returned.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful, an error code otherwise.</p>
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>A wave bank file (.xwb) is created using XACT. The file can then be directly loaded into memory and a pointer to its location used directly by <i>ppWaveBank</i>.</p>
+
+			<p>In instrumented builds (xactengd.lib and xactengi.lib), a wave bank is registered twice&#8212;once in main memory (below 64 MB), and once in upper memory.  The latter allows the wave bank to grow as the content creator edits and adjusts content in real time.  For more information about upper memory, see <a href="x_mt_softarch_kernel_mem.htm#dev_system_memory">Xbox Development System Memory</a>.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_ixactengine_registerstreamedwavebank_dxaudio.htm">RegisterStreamedWaveBank</a>
+		</p>
+
+</body>
+</html>

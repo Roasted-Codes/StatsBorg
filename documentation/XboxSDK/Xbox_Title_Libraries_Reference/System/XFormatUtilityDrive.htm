@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XFormatUtilityDrive</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XFormatUtilityDrive</h1>
+<p>Reformats the currently mounted utility drive partition.</p><pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>XFormatUtilityDrive(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>If the function succeeds, the return value is TRUE.</p><p>If the function fails, the return value is FALSE. To get extended error information, call <a href="errors_3uwi.htm">GetLastError</a>.</p><h4><a name="remarks"></a>Remarks</h4>
+<p><b>XFormatUtilityDrive</b> reformats the title's current utility partition.  The partition must have already been mounted with the <a href="x_jsk_xmountutilitydrive.htm">XMountUtilityDrive</a> function.</p>
+
+<p>Any open handles to files on the partition become invalid when the partition is reformatted.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xbox.h, for include use Xtl.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xapilib.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_jsk_storage_ov.htm">Xbox Storage Reference</a> | <a href="x_jsk_xmountutilitydrive.htm">XMountUtilityDrive</a></p>
+</body>
+</html>

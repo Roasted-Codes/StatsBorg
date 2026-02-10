@@ -1,0 +1,74 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STAT_SPEC</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_STAT_SPEC</h1>
+
+        
+        
+
+<p>Specifies a user and a set of statistics associated with that user on a particular leaderboard.</p>
+
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Leaderboards are also referred to as scoreboards.</p>
+
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    XUID xuidUser;
+    DWORD dwLeaderBoardID;
+    DWORD dwNumStats;
+    PXONLINE_STAT pStats;
+} XONLINE_STAT_SPEC, *PXONLINE_STAT_SPEC;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+	<dt><b>xuidUser</b></dt>
+		<dd>The <a href="xuid.htm">XUID</a> of the user.</dd>
+	
+
+	<dt><b>dwLeaderBoardID</b></dt>
+		<dd>Leaderboard that lists the user specified by the <b>xuidUser</b> member. 
+		Leaderboards are defined by the title developer. A leaderboard cannot have an ID of zero because 
+		<a href="XOnlineStatReset.htm">XOnlineStatReset</a> uses an ID of zero to specify all leaderboards for the title.</dd>
+	
+	
+	<dt><b>dwNumStats</b></dt>
+		<dd>Number of <a href="XONLINE_STAT.htm">XONLINE_STAT</a> structures pointed to by the <b>pStats</b> member.</dd>
+	
+	
+	<dt><b>pStats</b></dt>
+		<dd>Pointer to an array of <a href="XONLINE_STAT.htm">XONLINE_STAT</a> structures. The number of structures in the 
+		array is specified by the <b>dwNumStats</b> member. These structures specify statistics associated 
+		with the specified user on the specified leaderboard.</dd>
+	
+
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> |
+<a href="XOnlineStatRead.htm">XOnlineStatRead</a>,
+<a href="XOnlineStatWrite.htm">XOnlineStatWrite</a>,
+<a href="XONLINE_STAT.htm">XONLINE_STAT</a>
+</p>
+
+
+        
+    </body>
+    </html>

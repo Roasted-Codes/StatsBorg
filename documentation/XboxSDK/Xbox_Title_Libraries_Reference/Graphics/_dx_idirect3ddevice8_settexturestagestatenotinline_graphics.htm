@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::SetTextureStageStateNotInline</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::SetTextureStageStateNotInline</h1>
+<p>Sets the state value for the currently assigned texture. Titles may use either this method or <a href="_dx_idirect3ddevice8_settexturestagestate_graphics.htm">IDirect3DDevice8::SetTextureStageState</a> to change state values for the current texture. Titles using a non-constant value for the state should use <a href="_dx_idirect3ddevice8_settexturestagestatenotinline_graphics.htm">IDirect3DDevice8::SetTextureStageStateNotInline</a>.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetTextureStageStateNotInline(</b>
+    <b>DWORD</b> <i>Stage</i><b>,</b>
+    <b>D3DTEXTURESTAGESTATE</b> <i>Type</i><b>,</b>
+    <b>DWORD</b> <i>Value</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>Stage</i></dt>
+<dd>[in]  Stage identifier of the texture for which the state value is set. Stage identifiers are zero-based. Devices can have up to four set textures, so the maximum value allowed for <i>Stage</i> is 3.</dd>
+			<dt><i>Type</i></dt>
+<dd>[in]  Texture state to set. This parameter can be any member of the <a href="_dx_d3dtexturestagestatetype_graphics.htm">D3DTEXTURESTAGESTATETYPE</a> enumerated type. </dd>
+			<dt><i>Value</i></dt>
+<dd>[in]  State value to set. The meaning of this value is determined by the <i>Type</i> parameter.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_idirect3ddevice8_settexturestagestate_graphics.htm">IDirect3DDevice8::SetTextureStageState</a>, <a href="_dx_idirect3ddevice8_gettexturestagestate_graphics.htm">IDirect3DDevice8::GetTextureStageState</a>, <a href="_dx_idirect3ddevice8_gettexture_graphics.htm">IDirect3DDevice8::GetTexture</a>, <a href="_dx_idirect3ddevice8_settexture_graphics.htm">IDirect3DDevice8::SetTexture</a></p>
+
+</body>
+</html>

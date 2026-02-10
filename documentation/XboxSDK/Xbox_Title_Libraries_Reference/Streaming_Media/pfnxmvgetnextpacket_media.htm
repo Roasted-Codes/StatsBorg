@@ -1,0 +1,65 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>PFNXMVGETNEXTPACKET</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>PFNXMVGETNEXTPACKET</h1>
+
+        
+        
+        <p>Used in <a href="xmvdecoder_createdecoderforpackets_media.htm">XMVDecoder_CreateDecoderForPackets</a> to supply the decoder with packets.</p>
+                
+<pre class="syntax"><b>typedef HRESULT</b> <b>(CALLBACK *PFNXMVGETNEXTPACKET)(</b>
+    <b>DWORD</b> <i>Context</i><b>,</b>
+    <b>void</b> **<i>ppPacket</i><b>,</b>
+    <b>DWORD</b> *<i>pOffsetToNextPacket</i>
+<b>);</b>
+</pre>
+            
+                <h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>Context</i></dt>
+<dd>[in]  Context passed to the callback.</dd>
+			<dt><i>ppPacket</i></dt>
+<dd>[out]  Address of pointer to the next packet to retrieve from the buffer.</dd>
+			<dt><i>pOffsetToNextPacket</i></dt>
+<dd>[out]  Address of a value that will receive the bytes offset to the next packet.</dd>
+		</dl>
+                <h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>Assuming that <i>Context</i> is a pointer to a decoder object, a function that implements this callback should follow the pseudocode below:</p>
+		
+
+<pre class="clsCode">
+if (Context-&gt;NextPacketHasFinishedLoading)
+{
+    Context-&gt;PendingPacket  = Context-&gt;DecodingPacket;
+    Context-&gt;DecodingPacket = Context-&gt;LoadingPacket;
+    Context-&gt;LoadingPacket  = NULL;
+    *ppPacket = Context-&gt;DecodingPacket;
+    *pOffsetToNextPacket = Context-&gt;DecodingPacketSize;
+}
+else
+{
+    *ppPacket = NULL;
+    *pOffsetToNextPacket = 0;
+}
+</pre>
+    
+		
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="xmvdecoder_createdecoderforpackets_media.htm">XMVDecoder_CreateDecoderForPackets</a></p>
+    
+        
+    </body>
+    </html>

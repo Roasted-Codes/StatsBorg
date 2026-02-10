@@ -1,0 +1,63 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>lstrcpy</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="lstrcpy">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_lstrcpy"></A>lstrcpy</H1>
+
+<P>The <B>lstrcpy</B> function copies a string to a buffer. </P>
+
+<P>To copy a specified number of characters, use the <A HREF="strings_2sdq.htm">lstrcpyn</a> function.</P>
+
+<PRE class=syntax><B>LPTSTR lstrcpy(
+  LPTSTR</B><I> lpString1</I><B>,  </B>// destination buffer
+<B>  LPCTSTR</B><I> lpString2</I>  // string
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpString1</I></DT>
+
+<DD>[out] Pointer to a buffer to receive the contents of the string pointed to by the <I>lpString2</I> parameter. The buffer must be large enough to contain the string, including the terminating null character. </DD>
+
+<DT><I>lpString2</I></DT>
+
+<DD>[in] Pointer to the null-terminated string to be copied. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the function succeeds, the return value is a pointer to the buffer.</P>
+
+<P>If the function fails, the return value is NULL. </P>
+
+<H4>Remarks</H4>
+
+<P>The <B>lstrcpy</B> function has an undefined behavior if source and destination buffers overlap.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br>
+<b>Import Library: </b>Use Xapilib.lib<br>
+<b>Unicode: </b>Implemented as both Unicode and ANSI versions.
+</p>
+
+<H4>See Also</H4>
+<P> 
+
+<a href="xbox_mt_xtl_sll_strings_functions.htm">String Functions</a> | 
+<A HREF="strings_6fg4.htm">lstrcat</a>,  <A HREF="strings_6g1c.htm">lstrcmp</a>,  <A HREF="strings_2ig9.htm">lstrcmpi</a>,  <A HREF="strings_7832.htm">lstrlen</a> </P>
+
+
+</BODY>
+</HTML>

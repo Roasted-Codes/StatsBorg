@@ -1,0 +1,84 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageDetailsGetResultsProperty</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageDetailsGetResultsProperty</h1>
+            <p>Retrieves the specified property from a message's details.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageDetailsGetResultsProperty(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>WORD</b> <i>wPropTag</i><b>,</b>
+    <b>DWORD</b> <i>dwPropValueBufferSize</i><b>,</b>
+    <b>PVOID</b> <i>pPropValue</i><b>,</b>
+    <b>DWORD</b> *<i>pdwPropValueSize</i><b>,</b>
+    <b>DWORD</b> *<i>pdwAttachmentFlags</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>hTask</i></dt>
+				<dd>[in]  Task handle obtained from the <a href="XOnlineMessageDetails.htm">XOnlineMessageDetails</a> function.</dd>
+			
+            <dt><i>wPropTag</i></dt>
+				<p>
+					<dd>[in]  Unique identifier for the property.</dd>
+					<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;The upper byte of a property tag specifies the property's type. Retrieve it with the 
+					<a href="XOnlineMessageGetPropType.htm">XOnlineMessageGetPropType</a> macro.</p>
+				</p>
+			
+            <dt><i>dwPropValueBufferSize</i></dt>
+				<dd>[in]  Size, in bytes, of the memory block that receives the property's value.</dd>
+			
+            <dt><i>pPropValue</i></dt>
+				<dd>[in, out, optional]  Address of the memory block that receives the property's value.</dd>
+			
+            <dt><i>pdwPropValueSize</i></dt>
+				<dd>[out, optional]  Address of a <b>DWORD</b>. Upon return, the <b>DWORD</b> 
+				contains the number of bytes of memory the property value actually requires.</dd>
+			
+            <dt><i>pdwAttachmentFlags</i></dt>
+				<dd>[out, optional]  One or more property attachment flags from the following table.
+					<table>
+						<tr>
+							<th>Attachment Flag</th>	<th>Description</th>
+						</tr>
+						<tr>
+							<td>XONLINE_MSG_ATTACHMENT_FLAG_NON_EXPORTABLE</td>	
+							<td>The attachment should not be visible when the message is displayed on the Web.</td>
+						</tr>
+						<tr>
+							<td>XONLINE_MSG_ATTACHMENT_FLAG_DIRECTORY</td>	
+							<td>The property value points to an ANSI path string to a local directory that 
+							will be uploaded to storage.</td>
+						</tr>
+					</table>
+				</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>Use the <b>XOnlineMessageGetPropType</b> macro to retrieve the property type from the property tag. 
+			If the property type is not XONLINE_MSG_PROP_TYPE_ATTACHMENT, the <i>pdwAttachmentFlags</i> 
+			parameter is always zero.</p>
+			
+			<p>If the property type is XONLINE_MSG_PROP_TYPE_ATTACHMENT, the attachment size is placed in the 
+			<i>pdwPropValueSize</i> parameter and the attachment flags are in 
+			<i>pdwAttachmentFlags</i>. In this case, the <b>XOnlineMessageDetailsGetResultsProperty</b> 
+			function returns XONLINE_E_MESSAGE_PROPERTY_DOWNLOAD_REQUIRED. The title should then call 
+			<a href="XOnlineMessageDownloadAttachmentToDirectory.htm">XOnlineMessageDownloadAttachmentToDirectory</a> or 
+			<a href="XOnlineMessageDownloadAttachmentToMemory.htm">XOnlineMessageDownloadAttachmentToMemory</a> to retrieve the attachment.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

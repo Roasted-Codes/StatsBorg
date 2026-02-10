@@ -1,0 +1,188 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Xbox Live Error Codes</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Xbox Live Error Codes</h1>
+<p>This section provides general information on the error codes returned by the <a href="x_mt_xonline_functions.htm">Xbox Live Functions</a>. For error code information specific to a particular function, see the reference page for that function.</p><h2><a name="IDAPQUM"></a>
+                General Errors
+            </h2>
+<p>The following errors could be returned from any of the <b>Xbox Live Functions</b>.</p><table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XONLINE_E_OUT_OF_MEMORY</td>
+<td>Insufficient memory. Free some memory.</td>
+</tr>
+<tr>
+<td>E_OUTOFMEMORY</td>
+<td>Insufficient memory. Free some memory.</td>
+</tr>
+<tr>
+<td>XONLINE_E_NO_SESSION</td>
+<td>This function was called without first calling logon. Call logon before calling any other functions.</td>
+</tr>
+<tr>
+<td>XONLINE_E_NO_USER</td>
+<td>The user is not logged on. Log the user on before calling functions that specify that user.</td>
+</tr>
+<tr>
+<td>XONLINE_E_USER_NOT_LOGGED_ON</td>
+<td>The user is not logged on. Log the user on before calling functions that specify that user.</td>
+</tr>
+<tr>
+<td>XONLINE_E_NO_GUEST_ACCESS</td>
+<td>The function called does not allow guests. </td>
+</tr>
+<tr>
+<td>XONLINE_E_NOT_INITIALIZED</td>
+<td><a href="xonlinestartup.htm">XOnlineStartup</a> has not been called yet. Call <b>XOnlineStartup</b> first.</td>
+</tr>
+</table>
+<h2><a name="IDAVRUM"></a>
+                Unexpected Errors
+            </h2>
+<p>These errors should never occur. If a title encounters one of these errors in a game session, it should display "Try again later" or a fail message. If you encounter this during development, contact your TGM or developer support to ensure that our operations center is configured correctly for your title.</p><h3><a name="IDAYRUM"></a>
+                    Presence, Notification, and Mutelist
+                </h3>
+<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_BAD_CONTENT_TYPE</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_REQUEST_TOO_SMALL</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_INVALID_MESSAGE_TYPE</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_NO_ADDRESS</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_NO_CONNECTION</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_SEND_FAILED</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_RECV_FAILED</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_SERVER_BUSY</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_MESSAGE_TRUNCATED</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>WSAEADDRNOTAVAIL</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>WSACONNRESET</td>
+<td>
+</td>
+</tr>
+</table>
+<h3><a name="IDA5SUM"></a>
+                    Matchmaking
+                </h3>
+<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_INVALID_DATA_TYPE</td>
+<td>An attribute ID or parameter type specifies an invalid data type. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_REQUEST_TOO_SMALL</td>
+<td>The request did not meet the minimum length for a valid request. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_REQUEST_TRUNCATED</td>
+<td>The self-described length is greater than the buffer size. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_INVALID_VERSION</td>
+<td>The request contained a bad protocol version. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_OVERFLOW</td>
+<td>An attribute or parameter flowed past the end of the request. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_INVALID_RESULT_COL</td>
+<td>The referenced stored procedure returned a column with an unsupported data type. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_INVALID_STRING</td>
+<td>Caused by a string with length-prefix of zero, or a string with no terminating null. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_SESSION_ALREADY_EXISTS</td>
+<td>The session ID already exists in the database. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_CRITICAL_DB_ERR</td>
+<td>Caused by critical error in the database. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_NOT_ENOUGH_COLUMNS</td>
+<td>The search result set had too few columns. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_PERMISSION_DENIED</td>
+<td>The stored procedure has incorrect permissions. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_INVALID_PART_SCHEME</td>
+<td>The title specified an invalid partitioning scheme. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_DATA_TYPE_MISMATCH</td>
+<td>The data type specified in an attribute ID did not match the type of attribute being set. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_NO_USERS</td>
+<td>The search did not contain any authenticated users. </td>
+</tr>
+<tr>
+<td>XONLINE_E_MATCH_INVALID_BLOB</td>
+<td>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DmGetThreadInfo</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_createfile"></A>DmGetThreadInfo</H1>
+
+<P class="content">Retrieves information about a given thread.</P>
+
+<PRE class=syntax><b>DMHRAPI DmGetThreadInfo(</b>
+  <B>DWORD</B> <I>dwThreadId</I><B>,</B> 
+  <B>PDM_THREADINFO</B> <I>pdmti</I>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+
+<DT><I>dwThreadId</I></DT>
+<DD>Thread ID.</DD>
+
+<DT><I>pdmti</I></DT>
+<DD>Pointer to a <B>DM_THREADINFO</B> structure that receives information about the thread.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P class="content">Returns XBDM_NOERR if successful, an error value otherwise.</P>
+
+
+<!--
+<H4>Remarks</H4>
+<P class="content"></P>
+-->
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

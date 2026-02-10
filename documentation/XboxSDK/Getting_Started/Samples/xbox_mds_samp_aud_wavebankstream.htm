@@ -1,0 +1,27 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>WaveBankStream Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>WaveBankStream Sample</H1>
+
+
+<P class="intro">The WaveBankStream sample shows how to use the new XACT wave bank file format to efficiently stream wave data of all formats (ADPCM, PCM, and with minor code changes, even WMA). It uses non-buffered overlapped I/O to eliminate the need for background threads, while minimizing CPU use in the context of the render thread. It shows the optimal way to stream multiple streams, one for each entry in the wave bank. The streams loop the entire play region right. For simplicity, however, use of a readahead packet (to avoid stream starvation when looping) is not shown.</P>
+
+
+<P class="content">WaveBankStream issues sector-aligned read requests to the async file XMO (<b>XFileMediaObjectAsync</b>). Note that the wave bank file was opened just once. Each time we want to stream a wave entry, we just use the same handle to instantiate the source file XMO and then set the file offset to the proper wave region. The wave bank authoring tool (XACT.EXE) creates sector-aligned play regions (which makes efficient streaming much easier compared to .WAV files). Wave banks are the recommended package for audio assets. They can be authored as either in-memory or streamed.<!-- Note that the XACT wave bank format is different than the old wave bundler format (which supported only in-memory wave banks).--></P>
+
+
+</BODY>
+</HTML>

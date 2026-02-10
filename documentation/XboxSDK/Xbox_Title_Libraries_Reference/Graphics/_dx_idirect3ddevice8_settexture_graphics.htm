@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::SetTexture</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::SetTexture [C++]">
+<META NAME="MS-HKWD" CONTENT="SetTexture (IDirect3DDevice8) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetTexture [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_settexture_graphics"></A>IDirect3DDevice8::SetTexture</H1>
+
+<P>Assigns a texture to a stage for a device.</P>
+
+<PRE class=syntax><B>HRESULT SetTexture(
+  DWORD</B><I> Stage</I><B>,</B>
+<B>  IDirect3DBaseTexture8*</B> <I>pTexture</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>Stage</I></DT>
+
+<DD>[in] Stage identifier to which the texture is set. Stage identifiers are zero-based. Devices can have up to four set textures, so the maximum value allowed for <I>Stage</I> is 3. </DD>
+
+<DT><I>pTexture</I></DT>
+
+<DD>[in] Pointer to an <A HREF="_dx_idirect3dbasetexture8_graphics.htm"><B>IDirect3DBaseTexture8</B></A> interface, representing the texture being set. For complex textures, such as mipmaps and cube textures, this parameter must point to the top-level surface. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is D3D_OK.</P>
+
+<H4>Remarks</H4>
+
+<P>This method increments the reference count of the texture surface being assigned and decrements the reference count of the previously selected texture if there is one. When the texture is no longer needed, set the texture at the appropriate stage to NULL. Failure to do this results in a memory leak.</P>
+
+<p>If an application is replacing an existing (non-NULL) texture in a given stage with a new texture, it is frequently better to use <a href="_dx_idirect3ddevice8_switchtextures_graphics.htm"><b>IDirect3DDevice8::SwitchTexture</b></a> instead of <b>SetTexture</b>.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><a href="_dx_idirect3ddevice8_switchtextures_graphics.htm"><b>IDirect3DDevice8::SwitchTexture</b></a>, <A HREF="_dx_idirect3ddevice8_gettexture_graphics.htm"><B>IDirect3DDevice8::GetTexture</B></A>, <A HREF="_dx_idirect3ddevice8_gettexturestagestate_graphics.htm"><B>IDirect3DDevice8::GetTextureStageState</B></A>, <A HREF="_dx_idirect3ddevice8_settexturestagestate_graphics.htm"><B>IDirect3DDevice8::SetTextureStageState</B></A></P>
+
+
+</BODY>
+</HTML>

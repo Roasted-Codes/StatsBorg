@@ -1,0 +1,49 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::SetFlickerFilter</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_setflickerfileter_graphics"></A>IDirect3DDevice8::SetFlickerFilter</H1>
+
+<P>Adjusts the aggressiveness of the flicker filter.</P>
+
+<PRE class=syntax><B>void WINAPI SetFlickerFilter(
+  DWORD</B><I> Filter</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>Filter</I></DT>
+
+<DD>[in] Sets the filtering level, which must be between zero and five. Setting <i>Filter</i> to zero turns the flicker filter off, and setting it to five turns on the maximum level of filtering. By default, the flicker filter is on and is set at level five.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>None.</P>
+
+<h4>Remarks</h4>
+
+<p>Setting the flicker filter has no effect unless its called after the first call to either <a href="_dx_idirect3ddevice8_swap_graphics.htm"><b>IDirect3DDevice8::Swap</b></a> or <a href="_dx_idirect3ddevice8_present_graphics.htm"><b>IDirect3DDevice8::Present</b></a> following a display mode change. </p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<h4>See Also</h4>
+
+<p><a href="_dx_idirect3ddevice8_setsoftdisplayfilter_graphics.htm"><b>IDirect3DDevice8::SetSoftDisplayFilter</b></a></p>
+
+
+</BODY>
+</HTML>

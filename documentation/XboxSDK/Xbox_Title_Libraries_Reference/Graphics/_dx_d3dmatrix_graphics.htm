@@ -1,0 +1,43 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DMATRIX</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DMATRIX">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dmatrix_graphics"></A>D3DMATRIX</H1>
+
+<P>Describes a matrix.</P>
+
+<PRE class=syntax>typedef struct _D3DMATRIX {
+    union {
+        struct {
+            float        _11, _12, _13, _14;
+            float        _21, _22, _23, _24;
+            float        _31, _32, _33, _34;
+            float        _41, _42, _43, _44;
+
+        };
+        float m[4][4];
+    };
+} D3DMATRIX;
+</PRE>
+
+<H4>Remarks</H4>
+
+<P>In Microsoft&#174; Direct3D&#174;, the <B>_34</B> element of a projection matrix cannot be a negative number. If your application needs to use a negative value in this location, it should scale the entire projection matrix by 1, instead.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8types.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirect3ddevice8_gettransform_graphics.htm">IDirect3DDevice8::GetTransform</A>, <A HREF="_dx_idirect3ddevice8_multiplytransform_graphics.htm">IDirect3DDevice8::MultiplyTransform</A>, <A HREF="_dx_idirect3ddevice8_settransform_graphics.htm">IDirect3DDevice8::SetTransform</A></P>
+
+</BODY>
+</HTML>

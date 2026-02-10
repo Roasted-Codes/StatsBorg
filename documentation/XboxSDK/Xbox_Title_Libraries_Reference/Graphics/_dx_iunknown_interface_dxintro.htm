@@ -1,0 +1,30 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IUnknown Interface Methods</TITLE>
+<META NAME="MS-HKWD" CONTENT="IUnknown interface">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_iunknown_interface_dxintro"></A>IUnknown Interface Methods</H1>
+
+<P>The Xbox system software uses some COM technology. However, it does not completely support COM. All COM objects support an interface called <B>IUnknown</B>. This interface provides DirectX with control of the object's lifetime. The Xbox supports two <B>IUnknown</B> methods in the sense that these elements have been added to many DirectX interfaces individually. Note that with this change, these methods return both internal and external reference counts. No other COM-based methods are supported by Xbox.
+
+<UL>
+	<LI><A HREF="_dx_iunknown_addref_dxintro.htm">AddRef</A> increments the object's reference count by 1 when an interface binds itself to the object.</LI>
+
+	<LI><A HREF="_dx_iunknown_release_dxintro.htm">Release</A> decrements the object's reference count by 1. When the count reaches 0, the object is deallocated.</LI>
+
+
+</UL>
+
+<P>The <B>AddRef</B> and <B>Release</B> methods maintain an object's reference count. For example, if you create a Microsoft&#174; Direct3D&#174; object, the object's reference count is set to 1. Every time a function returns a pointer to an interface for that object, the function must call <B>AddRef</B> through that pointer to increment the reference count. Each <B>AddRef</B> call must be matched with a call to <B>Release</B>. Before the pointer can be destroyed, you must call <B>Release</B> through that pointer. After an object's reference count reaches 0, the object is destroyed, and all interfaces to it become invalid.</P>
+
+<P>The COM <B>IUnknown</B> interface has a third method, <B>QueryInterface</B>. Xbox does not support <B>QueryInterface</B>.</P>
+
+
+</BODY>
+</HTML>

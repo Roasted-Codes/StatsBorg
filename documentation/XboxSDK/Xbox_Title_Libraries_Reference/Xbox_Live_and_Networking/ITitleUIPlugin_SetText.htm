@@ -1,0 +1,53 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleUIPlugin::SetText</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleUIPlugin::SetText</h1>
+<p>Sets the text for a UI object.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetText(</b>
+    <b>DWORD</b> <i>ObjectID</i><b>,</b>
+    <b>DWORD</b> <i>ItemIndex</i><b>,</b>
+    <b>LPCWSTR</b> <i>pText</i><b>,</b>
+    <b>DWORD</b> <i>IconCount</i><b>,</b>
+    <b>const UIX_SKIN_ICON_INFO</b> *<i>pIconInfo</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>ObjectID</i></dt>
+<dd>[in]  Object identifier, previously returned by <a href="ITitleUIPlugin_CreateObject.htm">CreateObject</a>.</dd>
+<dt><i>ItemIndex</i></dt>
+<dd>[in]  If the object specified in <i>ObjectID</i> is a list box, specifies the index of the item within the list box.  Otherwise, <i>ItemIndex</i> must be zero.</dd>
+<dt><i>pText</i></dt>
+<dd>[in]  Pointer to a null-terminated string specifying the new text.</dd>
+<dt><i>IconCount</i></dt>
+<dd>[in]  Count of structures in <i>pIconInfo</i>.  At most UIX_MAX_ICONS_IN_TEXT structures will be specified.</dd>
+<dt><i>pIconInfo</i></dt>
+<dd>[in]  Array of <a href="UIX_SKIN_ICON_INFO.htm">UIX_SKIN_ICON_INFO</a> structures containing information for icons included with the text.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The array of <b>UIX_SKIN_ICON_INFO</b> structures passed in <i>pIconInfo</i> contains icons that are included as part of the text.  Each structure contains the icon's character position location within the text string along with the resource identifier for the icon.  The icon(s) must be rendered along with the text when the object is rendered.</p>
+
+<p>Icons may also be specified as being right-justified within the object, in which case they are drawn on the object's right side (based on the object's layout).  Multiple icons may be specified as right justified, in which case they are rendered next to each other on the right side, with the first such icon in the array leftmost, and the last icon rightmost.</p>
+
+<p>Icons are not drawn with any inter-icon spacing.  Spacing between icons must be part of the icons themselves or be due to spacing in adjacent character cells.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleUIPlugin_CreateObject.htm">ITitleUIPlugin::CreateObject</a>,
+<a href="ITitleUIPlugin_RenderObject.htm">ITitleUIPlugin::RenderObject</a>,
+<a href="UIX_SKIN_ICON_INFO.htm">UIX_SKIN_ICON_INFO</a>
+</p>
+
+</body>
+</html>

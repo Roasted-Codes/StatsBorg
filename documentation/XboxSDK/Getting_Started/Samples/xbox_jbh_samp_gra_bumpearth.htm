@@ -1,0 +1,52 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>BumpEarth Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>BumpEarth Sample</H1>
+
+
+<P class="intro">The BumpEarth sample demonstrates the bump mapping capabilities of Direct3D. Bump mapping is a texture-blending technique used to render the appearance of rough, bumpy surfaces. This sample renders a rotating, bump-mapped planet Earth.</P>
+
+
+<h3 class="overview">Overview</H3>
+
+
+<P class="content">Bump environment mapping is an advanced multitexture blending technique that can be
+   used to render the appearance of rough, bumpy surfaces. The bump map itself
+   is a texture that stores the perturbation data. Bump mapping requires two
+   textures. One is an environment map, which contains the lights 
+   that you see in the scene. The other is the bump map, which contains
+   values (stored as du and dv) used to "bump" the environment map's texture 
+   coordinates. Some bump maps also contain luminance values to control the
+   "shininess" of a particular texel.</P>
+
+<P class="content">On the Xbox, bump environment mapping requires the use of a pixel shader. The bump map
+   is stored in a texture stage that is followed by the environment map. The bump map
+   equation uses the D3DTSS_BUMPMATRIX elements, which are set using
+   the <B>SetTextureStageState</B>() API.</P>
+<P>When
+   using bump environment mapping on the Xbox, there are two things to be aware of. First, because of the unfortunate way in which 
+   bump values (du and dv) are encoded, the envmap cannot be filtered. Second,
+   the bump equation does not include a per-pixel divide, so projected textures
+   are not possible with bump environment mapping.</P>
+
+
+<H3 class="hdcontrols">Controls</H3>
+
+<P class="content">For a complete list of controller mappings, press the <B>Back</B> button on the Xbox controller while this sample is running.</P>
+
+
+</BODY>
+</HTML>

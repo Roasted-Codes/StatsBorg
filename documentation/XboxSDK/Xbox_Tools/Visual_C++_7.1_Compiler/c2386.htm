@@ -1,0 +1,47 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Error C2386</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c2386"></A>Compiler Error C2386</H1>
+
+
+<P><B>ambiguous conversion from '<I>type1</I>*' to '<I>type2</I>*'</B></P>
+
+<P>The conversion can be done more than one way.</P>
+
+<P><B>Possible solutions</B>
+
+<UL>
+	<LI>Provide an explicit type conversion.</li>
+
+	<LI>Change the organization of classes so that conversion is no longer ambiguous.</li>
+</UL>
+
+<P><B>Example</B></P>
+
+<PRE class="code">struct A {};
+struct B : A {};
+struct C : A {};
+struct D : B, C {};
+void bup ()
+{
+   D *pD;
+   A *pA;
+   pA = pD;            // error
+}</PRE>
+
+
+</BODY>
+</HTML>

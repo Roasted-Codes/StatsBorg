@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMVDecoder::GetAudioStream</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XMVDecoder::GetAudioStream</h1>
+<p>Returns an audio stream from an Xbox Media Video (XMV) file.</p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>GetAudioStream(</b>
+    <b>DWORD</b> <i>AudioStream</i><b>,</b>
+    <b>IDirectSoundStream</b> **<i>ppStream</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>AudioStream</i></dt>
+<dd>[in]  Number of the stream in the XMV file.</dd>
+			<dt><i>ppStream</i></dt>
+<dd>[out]  Address of a variable that will receive a pointer to the <span class="clsWarning">DOCERROR: name is not a valid attribute...</span><a href="xbox_jc_idirectsoundstream_dxaudio.htm">IDirectSoundStream</a> interface, which represents the stream indicated in <i>AudioStream</i>. On return, this will be NULL if the stream isn't enabled.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>None.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xmv.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="xmvdecoder_enableaudiostream_media.htm">XMVDecoder::EnableAudioStream</a>, <a href="xbox_jc_idirectsoundstream_dxaudio.htm">IDirectSoundStream</a></p>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DMN_DATABREAK</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DMN_DATABREAK</H1>
+
+<P>Contains information relevant to a DM_DATABREAK notification type. For a complete list of notification types, see <A HREF="xbox_jbh_debugapi_function_dmnotify.htm">DmNotify</A>.</P>
+
+<PRE class=syntax>typedef struct _DMN_DATABREAK {
+    PVOID Address;
+    DWORD ThreadId;
+    DWORD BreakType;
+    PVOID DataAddress;
+} DMN_DATABREAK, *PDMN_DATABREAK;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+
+<DT><B>Address</B></DT>
+<DD>Address where the break occurred.</DD>
+
+<DT><B>ThreadId</B></DT>
+<DD>Thread in which the break occurred.</DD>
+
+<DT><B>BreakType</B></DT>
+<DD>Type of break that occurred.
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=31%>Value</TH>
+<TH align=left width=69%>Meaning</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%>DMBREAK_WRITE</TD>
+<TD width=69%>The address was written to.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%>DMBREAK_READWRITE</TD>
+<TD width=69%>The address was written to or read from.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%>DMBREAK_EXECUTE</TD>
+<TD width=69%>The address was executed.</TD>
+</TR>
+
+</TABLE>
+
+</DD>
+
+<DT><B>DataAddress</B></DT>
+<DD>Address of the data that triggered the break.</DD>
+
+</DL>
+
+<!--
+<H4>Remarks</H4>
+
+<P>Some remarks.</P>
+-->
+
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

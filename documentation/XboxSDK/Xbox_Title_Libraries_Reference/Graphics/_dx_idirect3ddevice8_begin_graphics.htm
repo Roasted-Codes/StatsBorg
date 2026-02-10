@@ -1,0 +1,51 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::Begin</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::Begin [C++]">
+<META NAME="MS-HKWD" CONTENT="Begin (IDirect3DDevice8) [C++]">
+<META NAME="MS-HKWD" CONTENT="Begin [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_begin_graphics"></A>IDirect3DDevice8::Begin</H1>
+
+<P>Indicates the beginning of a block of vertices that describe a geometric primitive.</P>
+
+<PRE class=syntax><B>HRESULT Begin(
+  D3DPRIMITIVETYPE</B><I> PrimitiveType</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>PrimitiveType</I></DT>
+
+<DD>[in] Member of the <A HREF="_dx_d3dprimitivetype_graphics.htm"><B>D3DPRIMITIVETYPE</B></A> enumerated type, describing the type of primitive to render. </DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is <A HREF="_dx_return_values_graphics.htm#_dx_s_ok_graphicsd3dx"><B>S_OK</B></A>.</P>
+
+<h4>Remarks</h4>
+
+<p>Where vertex throughput is not a critical, a Begin/End block can be employed instead of a vertex buffer.  Using a Begin/End block, it is possible to specify a vertex and its attributes and then send it on immediately to the graphics processing unit (GPU) for processing.  It is possible to work with as many vertices as is needed.  See <a href="_dx_begin_end_blocks_graphics.htm"><b>Xbox Begin/End Blocks</b></a> for more information.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<p><a href="_dx_begin_end_blocks_graphics.htm"><b>Xbox Begin/End Blocks</b></a> | <a href="_dx_idirect3ddevice8_end_graphics.htm"><b>IDirect3DDevice8::End</b></a>
+
+
+</BODY>
+</HTML>

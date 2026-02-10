@@ -1,0 +1,43 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>PerPixelLightingVS Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>PerPixelLightingVS Sample</H1>
+
+
+<P class="intro">The PerPixelLighting sample uses the <B>D3DTOP_DOTPRODUCT3</B> texture stage state to achieve per-pixel lighting effects (in this case, bump mapping). This version of the PerPixelLighting sample (PerPixelLightingVS) uses vertex shaders.</P>
+
+
+<h3 class="overview">Overview</H3>
+
+
+<P class="content">What you see on the screen when executing this sample is an accumulation of many render passes. A render pass is made for each of the following: the base texture, ambient lighting, directional lights, and point lights. The lighting passes use the <B>D3DTOP_DOTPRODUCT3</B> texture stage state to perform the lighting calculation. The normal vectors are encoded in a texture that serves as a per-pixel lookup. The light vector is passed in as a vertex component or as a constant texture factor. See the sample source code for more details on the technique.</P>
+
+
+<P class=note><B>Note</B>&nbsp;&nbsp;The PerPixelLightingVS sample implements the per-pixel lighting technique using vertex shaders. The per-vertex calculations required by the technique are suited for vertex shaders.</P>
+
+
+<H3 class="hdcontrols">Controls</H3>
+
+<P class="content">For a complete list of controller mappings, press the <B>Back</B> button on the Xbox controller while this sample is running.</P>
+
+
+<h3 class="overview">See Also</H3>
+
+<P class="content"><A HREF="xbox_jbh_samp_gra_perpixellighting.htm"><B>PerPixelLighting Sample</B></A></P>
+
+
+</BODY>
+</HTML>

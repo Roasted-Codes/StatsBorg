@@ -1,0 +1,39 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::InsertFence</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirect3DDevice8::InsertFence [C++]">
+<META NAME="MS-HKWD" CONTENT="InsertFence (IDirect3DDevice8) [C++]">
+<META NAME="MS-HKWD" CONTENT="InsertFence [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_insertfence_graphics"></A>IDirect3DDevice8::InsertFence</H1>
+
+<P>Inserts a fence into the push buffer.</P>
+
+<PRE class=syntax><B>DWORD InsertFence();</b>
+</PRE>
+
+<h4>Return Values</h4>
+
+<p>The function returns the handle to the fence.</p>
+
+<h4>Remarks</h4>
+
+<p>This fence can be used to determine when all of the commands in the push buffer before the fence have been processed.  It will also allow resources used for drawing to be locked without blocking if those resources are no longer set on the device and the fence has been executed.</p>
+
+<H4>Requirements</H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><a href="_dx_idirect3ddevice8_blockuntilverticalblank_graphics.htm"><b>IDirect3DDevice8::BlockUntilVerticalBlank</b></a>, <a href="_dx_idirect3ddevice8_setverticalblankcallback_graphics.htm"><b>IDirect3DDevice8::SetVerticalBlankCallback</b></a>, <a href="_dx_idirect3ddevice8_isfencepending_graphics.htm"><b>IDirect3DDevice8::IsFencePending</b></a>, <a href="_dx_idirect3ddevice8_blockonfence_graphics.htm"><b>IDirect3DDevice8::BlockOnFence</b></a>, <a href="_dx_idirect3ddevice8_insertcallback_graphics.htm"><b>IDirect3DDevice8::InsertCallback</b></a></p>
+
+</BODY>
+</HTML>

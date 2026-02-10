@@ -1,0 +1,88 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>PIX Shaders Window</title>
+</head>
+<body topmargin="0">
+
+
+<h1>PIX Shaders Window</h1>
+<p>The <b>Shaders</b> window shows a disassembled view of the current pixel and vertex shaders. The user can choose which shader to view by selecting <b>Pixel Shader</b> or <b>Vertex Shader</b> from the drop-down list in the upper-left corner.</p><h2><a name="IDADZ2AB"></a>Vertex Shader</h2>
+<p><img src="../../images/pix_shaders.jpg"></p><p>After each line number, inside the parentheses, the disassembled vertex shader shows the number of cycles for each instruction. Some of the cycle counts are accompanied by a letter key indicating a stall. The table below describes each stall type:</p><table>
+<tr>
+<th>Stall Key</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><i>empty</i></td>
+<td>No stall</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>Register initialization (first two instructions only)</td>
+</tr>
+
+<tr>
+<td>B</td>
+<td>Bypass (no stall)</td>
+</tr>
+
+<tr>
+<td>C</td>
+<td>Standard stall</td>
+</tr>
+
+<tr>
+<td>D</td>
+<td>Shadow-stall from using a register two instructions after it stalled</td>
+</tr>
+
+<tr>
+<td>E</td>
+<td>Standard stall plus shadow-stall from using a register the instruction after it stalled</td>
+</tr>
+
+<tr>
+<td>F</td>
+<td>Bypass plus shadow-stall from using a register the instruction after it stalled</td>
+</tr>
+
+<tr>
+<td>G</td>
+<td>Stall from stalling immediately after using a bypass</td>
+</tr>
+
+<tr>
+<td>H</td>
+<td>Stall from using a0.x the instruction after writing to it</td>
+</tr>
+
+<tr>
+<td>I</td>
+<td>Stall from using a0.x the instruction after writing to it stalled</td>
+</tr>
+
+<tr>
+<td>J</td>
+<td>Writing to X output registers causes a shader to take X cycles to execute</td>
+</tr>
+
+<tr>
+<td>K</td>
+<td>18-cycle stall for using xvsw or xvss</td>
+</tr>
+
+<tr>
+<td>L</td>
+<td>Stall for shaders smaller than 2.5 cycles</td>
+</tr>
+
+</table>
+<h2><a name="IDAE22AB"></a>Pixel Shader</h2>
+<p><img src="../../images/pix_shaders_pixel.jpg"></p><p>The disassembled pixel shader program shows what was written to r0, prod.rgb (the final combiner product register), out.rgb, and out.a (the emitted color and alpha from the final combiner state).</p>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Output Registers</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_output_registers_graphicsd3dx"></A>Output Registers</H1>
+
+<P>Output registers are defined as the inputs to the rasterizer. Generated data is written into the output register file, which has write-only access. Each of these registers are pre-initialized with the value (0, 0, 0, 1).</P>
+
+<P>Xbox supports the following output registers:</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=31%>Name</TH>
+<TH align=left width=35%>I/O Permissions</TH>
+<TH align=left width=34%>Count</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%><A HREF="_dx_obn_graphicsd3dx.htm">oB<I>n</I></A></TD>
+<TD width=35%>write-only</TD>
+<TD width=34%>2 4D vectors. Xbox-enhanced.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%><A HREF="_dx_odn_graphicsd3dx.htm">oD<I>n</I></A></TD>
+<TD width=35%>write-only</TD>
+<TD width=34%>2 4D vectors</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%><A HREF="_dx_ofog_graphicsd3dx.htm">oFog</A></TD>
+<TD width=35%>write-only</TD>
+<TD width=34%>1 scalar float</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%><A HREF="_dx_opos_graphicsd3dx.htm">oPos</A></TD>
+<TD width=35%>write-only</TD>
+<TD width=34%>1 4D vector</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%><A HREF="_dx_opts_graphicsd3dx.htm">oPts</A></TD>
+<TD width=35%>write-only</TD>
+<TD width=34%>1 scalar float</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%><A HREF="_dx_otn_graphicsd3dx.htm">oT<I>n</I></A></TD>
+<TD width=35%>write-only</TD>
+<TD width=34%>4 4D vectors</TD>
+</TR>
+</TABLE><BR>
+
+<P>Write operations to destination registers not indicated above are ignored.</P>
+
+<P>Register names are preceded by a lower case 'o,' indicating that the output registers are write-only.</P>
+
+
+</BODY>
+</HTML>

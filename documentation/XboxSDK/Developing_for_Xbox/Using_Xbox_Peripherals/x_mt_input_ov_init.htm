@@ -1,0 +1,75 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Device Initialization</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Device Initialization</H1>
+
+
+<P>A title cannot enumerate, open, or access any peripherals until it has successfully called the <A HREF="x_mt_xinitdevices.htm">XInitDevices</A> function. <B>XInitDevices</B> initializes peripheral support on the Xbox by specifying the number and type of devices that will be used.  The Xbox system software allocates enough resources to handle the device limits specified and initializes the device control software.  </P>
+
+<P>The following code example demonstrates what the device initialization code for a game might look like.  The <I>g_chMUDrives</I> and <I>g_hPads</I> global arrays will hold information about available devices and are discussed later.</P>
+
+<PRE>
+#define DEBUG_KEYBOARD
+#include &lt;xtl.h&gt;
+
+
+#define NUM_PORTS   4       // Number of controller ports.
+#define NUM_SLOTS   2       // Maximum number of slots per controller.
+
+char g_chMUDrives[NUM_PORTS][NUM_SLOTS];
+HANDLE g_hPads[NUM_PORTS];
+
+void DeviceInit( void )
+{
+    XDEVICE_PREALLOC_TYPE xdpt[] = {
+        {XDEVICE_TYPE_GAMEPAD, 4},
+        {XDEVICE_TYPE_MEMORY_UNIT, 8},
+        {XDEVICE_TYPE_DEBUG_KEYBOARD, 1} };
+
+    XINPUT_DEBUG_KEYQUEUE_PARAMETERS xdkp = {
+        XINPUT_DEBUG_KEYQUEUE_FLAG_KEYDOWN     |
+         XINPUT_DEBUG_KEYQUEUE_FLAG_KEYREPEAT  |
+         XINPUT_DEBUG_KEYQUEUE_FLAG_ASCII_ONLY,
+        50,
+        500,
+        70 };
+
+    int i;
+
+
+    // Initialize the peripherals.
+    XInitDevices( sizeof(xdpt) / sizeof(XDEVICE_PREALLOC_TYPE), xdpt );
+
+    // Create the keyboard queue.
+    XInputDebugInitKeyboardQueue( &xdkp );
+
+    // Set device handles to invalid.
+    ZeroMemory( g_hPads, sizeof(g_hPads) );
+
+    // Set drive letters to invalid.
+    ZeroMemory( g_chMUDrives, sizeof(g_chMUDrives) );
+}
+</PRE>
+
+<P>The <A HREF="x_mt_xdevice_prealloc_type.htm">XDEVICE_PREALLOC_TYPE</A> structure passed to <B>XInitDevices</B> describes the types of devices the title will use as well as the number of devices of each type that will be used simultaneously.</P>
+
+<P>This initialization code also calls <A HREF="x_mt_xinputdebuginitkeyboardqueue.htm">XInputDebugInitKeyboardQueue</A> to initialize a keyboard queue that will hold key input from the debug keyboard.  A title not interested in debug keyboard input or one compiled as a retail (shipping) build should skip calling <B>XInputDebugInitKeyboardQueue</B>.</P>
+
+<P>The <B>XInitDevices</B> call initializes the device control software and the peripheral bus and begins the process of querying the connected devices.</P>
+
+
+</BODY>
+</HTML>

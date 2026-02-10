@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGVec3Scale</TITLE>
+<META NAME="MS-HKWD" CONTENT="XGVec3Scale">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxvec3scale_graphicsd3dx"></A>XGVec3Scale</H1>
+
+<P>Scales a 3D vector.</P>
+
+<PRE class=syntax><B>XGVECTOR3* XGVec3Scale(
+</B>  <B>XGVECTOR3* </B><I>pOut</I><B>,</B>
+<B>  CONST XGVECTOR3* </B><I>pV</I><B>,</B>
+<B>  FLOAT </B><I>s</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to the <A HREF="xgraphics_xgvector3.htm"><B>XGVECTOR3</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pV</I></DT>
+
+<DD>[in] Pointer to the source <B>XGVECTOR3</B> structure.</DD>
+
+<DT><I>s</I></DT>
+
+<DD>[in] Scaling value.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Pointer to a <B>XGVECTOR3</B> structure that is the scaled vector.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>XGVec3Scale</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgmath.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use xgraphics.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="xgraphics_xgvec3add.htm"><B>XGVec3Add</B></A>, <A HREF="xgraphics_xgvec3subtract.htm"><B>XGVec3Subtract</B></A> </P>
+
+</BODY>
+</HTML>

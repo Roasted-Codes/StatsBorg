@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineStorageSetFamilyTitleID</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineStorageSetFamilyTitleID</h1>
+<p>Sets the family title ID for storage.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineStorageSetFamilyTitleID(</b>
+    <b>DWORD</b> <i>dwTitleID</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwTitleID</i></dt>
+<dd>[in]  Family title ID to use for storage. Passing zero as the family title ID will set the family title ID back to the original value.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns S_OK if successful, an error code otherwise.</p>
+	<p>XONLINE_E_INVALID_TITLE_ID is returned when title identifier supplied is neither a valid title identifier or one of the family title identifier.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p>Setting and resetting the family title ID will generate debug output for informational purposes.</p>
+	<p>Attempting to use this function to enable a family title ID without first including that ID in the title's certificate will result in an error message displayed in the debug output as well as the function not working correctly. A family title ID can be included in a title's certificate by opening the project properties dialog box in Visual Studio, and adding the family title ID to the alternate title IDs.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

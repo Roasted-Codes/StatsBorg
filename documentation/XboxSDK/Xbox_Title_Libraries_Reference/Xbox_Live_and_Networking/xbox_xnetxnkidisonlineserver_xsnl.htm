@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XNetXnKidIsOnlineServer</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XNetXnKidIsOnlineServer</h1>
+<p>Determines if the key identifier is from a client-to-server online session.</p>
+<pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>XNetXnKidIsOnlineServer(</b>
+    <b>XNKID</b> *<i>pxnkid</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pxnkid</i></dt>
+                <dd>Address of the <a href="xbox_xnkid_xsnl.htm">XNKID</a> structure to test.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns TRUE if the <b>XNKID</b> represents a game server communicating via a security gateway; otherwise returns FALSE.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Winsockx.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="xbox_xnetxnkidissystemlink_xsnl.htm">XNetXnKidIsSystemLink</a>, <a href="xbox_xnetxnkidisonlinepeer_xsnl.htm">XNetXnKidIsOnlinePeer</a></p>
+        
+</body>
+</html>

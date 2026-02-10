@@ -1,0 +1,24 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>A W-Friendly Projection Matrix</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_a_w_friendly_projection_matrix_graphics"></A>A W-Friendly Projection Matrix</H1>
+
+<P>Microsoft&#174; Direct3D&#174; can use the W component of a vertex that has been transformed by the world, view, and projection matrices to perform depth-based calculations in depth-buffer or fog effects. Computations such as these require that your projection matrix normalize W to be equivalent to world-space Z. In short, if your projection matrix includes a (3,4) coefficient that is not 1, you must scale all the coefficients by the inverse of the (3,4) coefficient to make a proper matrix. If you don't provide a compliant matrix, fog effects and depth buffering are not applied correctly. The projection matrix recommended in <A HREF="_dx_what_is_the_projection_transformation_graphics.htm">What Is the Projection Transformation?</A> is compliant with w-based calculations.</P>
+
+<P>The following illustration shows a non-compliant projection matrix, and the same matrix scaled so that eye-relative fog will be enabled.</P>
+
+<P><IMG SRC="../../images/eyerlmx.gif" ALT="" BORDER=0></P>
+
+<P>In the preceding matrices, all variables are assumed to be nonzero.</P>
+
+<P class=note><B><i>Note</i></B>&nbsp;&nbsp; Direct3D uses the currently set projection matrix in its w-based depth calculations. As a result, applications must set a compliant projection matrix to receive the desired w-based features, even if they do not use the Direct3D transformation pipeline.</P>
+
+</BODY>
+</HTML>

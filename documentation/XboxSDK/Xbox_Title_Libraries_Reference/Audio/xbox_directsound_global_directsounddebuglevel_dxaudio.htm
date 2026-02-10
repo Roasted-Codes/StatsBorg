@@ -1,0 +1,74 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>g_dwDirectSoundDebugLevel</title>
+</head>
+	    <body topmargin="0">
+	        
+
+	
+	        <h1>g_dwDirectSoundDebugLevel</h1>
+	
+	                
+	        
+			<p>Determines the level for debug messages that will appear in the debugger.</p>
+			
+			
+		<pre class="syntax">DWORD g_dwDirectSoundDebugLevel;</pre>
+	
+			
+			
+	            <h4><a name="remarks"></a>Remarks</h4>
+			<p>Xbox DirectSound uses two global variables to control debug output: <b>g_dwDirectSoundDebugLevel</b> controls the amount of output displayed in the debugger, and <a href="xbox_directsound_global_directsounddebugbreaklevel_dxaudio.htm">g_dwDirectSoundDebugBreakLevel</a> determines whether a particular level of debug message will cause a break in the debugger.</p>
+			<p>Each time a DPF (debug printf) statement is made in DirectSound, a level is included. If <b>g_dwDirectSoundDebugLevel</b> is greater than or equal to this level, the statement appears in the debugger. If not, the DPF returns immediately.</p>
+			<p>If the debug level check succeeds and the statement is then sent to the debugger, the debug engine compares the level passed in with the DPF call to <b>g_dwDirectSoundDebugBreakLevel</b>. A debug break occurs if the following two conditions apply: <b>g_dwDirectSoundDebugBreakLevel</b> is greater than or equal to this level, and <b>g_dwDirectSoundDebugBreakLevel</b> is non-zero. This is useful for tracking down the source of a particular warning or error.</p>
+			<p>The debug levels currently used are as follows:</p>
+<table>
+<tr>
+<th>Debug Level</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Errors</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Resource allocation failures</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Warnings</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>General information</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Verbose information</td>
+</tr>
+</table>
+
+			<p>The default DPF level is 3 (warnings) and the default debug break level is 2 (resource allocation failures).</p>
+		
+				
+	        
+	        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+	        <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_directsound_global_variables_dxaudio.htm">DirectSound Global Variables</a>
+		</p>
+	
+	        
+	    </body>
+    </html>

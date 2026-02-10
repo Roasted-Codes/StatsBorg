@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveFriendsList::GetFriendByIndex</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveFriendsList::GetFriendByIndex</h1>
+<p>Retrieves detailed information for the friend at the specified index in the friends list.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetFriendByIndex(</b>
+    <b>DWORD</b> <i>FriendIndex</i><b>,</b>
+    <b>XONLINE_FRIEND</b> *<i>pFriend</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>FriendIndex</i></dt>
+<dd>[in]  Index of the friend in the friends list.  <i>FriendIndex</i> must be between zero and <a href="ILiveFriendsList_Count.htm">Count</a>.</dd>
+<dt><i>pFriend</i></dt>
+<dd>[out]  Pointer to an <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure that receives the friend information.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p><b>GetFriendByIndex</b>, along with <a href="ILiveFriendsList_Count.htm">Count</a>, is used primarily to enumerate the friends in the list.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveFriendsList_GetFriendByXUID.htm">ILiveFriendsList::GetFriendByXUID</a>,
+<a href="ILiveFriendsList_Count.htm">ILiveFriendsList::Count</a>,
+<a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a>
+</p>
+
+</body>
+</html>

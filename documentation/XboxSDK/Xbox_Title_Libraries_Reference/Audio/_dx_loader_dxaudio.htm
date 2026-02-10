@@ -1,0 +1,18 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Loader</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_loader_dxaudio"></A>Loader</H4>
+
+<P>The loader (<A HREF="_dx_idirectmusicloader8_dxaudio.htm"><B>IDirectMusicLoader8</B></A>) is an object that gets other objects. It is generally one of the first objects created in a DirectX Audio application. The loader is used to load all audio content, including DirectMusic segment files, <A HREF="d.htm#_dx_dls_glos"><B>DLS</B></A> collections, and wave files.</P>
+
+<P>Any object that encapsulates data from a file or resource supports the <A HREF="_dx_idirectmusicobject8_dxaudio.htm"><B>IDirectMusicObject8</B></A> interface. The loader gets this interface and then uses it to initiate the process of streaming the data into an object in your application. Data objects parse themselves through their implementations of <B>IPersistStream</B>, and the entire loading process is carried out automatically. All you need to do is pass a description of the object to the loader, along with a request for the desired interface, such as <A HREF="_dx_idirectmusicsegment8_dxaudio.htm"><B>IDirectMusicSegment8</B></A>. </P>
+
+</BODY>
+</HTML>

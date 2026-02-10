@@ -1,0 +1,84 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Warning (level 1) C4346</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c4346"></A>Compiler Warning (level 1) C4346</H1>
+
+
+<P><b>'<i>name</i>' : dependent name is not a type</b></P>
+
+<P>The <b>typename</b> keyword is required if a dependent name is to be treated as a type. This 
+diverges from the behavior of earlier versions of the Visual C++ compiler. The change was made in 
+order to conform to the ISO C++ standard. For code that works the same in all versions of Visual 
+C++, add the C++ keyword <b>typename</b> to the declaration.</p>
+
+<p>The following example generates C4346:</p>
+
+<pre class = "code">// C4346.cpp
+// compile with: /WX /LD
+template&lt;class T&gt;
+struct C 
+{
+   T::X* x;   // C4346
+   // try the following line instead:
+   // typename T::X* x;
+};</pre>
+
+<p>The following examples show other instances of when the <b>typename</b> keyword is 
+required.</p>
+
+<pre class = "code">// C4346b.cpp
+// compile with: /LD /W1
+template&lt;class T&gt;
+const typename T::X&amp; f(typename T::Z* p);   // Required in both places
+
+template&lt;class T, int N&gt;
+struct L{};
+
+template&lt;class T&gt;
+struct M : public L&lt;typename T::Type, T::Value&gt;
+{   
+   // required on type argument, not on non-type argument
+   typedef typename T::X   Type;
+   Type f();   // OK: "Type" is a type-specifier
+   typename T::X g();   // typename required
+   operator typename T::Z();   // typename required    
+};
+
+
+// C4346c.cpp
+// compile with: /LD /WX
+struct Y 
+{
+   typedef int Y_t;
+};
+
+template&lt;class T&gt;
+struct A 
+{
+   typedef Y A_t;
+};
+
+template&lt;class T&gt;
+struct B 
+{
+   typedef /*typename*/ A&lt;T&gt;::A_t B_t;   // C4346 typename needed here
+   typedef /*typename*/ B_t::Y_t  B_t2;   // typename also needed here
+};
+</PRE>
+
+
+</BODY>
+</HTML>

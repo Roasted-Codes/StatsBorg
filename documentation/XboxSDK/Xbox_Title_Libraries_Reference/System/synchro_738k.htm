@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>HasOverlappedIoCompleted</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="HasOverlappedIoCompleted">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_hasoverlappediocompleted"></A>HasOverlappedIoCompleted</H1>
+
+<P>The <B>HasOverlappedIoCompleted</B> macro provides a high performance test operation that can be used to poll for the completion of an outstanding I/O operation. </P>
+
+<PRE class=syntax><B>BOOL HasOverlappedIoCompleted(
+  LPOVERLAPPED</B> <I>lpOverlapped</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpOverlapped</I></DT>
+
+<DD>Pointer to an <A HREF="synchro_8tf6.htm">OVERLAPPED</a> structure that was specified when the overlapped I/O operation was started.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns TRUE if the I/O operation has completed, and FALSE otherwise.</P>
+
+<H4>Remarks</H4>
+
+<P>Do not call this macro unless the call to <A HREF="errors_3uwi.htm">GetLastError</a> returns ERROR_IO_PENDING, indicating that the overlapped I/O has started.</P>
+
+<P>To get more details about a completed I/O operation, call the <A HREF="synchro_75v8.htm">GetOverlappedResult</a> or <A HREF="filesio_071v.htm">GetQueuedCompletionStatus</a> function.</P>
+
+<h4>Requirements</h4>
+
+<p>
+<B>Header: </B>Declared in Winbase.h; include Xtl.h.</P>
+
+<H4>See Also</H4>
+<P>
+
+<a href="xbox_mt_xtl_sll_synchronization_macros.htm">Synchronization Macros</a> | 
+<A HREF="synchro_8tf6.htm">OVERLAPPED</a>,
+<A HREF="filesio_39id.htm">ReadFile</a>,
+<A HREF="filesio_3kkl.htm">WriteFile</a>
+</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,83 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DirectSound Structures</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H2><A NAME="_dx_directsound_structures_dxaudio"></A>DirectSound Structures</H2>
+
+<P>This section contains reference information for the following structures used with DirectSound:</P>
+
+<UL>
+	<LI><A HREF="_dx_ds3dbuffer_dxaudio.htm"><B>DS3DBUFFER</B></A> </LI>
+
+	<LI><A HREF="_dx_ds3dlistener_dxaudio.htm"><B>DS3DLISTENER</B></A> </LI>
+    
+	<LI><A HREF="_dx_dsbpositionnotify_dxaudio.htm"><B>DSBPOSITIONNOTIFY</B></A> </LI>
+
+	<LI><A HREF="_dx_dsbufferdesc_dxaudio.htm"><B>DSBUFFERDESC</B></A> </LI>
+
+	<LI><A HREF="_dx_dscaps_dxaudio.htm"><B>DSCAPS</B></A> </LI>
+
+    <LI><A HREF="xbox_dseffectimagedesc_dxaudio.htm"><B>DSEFFECTIMAGEDESC</B></A></LI>
+    
+    <LI><A HREF="xbox_dseffectimageloc_dxaudio.htm"><B>DSEFFECTIMAGELOC</B></A></LI>
+    
+    <LI><A HREF="xbox_dseffectmap_dxaudio.htm"><B>DSEFFECTMAP</B></A></LI>
+    
+	<LI><A HREF="xbox_jc_dsenvelopedesc_dxaudio.htm"><B>DSENVELOPEDESC</B></A></LI>
+    
+    <LI><A HREF="xbox_dsfilterdesc_dxaudio.htm"><B>DSFILTERDESC</B></A></LI>
+	
+	<li><a href="xbox_dsfxhighleveleffectdescription_dxaudio.htm"><b>DSFX_HIGH_LEVEL_EFFECT_DESCRIPTION</b></a></li>
+	
+	<li><a href="xbox_dsfxraweffectdescription_dxaudio.htm"><b>DSFX_RAW_EFFECT_DESCRIPTION</b></a></li>
+    
+	<LI><A HREF="xbox_dsi3dl2buffer_dxaudio.htm"><B>DSI3DL2BUFFER</B></A></LI>
+
+	<LI><A HREF="xbox_dsi3dl2listener_dxaudio.htm"><B>DSI3DL2LISTENER</B></A></LI>
+
+	<LI><A HREF="xbox_dsi3dl2obstruction_dxaudio.htm"><B>DSI3DL2OBSTRUCTION</B></A></LI>
+
+	<LI><A HREF="xbox_dsi3dl2occlusion_dxaudio.htm"><B>DSI3DL2OCCLUSION</B></A></LI>
+   
+	<LI><A HREF="xbox_jc_dslfodesc_dxaudio.htm"><B>DSLFODESC</B></A></LI>
+    
+    <li><a href="xbox_dsmixbins_dxaudio.htm"><b>DSMIXBINS</b></a></li>
+    
+    <li><a href="xbox_dsmixbinvolumepair_dxaudio.htm"><b>DSMIXBINVOLUMEPAIR</b></a></li>
+    
+    <li><a href="xbox_dsoutputlevels_dxaudio.htm"><b>DSOUTPUTLEVELS</b></a></li>
+    
+	<LI><A HREF="xbox_jc_dsstreamdesc_dxaudio.htm"><B>DSSTREAMDESC</B></A></LI>
+
+	<LI><A HREF="xbox_dsvoiceprops_dxaudio.htm"><B>DSVOICEPROPS</B></A></LI>
+	
+	<LI><A HREF="_dx_waveformatex_dxaudio.htm"><B>WAVEFORMATEX</B></A></LI>
+
+	<LI><A HREF="_dx_waveformatextensible_dxaudio.htm"><B>WAVEFORMATEXTENSIBLE</B></A></LI>
+    
+    <LI><A HREF="xbox_xboxadpcmwaveformat_dxaudio.htm"><B>XBOXADPCMWAVEFORMAT</B></A></LI>
+
+</UL>
+
+
+<P class="note"><B><I>Note</I></B>&nbsp;&nbsp;The memory for all DirectX structures must be initialized to zero before use. In addition, all structures that contain a <B>dwSize</B> member must set the member to the size of the structure, in bytes, before use. The following example performs these tasks on a common structure, <A HREF="_dx_dscaps_dxaudio.htm"><B>DSCAPS</B></A>:</P>
+
+<PRE>DSCAPS dscaps; // Can't use this yet.
+ 
+ZeroMemory(&amp;dscaps, sizeof(dscaps));
+dscaps.dwSize = sizeof(dscaps);
+ 
+// Now the structure can be used.
+.
+.
+.</PRE>
+
+
+</BODY>
+</HTML>

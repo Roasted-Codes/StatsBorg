@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>UIX_FRIENDS_PARAMS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>UIX_FRIENDS_PARAMS</h1>
+
+        
+        
+<p>Initialization parameters for friends feature.  This structure is passed in <i>pFeatureParams</i> when calling <a href="ILiveEngine_StartFeature.htm">ILiveEngine::StartFeature</a> with UIX_FRIENDS_FEATURE.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _UIX_FRIENDS_PARAMS{
+    SIZE_T StructSize;
+    DWORD UserPort;
+    XUID SelectedFriendXUID;
+    BOOL SignOutEnabled;
+} UIX_FRIENDS_PARAMS, *PUIX_FRIENDS_PARAMS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>StructSize</b></dt>
+<dd>Size of the structure.  Must be set to the structure size before calling <b>ILiveEngine::StartFeature</b>.</dd>
+<dt><b>UserPort</b></dt>
+<dd>The controller port index (zero-based) of the user for which a friends list will be displayed.</dd>
+<dt><b>SelectedFriendXUID</b></dt>
+<dd><a href="xuid.htm">XUID</a> of the user to initially select in the friends list.  If a user with the specified <b>XUID</b> is in the friends list, that user will be highlighted when the list is created.  Specify zero if no such selection is desired.</dd>
+<dt><b>SignOutEnabled</b></dt>
+<dd>Determines whether the friends list screen displays a <b>Sign Out</b> button, allowing the user to log off from the Xbox Live service from within the friends list display.  Specify TRUE to enable sign out, FALSE otherwise.</dd>
+</dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>This structure must be initialized to zero and <b>StructSize</b> set to the size of the structure before calling <b>ILiveEngine::StartFeature</b>.</p>
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_StartFeature.htm">ILiveEngine::StartFeature</a>
+</p>
+
+        
+    </body>
+    </html>

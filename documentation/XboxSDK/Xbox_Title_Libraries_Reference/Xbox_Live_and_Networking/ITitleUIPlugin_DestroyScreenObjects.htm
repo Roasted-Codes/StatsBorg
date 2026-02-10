@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleUIPlugin::DestroyScreenObjects</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleUIPlugin::DestroyScreenObjects</h1>
+<p>Destroys all UI objects on the specified screen.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>DestroyScreenObjects(</b>
+    <b>DWORD</b> <i>ScreenInstance</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>ScreenInstance</i></dt>
+<dd>[in]  Screen instance.  All objects that were created on the specified screen are destroyed.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p><b>DestroyScreenObjects</b> should free all resources associated with the destroyed objects.  A destroyed object's identifier is reusable.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleUIPlugin_CreateObject.htm">ITitleUIPlugin::CreateObject</a>,
+<a href="ITitleUIPlugin_DestroyObject.htm">ITitleUIPlugin::DestroyObject</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STAT_USER</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_STAT_USER</h1>
+
+        
+        
+<p>Specifies a particular user of the statistics service.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    XUID xuidUser;
+    union {
+        CHAR szGamertag[XONLINE_GAMERTAG_SIZE];
+        WCHAR wszTeamName[XONLINE_MAX_TEAM_NAME_SIZE];
+    } ;
+} XONLINE_STAT_USER, *PXONLINE_STAT_USER;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+	<dt><b>xuidUser</b></dt>
+		<dd>The user's <a href="xuid.htm">XUID</a>.</dd>
+	
+
+	
+		<dt><b>szGamertag</b></dt>
+			<p>
+				<dd>
+                        Null-terminated string that contains the user's Gamertag. The format 
+                        of the Gamertag must adhere to the following rules:
+				</dd>
+                    <ul>
+                        <li>Minimum of one character in length.</li>
+                        <li>Maximum of 15 characters in length.</li>
+                        <li>Can include only the following characters: A&#8211;Z,
+						    a&#8211;z, 0&#8211;9, and [space].</li>
+                        <li>Cannot begin with a [space] character.</li>
+                        <li>Cannot have multiple contiguous [space] characters.</li>
+                        <li>Must begin with an alphabetic character (A&#8211;Z, a&#8211;z).</li>
+                        <li>Cannot end with space.</li>
+                    </ul>
+                    <p>
+                        The Gamertag is case insensitive for comparisons, but case should be preserved 
+                        when stored.  For example, Ubba and UBBA are the same and hence cannot both 
+                        exist as accounts in the system, but which ever one was entered into the system, 
+                        the case is preserved.
+                    </p>
+			</p>
+					
+
+		<dt><b>wszTeamName</b></dt>
+			<dd>Null-terminated wide character string that contains the user's team name.</dd>
+		
+	
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+	<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineStatLeaderEnumerate.htm">XOnlineStatLeaderEnumerate</a></p>
+
+
+        
+    </body>
+    </html>

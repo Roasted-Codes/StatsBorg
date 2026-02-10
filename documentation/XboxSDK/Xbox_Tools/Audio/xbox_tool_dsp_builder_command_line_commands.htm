@@ -1,0 +1,51 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DSP Builder (DSPBuilder) Command-Line Commands</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DSP Builder (DSPBuilder) Command-Line Commands</h1>
+<pre class="clsCode">
+USAGE: dspbuilder [options]
+</pre>
+    <table>
+    <tr>
+		<th>Option</th>
+        <th>Description</th>
+	</tr>
+	
+	<tr>
+		<td><b>/B</b> <i>filename</i></td>
+		<td>Batch build file name. This is the name of the file to open or batch build.</td>
+	</tr>
+
+	<tr>
+		<td><b>/Ob</b> <i>filename</i></td>
+		<td>Name of the binary image output file.</td>
+	</tr>
+
+	<tr>
+		<td><b>/Oh</b> <i>filename</i></td>
+		<td>Name of the C header output file.</td>
+	</tr>
+
+	<tr>
+		<td><b>/Oi</b> <i>path</i></td>
+		<td>Path to place the .ini output files.</td>
+	</tr>
+</table>
+	<p>DSPBuilder will run in batch mode to build .fx files if passed "/B filename" as a command-line argument. It will open the specified file, build it, then exit. If it encounters any errors or problems, it will return a nonzero return code. If it completes successfully, it will return 0. This allows DSPBuilder to be used in makefiles.</p>
+	<p>The <b>/O</b> options are only valid for batch mode and will be ignored for interactive mode.</p>
+<h2><a name="IDAGCQM"></a>Related Topics</h2>
+<p>The following topics are related to DSP Builder:</p><ul>
+				<li><a href="xbox_tool_dsp_builder_overview_dxaudio.htm">DSP Builder Overview</a></li>
+				<li><a href="xbox_tools_using_dsp_builder_dxaudio.htm">Using DSP Builder</a></li>
+				<li><a href="xbox_tool_dsp_builder_commands_dxaudio.htm">DSP Builder Graphical User Interface Commands</a></li>
+			</ul>
+
+</body>
+</html>

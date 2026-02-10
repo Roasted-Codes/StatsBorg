@@ -1,0 +1,96 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_MSG_SUMMARY</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_MSG_SUMMARY</h1>
+
+        
+        
+
+			<p>Contains message summary information.</p>
+		
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    XUID xuidSender;
+    BYTE bMsgType;
+    ULONGLONG qwMessageContext;
+    FILETIME ftSentTime;
+    DWORD dwMessageID;
+    DWORD dwMessageFlags;
+    DWORD dwSenderTitleID;
+    WORD wExpireMinutes;
+    WORD cbDetails;
+    char szSenderName[XONLINE_GAMERTAG_SIZE];
+} XONLINE_MSG_SUMMARY, *PXONLINE_MSG_SUMMARY;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+			<dt><b>xuidSender</b></dt>
+				<dd>ID of the sender.</dd>
+			
+			
+			<dt><b>bMsgType</b></dt>
+				<dd>Message type.</dd>
+			
+			
+			<dt><b>qwMessageContext</b></dt>
+				<dd>Message-specific context value.</dd>
+			
+			
+			<dt><b>ftSentTime</b></dt>
+				<dd>Time at which message was sent.</dd>
+				<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;This time is in UTC.</p>
+			
+
+			<dt><b>dwMessageID</b></dt>
+				<dd>ID of the message.</dd>
+			
+
+			<dt><b>dwMessageFlags</b></dt>
+				<dd>Set of one or more message flags combined with a bitwise OR operation. For more 
+				information on message flags, see <a href="XOnlineMessageCreate.htm">XOnlineMessageCreate</a>.</dd>
+			
+
+			<dt><b>dwSenderTitleID</b></dt>
+				<dd>ID of the title in which the message was sent.</dd>
+			
+
+			<dt><b>wExpireMinutes</b></dt>
+				<dd>Number of minutes from the time the message was sent until the message expires.</dd>
+			
+
+			<dt><b>cbDetails</b></dt>
+				<dd>Size of details blob, excluding downloadable content.</dd>
+			
+
+			<dt><b>szSenderName</b></dt>
+				<dd>String that holds the Gamertag of the sender.</dd>
+			
+
+		</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="XOnlineMessageDetailsGetResultsSummary.htm">XOnlineMessageDetailsGetResultsSummary</a>, <a href="XOnlineMessageSummary.htm">XOnlineMessageSummary</a>, <a href="XOnlineMessageEnumerate.htm">XOnlineMessageEnumerate</a>
+		</p>
+
+        
+    </body>
+    </html>

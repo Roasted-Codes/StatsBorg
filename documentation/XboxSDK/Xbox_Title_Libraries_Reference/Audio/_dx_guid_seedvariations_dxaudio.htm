@@ -1,0 +1,45 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>GUID_SeedVariations</TITLE>
+<META NAME="MS-HKWD" CONTENT="GUID_SeedVariations  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_guid_seedvariations_dxaudio"></A>GUID_SeedVariations</H1>
+
+<P>Seeds the random number generator for variation selection. A nonzero value is used as the seed. A value of 0 resets the default behavior of getting the seed from the system clock. This parameter can be set but not retrieved.</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TD width=36%><B>Track type</B></TD>
+<TD width=64%>Pattern, style, motif</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=36%><B>Data type (*<I>pParam</I>)</B></TD>
+<TD width=64%><B>Long</B></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=36%><B><I>mtTime</I></B></TD>
+<TD width=64%>Not used</TD>
+</TR>
+</TABLE><BR>
+
+<H4>Remarks</H4>
+
+<P>For an explanation of the table, see <A HREF="_dx_standard_track_parameters_dxaudio.htm"><B>Standard Track Parameters</B></A>.</P>
+
+<P>Setting this parameter to nonzero is useful for testing because it ensures that the same sequence of random numbers is generated each time. The parameter should be set only once, before the track is played. The style and command track must be designed so that each time that the segment is played, the same patterns are chosen at the same places in the segment. Each loop plays different variations than the one before it does, but each time the entire segment is replayed from the beginning, each loop sounds the same as the first time the segment was played.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dmusici.h.</P>
+
+</BODY>
+</HTML>

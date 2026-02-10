@@ -1,0 +1,83 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGSwizzleBox</TITLE>
+<META NAME="MS-HKWD" CONTENT="Direct3DCreate8">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jbh_swizzle_swizzle3d"></A>XGSwizzleBox</H1>
+
+<P>Swizzles a box from a buffer into a larger texture. The destination box must be completely contained within the destination texture (no clipping).</P>
+
+<PRE class=syntax><B>void WINAPI XGSwizzleBox(
+  LPCVOID</b> <i>pSource</i>,
+  <b>DWORD</b> <i>RowPitch</i>,
+  <b>DWORD</b> <i>SlicePitch</i>,
+  <b>CONST D3DBOX</b> <i>*pBox</i>, 
+  <b>LPVOID</b> <i>pDest</i>,
+  <b>DWORD</b> <i>Width</i>,
+  <b>DWORD</b> <i>Height</i>,
+  <b>DWORD</b> <i>Depth</i>,
+  <b>CONST XGPOINT3D</b> <i>*pPoint</i>,
+  <b>DWORD</b> <i>BytesPerPixel</i>
+<b>);</b>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+
+<DT><I>pSource</I></DT>
+<DD>The buffer that contains the source rectangle.</DD>
+
+<DT><I>RowPitch</I></DT>
+<DD>Byte offset from the left edge of one row to the left edge of the next row.</DD>
+
+<DT><I>SlicePitch</I></DT>
+<DD>Byte offset from the top-left of one slice to the top-left of the next deepest slice.</DD>
+
+<DT><I>pBox</I></DT>
+<DD>The box within the buffer to copy.</DD>
+
+<DT><I>pDest</I></DT>
+<DD>The destination texture.</DD>
+
+<DT><I>Width</I></DT>
+<DD>The width of the entire destination texture.</DD>
+
+<DT><I>Height</I></DT>
+<DD>The height of the entire destination texture.</DD>
+
+<DT><I>Depth</I></DT>
+<DD>The depth of the entire destination texture.</DD>
+
+<DT><I>pPoint</I></DT>
+<DD>Where to put the rectangle in the texture.</DD>
+
+<DT><I>BytesPerPixel</I></DT>
+<DD>The number of bytes per pixel.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P>None.</P>
+
+<!--
+<H4>Remarks</H4>
+<P></P>
+-->
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgraphics.h.<BR>
+<B>&nbsp;&nbsp;Import Library: </B>Use xgraphics.lib</P>
+
+<P></P>
+
+</BODY>
+</HTML>

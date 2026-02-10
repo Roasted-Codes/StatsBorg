@@ -1,0 +1,106 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DS3DBUFFER</TITLE>
+<META NAME="MS-HKWD" CONTENT="DS3DBUFFER  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_ds3dbuffer_dxaudio"></A>DS3DBUFFER</H1>
+
+<P>Contains all information necessary to uniquely describe the location, orientation, and motion of a 3D sound buffer. This structure is used with the <A HREF="xbox_jc_idirectsoundbuffer8_setallparameters_dxaudio.htm"><B>IDirectSoundBuffer8::SetAllParameters</B></A> method.</P>
+
+<PRE class="syntax">typedef struct { 
+    DWORD dwSize; 
+    D3DXVECTOR3 vPosition; 
+    D3DXVECTOR3 vVelocity; 
+    DWORD dwInsideConeAngle; 
+    DWORD dwOutsideConeAngle; 
+    D3DXVECTOR3 vConeOrientation; 
+    LONG lConeOutsideVolume; 
+    FLOAT flMinDistance; 
+    FLOAT flMaxDistance; 
+    DWORD dwMode; 
+    FLOAT flDistanceFactor;
+    FLOAT flRolloffFactor;
+    FLOAT flDopplerFactor;
+} DS3DBUFFER, *LPDS3DBUFFER;
+ 
+typedef const DS3DBUFFER *LPCDS3DBUFFER;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwSize</B></DT>
+
+<DD>Size of the structure, in bytes. This member must be initialized before the structure is used.</DD>
+
+<DT><B>vPosition</B></DT>
+
+<DD>A <A HREF="_dx_d3dvector_graphics.htm"><B>D3DXVECTOR3</B></A> structure that describes the current position of the 3D sound buffer.</DD>
+
+<DT><B>vVelocity</B></DT>
+
+<DD>A <B>D3DXVECTOR3</B> structure that describes the current velocity of the 3D sound buffer.</DD>
+
+<DT><B>dwInsideConeAngle</B></DT>
+
+<DD>The angle of the inside sound projection cone.</DD>
+
+<DT><B>dwOutsideConeAngle</B></DT>
+
+<DD>The angle of the outside sound projection cone.</DD>
+
+<DT><B>vConeOrientation</B></DT>
+
+<DD>A <B>D3DXVECTOR3</B> structure that describes the current orientation of this 3D buffer's sound projection cone.</DD>
+
+<DT><B>lConeOutsideVolume</B></DT>
+
+<DD>The cone outside volume.</DD>
+
+<DT><B>flMinDistance</B></DT>
+
+<DD>The minimum distance.</DD>
+
+<DT><B>flMaxDistance</B></DT>
+
+<DD>The maximum distance.</DD>
+
+<DT><B>dwMode</B></DT>
+
+<DD>The 3D sound processing mode to be set.</DD>
+
+<DL>
+<DT>DS3DMODE_DISABLE </DT>
+
+<DD>3D sound processing is disabled. The sound will appear to originate from the center of the listener's head. </DD>
+
+<DT>DS3DMODE_HEADRELATIVE </DT>
+
+<DD>Sound parameters (position, velocity, and orientation) are relative to the listener's parameters. In this mode, the absolute parameters of the sound are updated automatically as the listener's parameters change, so that the relative parameters remain constant. </DD>
+
+<DT>DS3DMODE_NORMAL </DT>
+
+<DD>Normal processing. This is the default mode.</DD>
+</DL>
+
+<dt><b>flDistanceFactor</b></dt>
+    <dd>Value that specifies the distance factor.</dd>
+
+<dt><b>flRolloffFactor</b></dt>
+    <dd>Value that specifies the rolloff factor.</dd>
+    
+<dt><b>flDopplerFactor</b></dt>
+    <dd>Value that specifies the Doppler factor.</dd>
+</DL>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageEnumerate</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageEnumerate</h1>
+            <p>Retrieves a list of message summaries from the Xbox <i>Live</i> service.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageEnumerate(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>XONLINE_MSG_SUMMARY</b> *<i>pMsgSummaries</i><b>,</b>
+    <b>DWORD</b> *<i>pdwNumMsgSummaries</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwUserIndex</i></dt>
+				<dd>[in]  Controller index (zero-based) of the user whose message list is to be enumerated.  The user 
+				must have been successfully logged on with a previous call to <a href="XOnlineLogon.htm">XOnlineLogon</a>.</dd>
+			
+            <dt><i>pMsgSummaries</i></dt>
+				<dd>[out]  Pointer to the list of message summaries. The maximum number of <a href="XONLINE_MSG_SUMMARY.htm">XONLINE_MSG_SUMMARY</a> 
+				structures is XONLINE_MAX_NUM_MESSAGES.</dd>
+			
+            <dt><i>pdwNumMsgSummaries</i></dt>
+				<dd>[out]  Pointer to a <b>DWORD</b> that receives the number of message 
+				summaries in the list.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Possible return values for <b>XOnlineMessageEnumerate</b> are as follows:</p>
+				<table>
+					<tr>
+						<th>Value</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>S_OK</td>
+						<td>The function succeeded.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_S_MESSAGE_PENDING_SYNC</td>
+						<td>Returned when the message list is in the process of being retrieved (immediately after logon or when turning summary refresh back on). Pumping the logon task will eventually clear this state and S_OK will be returned.</td>
+					</tr>
+				</table>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>If a user does not have any messages, <b>XOnlineMessageEnumerate</b> will return S_OK and place zero in <i>pdwNumMsgSummaries</i>.</p>
+			<p>The <a href="XOnlineGetNotificationEx.htm">XOnlineGetNotificationEx</a> function will return the XONLINE_NOTIFICATION_STATE_FLAG_PENDING_SYNC flag while the message list is being retrieved. Titles can check that while pumping the logon task instead of waiting for <b>XOnlineMessageEnumerate</b> to return S_OK.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p> <a href="XOnlineMessageSummary.htm">XOnlineMessageSummary</a>, <a href="XOnlineMessageDetails.htm">XOnlineMessageDetails</a></p>
+        
+</body>
+</html>

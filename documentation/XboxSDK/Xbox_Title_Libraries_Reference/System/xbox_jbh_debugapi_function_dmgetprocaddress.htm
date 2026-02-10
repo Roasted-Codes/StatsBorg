@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DmGetProcAddress</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_createfile"></A>DmGetProcAddress</H1>
+
+<P class="content">Retrieves the address of the specified procedure from the specified debugger extension.</P>
+
+<PRE class=syntax><b>DMHRAPI DmGetProcAddress(</b>
+  <b>HANDLE</b> <i>hModule</i><B>,</B>
+  <b>LPCSTR</b> <i>szProcName</i><B>,</B>
+  <b>PVOID</b>  <i>*ppvRet</i>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+
+<DT><I>hModule</I></DT>
+<DD>Handle of the debugger extension.</DD>
+
+<DT><I>szProcName</I></DT>
+<DD>Name of the function to retrieve.</DD>
+
+<DT><I>ppvRet</I></DT>
+<DD>Pointer to a pointer to receive the function address.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P class="content">Returns XBDM_NOERR if successful, an error value otherwise.</P>
+
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in xbdm.h
+<br><b>Import Library:</b> Use xbdm.lib
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

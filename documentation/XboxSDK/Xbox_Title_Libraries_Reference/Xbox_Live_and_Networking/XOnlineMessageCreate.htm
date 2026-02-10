@@ -1,0 +1,188 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageCreate</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageCreate</h1>
+            <p>Creates a new message to send.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageCreate(</b>
+    <b>BYTE</b> <i>bMsgType</i><b>,</b>
+    <b>WORD</b> <i>wNumProperties</i><b>,</b>
+    <b>WORD</b> <i>wExpectedValuesSize</i><b>,</b>
+    <b>ULONGLONG</b> <i>qwMessageContext</i><b>,</b>
+    <b>DWORD</b> <i>dwMessageFlags</i><b>,</b>
+    <b>WORD</b> <i>wExpireMinutes</i><b>,</b>
+    <b>XONLINE_MSG_HANDLE</b> *<i>phMsg</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>bMsgType</i></dt>
+				<dd>[in]  Type of message to send. Valid values for this parameter are shown in the 
+				following table.
+				<table>
+					<tr>
+						<th>Message Type</th>
+						<th>Required Context</th>
+						<th>Required Properties</th>
+						<th>Required Flags</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_TITLE_CUSTOM</td>
+						<td>Defined by title.</td>
+						<td>Defined by title.</td>
+						<td>Defined by title.</td>
+						<td>Creates a custom message whose format is defined by the title.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_FRIEND_REQUEST</td>
+						<td>0</td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>Creates an invitation that will be sent to a member of the player's Friends List.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_GAME_INVITE</td>
+						<td>Competition or Team ID</td>
+						<td>XONLINE_MSG_PROP_SESSION_ID</td>
+						<td>XONLINE_MSG_FLAG_TEAM_CONTEXT or XONLINE_MSG_FLAG_COMP_CONTEXT</td>
+						<td>Creates an invitation to participate in a game.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_TEAM_RECRUIT</td>
+						<td>Team ID</td>
+						<td>N/A</td>
+						<td>XONLINE_MSG_FLAG_TEAM_CONTEXT</td>
+						<td>Creates an invitation to join the player's team.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_COMP_REMINDER</td>
+						<td>Competition Event ID</td>
+						<td>XONLINE_MSG_PROP_COMP_NAME, XONLINE_MSG_PROP_COMP_EVENT_START</td>
+						<td>XONLINE_MSG_FLAG_TEAM_CONTEXT</td>
+						<td>Creates a reminder that a player is scheduled to participate in a competition.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_COMP_REQUEST</td>
+						<td>Competition ID</td>
+						<td>XONLINE_MSG_PROP_COMP_NAME, XONLINE_MSG_PROP_COMP_START, 
+						XONLINE_MSG_PROP_COMP_REG_CLOSE</td>
+						<td>XONLINE_MSG_FLAG_TEAM_CONTEXT</td>
+						<td>Creates a request to participate in a competition.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_TYPE_LIVE_MESSAGE</td>
+						<td>0</td>
+						<td>XONLINE_MSG_PROP_SYSTEM_TEXT</td>
+						<td>N/A</td>
+						<td>Creates a message sent by the Xbox <i>Live</i> service or the publisher.</td>
+					</tr>
+				</table>
+				</dd>
+			
+            <dt><i>wNumProperties</i></dt>
+				<dd>[in]  Number of properties that will be assigned to the message using <a href="XOnlineMessageSetProperty.htm">XOnlineMessageSetProperty</a>.</dd>
+			
+            <dt><i>wExpectedValuesSize</i></dt>
+				<dd>[in]  Expected size of the message buffer. Must be less than XONLINE_MAX_MESSAGE_DETAILS. If the 
+				expected size is not known in advance, specify a size of 0. In this case, the default message 
+				buffer size is used.</dd>
+			
+            <dt><i>qwMessageContext</i></dt>
+				<p>
+					<dd>[in]  Information about the message context. Message context is required for most message types. See the 
+					<i>Required Context</i> column of the table above for more information.</dd>
+				</p>
+			
+            <dt><i>dwMessageFlags</i></dt>
+				<dd>[in]  One or more message flags from the following table.
+				<table>
+					<tr>
+						<th>Message Flag</th> 	<th>Description</th>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_REQUIRED</td>
+						<td>The receiver is required to read this message.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_RECOMMENDED</td>
+						<td>It is recommended that the receiver read this message.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_HAS_VOICE</td>
+						<td>The message contains a voice attachment.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_HAS_TEXT</td>
+						<td>The message contains text.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_READ</td>
+						<td>The receiver read this message.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_NON_EXPORTABLE</td>
+						<td>This message should be displayed only on Xbox consoles. It should not be visible on 
+						Windows-based versions of the game.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_NOTIFY</td>
+						<td>This message should cause a new message icon to be displayed to the user.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_TEAM_CONTEXT</td>
+						<td>This message's context refers to a team ID.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAG_COMP_CONTEXT</td>
+						<td>This message's context refers to a competition event ID.</td>
+					</tr>
+					<tr>
+						<td>XONLINE_MSG_FLAGS_TITLE_RESERVED</td>
+						<td>This is a mask for title-specific flags associated with the message.</td>
+					</tr>
+				</table>
+				</dd>
+			
+            <dt><i>wExpireMinutes</i></dt>
+				<dd>[in]  Number of minutes that the message is valid. After this time limit passes, the 
+				message expires. For message types other than XONLINE_MSG_TYPE_TITLE_CUSTOM, titles should set this 
+				parameter to 0 to use an appropriate default expiration.</dd>
+			
+            <dt><i>phMsg</i></dt>
+				<dd>[out]  Pointer to an <b>XONLINE_MSG_HANDLE</b> structure. Upon return, this structure contains 
+				the message created by this function.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>You can use the constant XONLINE_MSG_FLAGS_TITLE_RESERVED to set or clear the most 
+			significant byte of a <b>DWORD</b> containing a flag. You can then store your own custom value 
+			there. Title-specific flags should not be used for message types other than XONLINE_MSG_TYPE_TITLE_CUSTOM. </p>
+			
+			<p>It is important to note that the XONLINE_MSG_HANDLE received through the <i>phMsg</i> 
+			parameter can be used in only one send operation at a time. Also, memory for the handle should not be 
+			freed until the send operation has completed.</p>
+			
+			<p>The message should be passed to <b>XOnlineMessageSetProperty</b> to add the desired properties. Next, 
+			it should be passed to the sending function appropriate to the message type, such as 
+			<a href="XOnlineGameInviteSend.htm">XOnlineGameInviteSend</a> for XONLINE_MSG_TYPE_GAME_INVITE or <a href="XOnlineMessageSend.htm">XOnlineMessageSend</a> for 
+			XONLINE_MSG_TYPE_TITLE_CUSTOM. </p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p> <a href="XOnlineMessageDelete.htm">XOnlineMessageDelete</a></p>
+        
+</body>
+</html>

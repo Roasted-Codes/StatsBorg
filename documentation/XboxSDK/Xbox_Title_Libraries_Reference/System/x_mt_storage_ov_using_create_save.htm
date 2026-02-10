@@ -1,0 +1,34 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Creating and Deleting Save Games</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading">Creating and Deleting Save Games</H1>
+
+
+<P>The <A HREF="x_jsk_xcreatesavegame.htm">XCreateSaveGame</A> function creates a new instance of a save game container. It creates the save game container directory in the title's user data region, using the appropriate hierarchy on the appropriate device. It also returns the directory path through which the title can subsequently access the new save game.</P>
+
+<P>After the save game container directory is created, the title can use the standard XTL file input and output routines (such as <a href="filesio_7wmd.htm">CreateFile</A>, <a href="filesio_39id.htm">ReadFile</A>, <a href="filesio_3kkl.htm">WriteFile</A>, and so on) to create and manipulate files in that directory. The files contain the game data that represents the save game. Titles can organize the file and data content of this save game as they see fit. Additionally, the title can place information into metadata files that are used by the Xbox Dashboard to identify and brand the title.</P>
+
+<P>The <A HREF="x_jsk_xdeletesavegame.htm">XDeleteSaveGame</A> function deletes a save game container previously created with <B>XCreateSaveGame</B>. It removes the save game container directory and all files within that directory. Additionally, it may perform other cleanup work required by the system. Titles should call <B>XDeleteSaveGame</B> to delete a save game container; they should not just delete the container directory.</P>
+
+<P>Source code demonstrating the end-to-end steps required to save a game to a memory unit is presented in the <A HREF="x_mt_input_oview.htm">Using Xbox Peripherals</A> section.  The same information (other than the need to prepare the memory unit) applies to save games on the Xbox hard disk.</P>
+
+<H3>Save Game Size Restrictions</H3>
+
+<P>There is a large difference between the space potentially available on the Xbox hard disk and the space available on a memory unit. Users expect to be able to roam data between memory units and the hard disk freely. Because of this, save games should be limited to the size of a formatted empty memory unit (8 MB). As mentioned previously, there are certification requirements related to the size of save games.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::EndState</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::EndState</h1>
+<p><b>EndState</b> must be called after <a href="_dx_idirect3ddevice8_beginstate_graphics.htm">IDirect3DDevice8::BeginState</a>, once the data is completely written to the push-buffer.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>EndState(</b>
+    <b>DWORD</b> *<i>pPush</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pPush</i></dt>
+<dd>[in]  <i>pPush</i> should point to the first DWORD following the data written to the push-buffer.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>For an example of how to use <b>EndState</b>, see the remarks section of <b>BeginState</b>.</p>
+
+<p>After calling <b>EndState</b>, the data written to the push-buffer may not be modified.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_idirect3ddevice8_beginstate_graphics.htm">IDirect3DDevice8::BeginState</a>, <a href="_dx_idirect3ddevice8_beginpush_graphics.htm">IDirect3DDevice8::BeginPush</a>, <a href="_dx_idirect3ddevice8_endpush_graphics.htm">IDirect3DDevice8::EndPush</a></p>
+
+</body>
+</html>

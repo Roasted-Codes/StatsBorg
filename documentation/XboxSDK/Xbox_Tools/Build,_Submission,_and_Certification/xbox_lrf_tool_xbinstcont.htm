@@ -1,0 +1,57 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Xbox Install Content Tool (XbInstCont)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Xbox Install Content Tool (XbInstCont)</h1>
+<p>The Xbox Install Content Tool (XbInstCont) enables a game developer to install online content packages onto a connected Xbox Development Kit.</p><h2><a name="IDA2AUM"></a>Usage</h2>
+<pre class="clsCode">
+USAGE: xbinstcont [/x xboxname] [/t titleid] [/f] [/u] dir ...
+</pre>
+    <table>
+  <tr>
+<th>Option</th>                          <th>Description</th>
+</tr>
+  <tr>
+<td>/x <i>xboxname</i></td>    <td>Xbox name or Xbox IP. Specify a particular target machine.</td>
+</tr>
+  <tr>
+<td>/t <i>titleid</i></td>     <td>Title ID of the game title to which the content belongs.</td>
+</tr>
+  <tr>
+<td>/f</td>                              <td>Force copied files to overwrite files on the Xbox console.</td>
+</tr>
+  <tr>
+<td>/u</td>							   <td>Install an auto-update to the Xbox Console.</td>
+</tr>
+</table>
+<h2><a name="IDA5BUM"></a>Testing Online Content</h2>
+<p>Testing content packages during development requires the following steps:</p><ol>
+  <li>Create content (new levels, characters, or whatever your game title requires).</li>
+  <li>Use <a href="xbox_mt_tool_xbldsigs.htm">XBldSigs</a> to build the final package metadata file (ContentMeta.xbx).</li>
+  <li>Use XbInstCont to copy the content and metadata to the correct locations
+      on your Xbox Development Kit's hard disk.</li>
+  <li>Test the new content. If the new content has a problem, repeat steps 1&#8211;3.</li>
+</ol>
+<h2><a name="IDAVCUM"></a>Example</h2>
+<p>The directory C:\GameContentPack directory contains the files SampleImage.bmp,
+SampleAudio.wav, and ContentMeta.xbx (created by running XBldSigs). The title
+ID for the sample game is 0xAABBCCDD. The following command line copies
+everything in C:\GameContentPack to the appropriate locations on the Xbox
+Development Kit whose name is MyXboxName:</p>
+<pre class="clsCode">
+xbinstcont /x MyXboxName /t 0xAABBCCDD C:\GameContentPack
+</pre>
+    <p>The copied content may now be managed in the <b>Memory</b> section of the development kit's Dashboard.</p><h4><a name="seealso"></a>See Also</h4>
+	<p>
+		<a href="xbox_mt_tool_xbldsigs.htm">XBldSigs</a>,
+		<a href="xbox_tool_xlast.htm">Xbox Live Authoring and Submission Tool</a>
+	</p>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DmStopOn</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DmStopOn</H1>
+
+<P class="content">Some debugging events such as DM_BREAK require title execution to be suspended. But there are some debugging events where thread suspension is an option. For these events, you can elect to have the debugging subsystem suspend title execution by calling the <B>DmStopOn</B> function.</P>
+
+<PRE class=syntax><b>DMHRAPI DmStopOn(</b>
+  <b>DWORD</b> <i>dwStopFlags</i><b>,</b> 
+  <b>BOOL</b> <i>fStop</i>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>dwStopFlags</I></DT>
+
+<DD>The first parameter, <i>dwStopFlags</i>, contains some combination of the following values:
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=31%>Value</TH>
+<TH align=left width=69%>Meaning</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%>DMSTOP_CREATETHREAD</TD>
+<TD width=69%>Suspend title execution when a thread is created.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%>DMSTOP_FCE</TD>
+<TD width=69%>Suspend title execution when a first-chance exception occurs.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=31%>DMSTOP_DEBUGSTR</TD>
+<TD width=69%>Suspend title execution when a string is sent to debug out.</TD>
+</TR>
+
+</TABLE>
+
+</DD>
+
+<DT><I>fStop</I></DT>
+
+<DD>If the <i>fStop</i> parameter is TRUE, the debugging subsystem will suspend title execution when the specified event occurs and notify any debug event handlers that are registered to receive DM_EXEC events. When the handler is called, the DM_STOPTHREAD flag of the <i>dwNotification</i> parameter will be set. If <i>fStop</i> is FALSE, the title will not be suspended.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P class="content">Returns XBDM_NOERR if successful, an error value otherwise.</P>
+
+<!--
+<H4>Remarks</H4>
+
+<P class="content"></P>
+ -->
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

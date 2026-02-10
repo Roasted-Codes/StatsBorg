@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XAudioSetEffectData</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XAudioSetEffectData</h1>
+<p>Sets the effects parameters effects such as IIR2, Distortion, and I3DL2.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XAudioSetEffectData(</b>
+    <b>DWORD</b> <i>dwEffectIndex</i><b>,</b>
+    <b>LPCDSFX_HIGH_LEVEL_EFFECT_DESCRIPTION</b> <i>pDesc</i><b>,</b>
+    <b>LPDSFX_RAW_EFFECT_DESCRIPTION</b> <i>pRawDesc</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwEffectIndex</i></dt>
+                <dd>[in]  Index of effect to set.</dd>
+            
+            <dt><i>pDesc</i></dt>
+                <dd>[in]  A pointer to a <a href="xbox_dsfxhighleveleffectdescription_dxaudio.htm">DSFX_HIGH_LEVEL_EFFECT_DESCRIPTION</a> structure indicating the high level parameters to set.</dd>
+            
+            <dt><i>pRawDesc</i></dt>
+                <dd>[out]  A pointer to a <a href="xbox_dsfxraweffectdescription_dxaudio.htm">DSFX_RAW_EFFECT_DESCRIPTION</a> structure indicating the raw parameters to be returned. This parameter is optional and can be NULL.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p>This API offers the developer a high level interface for setting the effects parameters for effects such as IIR2, Distortion, and I3DL2. The user supplies high level parameters for the effect with are translated internally into the raw representation required by the DSP.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+</body>
+</html>

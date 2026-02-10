@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XMemSize</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XMemSize</h1>
+<p>Application-defined memory callback function that determines the size of an allocated memory block.  This callback function replaces the memory size function used by the XTL libraries.</p><pre class="syntax" xml:space="preserve"><b>SIZE_T WINAPI</b> <b>XMemSize(</b>
+    <b>PVOID</b> <i>pAddress</i><b>,</b>
+    <b>DWORD</b> <i>dwAllocAttributes</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pAddress</i></dt>
+<dd>[in]  Specifies the base address of the memory block for which the size is to be determined.  This parameter must be the address returned by the <a href="XMemAlloc.htm">XMemAlloc</a> function when the memory was allocated.</dd>
+<dt><i>dwAllocAttributes</i></dt>
+<dd>[in]  An <a href="XALLOC_ATTRIBUTES.htm">XALLOC_ATTRIBUTES</a> value that specifies the allocation attributes of the memory block for which the size is to be determined.  These attributes should match those that were specified when the memory was allocated.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>If the function succeeds, the return value is the size, in bytes, of the allocated memory block.</p><p>If the function fails, the return value is &#8722;1.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>If a title implements an <b>XMemSize</b> function, all memory size queries performed by the XTL libraries will instead call the title's <b>XMemSize</b> routine.  The title must return the memory size.  The title can simply use the <a href="xbox_mt_sll_memman_xphysicalsize.htm">XPhysicalSize</a> and <a href="memman_9l5x.htm">HeapSize</a> functions to provide the underlying heap support, if desired.  Alternatively, the title can implement its own heap routines and thus replace the default heap allocator.</p>
+
+<p>XTL components that need to determine memory size (graphics, sound, networking, and so on) all call <b>XMemSize</b> instead of other memory size routines.  The default <b>XMemSize</b> then calls <b>XPhysicalSize</b> or <b>HeapSize</b> as appropriate.  A title can provide its own <b>XMemSize</b> function, thus overriding the default, and allowing the title to trace XTL size queries and to replace the heap allocator.  The title should provide all of the allocator replacement functions (<b>XMemAlloc</b>, <a href="XMemFree.htm">XMemFree</a>, and <b>XMemSize</b>) or none at all.  The allocator functions to use (either the default or title-defined versions) are determined at link time, so the title imposes no additional overhead by supplying its own versions.</p>
+
+<p>The title can, if desired, call its own implementation of <b>XMemSize</b> as well, thus routing all title and XTL memory size queries through a single routine.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xbox.h; for include use xtl.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="XMemAlloc.htm">XMemAlloc</a>, <a href="XMemFree.htm">XMemFree</a>, <a href="XALLOC_ATTRIBUTES.htm">XALLOC_ATTRIBUTES</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Thread Handles and Identifiers</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H3><A NAME="_win32_thread_handles_and_identifiers"></A>Thread Handles and Identifiers</H3>
+
+<P>When a new thread is created by the <A HREF="prothred_4084.htm"><B>CreateThread</B></A> function, a handle to the thread is returned.  The handle is valid until closed, even after the thread it represents has been terminated.</P>
+
+<P>The <B>CreateThread</B> function also returns an identifier that uniquely identifies the thread throughout the system. A thread can use the <A HREF="prothred_4nfo.htm"><B>GetCurrentThreadId</B></A> function to get its own thread identifier. The identifiers are valid from the time the thread is created until the thread has been terminated.</P>
+
+<P>A thread can use the <A HREF="prothred_8mn8.htm"><B>GetCurrentThread</B></A> function to retrieve a <I>pseudo handle</I> to its own thread object. This pseudo handle represents the currently running thread. To get the real handle to the thread, given the pseudo handle, use the <A HREF="handobj_2pyd.htm"><B>DuplicateHandle</B></A> function.</P>
+
+
+</BODY>
+</HTML>

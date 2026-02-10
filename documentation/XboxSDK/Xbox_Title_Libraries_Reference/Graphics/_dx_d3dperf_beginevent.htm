@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>D3DPERF_BeginEvent</title>
+</head>
+<body topmargin="0">
+
+
+<h1>D3DPERF_BeginEvent</h1>
+<p><b>D3DPERF_BeginEvent</b> is used along with <a href="_dx_d3dperf_endevent.htm">D3DPERF_EndEvent</a> to define the start of a user-defined event that happens over a period of time. This event will then appear in the <a href="pix_timeline_window.htm">PIX Timeline Window</a>.</p>
+<pre class="syntax" xml:space="preserve"><b>INT</b> <b>D3DPERF_BeginEvent(</b>
+    <b>D3DCOLOR</b> <i>Color</i><b>,</b>
+    <b>const char</b> *<i>szName</i><b>,</b>
+    <b>...</b> <i></i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>Color</i></dt>
+<dd>[in]  A D3DCOLOR value used to specify the color that will show up when this event occurs in the <a href="pix_timeline_window.htm">PIX Timeline Window</a>. If the alpha channel of the color is zero, the color will be inherited from the parent.</dd>
+			<dt><i>szName</i></dt>
+<dd>[in]  Pointer to a null-terminated string used to describe the event. The string may specify zero or more optional string format placeholders, similar to <b>sprintf</b>. If placeholders are used, the <i>szName</i> should be followed by a corresponding number of parameters whose type depend on the placeholders.</dd>
+			<dt><i></i></dt>
+<dd></dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>Returns the level of the hierarchy this event is starting in. If an error occurs, this value will be negative.<h4><a name="remarks"></a>Remarks</h4>
+<p>User defined events may be nested inside each other, up to eight levels deep. These events can be expanded or collapsed within the <a href="pix_events_window.htm">PIX Events Window</a> to make it easier to see which CPU and GPU events belong to which of the user defined events.</p>
+
+		<p>Each call to <b>D3DPERF_BeginEvent</b> must be paired with a corresponding call to <b>D3DPERF_EndEvent</b>. These functions must bracket the event that is to be captured, and must not be separated by a call to <a href="_dx_idirect3ddevice8_swap_graphics.htm">Swap</a> or <a href="_dx_idirect3ddevice8_present_graphics.htm">Present</a>.</p>
+		
+		<p>In release builds of Direct3D, this function does nothing.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8perf.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Use d3d8i.lib or D3d8d.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="pix_overview.htm">Performance Investigator for Xbox (PIX)</a>, <a href="pix_adding_user_defined_events_markers.htm">Adding User Defined Events and Markers</a> | <a href="_dx_d3dperf_setmarker.htm">D3DPERF_SetMarker</a>, <a href="_dx_d3dperf_endevent.htm">D3DPERF_EndEvent</a></p>
+
+</body>
+</html>

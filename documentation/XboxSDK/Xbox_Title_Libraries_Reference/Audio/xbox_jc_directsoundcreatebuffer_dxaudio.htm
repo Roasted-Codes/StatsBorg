@@ -1,0 +1,42 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DirectSoundCreateBuffer</TITLE>
+<META NAME="MS-HKWD" CONTENT="DirectSoundCreateBuffer  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_directsoundcreatebuffer_dxaudio"></A>DirectSoundCreateBuffer</H1>
+
+<P>Creates an <A HREF="_dx_idirectsoundbuffer8_dxaudio.htm"><B>IDirectSoundBuffer8</B></A> object.</P>
+
+<PRE class="syntax"><B>HRESULT DirectSoundCreateBuffer(</B>
+    <B>LPCDSBUFFERDESC</B> <I>pdsbd</I>,
+    <B>LPDIRECTSOUNDBUFFER</B> <I>*ppBuffer</I>,
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pdsbd</I></DT>
+<DD>Address of a <A HREF="_dx_dsbufferdesc_dxaudio.htm"><B>DSBUFFERDESC</B></A> structure that describes the sound buffer to create. </DD>
+
+<DT><I>ppBuffer</I></DT>
+<DD>Address of a variable that receives the <A HREF="_dx_idirectsoundbuffer8_dxaudio.htm"><B>IDirectSoundBuffer8</B></A> interface of the new buffer object.</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, an error code otherwise.</P>
+
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.<BR>
+
+
+</BODY>
+</HTML>

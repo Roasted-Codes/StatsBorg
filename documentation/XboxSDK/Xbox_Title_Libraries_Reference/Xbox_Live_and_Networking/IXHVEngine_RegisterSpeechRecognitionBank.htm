@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::RegisterSpeechRecognitionBank</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::RegisterSpeechRecognitionBank</h1>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>RegisterSpeechRecognitionBank(</b>
+    <b>VOID</b> *<i>pvSRBank</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pvSRBank</i></dt>
+				<dd>[in]  Pointer to an Xbox speech recognition bank (.xsr) that has been loaded into memory by the application. This parameter must be DWORD aligned.</dd>
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;The .xsr file is created by the Win32 speech recognition tool, <a href="xbox_mds_tool_buildspeechrecbank.htm">BuildSpeechRecBank</a>.</p><p>Passing NULL effectively unregisters the current speech recognition bank and performs all the operations associated with freeing the memory.</p><p>When passing in a pointer to a new bank while a bank is currently loaded, this method performs the equivalent of <b>RegisterSpeechRecognitionBank</b><b>(NULL)</b> and then normal registration. The local talkers that were in Speech Recognition (SR) mode at that point are switched to inactive mode and no vocabularies are selected. For a local talker to start speech recognition again, <a href="XHVEngine_SelectVocabulary.htm">SelectVocabulary</a> must be called.</p>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>This function initializes the speech recognition engine with a specific recognition file. When the engine is in speech recognition mode, this method should be called after calling <a href="IXHVEngine_EnableProcessingMode.htm">EnableProcessingMode</a>.<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

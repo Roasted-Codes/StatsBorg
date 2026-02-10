@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMatchSessionFindFromID</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMatchSessionFindFromID</h1>
+<p>
+Searches for the online-game session that corresponds to the specified session identifier.
+</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMatchSessionFindFromID(</b>
+    <b>XNKID</b> <i>SessionID</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>SessionID</i></dt>
+				<dd>[in]  Session identifier for the online-game session to search for.</dd>
+			
+			<dt><i>hWorkEvent</i></dt>
+				<dd>[in, optional]  Optional. Handle to a caller-created event object. This object will be signaled when there  is work to do by calling <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>. The caller may pass in NULL instead, indicating that the caller will poll <b>XOnlineTaskContinue</b> itself.</dd>
+			
+			<dt><i>phTask</i></dt>
+				<dd>[out]  Address of an <b>XONLINETASK_HANDLE</b> that uniquely identifies this search. After the task has been pumped to completion, call <a href="XOnlineMatchSearchGetResults.htm">XOnlineMatchSearchGetResults</a> to obtain information about the session.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+
+    <p>If <b>XOnlineMatchSessionFindFromID</b> succeeds, the return value is S_OK.</p>
+
+	<p>If <b>XOnlineMatchSessionFindFromID</b> fails, the return value is one of the 
+	following error codes.</p>
+
+<table>
+
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>E_OUTOFMEMORY</td>
+<td>Insufficient memory. Free some memory.</td>
+</tr>
+<tr>
+<td>WSAEADDRNOTAVAIL</td>
+<td>See <a href="xbox_winsock_error_codes_winsock.htm">Winsock Error Codes</a> for more information. </td>
+</tr>
+<tr>
+<td>WSACONNRESET</td>
+<td>See <b>Winsock Error Codes</b> for more information. </td>
+</tr>
+
+<tr>
+<td>Other</td>
+<td>See <a href="xbox_online_errors.htm">Online Errors</a> for information about other possible errors.</td>     
+</tr>
+</table>
+
+
+		
+        <h4><a name="remarks"></a>Remarks</h4>
+<p>
+The <b>XOnlineMatchSessionFindFromID</b> function is called from an Xbox that wishes to join an online-game session that is hosted by a different Xbox.
+</p>
+
+<p>The <i>hSession</i> task handle must be checked repeatedly until there is no more work to do.</p>
+
+<p>The title is responsible for freeing this handle using the <a href="XOnlineTaskClose.htm">XOnlineTaskClose</a> function.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_online_matchmaking.htm">Matchmaking Overview</a> |
+<a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | 
+<a href="XOnlineMatchSearch.htm">XOnlineMatchSearch</a>, 
+<a href="XOnlineMatchSearchGetResults.htm">XOnlineMatchSearchGetResults</a>, 
+<a href="XOnlineMatchSearchParse.htm">XOnlineMatchSearchParse</a>
+</p>
+
+</body>
+</html>

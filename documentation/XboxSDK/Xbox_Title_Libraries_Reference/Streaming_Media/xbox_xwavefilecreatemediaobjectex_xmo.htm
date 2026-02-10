@@ -1,0 +1,43 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XWaveFileCreateMediaObjectEx</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XWaveFileCreateMediaObjectEx</h1>
+<p>Creates and initializes the wave loader Xbox Media Object (XMO).</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XWaveFileCreateMediaObjectEx(</b>
+    <b>LPCSTR</b> <i>pszFileName</i><b>,</b>
+    <b>HANDLE</b> <i>hFile</i><b>,</b>
+    <b>XWaveFileMediaObject</b> **<i>ppMediaObject</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pszFileName</i></dt>
+                <dd>String value that specifies the file path.</dd>
+            
+            <dt><i>hFile</i></dt>
+                <dd>Handle to the file.</dd>
+            
+            <dt><i>ppMediaObject</i></dt>
+                <dd>Address of a pointer to the <a href="xbox_xwavefilemediaobject_xmo.htm">XWaveFileMediaObject</a> that is created.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p>The title is responsible for freeing the <b>XWaveFileMediaObject</b> that is created by using the <b>Release</b> method.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="xbox_xfilecreatemediaobject_xmo.htm">XFileCreateMediaObject</a>, <a href="xbox_xfilecreatemediaobjectex_xmo.htm">XFileCreateMediaObjectEx</a>, <a href="xbox_xwavefilecreatemediaobject_xmo.htm">XWaveFileCreateMediaObject</a></p>
+        
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Frame (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Frame (XbView)</h1>
+<p>The <b>Frame</b> structure specifies a single node in the hierarchy needed to render this scene.</p>
+<pre class="clsCode">
+struct Frame 
+{
+    XGMATRIX   m_Matrix;                         // local transformation
+    CHAR       m_strName[FRAME_IDENTIFIER_SIZE]; // name of this frame
+    Frame *    m_pChild;                         // child frame
+    Frame *    m_pNext;                          // sibling frame
+};
+</pre>
+    <p>The <b>m_Matrix</b> member is the local transformation matrix that will be concatenated, along with any animation data that might apply for this node, into the Local-to-World matrix for this node. The <b>m_strName</b> member is the identifier for this frame. When this identifier matches the <a href="xbview_effect.htm">Effect</a> <b>Identifier</b> member, the <b>Effect</b> is "attached" to this node and the concatenation of all matrices for this node is used to transform the geometry. The <b>m_pChild</b> pointer points to a <b>Frame</b> that is considered a child of this node. The <b>m_pNext</b> pointer points to a <b>Frame</b> that is considered a sibling of this node.</p><p>The <a href="xbview_skeleton.htm">Skeleton</a> structure stores a pointer to the root <b>Frame</b> and the rest of hierarchy can be traversed from there. </p>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTEngine::FlushNotification</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTEngine::FlushNotification</h1>
+<p>Flush all pending notifications of a specific type from the notification queue.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>FlushNotification(</b>
+    <b>PCXACT_NOTIFICATION_DESCRIPTION</b> <i>pNotificationDesc</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pNotificationDesc</i></dt>
+				<dd>[in]  A pointer to an <a href="xbox_xactnotificationdescription_dxaudio.htm">XACT_NOTIFICATION_DESCRIPTION</a> structure describing the notification(s) to flush. If this parameter is NULL, all notifications will be flushed.</dd>
+				<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;The pSoundCue parameter of the XACT_NOTIFICATION_DESCRIPTION structure is reserved when calling this function and should be set to NULL.</p>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful; returns an error code otherwise.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_xactnotificationdescription_dxaudio.htm">XACT_NOTIFICATION_DESCRIPTION</a>
+		</p>
+
+</body>
+</html>

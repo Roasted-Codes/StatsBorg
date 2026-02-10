@@ -1,0 +1,65 @@
+<html>
+
+
+
+<head>
+<meta charset="UTF-8">
+	<title>/FASTCAP (Fast Call-Attribute Profiling)</title>
+
+
+</head>
+
+<BODY TOPMARGIN="0">
+
+
+<h1>/FASTCAP (Fast Call-Attribute Profiling)</h1>
+
+<pre class="syntax">/FASTCAP</pre>
+
+<p>The /FASTCAP option enables fast call-attribute profiling, which is required when using
+<a href="xbox_lrf_tool_xbperf.htm">XbPerf</a> to profile the performance of a game. </p>
+
+<h4>Remarks</h4>
+
+<p>To set this Image Builder option in the Visual Studio environment:</p>
+
+<ol>
+<li>Open the Xbox project's <b>Property Pages</b> dialog box.</li>
+<li>Click the <b>C\C++</b> folder.</li>
+<li>Click the <b>Advanced</b> property page.</li>
+<li>To enable fast call-attribute profiling, set the <b>FastCAP</b> 
+property to <b>Yes</b>.</li>
+</ol>
+
+<p>When using this compiler switch, you must link your project to xbdm.lib or you will get 
+link errors resembling the following:<pre>
+error LINK2019: unresolved external symbol __CAP_End_Profiling@4 referenced in function ...
+error LINK2019: unresolved external symbol __CAP_Start_Profiling@4 referenced in function ...
+</pre> 
+
+In addition, Visual Studio's incremental linking, and features that use it 
+such as edit-and-continue, should not be enabled. An error similar to the 
+following indicates that the incremental linking is currently enabled:
+
+<pre>
+&lt;yourfile&gt;.obj : warning LNK4202 : spawning full build due to '/INCREMENTAL:NO' directive
+LINK : warning LNK4075 : ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' directive
+</pre>
+</p>
+
+<p>To disable incremental linking in the Visual Studio environment:</p>
+	<ol>
+		<li>Open the Xbox project's <b>Property Pages</b> 
+			dialog box.</li>
+		<li>Click  <b>Linker</b>.</li>
+		<li>Set the <b>Enable Incremental Linking</b> property to 
+		<b>No.</b></li>
+	</ol>
+	
+	<h4>See Also</h4>
+
+<p><a href="xbox_lrf_tool_xbperf.htm">Xbox Call-Attributed Profiler (xbperf) tool</a></p>
+
+
+</body>
+</html>

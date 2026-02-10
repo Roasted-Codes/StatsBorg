@@ -1,0 +1,16 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Enabling and Disabling the Lighting Engine</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_enabling_and_disabling_the_lighting_engine_graphics"></A>Enabling and Disabling the Lighting Engine</H1>
+
+<P>By default, Microsoft&#174; Direct3D&#174; performs lighting calculations on all vertices, even those without vertex normals. This is different from the behavior in previous releases of Microsoft&#174; DirectX&#174;, where lighting was performed only on vertices that contained a vertex normal. However, you can disable lighting through the <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_lighting_graphics">D3DRS_LIGHTING</A> render state. Call the <A HREF="_dx_idirect3ddevice8_setrenderstate_graphics.htm">IDirect3DDevice8::SetRenderState</A> method, passing <B>D3DRS_LIGHTING</B> as the first parameter, and TRUE or FALSE as the second parameter. Setting the state to TRUE enables lighting (the default), and setting it to FALSE disables lighting operations.</P>
+
+</BODY>
+</HTML>

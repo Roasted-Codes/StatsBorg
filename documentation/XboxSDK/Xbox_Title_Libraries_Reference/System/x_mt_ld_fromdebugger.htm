@@ -1,0 +1,50 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>LD_FROM_DEBUGGER_CMDLINE</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="xthread_notification"></A>LD_FROM_DEBUGGER_CMDLINE</H1>
+
+<P>The <B>LD_FROM_DEBUGGER_CMDLINE</B> structure is used in the <A HREF="x_jc_xgetlaunchinfo.htm">XGetLaunchInfo</a> function to retrieve the launch information for a title that was launched by the debugger.</P>
+
+<PRE class=syntax>typedef struct _LD_FROM_DEBUGGER_CMDLINE {
+  CHAR szCmdLine [MAX_LAUNCH_DATA_SIZE];
+} LD_FROM_DEBUGGER_CMDLINE, *PLD_FROM_DEBUGGER_CMDLINE;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>szCmdLine</B></DT>
+
+<DD>A null-terminated string that is the command line passed from the debugger.</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>If a command line is specified in the debugger when launching or debugging a title, it will be available to the title in this structure.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Xbox.h, for include use Xtl.h.<br><b>
+</p>
+
+<H4>See Also</H4>
+<P>
+<A HREF="x_jc_xgetlaunchinfo.htm">XGetLaunchInfo</a>
+</P>
+
+
+</BODY>
+</HTML>

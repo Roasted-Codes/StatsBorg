@@ -1,0 +1,79 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XWriteStatStore</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XWriteStatStore</h1>
+<p>Stores the specified statistic for the specified user on the local Xbox hard disk. This statistic is later retrieved by the <a href="xbox_xbe_stats.htm">Xbox Statistics Manager</a> and stored on the specified Xbox <i>Live</i> leaderboard.
+		<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Leaderboards are also referred to as scoreboards.</p></p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XWriteStatStore(</b>
+    <b>LPCWSTR</b> <i>lpLocalUserName</i><b>,</b>
+    <b>DWORD</b> <i>dwLeaderBoardIndex</i><b>,</b>
+    <b>WORD</b> <i>wAttributeIndex</i><b>,</b>
+    <b>XOFFLINE_STAT_TYPE</b> <i>Type</i><b>,</b>
+    <b>VOID</b> *<i>pStatValue</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+            <dt><i>lpLocalUserName</i></dt>
+<dd>[in]  Pointer to a Unicode string that contains the title-defined identifier for the user. This string is not the user's gamertag on the Xbox Live service.</dd>
+
+            
+            <dt><i>dwLeaderBoardIndex</i></dt>
+<dd>[in]  Leaderboard on which to store the statistic.</dd>
+
+            
+            <dt><i>wAttributeIndex</i></dt>
+<dd>[in]  Title-defined identifier for the statistic.</dd>
+
+            
+            <dt><i>Type</i></dt>
+<dd>Type of the attribute (statistic) to store. This parameter is a value from the enumeration type <b>XOFFLINE_STAT_TYPE</b>:
+
+                    <table>
+                        <tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+                        <tr>
+<td>XOFFLINE_STAT_LONG</td> <td>The statistic is an integer (32-bit).</td>
+</tr>
+                        <tr>
+<td>XOFFLINE_STAT_LONGLONG</td> <td>The statistic is a big integer (64-bit).</td>
+</tr>
+                        <tr>
+<td>XOFFLINE_STAT_DOUBLE</td> <td>The statistic is an real number (64-bit). </td>
+</tr>
+                    </table>
+
+                </dd>
+
+            
+            <dt><i>pStatValue</i></dt>
+<dd>Pointer to the value to store for this statistic.</dd>
+
+            
+
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p><b>XWriteStatStore</b> does not digitally sign the statistics that it writes to the Xbox hard disk.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xbox.h, for include use Xtl.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xapilib.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+
+            <p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="xbox_xbe_stats.htm">Xbox Statistics Manager</a> | <a href="XClearStatStore.htm">XClearStatStore</a></p>
+
+        
+</body>
+</html>

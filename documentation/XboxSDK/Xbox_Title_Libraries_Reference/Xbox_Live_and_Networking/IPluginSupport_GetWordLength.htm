@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IPluginSupport::GetWordLength</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IPluginSupport::GetWordLength</h1>
+<p>Determines the next word length in a string by calculating the number of characters up to (and including) the first break (wrappable) character in the string.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetWordLength(</b>
+    <b>LPCWSTR</b> <i>pString</i><b>,</b>
+    <b>DWORD</b> *<i>pWordLength</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pString</i></dt>
+<dd>[in]  Pointer to a null-terminated Unicode string.</dd>
+<dt><i>pWordLength</i></dt>
+<dd>[out]  Pointer to a <b>DWORD</b> variable that receives the length, in characters, up to and including the first break character in <i>String</i>.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>If the string contains no break characters, then the length of the entire string is returned.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

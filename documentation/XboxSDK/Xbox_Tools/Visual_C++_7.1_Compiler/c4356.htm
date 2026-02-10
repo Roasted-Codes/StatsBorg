@@ -1,0 +1,73 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Warning (level 2) C4356</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c4356"></A>Compiler Warning (level 2) C4356</H1>
+
+
+<P><b>'<i>member</i>' : static data member cannot be initialized via derived class</b></P>
+
+<P>The initialization of a static data member was ill formed. The compiler accepted 
+the initialization.</p>
+
+<p>This is a breaking change in the Visual C++ .NET 2003 compiler.</p>
+
+<p>For code that works the same in all versions of Visual C++, initialize the 
+member through the base class.</p>
+
+<p>The following sample generates C4356:</p>
+
+<pre class = "code">// C4356.cpp
+// compile with: /W2 /EHsc
+#include &lt;iostream&gt;
+
+template &lt;class T&gt;
+class C
+{
+   static int n;
+};
+
+class D : C&lt;int&gt;
+{
+};
+
+int D::n = 0; // C4356
+// try the following line instead
+// int C&lt;int&gt;::n = 0;
+
+class A
+{
+public:
+   static int n;
+};
+
+class B : public A
+{
+};
+
+int B::n = 10;   // C4356
+// try the following line instead
+// int A::n = 99;
+
+int main()
+{
+   using namespace std;
+   B myb;
+   cout &lt;&lt; B::n &lt;&lt; endl;
+}</PRE>
+
+
+</BODY>
+</HTML>

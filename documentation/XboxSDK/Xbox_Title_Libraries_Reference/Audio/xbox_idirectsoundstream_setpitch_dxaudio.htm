@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundStream::SetPitch</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectSoundStream::SetPitch [C++]">
+<META NAME="MS-HKWD" CONTENT="SetPitch (IDirectSoundStream) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetPitch [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectsoundstream_setpitch_dxaudio"></A>IDirectSoundStream::SetPitch</H1>
+
+<P>Adjusts the pitch of all sounds playing on this stream.</P>
+
+<PRE class="syntax"><B>HRESULT SetPitch(</B>
+    <B>LONG</B> <I>lPitch</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lPitch</I></DT>
+    <DD>Value that specifies the pitch bend, in 1/4096ths of an octave or 3/1024ths of a semitone, relative to 48 kHz (not the actual frequency of the voice). Can be a value from DSSTREAMPITCH_MIN to DSSTREAMPITCH_MAX.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+
+<P>The following examples demonstrate calls to the <B>SetPitch</B> method.</P>
+<PRE>
+// pStream is a valid pointer to an IDirectSoundStream interface
+
+// Play the sound at 48 kHz (no pitch bend)
+pStream->SetPitch(0);   
+
+// Play the sound two octaves lower (12 kHz)
+pStream->SetPitch(-8192);
+
+// Play the sound one octave higher (96 kHz)
+pStream->SetPitch(4096);
+</PRE>
+
+<p>Another way to figure out the value for <i>lPitch</i> would be to calculate the base pitch of the voice (log<span style="vertical-align:sub">2</span>(nSamplesPerSecond/48000)), add (or subtract) the number of octaves you want to change (for example, -1 if you want to go down one octave), and convert the value to register format (multiply by 4096).</p>
+
+<p>Internally, <a href="xbox_jc_idirectsoundstream_setfrequency_dxaudio.htm"><b>SetFrequency</b></a> calls <b>SetPitch</b>, so they are equivalent methods and will override each other. Calling <b>SetPitch</b> with the value zero is the same as calling <b>SetFrequency</b> with the value of 48000.</p>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,29 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Priority Boosts</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H3><A NAME="_win32_priority_boosts"></A>Priority Boosts</H3>
+
+<P>Each thread has a <I>dynamic priority</I>. This is the priority the scheduler uses to determine which thread to execute. Initially, a thread's dynamic priority is the same as its base priority. The system can boost and lower the dynamic priority, to ensure that it is responsive and that no threads are starved for processor time.</P>
+
+<P>The system boosts the dynamic priority of a thread when the wait conditions for a blocked thread are satisfied. For example, when a wait operation associated with disk or other I/O finishes, or when a synchronization object the thread is waiting on becomes signaled, the thread receives a priority boost.</P>
+
+<P>You can disable priority boosting on a thread by calling the <A HREF="prothred_37hw.htm"><B>SetThreadPriorityBoost</B></A> function. To determine whether priority boosting has been disabled for a thread, call the <A HREF="prothred_948k.htm"><B>GetThreadPriorityBoost</B></A> function.</P>
+
+<P>After raising a thread's dynamic priority, the scheduler reduces that priority by one level each time the thread completes a time slice, until the thread drops back to its base priority. A thread's dynamic priority is never less than its base priority. </P>
+
+
+</BODY>
+</HTML>

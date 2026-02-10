@@ -1,0 +1,29 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Alpha Replicate</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_alpha_replicate_graphics"></A>Alpha Replicate</H1>
+
+<P><I><B>r</B><SUB>n</SUB></I><B>.a</B></P>
+
+<P>Replicates the alpha channel of the affected register to all of its color channels before processing the instruction. </P>
+
+<P>The following example shows how to use this modifier.</P>
+
+<PRE>mul r0, r0, r1.a    ; Modulate by the alpha channel (grayscale),
+                  ; varies only the intensity of color.
+</PRE>
+
+<P>Alpha replicate may be used in conjunction with all other input modifiers except for blue replicate. Its functionality is analogous to the D3DTA_ALPHAREPLICATE flag in the Microsoft&#174; DirectX&#174; 6.0 and 7.0 multitexture syntax.</P>
+
+<P>This modifier is for use with the color and alpha blending instructions.</P>
+
+
+</BODY>
+</HTML>

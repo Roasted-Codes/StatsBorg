@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineTeamMembersEnumerateGetResults</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineTeamMembersEnumerateGetResults</h1>
+<p>Retrieves information resulting from a call to <a href="XOnlineTeamMembersEnumerate.htm">XOnlineTeamMembersEnumerate</a>.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineTeamMembersEnumerateGetResults(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>DWORD</b> *<i>pdwTeamMemberCount</i><b>,</b>
+    <b>XUID</b> *<i>pxuidTeamMembers</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>hTask</i></dt>
+<dd>[in]  An <b>XONLINETASK_HANDLE</b> returned from <b>XOnlineTeamMembersEnumerate</b>.</dd>
+
+<dt><i>pdwTeamMemberCount</i></dt>
+<dd>[out]  Address of a <b>DWORD</b> containing the number of team members.</dd>
+
+<dt><i>pxuidTeamMembers</i></dt>
+<dd>[out]  Address of the <a href="xuid.htm">XUID</a>(s) that uniquely identify the team members.</dd>
+
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

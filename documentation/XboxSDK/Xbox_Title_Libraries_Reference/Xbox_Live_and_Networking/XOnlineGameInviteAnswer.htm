@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineGameInviteAnswer</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineGameInviteAnswer</h1>
+<p>Responds to a game invitation received from another player.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineGameInviteAnswer(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>const XONLINE_GAMEINVITE_ANSWER_INFO</b> *<i>pGameInviteAnswerInfo</i><b>,</b>
+    <b>XONLINE_PEER_ANSWER_TYPE</b> <i>GameInviteAnswer</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+		<dt><i>dwUserIndex</i></dt>
+<dd>[in]  Controller index (zero-based) of the user answering the game invitation. The user must have been successfully logged on with a previous call to <a href="XOnlineLogon.htm">XOnlineLogon</a>.</dd>
+
+		<dt><i>pGameInviteAnswerInfo</i></dt>
+<dd>[in]  Pointer to a <a href="XONLINE_GAMEINVITE_ANSWER_INFO.htm">XONLINE_GAMEINVITE_ANSWER_INFO</a> structure containing information about invitation answer.</dd>
+
+		<dt><i>GameInviteAnswer</i></dt>
+<dd>[in]  <a href="XONLINE_PEER_ANSWER_TYPE.htm">XONLINE_PEER_ANSWER_TYPE</a> value indicating the response. Can be one of the following values:</dd>
+			<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+				<tr>
+<td>XONLINE_PEER_ANSWER_NO</td>
+<td>Rejects the request.</td>
+</tr>
+				<tr>
+<td>XONLINE_PEER_ANSWER_YES</td>
+<td>Accepts the request.</td>
+</tr>
+				<tr>
+<td>XONLINE_PEER_ANSWER_NEVER</td>
+<td>Rejects the request indefinitely and prevents the recruiting player from sending to the user again.</td>
+</tr>
+			</table>
+		
+
+		<dt><i>hWorkEvent</i></dt>
+<dd>[in, optional]  Handle to an event that will be signaled when there is work to be done on this task. This parameter can be NULL if no such event is required.</dd>
+
+		<dt><i>phTask</i></dt>
+<dd>[out]  Address of an <b>XONLINETASK_HANDLE</b> that must be pumped to completion by <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a>. Call <a href="XOnlineTaskClose.htm">XOnlineTaskClose</a> to close the task.</dd>
+	</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>This function is similar to the <a href="XOnlineFriendsAnswerGameInvite.htm">XOnlineFriendsAnswerGameInvite</a> function, with the exception that the sender can be a teammate or fellow peer in a competition.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

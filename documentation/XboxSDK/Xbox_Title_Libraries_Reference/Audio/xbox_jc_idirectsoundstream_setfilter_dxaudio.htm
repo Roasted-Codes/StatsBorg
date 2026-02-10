@@ -1,0 +1,44 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundStream::SetFilter</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundStream::SetFilter [C++]">
+<META NAME="MS-HKWD" CONTENT="SetFilter (IDirectSoundStream) [C++]">
+<META NAME="MS-HKWD" CONTENT="SetFilter [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsoundstream_setfilter_dxaudio"></A>IDirectSoundStream::SetFilter</H1>
+
+<P>Sets the DirectSound stream programmable filter block.</P>
+
+<PRE class="syntax"><B>HRESULT SetFilter(</B>
+    <B>LPCDSFILTERDESC</B> <I>pFilterDesc</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pFilterDesc</I></DT>
+    <DD>Address of a <A HREF="xbox_dsfilterdesc_dxaudio.htm">DSFILTERDESC</A> structure that contains the filter settings.</DD>
+
+</DL>
+
+
+<H4>Remarks</H4>
+<!--
+<P>Only available on the actual Xbox hardware.</P>
+-->
+<p>Each DirectSound stream has a programmable filter block. The filter can be set to one of four modes specified by the <b>dwMode</b> member of the <a href="xbox_dsfilterdesc_dxaudio.htm" hot="1">DSFILTERDESC</a> structure. The filter block is used to provide DLS2-style filtering, a single band of parametric EQ, or occlusion/obstruction filtering for I3DL2 sources.</p>
+<p>For an example of the math used in setting the <a href="xbox_dsfilterdesc_dxaudio.htm">DSFILTERDESC</a> coefficients, see the XDK <a href="xbox_jbh_samp_aud_SetFilter.htm">SetFilter</a> sample.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

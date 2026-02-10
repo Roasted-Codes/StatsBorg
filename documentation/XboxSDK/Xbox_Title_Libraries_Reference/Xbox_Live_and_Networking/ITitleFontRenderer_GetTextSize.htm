@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleFontRenderer::GetTextSize</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleFontRenderer::GetTextSize</h1>
+<p>Returns the width and height, in pixels, of a specified text string.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetTextSize(</b>
+    <b>LPCWSTR</b> <i>pText</i><b>,</b>
+    <b>DWORD</b> *<i>pWidth</i><b>,</b>
+    <b>DWORD</b> *<i>pHeight</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pText</i></dt>
+<dd>[in]  Pointer to a null-terminated Unicode string.</dd>
+<dt><i>pWidth</i></dt>
+<dd>[out]  Pointer to a <b>DWORD</b> variable that receives the width, in pixels, of the text.</dd>
+<dt><i>pHeight</i></dt>
+<dd>[out]  Pointer to a <b>DWORD</b> variable that receives the height, in pixels, of the text.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p><b>GetTextSize</b> returns the width and height of the specified string as it would currently be rendered.  The width includes intercharacter spacing.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleFontRenderer_SetHeight.htm">ITitleFontRenderer::SetHeight</a>,
+<a href="ITitleFontRenderer_SetColor.htm">ITitleFontRenderer::SetColor</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XACTEngineCreate</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XACTEngineCreate</h1>
+<p>Creates and initializes the XACT audio engine.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XACTEngineCreate(</b>
+    <b>PCXACT_RUNTIME_PARAMETERS</b> <i>pParams</i><b>,</b>
+    <b>PXACTENGINE</b> *<i>ppEngine</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pParams</i></dt>
+				<dd>[in]  A pointer to an <a href="xbox_xactruntimeparameters_dxaudio.htm">XACT_RUNTIME_PARAMETERS</a> structure used to initialize the XACT audio engine.</dd>
+			
+			<dt><i>ppEngine</i></dt>
+				<dd>[out]  A pointer to the XACT engine returned.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful; returns an error code otherwise.</p>
+        <h4><a name="remarks"></a>Remarks</h4>
+			<p>When waves and sounds are auditioned, they use voices from the same pool the XACT engine uses for in-game sounds. It is important to provide enough voices to support both. When creating the engine, the number of voices available are specified in the <b>XACT_RUNTIME_PARAMETERS</b> structure. See the <b>XACT_RUNTIME_PARAMETERS</b> section for more information.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    
+</body>
+</html>

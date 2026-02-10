@@ -1,0 +1,72 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DM_THREADSTOP</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DM_THREADSTOP</H1>
+
+<P>The <B>DM_THREADSTOP</B> structure is used by the <A HREF="xbox_jbh_debugapi_function_DmIsThreadStopped.htm">DmIsThreadStopped</A> function.</P>
+
+<PRE class=syntax>typedef struct _DM_THREADSTOP {
+    DWORD NotifiedReason;
+    union {
+        DMN_BREAK Break;
+        DMN_DATABREAK DataBreak;
+        DMN_EXCEPTION Exception;
+        DMN_DEBUGSTR DebugStr;
+    } u;
+} DM_THREADSTOP, *PDM_THREADSTOP;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+
+<DT><B>NotifiedReason</B></DT>
+<DD>One of the notification types found listed in the documentation for <A HREF="xbox_jbh_debugapi_function_dmnotify.htm">DmNotify</A>.</DD>
+
+<DT><B>Break</B></DT>
+<DD>A <A HREF="xbox_jbh_debugapi_struct_DMN_BREAK.htm">DMN_BREAK</A> structure.</DD>
+
+<DT><B>DataBreak</B></DT>
+<DD>A <A HREF="xbox_jbh_debugapi_struct_DMN_DATABREAK.htm">DMN_DATABREAK</A> structure.</DD>
+
+<DT><B>Exception</B></DT>
+<DD>A <A HREF="xbox_jbh_debugapi_struct_DMN_EXCEPTION.htm">DMN_EXCEPTION</A> structure.</DD>
+
+<DT><B>DebugStr</B></DT>
+<DD>A <A HREF="xbox_jbh_debugapi_struct_DMN_DEBUGSTR.htm">DMN_DEBUGSTR</A> structure.</DD>
+
+</DL>
+
+<!--
+<H4>Remarks</H4>
+
+<P>Some remarks.</P>
+-->
+
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

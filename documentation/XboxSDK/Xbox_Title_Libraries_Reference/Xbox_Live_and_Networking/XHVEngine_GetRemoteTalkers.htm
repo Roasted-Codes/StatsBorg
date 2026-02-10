@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::GetRemoteTalkers</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::GetRemoteTalkers</h1>
+<p></p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetRemoteTalkers(</b>
+    <b>DWORD</b> *<i>pdwRemoteTalkersCount</i><b>,</b>
+    <b>XUID</b> *<i>pxuidRemoteTalkers</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pdwRemoteTalkersCount</i></dt>
+<dd>[out]  Pointer to a <b>DWORD</b> variable that receives the count of currently registered remote talkers.</dd>
+<dt><i>pxuidRemoteTalkers</i></dt>
+<dd>[out]  Pointer to an array of <a href="xuid.htm">XUID</a> structures that receives the currently registered remote talkers.  At most XHV_MAX_REMOTE_TALKERS structures of type <b>XUID</b> will be written to the <i>pxuidRemoteTalkers</i> buffer.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>To ensure that the <i>pxuidRemoteTalkers</i> buffer is large enough to contain the returned <b>XUID</b>s, either the buffer should be large enough to contain XHV_MAX_REMOTE_TALKERS structures of type <b>XUID</b>, or the title should match the buffer size to the maximum number of remote talkers it registers with <a href="XHVEngine_RegisterRemoteTalker.htm">RegisterRemoteTalker</a>.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

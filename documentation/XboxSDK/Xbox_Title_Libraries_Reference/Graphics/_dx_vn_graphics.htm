@@ -1,0 +1,24 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>vn</TITLE>
+<META NAME="MS-HKWD" CONTENT="vn">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_vn_graphics"></A>v<I>n</I></H1>
+
+<P>These are the vertex color registers. The input vertex color registers contain color values obtained by per-pixel Gouraud iteration of the color values emitted by the vertex shader (which may in turn receive them from the vertex stream). Xbox supports two input color registers.</P>
+
+<P>Input color registers are read/write, and a maximum of one of these colors can be used in any one instruction. </P>
+
+<P>To simulate flat shading, a constant color is more efficient. However, when the shade mode is D3DSHADE_FLAT, applications iteration of both colors is disabled. Note that fog should continue to be iterated. Ideally, all color iteration should be perspective correct in the same manner as the texture coordinate iteration.</P>
+
+<p>The diffuse color for the fragment can be read from register v0.  If specular is enabled, the specular color for the fragment can be read from register v1.  This value is enabled by specifying a specular color for each vertex and also by setting D3DRS_SPECULARENABLE to TRUE.  If specular color is not enabled then the contents of the v1 register are undefined.</p>
+
+
+</BODY>
+</HTML>

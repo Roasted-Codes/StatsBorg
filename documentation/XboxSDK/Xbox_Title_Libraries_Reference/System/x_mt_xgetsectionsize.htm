@@ -1,0 +1,52 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGetSectionSize</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="XGetSectionSize">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_xbox_xgetsectionsize"></A>XGetSectionSize</H1>
+
+<P>The <B>XGetSectionSize</B> function returns the size of the specified XBE image section.</P>
+
+<PRE class=syntax><B>DWORD XGetSectionSize(</B>
+  <b>HANDLE</b><I> hSection</I><b></b>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>hSection</I></DT>
+<DD>[in] Handle to the section to get the size of.  This handle can be obtained by calling <A HREF="x_mt_xgetsectionhandle.htm">XGetSectionHandle</a>.</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the function succeeds, the return value is the size of the specified section.</P>
+
+<P>If the function fails, the return value is zero.  To get extended error information, call <A HREF="errors_3uwi.htm">GetLastError</a>.</P>
+
+<H4>Remarks</H4>
+
+<P>The section does not need to be currently loaded in order for this function to succeed.</P> 
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Xbox.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+
+<H4>See Also</H4>
+<P>
+<A HREF="x_jsk_executable_file_functions.htm">Executable File Functions</a> |
+<A HREF="x_mt_xgetsectionhandle.htm">XGetSectionHandle</a>
+</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DebugBreak</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DebugBreak">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_debugbreak"></A>DebugBreak</H1>
+
+<P>The <b>DebugBreak</b> function causes a breakpoint
+exception to occur in the current thread so that the thread can signal the
+debugger and force it to take some action. If a debugger is not attached, the
+search logic of a standard exception handler is used. The
+standard exception handler causes the console to freeze because of an
+unhandled breakpoint exception.</P>
+
+<PRE class=syntax><B>VOID DebugBreak(VOID);</B></PRE>
+
+<H4>Parameters</H4>
+
+<P>This function has no parameters. </P>
+
+<H4>Return Values</H4>
+
+<P>This function does not return a value. </P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib.
+
+<h4>See Also</h4>
+<p>
+<a href="xbox_mt_xtl_sll_debugging_functions.htm">Debugging Functions</a> | 
+<a href="structex_6oj6.htm">SetUnhandledExceptionFilter</a>
+</p>
+
+
+</BODY>
+</HTML>

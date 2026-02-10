@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Xbox Live Library</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Xbox Live Library</h1>
+<p>The Xbox <i>Live</i> Library provides functionality for Xbox <i>Live</i> multiplayer games,
+including authentication, billing, matchmaking, and friends lists.</p><h2><a name="IDABB2AB"></a>Networking Samples and PartnerNet</h2>
+<p>
+With the exception of the voice samples and WinsockPeer, all Networking samples require access to PartnerNet. To log onto PartnerNet, you must configure your Xbox with a machine account and user accounts. Use the Xbox Live Setup Tool in the XDK Launcher to configure your Xbox.
+</p><h2><a name="IDAHB2AB"></a>Obtaining Additional Title IDs for Xbox Live Testing</h2>
+<p>Many of the Xbox <i>Live</i> services return results based on title ID. For instance, the XBOS (Xbox Billing and Offerings) servers enumerate content based on title ID. Approved Xbox <i>Live</i> title developers receive temporary title IDs that may be used for testing against PartnerNet. To obtain additional title IDs, please contact Developer Support at xboxds@xbox.com.</p><h2><a name="IDARB2AB"></a>Sample Content Packages on PartnerNet</h2>
+<p>When calling <a href="XOnlineOfferingEnumerate.htm">XOnlineOfferingEnumerate</a>, several sample packages created by Microsoft will be returned. A few of these will indicate that there is a fee for downloading and installing the package. Executing an <a href="XOnlineOfferingDetails.htm">XOnlineOfferingDetails</a> call on one of the non-free packages will return a sample price and sample tax for the package.  However, these samples are provided for completeness and no fee is actually collected. You can call <a href="XOnlineOfferingPurchase.htm">XOnlineOfferingPurchase</a> to complete a fake transaction and download and install the content package without incurring any charge.</p><h2><a name="IDA3B2AB"></a>Credit Card Numbers for Test User Accounts</h2>
+<p>
+Starting with the April 2002 XDK, the billing server requires a credit card number for every user account.  We set up a temporary solution on our servers to work with this new requirement. 
+</p><p>
+To create an account using XDash, enter a credit card type of "Visa", and enter the sequence "4111 1111 1111 1111" in the Credit Card # field. Do NOT enter a valid credit card number.
+</p><p>
+When creating an account from the XDK Launcher, all the required fields (including address and credit card number) are entered for you. 
+</p><h2><a name="IDAGC2AB"></a>Contents</h2>
+<p>The Xbox <i>Live</i> Library section contains:</p><ul>
+            <li><a href="xbox_online_overviews_xonline.htm">Xbox Live Overviews</a></li>
+			<li><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></li>
+			<li><a href="x_mt_xonline_macros.htm">Xbox Live Macros</a></li>
+			<li><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a></li>
+            <li><a href="xbox_online_enumerated_types_xonline.htm">Xbox Live Enumerated Types</a></li>
+            <li><a href="xbox_online_errors.htm">Xbox Live Error Codes</a></li>		</ul>
+
+</body>
+</html>

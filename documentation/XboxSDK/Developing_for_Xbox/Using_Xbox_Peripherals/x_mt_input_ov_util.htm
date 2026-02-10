@@ -1,0 +1,65 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Keyboard and Support Routines</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Keyboard and Support Routines</H1>
+
+
+<H3>Debug Keyboard Input</H3>
+
+<P>The code examples given in the previous topics already do most of the work required to read input from the debug keyboard.  The DeviceInit() routine creates a keyboard input queue by calling <A HREF="x_mt_xinputdebuginitkeyboardqueue.htm">XInputDebugInitKeyboardQueue</a>.  CheckDeviceChanges() dynamically handles keyboard insertions and removals.  All that needs to be done now is to ask for keystrokes:</P>
+
+<PRE>void CheckKeyboard( void )
+{
+    XINPUT_DEBUG_KEYSTROKE ks;
+    CHAR szOut[2] = "X";
+
+    if( ERROR_SUCCESS == XInputDebugGetKeystroke( &ks ) )
+    {
+        *szOut = ks.Ascii;
+        OutputDebugString( szOut );
+    }       
+}
+</PRE>
+
+<P>This simple example calls <A HREF="x_mt_xinputdebuggetkeystroke.htm">XInputDebugGetKeystroke</A> to get a keystroke (if one is available), and if so displays it to the debugger.</P>
+
+<H3>Utility Functions</H3>
+
+<P>The DbgPrintf() function referenced earlier is a simple utility function that allows sending output to the debugger (using <A HREF="debug_3pt3.htm">OutputDebugString</A>) with a format string:</P>
+
+<PRE>
+//
+// This just does OutputDebugString using a format string.
+//
+int DbgPrintf( LPTSTR ptszFormat, ...)
+{
+    TCHAR tszBuf[MAX_PATH*2];
+    va_list arglist;
+    int nRes;
+
+
+    va_start( arglist, ptszFormat );
+    nRes = _vsntprintf( tszBuf, sizeof(tszBuf), ptszFormat, arglist );
+    OutputDebugString( tszBuf );
+    va_end(arglist);
+
+    return nRes;
+}
+</PRE>
+
+
+</BODY>
+</HTML>

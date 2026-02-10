@@ -1,0 +1,88 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Xbox Live Titles Libraries and Xbox Live 3.0</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Xbox Live Titles Libraries and Xbox Live 3.0</h1>
+<p>This topic explains which XDK libraries titles should link with in order to use the new features that are supported in Xbox <i>Live</i> 3.0.</p><h2><a name="IDAQQUM"></a>
+                Xbox Live 3.0 Features
+            </h2>
+<p>This XDK release provides Xbox Title Library support for the following features:</p><ul>
+<li>Voice Mail</li>
+<li>Title Managed Storage</li>
+<li>Family Title IDs</li>
+<li>Teams</li>
+<li>Competitions</li>
+<li>Messaging</li>
+<li>New Xbox Live Statistics Features</li>
+</ul>
+<p>For brief descriptions of these features, see the <a href="xbox_whatsnew.htm">What's New</a> topic. For more in-depth information about these features, see the applicable <a href="x_mt_xonline_functions.htm">reference pages</a>.</p><p>These features require release 3.0 of the Xbox <i>Live</i> service. The Xbox <i>Live</i> 3.0 release has sometimes been referred to as "Tsunami." The Xbox group is releasing Xbox <i>Live</i> 3.0 around the beginning of April 2004. Titles that take advantage of these new features should schedule their release to occur after the release of Xbox <i>Live</i> 3.0. Titles that intend to release before the release of Xbox <i>Live</i> 3.0 should not use any these features.</p><p>You can identify Xbox Title Library functions that correspond to Xbox <i>Live</i> 3.0 features by looking for the following text at the top of the function reference page in the XDK documentation:</p><p><i>This function uses features that won't be available to Xbox Live subscribers until Xbox Live 3.0 is released. Titles that are scheduled to release before the release of Xbox Live 3.0 should not use this function. For more information, see Xbox Live Libraries.</i></p><h2><a name="IDAURUM"></a>
+                Xbox Title Libraries for Xbox Live 3.0
+            </h2>
+<p>This release of the XDK provides two variations of the XOnline libraries:</p><table>
+<tr>
+<th>Standard</th>
+<th>Legacy</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XOnline.lib</td>
+<td>XOnlinel.lib</td>
+<td>Standard XOnline lib.</td>
+</tr>
+<tr>
+<td>XOnlined.lib</td>
+<td>XOnlineld.lib</td>
+<td>Debugging version of XOnline.lib.</td>
+</tr>
+<tr>
+<td>XOnlines.lib</td>
+<td>XOnlinels.lib</td>
+<td>Secure version of XOnline.lib.</td>
+</tr>
+<tr>
+<td>XOnlinesd.lib</td>
+<td>XOnlinelsd.lib</td>
+<td>Secure debugging version of XOnline.lib.</td>
+</tr>
+</table>
+<p>It also provides multiple versions of XNet.lib, as shown in the following table.</p><table>
+<tr>
+<th>Library</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XNet.lib</td>
+<td>Standard version of XNet.lib.</td>
+</tr>
+<tr>
+<td>XNetd.lib</td>
+<td>Debugging version of XNet.lib.</td>
+</tr>
+<tr>
+<td>XNets.lib</td>
+<td>Secure version of XNet.lib.</td>
+</tr>
+<tr>
+<td>XNetsd.lib</td>
+<td>Secure debugging version of XNet.lib.</td>
+</tr>
+<tr>
+<td>XNetn.lib</td>
+<td>"Neutered" version of XNet.lib. This lib is intended specifically for demos of Xbox Live 
+					games, where the demos run in a non-networked environment. The lib provides stubbed versions of 
+					all XOnline functions that run to completion, but do not actually do anything. </td>
+</tr>
+<tr>
+<td>XNetns.lib</td>
+<td>Neutered debugging version of XNet.lib. </td>
+</tr>
+</table>
+<p>Titles that use the Xbox <i>Live</i> 3.0 features should link with the Standard XOnline libraries shown in the preceding table.</p><p>XDK sample code that uses the Xbox <i>Live</i> 3.0 features links with the Standard libraries.</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Titles that release before the release of Xbox <i>Live</i> 3.0 must not link to the standard XOnline libraries. A side effect of supporting the Xbox <i>Live</i> 3.0 features is that titles that link to these libraries will not be able to communicate with versions of the Xbox <i>Live</i> service prior to Xbox <i>Live</i> 3.0, even if the title does not use Xbox <i>Live</i> 3.0 features.</p><p>Titles that intend to release before the release of Xbox <i>Live</i> 3.0 should link with the Legacy XOnline libraries shown in the preceding table. Titles that link with these libraries will be able to communicate with the Xbox <i>Live</i> service both before and after the release of Xbox <i>Live</i> 3.0. However, these libraries do not support any of the Xbox <i>Live</i> 3.0 features.</p><p>XDK sample code that does not use Xbox <i>Live</i> 3.0 features links to the Legacy libraries. Also, Downloader.xbe and Stats.xbe both link to the Legacy libraries.</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;Titles that use Downloader.xbe or Stats.xbe may link with the Standard libraries even though Downloader.xbe and Stats.xbe link with the Legacy libraries. Also, both Xbox High-Level Voice (XHV) and Drop-In UI for Xbox (UIX) may be used with either the Standard libraries or the Legacy libraries. However, if a title using UIX links with the Legacy libraries, that title will not be able to use Voice Mail with UIX: Friends.</p>
+</body>
+</html>

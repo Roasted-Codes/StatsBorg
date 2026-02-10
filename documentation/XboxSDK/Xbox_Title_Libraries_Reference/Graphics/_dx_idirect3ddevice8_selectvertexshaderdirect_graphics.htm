@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::SelectVertexShaderDirect</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::SelectVertexShaderDirect</h1>
+<p>Selects the vertex shader to execute on the GPU. Unlike <a href="xbox_dxg_IDirect3DDevice8_SelectVertexShader.htm">IDirect3DDevice8::SelectVertexShader</a>, this function does not require a vertex shader handle.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SelectVertexShaderDirect(</b>
+    <b>D3DVERTEXATTRIBUTEFORMAT</b> *<i>pVAF</i><b>,</b>
+    <b>DWORD</b> <i>Address</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pVAF</i></dt>
+<dd>[in]  Pointer to a <a href="_dx_d3dvertexattributeformat_graphics.htm">D3DVERTEXATTRIBUTEFORMAT</a> structure that is used to program the GPU's stream registers. This value may be NULL except when switching from fixed-function pipeline to a vertex shader program.</dd>
+			<dt><i>Address</i></dt>
+<dd>[in]  The start location on the GPU of the vertex shader, in the range 0 through 135.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The GPU used by the Xbox supports the loading of multiple vertex shaders into a set of 136 available addresses on the chip. <b>SelectVertexShaderDirect</b> is used to select which of the currently loaded vertex shader programs to use as the current vertex shader program.</p>
+
+<p>The <b>D3DVERTEXATTRIBUTEFORMAT</b> structure is used to program the hardware stream registers to the correct input data stream as required by the vertex shader program. If the newly selected vertex shader program uses the same input data stream format as the previously selected vertex shader program, <i>pVAF</i> can be passed as NULL in order to avoid the redundant reprogramming of the hardware stream registers.</p>
+
+<p>The vertex format of the selected shader may be overridden if <a href="_dx_idirect3ddevice8_setvertexshaderinputdirect_graphics.htm">SetVertexShaderInputDirect</a> was previously called.</p>
+
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    
+</body>
+</html>

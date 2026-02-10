@@ -1,0 +1,37 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>VirtualKeyboard Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>VirtualKeyboard Sample</H1>
+
+
+<h3 class="overview">Overview</H3>
+
+
+<P class="content">The VirtualKeyboard sample shows an example implementation of a virtual keyboard for obtaining text input. This sample meets certification requirements for safe screen region and controller input. VirtualKeyboard conforms to usability recommendations for keyboard layout, repeat rates, no overwrite mode, wrapping the cursor from one edge of the keyboard to the next, and "sticky" caps key. This version includes the English keyboard and a symbol keyboard. Future updates of this sample will include international keyboards, with the exception of Japanese, which will be a completely different design.</P>
+
+
+<h3 class="overview">Programming Notes</H3>
+
+
+<P class="content">A "key" is identified by a virtual keycode, much like VKEYs in Windows. When a key is a character, the keycode is always the Unicode value for that character. When the key is not a character (for example, BACKSPACE or SHIFT), the keycode is a value greater than 0x10000.</P>
+
+<P class="content">The string data is represented as a std::string, which gives a simple interface for inserting and removing characters from within the string.</P>
+
+<P class="content">Cursor movement between keys is complicated by the fact that some keys are wider than others. The <B>Move</B>() functions handle cursor movement from regular to wide keys and vice versa.</P>
+
+
+</BODY>
+</HTML>

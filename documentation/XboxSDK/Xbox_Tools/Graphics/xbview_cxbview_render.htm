@@ -1,0 +1,14 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>CXBView::Render (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>CXBView::Render (XbView)</h1>
+<p><b>CXBView::Render</b> draws the current screen. It has a number of different draw paths through the code, depending on the current view mode. It also draws all of the text, handles clearing the screen and does the <a href="_dx_idirect3ddevice8_swap_graphics.htm">Swap</a> or <a href="_dx_idirect3ddevice8_present_graphics.htm">Present</a> functions needed to render the scene. In the Model and Animation views, it calls <a href="xbview_scene_sort.htm">Scene::Sort</a> and <b>CXBView::DrawModels</b>. <b>CXBView::DrawModels</b> saves off the current Direct3D States so that you can restore them when the model(s) are finished drawing and then calls <a href="xbview_scene_draw.htm">Scene::Draw</a>. This is important because the resource file can change any number of these states and you will need to restore to a default state when you are done drawing the model(s) to allow the fonts and/or help screens to draw. </p>
+</body>
+</html>

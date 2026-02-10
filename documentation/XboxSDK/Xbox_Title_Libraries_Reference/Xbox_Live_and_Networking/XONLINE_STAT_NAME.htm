@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_STAT_NAME</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_STAT_NAME</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_STAT_NAME{
+    union {
+        CHAR szGamertag[XONLINE_GAMERTAG_SIZE];
+        WCHAR wszTeamName[XONLINE_MAX_TEAM_NAME_SIZE];
+    } ;
+} XONLINE_STAT_NAME, *PXONLINE_STAT_NAME;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+
+<dt><b>szGamertag</b></dt>
+<dd>Character array containing the user's Gamertag.</dd>
+<dt><b>wszTeamName</b></dt>
+<dd>Wide character array containing the team name.</dd>
+
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XONLINE_STAT_UNIT.htm">XONLINE_STAT_UNIT</a></p>
+
+        
+    </body>
+    </html>

@@ -1,0 +1,86 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DCOPYRECTOPERATION</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dcopyrectoperation_graphics"></A>D3DCOPYRECTOPERATION</H1>
+
+<P>Defines the operation that will be performed between the source and destination surfaces when using <a href="_dx_idirect3ddevice8_copyrects_graphics.htm"><b>IDirect3DDevice8::CopyRects</b></a>.</P>
+
+<PRE class=syntax>typedef enum _D3DCOPYRECTOPERATION    // Xbox extension
+{
+    D3DCOPYRECT_SRCCOPY_AND         = 0,
+    D3DCOPYRECT_ROP_AND             = 1,
+    D3DCOPYRECT_BLEND_AND           = 2,
+    D3DCOPYRECT_SRCCOPY             = 3,
+    D3DCOPYRECT_SRCCOPY_PREMULT     = 4,
+    D3DCOPYRECT_BLEND_PREMULT       = 5,
+    D3DCOPYRECT_FORCE_DWORD         = 0x7fffffff, /* force 32-bit size enum */
+} D3DCOPYRECTOPERATION;
+</PRE>
+
+<H4>Constants</H4>
+
+<p>The equations in the constants below use the following:</p>
+
+<pre>Match = ColorKeyEnable &amp;&amp;
+		ColorKeyValue.a != 0 &amp;&amp;
+		ColorKeyValue.rgb == Source.rgb
+Temp.argb = Match ? 0 : Source.argb</pre>
+
+<p>ColorKeyEnable and ColorKeyValue are refer to the members of the <a href="_dx_d3dcopyrectstate_graphics.htm"><b>D3DCOPYRECTSTATE</b></a> structure used in <a href="_dx_idirect3ddevice8_setcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::SetCopyRectsState</b></a> and <a href="_dx_idirect3ddevice8_getcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::GetCopyRectsState</b></a>.</p>
+
+<dl>
+<dt>D3DCOPYRECT_SRCCOPY_AND</dt>
+<dd><pre>Dest.argb = Temp.argb
+Dest.writeenable = (Temp.a != 0 )</pre></dd>
+
+<dt>D3DCOPYRECT_ROP_AND</dt>
+<dd><pre>Dest.argb = ROP3(Rop, Pattern.argb, Temp.argb, Dest.argb)
+Dest.writeenable = (Temp.a != 0) &amp;&amp; (Pattern.a != 0)</pre></dd>
+
+<dt>D3DCOPYRECT_BLEND_AND</dt>
+<dd><pre>omega0 = ~(BlendAlpha * Temp.a)
+omega1 = (BlendAlpha * Temp.a)
+Dest.argb = omega0 * Dest.argb + omega1 * Temp.argb</pre>
+BlendAlpha refers to the member of the <b>D3DCOPYRECTSTATE</b> structure used in <b>SetCopyRectsState</b> and <b>GetCopyRectsState</b>.</dd>
+
+<dt>D3DCOPYRECT_SRCCOPY</dt>
+<dd><pre>Dest.argb = Temp.argb</pre></dd>
+
+<dt>D3DCOPYRECT_SRCCOPY_PREMULT</dt>
+<dd><pre>Dest.argb = (Temp.argb * PremultAlpha.argb)</pre>
+PremultAlpha refers to the member of the <b>D3DCOPYRECTSTATE</b> structure used in <b>SetCopyRectsState</b> and <b>GetCopyRectsState</b>.</dd>
+
+<dt>D3DCOPYRECT_BLEND_PREMULT</dt>
+<dd><pre>omega = ~(PremultAlpha.a * Temp.a)
+Dest.argb = min(~0, omega * Dest.argb + PremultAlpha.argb * Temp.argb)</pre>
+PremultAlpha refers to the member of the <b>D3DCOPYRECTSTATE</b> structure used in <b>SetCopyRectsState</b> and <b>GetCopyRectsState</b>.</dd>
+
+<dt>D3DCOPYRECT_FORCE_DWORD</dt>
+<dd>Forces this enumeration to 32 bits in size. This value is not used.</dd>
+
+</dl>
+
+<h4>Remarks</h4>
+
+<p>The operation is specified in the <b>Operation</b> member of the <a href="_dx_d3dcopyrectstate_graphics.htm"><b>D3DCOPYRECTSTATE</b></a> structure used in <a href="_dx_idirect3ddevice8_setcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::SetCopyRectsState</b></a> and <a href="_dx_idirect3ddevice8_getcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::GetCopyRectsState</b></a>.</p>
+
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in d3d8types.h.</P>
+
+<H4>See Also</H4>
+
+<p><a href="_dx_d3dcopyrectstate_graphics.htm"><b>D3DCOPYRECTSTATE</b></a>, <a href="_dx_idirect3ddevice8_copyrects_graphics.htm"><b>IDirect3DDevice8::CopyRects</b></a>, <a href="_dx_idirect3ddevice8_getcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::GetCopyRectsState</b></a>, <a href="_dx_idirect3ddevice8_setcopyrectsstate_graphics.htm"><b>IDirect3DDevice8::SetCopyRectsState</b></a></p>
+
+
+</BODY>
+</HTML>

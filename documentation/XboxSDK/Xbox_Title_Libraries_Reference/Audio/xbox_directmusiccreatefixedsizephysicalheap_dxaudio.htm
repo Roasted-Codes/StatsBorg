@@ -1,0 +1,46 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DirectMusicCreateFixedSizePhysicalHeap</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DirectMusicCreateFixedSizePhysicalHeap [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_directmusiccreatefixedsizephysicalheap_dxaudio"></A>DirectMusicCreateFixedSizePhysicalHeap</H1>
+
+<P>Creates an instance of a fixed-size physical heap.</P>
+
+<PRE class="syntax"><B>HRESULT DirectMusicCreateFixedSizePhysicalHeap(</B>
+    <B>DWORD</B> <I>cbSize</I>,
+    <B>IDirectMusicHeap</B> <I>**ppHeap</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>cbSize</I></DT>
+    <DD>Value that specifies the maximum number of bytes the physical heap can allocate. Can be set to zero if the title does not stream any ADPCM-compressed waves.</DD>
+<DT><I>ppHeap</I></DT>
+    <DD>Address of a pointer to the <A HREF="xbox_idirectmusicheap_dxaudio.htm"><B>IDirectMusicHeap</B></A> of the heap created.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+<P>The function will pre-allocate the number of bytes of physical memory specified in <I>cbSize</I> rounded up to a 4-KB (page size) boundary.</P>
+
+<P>This heap is implemented as a simple first-fit heap.</P>
+
+<P>Initially, titles should allocate approximately 512 KB for the physical heap and then use the <A HREF="xbox_jbh_tool_xbperfmon.htm"><B>xbperfmon</B></A> tool to calculate the correct values for your title.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSound.h.</P>
+
+
+</BODY>
+</HTML>

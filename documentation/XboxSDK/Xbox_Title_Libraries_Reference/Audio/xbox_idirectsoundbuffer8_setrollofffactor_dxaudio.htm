@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirectSoundBuffer8::SetRolloffFactor</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirectSoundBuffer8::SetRolloffFactor</h1>
+<p>Sets the rolloff factor, which determines the rate of attenuation over distance.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetRolloffFactor(</b>
+    <b>FLOAT</b> <i>flRolloffFactor</i><b>,</b>
+    <b>DWORD</b> <i>dwApply</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>flRolloffFactor</i></dt>
+                <dd>Value that specifies the rolloff factor.</dd>
+            
+            <dt><i>dwApply</i></dt>
+                <dd>Value that specifies when the setting should be applied. This value must be one of the following:</dd>
+                <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                    <tr>
+<td>DS3D_DEFERRED</td>
+<td>Settings are not applied until the application calls the <a href="xbox_jc_idirectsound8_commitdeferredsettings_dxaudio.htm">CommitDeferredSettings</a> method. This allows the application to change several settings and generate a single recalculation.</td>
+</tr>
+                    <tr>
+<td>DS3D_IMMEDIATE</td>
+<td>Settings are applied immediately, causing the system to recalculate the 3D coordinates for all 3D sound buffers.</td>
+</tr>
+                </table>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful; otherwise returns an error code.</p>
+        <h4><a name="remarks"></a>Remarks</h4>
+            <p>The rolloff factor has a range of DS3D_MINROLLOFFFACTOR (no rolloff) to DS3D_MAXROLLOFFFACTOR (as currently defined, 1000 times the rolloff found in the real world). The default value is DS3D_DEFAULTROLLOFFFACTOR (1.0). For more information, see <a href="_dx_rolloff_factor_dxaudio.htm">Rolloff Factor</a>.</p>
+
+			<p>This function is only valid for buffers created using the DSBCAPS_CTRL3D flag.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="xbox_jc_idirectsound8_setrollofffactor_dxaudio.htm">IDirectSound8::SetRolloffFactor</a>, <a href="xbox_idirectsoundstream_setrollofffactor_dxaudio.htm">IDirectSoundStream::SetRolloffFactor</a></p>
+        
+</body>
+</html>

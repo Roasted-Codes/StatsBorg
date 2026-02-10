@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Pass (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Pass (XbView)</h1>
+<p>The <b>Pass</b> structure represents a single pass of rendering. The structure specifies the vertex shader, pixel shader, vertex buffers, index buffer, texture stages, and render states needed to draw that pass. Each effect is made up of one or more passes to render it. For example, you might have a single mesh with three different texture maps on it. Each separate texture map would be stored in a separate <b>Pass</b>.</p>
+<pre class="clsCode">
+struct Pass 
+{
+    DWORD VertexShaderResource;
+    DWORD PixelShaderResource;	
+    DWORD RenderStateCount;
+    RenderState *rRenderState;
+    DWORD TextureStageCount;
+    TextureStage *rTextureStage;
+    DWORD DrawCount;
+    DrawData *rDraw;
+};
+</pre>
+    <p><b>VertexShaderResource</b> is an index into the resource list for the vertex shader that will be used during this pass. Similarily, <b>PixelShaderResource</b> is an index to the resource list for the pixel shader that will be used. <b>RenderStateCount</b> gives the number of render states that will be set in the pass by <b>rRenderState</b>. <b>TextureStateStateCount</b> describes the number of texture stage states set in the pass by <b>rTextureStage</b>. Both render states and texture stage sets are reset every pass by <a href="xbview_xbr_setdefaultstate.htm">XBR::SetDefaultState</a> to the defaults required by XbView. <b>DrawCount</b> gives the number of <a href="xbview_drawdata.htm">DrawData</a> structures pointed at by <b>rDraw</b>. Multiple draws per pass allow different sets of indices from the same vertex buffer. You can pack all of the vertex data from multiple passes into the same vertex buffer and draw different sections of it by using different index buffers.</p>
+</body>
+</html>

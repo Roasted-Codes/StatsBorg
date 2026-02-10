@@ -1,0 +1,28 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Producing 3DS Files from Lightwave Objects</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1>Producing 3DS Files from Lightwave Objects</H1>
+
+<P>There are several issues with .3ds files exported by the Trans3D plug-in for Lightwave. These are best handled using the following Conv3DS.exe command.</P>
+
+<PRE>conv3ds -r -N -f -h -T|m trans3dfile.3ds
+</PRE>
+
+<P>All the .3ds objects produced by Trans3D and the Lightwave object editor need their winding order reversed. Otherwise, they appear inside-out when displayed. They contain no surface normal vector information. </P>
+
+
+</BODY>
+</HTML>

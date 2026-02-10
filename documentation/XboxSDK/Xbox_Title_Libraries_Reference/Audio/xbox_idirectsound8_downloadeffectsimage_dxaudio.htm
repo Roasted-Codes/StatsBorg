@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::DownloadEffectsImage</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::DownloadEffectsImage [C++]">
+<META NAME="MS-HKWD" CONTENT="DownloadEffectsImage (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="DownloadEffectsImage [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectsound8_downloadeffectsimage_dxaudio"></A>IDirectSound8::DownloadEffectsImage</H1>
+
+<P>Downloads an effects image to the global processor in the Xbox Media Communications Processor (MCP).</P>
+
+<PRE class="syntax"><B>HRESULT DownloadEffectsImage(</B>
+    <B>LPCVOID</B> <I>pvImageBuffer</I>,
+    <B>DWORD</B> <I>dwImageSize</I>,
+    <B>LPCDSEFFECTIMAGELOC</B> <I>pImageLoc</I>,
+    <B>LPDSEFFECTIMAGEDESC</B> <I>*ppImageDesc</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pvImageBuffer</I></DT>
+    <DD>Address of the DSP image data to load and run. This data is a scrambled binary DSP image produced by the XGpImage tool and represents the final DSP image.</DD>
+
+<DT><I>dwImageSize</I></DT>
+    <DD>DWORD value that contains the size of the DSP image data in bytes.</DD>
+
+<DT><I>pImageLoc</I></DT>
+    <DD>Address of a <A HREF="xbox_dseffectimageloc_dxaudio.htm"><B>DSEFFECTIMAGELOC</B></A> structure that specifies the location of the reverberation and crosstalk effects in the effects image being downloaded. Can be set to NULL if none of the effects used by other DirectSound methods (currently reverb and crosstalk) appear in the image.</DD>
+    
+<DT><I>ppImageDesc</I></DT>
+    <DD>Address of a pointer to the <A HREF="xbox_dseffectimagedesc_dxaudio.htm"><B>DSEFFECTIMAGEDESC</B></A> structure that is returned by the method, which describes the DSP scratch image.</DD>
+<P CLASS="note"><B><I>Note</I></B>&nbsp;&nbsp;&nbsp;&nbsp;This buffer is maintained by the GP manager and should not be freed by the caller. The memory is valid until the DirectSound object is released.</P>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise.</P>
+
+<H4>Remarks</H4>
+<P>Replacing a DSP effects image while audio is being played will cause a barely noticeable glitch (approximately 40 ms). Titles should plan accordingly if they need to swap images.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

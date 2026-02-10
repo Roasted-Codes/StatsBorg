@@ -1,0 +1,63 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Error C2993</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c2993"></A>Compiler Error C2993</H1>
+
+
+<P><B>'<I>identifier</I>' : illegal type for non-type template parameter '<I>parameter</I>'</B></P>
+
+<P>You cannot declare a template with a structure or union argument. Use pointers to pass structures and unions as template parameters. </P>
+
+<P>The following sample generates C2993:</P>
+
+<PRE class="code">// C2993.cpp
+// compile with: /LD
+struct MyStruct 
+{
+   int a;char b;
+};
+
+template &lt;class T, struct MyStruct S&gt;   // C2993
+// try
+// template &lt;class T, struct MyStruct * S&gt;
+class CMyClass 
+{
+};</pre>
+
+<p>This error will also be generated when an attempt is made to use floating-point 
+non-type template parameters. </p>
+
+<p>If it is a function template, use a function argument to pass in the floating-point non-type template parameter. The following example is valid in both the Visual Studio 
+.NET 2003 and Visual Studio .NET versions of Visual C++. If it is a class template, there 
+is no easy workaround.</P>
+
+<PRE class="code">// C2993b.cpp
+// compile with: /LD
+template&lt;class T, float f&gt;   // C2993
+void func(T)
+{
+}
+
+template&lt;class T&gt;   // OK
+void func2(T, float)
+{
+}
+
+}</PRE>
+
+
+</BODY>
+</HTML>

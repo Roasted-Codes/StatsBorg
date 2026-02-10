@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::SetStipple</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::SetStipple</h1>
+<p>Sets a stipple pattern used when drawing polygons (when <a href="_dx_d3dprimitivetype_graphics.htm">D3DPRIMITIVETYPE</a> is D3DPT_POLYGON.)</p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>SetStipple(</b>
+    <b>CONST DWORD</b> *<i>pPattern</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pPattern</i></dt>
+<dd>[in]  Pointer to 32 DWORDs which determine the 32&#0215;32 bit polygon stipple pattern.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>None.</p>
+<h4><a name="remarks"></a>Remarks</h4>When <a href="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_stippleenable">D3DRS_STIPPLEENABLE</a> is set to TRUE, and the primitive being drawn is a polygon, the polygon stipple is indexed using the low five bits of the screen-space X and Y coordinates. If the indexed bit is zero, the pixel is killed.<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_idirect3ddevice8_getstipple_graphics.htm">IDirect3DDevice8::GetStipple</a></p>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_COMP_TOPOLOGY_SE_RESULTS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_COMP_TOPOLOGY_SE_RESULTS</h1>
+
+        
+        
+
+			<p>Used to hold the results of a topology search of a single-elimination competition.</p>
+		
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    DWORD dwBaseWidth;
+    DWORD dwRoundsReturned;
+    DWORD dwTotalResultEntries;
+    DWORD dwResultsSize;
+    PBYTE pbResults;
+    DWORD dwNumResultAttributeSpecs;
+    PXONLINE_ATTRIBUTE_SPEC pResultAttributeSpecs;
+} XONLINE_COMP_TOPOLOGY_SE_RESULTS, *PXONLINE_COMP_TOPOLOGY_SE_RESULTS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+			<dt><b>dwBaseWidth</b></dt>
+				<dd>Same as the <i>dwTopWidth</i> parameter of the 
+				<a href="XOnlineCompetitionTopologySingleElimination.htm">XOnlineCompetitionTopologySingleElimination</a> function.</dd>
+			
+			
+			<dt><b>dwRoundsReturned</b></dt>
+				<dd>Number of rounds returned in the results.</dd>
+			
+			
+			<dt><b>dwTotalResultEntries</b></dt>
+				<dd>Total number of items in the array specified by the <i>pbResults</i> 
+				member of this structure.</dd>
+			
+			
+			<dt><b>dwResultsSize</b></dt>
+				<dd>Size, in bytes, of the array specified by the <i>pbResults</i> member of 
+				this structure.</dd>
+			
+
+			<dt><b>pbResults</b></dt>
+				<dd>Array that contains the results of the topology search.</dd>
+			
+			
+			<dt><b>dwNumResultAttributeSpecs</b></dt>
+				<dd>Number of attribute specifiers in the specified by the 
+				<i>pResultAttributeSpecs</i> member of this structure.</dd>
+			
+			
+			<dt><b>pResultAttributeSpecs</b></dt>
+				<dd>Array that contains the attribute specifiers for the topology search. Attribute 
+				specifiers are the column numbers of each attribute in the data set being searched. These must match 
+				the attribute specs specified in the original call to <b>XOnlineCompetitionTopologySingleElimination</b>.</dd>
+			
+			
+		</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="XOnlineCompetitionTopologySingleEliminationGetResults.htm">XOnlineCompetitionTopologySingleEliminationGetResults</a>
+		</p>
+
+        
+    </body>
+    </html>

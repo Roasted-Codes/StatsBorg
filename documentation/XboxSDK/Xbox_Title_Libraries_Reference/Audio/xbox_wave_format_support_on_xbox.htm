@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Wave Format Support on Xbox</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="Wave Format Support on Xbox">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_wave_format_support_on_xbox"></A>Wave Format Support on Xbox</H1>
+
+<P>Wave files are the preferred format used for DirectSound playback of audio data. The Xbox supports 8-bit and 16-bit PCM data, 4-bit adaptive differential pulse code modulation (ADPCM) data (proprietary format), and WMA-compressed wave data.</P>
+
+<P>The following table contains the wave formats and specifications that are supported:</P>
+
+<TABLE>
+    <TR>
+		<TH>Specification</TH>
+        <TH>Formats Supported</TH>
+        <TH>Comments</TH>
+	</TR>
+    <TR>
+		<TD>Wave format (uncompressed)</TD>
+        <TD>Linear PCM</TD>
+        <TD></TD>
+	</TR>
+    <TR>
+		<TD>Wave format (compressed)</TD>
+        <TD>ADPCM, WMA</TD>
+        <TD>For DLS-2, ADPCM support.</TD>
+	</TR>
+    <TR>
+        <TD>Channels</TD>
+        <TD>Mono, stereo, 4.0, 5.1 (up to six discrete channels).</TD>
+        <TD>Dolby&reg; Digital&#8211;encoded source waves not supported as source content within the Xbox MCP.</TD>
+	</TR>
+    <TR>
+		<TD>Sampling rate</TD>
+        <TD>188 Hz &#8211; 48 kHz</TD>
+        <TD>Up-sampled in hardware to 48 kHz (multi-point interpolation).</TD>
+	</TR>
+    <TR>
+		<TD>Bits per sample</TD>
+        <TD>8 bits, 16 bits (PCM/WMA), 4 bits (ADPCM)</TD>
+        <TD>Xbox MCP uses 24-bit resolution internally, outputs 20-bit.</TD>
+	</TR>
+</TABLE>
+
+
+</BODY>
+</HTML>

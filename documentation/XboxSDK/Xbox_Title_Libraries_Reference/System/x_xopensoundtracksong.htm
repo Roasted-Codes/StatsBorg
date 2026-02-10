@@ -1,0 +1,64 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XOpenSoundtrackSong</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="XOpenSoundtrackSong">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_xbox_XOpenSoundtrackSong"></A>XOpenSoundtrackSong</H1>
+
+<P>The <B>XOpenSoundtrackSong</B> function opens a Microsoft&#174; Windows Media&#174; Audio (WMA) song from the Dashboard Music directory.</P>
+
+<PRE class=syntax><B>HANDLE WINAPI XOpenSoundtrackSong(
+  DWORD</b> <i>dwSongId</i>,
+  <B>BOOL</B> <i>fAsyncMode</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>dwSongId</I></DT>
+<DD>[in] Identifier of the song to open.  This identifier must have been returned by a previous call to <A HREF="x_xgetsoundtracksonginfo.htm">XGetSoundtrackSongInfo</a>.
+</DD>
+
+<DT><I>fAsyncMode</I></DT>
+<DD>[in] Flag indicating whether the song should be opened in synchronous or asynchronous mode.
+<p><I>fAsyncMode</I> should be TRUE if <A HREF="xbox_xwmadecodercreatemediaobject_xmo.htm">XWmaDecoderCreateMediaObject
+</A> is used to create an Xbox Media Object to decode the file, or if the title implements its own in-memory decoder and reads the song file asynchronously.</p>
+
+<p>If <A HREF="xbox_wmacreatedecoder_xmo.htm">WmaCreateDecoder</A> is used to create an Xbox Media Object to decode the file, <I>fAsyncMode</I> must be FALSE.</p></DD>
+</dl>
+
+
+<H4>Return Values</H4>
+
+<p>If successful, the function returns a valid file handle to the WMA song represented by <i>dwSongId</i>; otherwise, it returns INVALID_HANDLE_VALUE.</p>
+
+<H4>Remarks</H4>
+
+<P>When the handle to the song is no longer needed, close it by calling <A HREF="handobj_289x.htm">CloseHandle</a>.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in xbox.h; for include use xtl.h.<br><b>Import Library: </b>Use xapilib.lib.</p>
+
+<H4>See Also</H4>
+
+<p>
+<a href="x_xfindfirstsoundtrack.htm">XFindFirstSoundtrack</a>,
+<a href="x_xfindnextsoundtrack.htm">XFindNextSoundtrack</a>,
+<A HREF="x_xgetsoundtracksonginfo.htm">XGetSoundtrackSongInfo</a>,
+<A HREF="xbox_wmacreatedecoder_xmo.htm">WmaCreateDecoder</a>
+</p>
+
+
+</BODY>
+</HTML>

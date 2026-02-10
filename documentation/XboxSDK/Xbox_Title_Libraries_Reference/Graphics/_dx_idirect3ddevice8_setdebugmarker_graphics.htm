@@ -1,0 +1,60 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::SetDebugMarker</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME=""></A>IDirect3DDevice8::SetDebugMarker</H1>
+
+<p>In debug builds, sets a marker on the device that is used to filter geometry. In retail builds, compiles away to nothing. All geometry is rendered; however, both the vertex and pixel shader debuggers have switches that can be set so that they are only debugging a scene with a given marker&mdash;all other geometry will be ignored.</p>
+
+<pre class=syntax><b>DWORD SetDebugMarker(</b>
+  <b>DWORD</b> <i>Marker</i>
+<b>);</b>
+</pre>
+
+<h4>Parameters</h4>
+
+<dl>
+<dt><i>Marker</i></dt>
+<dd>The DWORD value used for filtering.</dd>
+
+</dl>
+
+<h4>Return Values</h4>
+
+<p>Returns the marker previously set on the device.</p>
+
+<h4>Remarks</h4>
+
+<p>The following example shows how <b>SetDebugMarker</b> is used.</p>
+
+<ol>
+<li>The debug marker is set to zero at the begining of the scene. It is automatically set to zero after each call to either <a href="_dx_idirect3ddevice8_present_graphics.htm"><b>IDirect3DDevice8::Present</b></a> or <a href="_dx_idirect3ddevice8_swap_graphics.htm"><b>IDirect3DDevice8::Swap</b></a>.</li>
+<li>Draw some geometry.</li>
+<li>The debug marker can actually be set to any value; however, for this example it is set to one.</li>
+<li>Render the geometry you want to catch inside the vertex (or pixel) shader debugger.</li>
+<li>Set the debug marker back to zero.</li>
+<li>Render the rest of the scene.</li>
+<li>Start the vertex (or pixel) shader debugger and indicate which marker you want it to track.</li>
+<li>Start the title and the debugger will automatically catch the part of the scene you are interested in.</li>
+</ol>
+
+
+<h4>Requirements</h4>
+
+<p><b>&nbsp;&nbsp;Header:</b> Declared in D3d8.h<br>
+<b>&nbsp;&nbsp;Import Library:</b> Use D3d8.lib</p>
+
+<h4>See Also</h4>
+
+<p><a href="_dx_idirect3ddevice8_getdebugmarker_graphics.htm"><b>IDirect3DDevice8::GetDebugMarker</b></a></p>
+
+
+</BODY>
+</HTML>

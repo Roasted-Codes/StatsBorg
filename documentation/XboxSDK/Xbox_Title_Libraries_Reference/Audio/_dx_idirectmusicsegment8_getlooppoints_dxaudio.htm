@@ -1,0 +1,52 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicSegment8::GetLoopPoints</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicSegment8::GetLoopPoints [C++]">
+<META NAME="MS-HKWD" CONTENT="GetLoopPoints (IDirectMusicSegment8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetLoopPoints [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicsegment8_getlooppoints_dxaudio"></A>IDirectMusicSegment8::GetLoopPoints</H1>
+
+<P>Retrieves the start and end loop points inside the segment that repeat the number of times set by the <A HREF="_dx_idirectmusicsegment8_setrepeats_dxaudio.htm"><B>IDirectMusicSegment8::SetRepeats</B></A> method.</P>
+
+<PRE class="syntax"><B>HRESULT GetLoopPoints(</B>
+    <B>MUSIC_TIME</B> <I>*pmtStart</I>, 
+    <B>MUSIC_TIME</B> <I>*pmtEnd</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pmtStart</I></DT>
+
+<DD>Address of a variable that receives the start point of the loop.</DD>
+
+<DT><I>pmtEnd</I></DT>
+
+<DD>Address of a variable that receives the end point of the loop. A value of 0 indicates that the entire segment loops.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is S_OK.</P>
+
+<P>If it fails, the method can return <A HREF="_dx_directmusic_return_values_by_name_dxaudio.htm#_dx_e_pointer_dxaudio"><B>E_POINTER</B></A>.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusicI.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_idirectmusicsegment8_setlooppoints_dxaudio.htm"><B>IDirectMusicSegment8::SetLoopPoints</B></A>, <A HREF="_dx_segment_timing_dxaudio.htm"><B>Segment Timing</B></A></P>
+
+</BODY>
+</HTML>

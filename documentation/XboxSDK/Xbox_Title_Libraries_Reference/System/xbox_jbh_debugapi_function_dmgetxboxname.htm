@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DmGetXboxName</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_createfile"></A>DmGetXboxName</H1>
+
+<P class="content">Retrieves the machine name of the Xbox game system.</P>
+
+<PRE class=syntax><b>DMHRAPI DmGetXboxName(</b>
+  <b>LPSTR</b>   <i>szName</i><b>,</b> 
+  <b>LPDWORD</b> <i>pcch</i>
+  <b>);</b></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>szName</I></DT>
+
+<DD>Pointer to a buffer that receives the machine name.  The maximum length of the machine name string is 255 characters, plus the terminating null character.</DD>
+
+<DT><I>pcch</I></DT>
+
+<DD>Pointer to a <B>DWORD</b> variable that specifies the size of the <I>szName</i> buffer.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<P class="content">Returns XBDM_NOERR if successful, an error value otherwise.  If the <I>szName</i> buffer is too small to contain the machine name, the function returns XBDM_BUFFER_TOO_SMALL.</P>
+
+<H4>Remarks</H4>
+
+<P class="content">When called from the console, <B>DmGetXboxName</B> retrieves the registered name of the Xbox game system. When called from the development system, <B>DmGetXboxName</B> retrieves the name of the last Xbox game system that was accessed from the development system.</P>
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

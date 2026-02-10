@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::VoiceMailRecord</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::VoiceMailRecord</h1>
+<p>Starts the recording for the local talker.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>VoiceMailRecord(</b>
+    <b>DWORD</b> <i>dwLocalPort</i><b>,</b>
+    <b>DWORD</b> <i>dwMaxTimeMs</i><b>,</b>
+    <b>DWORD</b> <i>dwOutputBufferSize</i><b>,</b>
+    <b>BYTE</b> *<i>pbOutputBuffer</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwLocalPort</i></dt>
+<dd>[in]  Controller port of the local talker.</dd>
+
+	<dt><i>dwMaxTimeMs</i></dt>
+<dd>[in]  Maximum amount of time, in milliseconds, that should be used for recording the voice mail data.</dd>
+
+	<dt><i>dwOutputBufferSize</i></dt>
+		<dd>[in]  Size of the output buffer to receive the voice mail data. To calculate the voice mail data buffer size, use the <b>XHVGetVoiceMailBufferSize</b> macro defined in XHV.h:</dd>
+
+<pre class="clsCode">
+#define XHV_MAX_VOICEMAIL_DURATION_MS   15000 // 15 seconds
+#define XHV_MIN_VOICEMAIL_DURATION_MS   1000  // 1 second
+#define XHV_WMAVOICE_MAXBITSPERSEC      5000  // Bps
+#define XHV_WMAVOICE_MAXBYTESPERSEC     (XHV_WMAVOICE_MAXBITSPERSEC / 8)
+#define XHV_WMAVOICE_WAVHEADER_SIZE     92
+
+#define XHVGetVoiceMailBufferSize(DurationMS) (XHV_WMAVOICE_WAVHEADER_SIZE + DurationMS * XHV_WMAVOICE_MAXBYTESPERSEC / 1000)
+</pre>
+    
+	
+
+	<dt><i>pbOutputBuffer</i></dt>
+<dd>[out]  Pointer to a buffer to receive the voice mail data.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>This method allocates memory that is freed upon receiving either a <a href="ITitleXHV_VoiceMailStopped.htm">ITitleXHV::VoiceMailStopped</a> or a <a href="ITitleXHV_VoiceMailDataReady.htm">ITitleXHV::VoiceMailDataReady</a> callback.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="IXHVEngine.htm">IXHVEngine</a></p>
+
+</body>
+</html>

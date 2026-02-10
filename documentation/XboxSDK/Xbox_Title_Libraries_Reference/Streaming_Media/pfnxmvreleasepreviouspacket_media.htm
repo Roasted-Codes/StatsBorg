@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>PFNXMVRELEASEPREVIOUSPACKET</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>PFNXMVRELEASEPREVIOUSPACKET</h1>
+
+        
+        
+        <p>Used in <a href="xmvdecoder_createdecoderforpackets_media.htm">XMVDecoder_CreateDecoderForPackets</a> to supply the decoder with packets.</p>
+                
+<pre class="syntax"><b>typedef HRESULT</b> <b>(CALLBACK *PFNXMVRELEASEPREVIOUSPACKET)(</b>
+    <b>DWORD</b> <i>Context</i><b>,</b>
+    <b>LONGLONG</b> <i>NextReadByteOffset</i><b>,</b>
+    <b>DWORD</b> <i>NextPacketSize</i>
+<b>);</b>
+</pre>
+            
+                <h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>Context</i></dt>
+<dd>[in]  Context passed to the callback.</dd>
+			<dt><i>NextReadByteOffset</i></dt>
+<dd>[in]  Byte offset to the next packet.</dd>
+			<dt><i>NextPacketSize</i></dt>
+<dd>[in]  Size of the next packet.</dd>
+		</dl>
+                <h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>Assuming that <i>Context</i> is a pointer to a decoder object, a function that implements this callback should follow the pseudocode below:</p>
+
+
+<pre class="clsCode">
+if (NextPacketSize)
+{
+    Context-&gt;LoadingPacket = Context-&gt;PendingPacket;
+    Context-&gt;PendingPacket = NULL;
+
+    LoadNextPacketFromOffset(Context-&gt;LoadingPacket, NextReadByteOffset, NextPacketSize);
+}
+</pre>
+    
+		
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xmv.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="xmvdecoder_createdecoderforpackets_media.htm">XMVDecoder_CreateDecoderForPackets</a></p>
+    
+        
+    </body>
+    </html>

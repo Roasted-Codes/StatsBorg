@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_GAMEINVITE_ANSWER_INFO</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_GAMEINVITE_ANSWER_INFO</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_GAMEINVITE_ANSWER_INFO{
+    XUID xuidInvitingUser;
+    CHAR szInvitingUserGamertag[XONLINE_GAMERTAG_SIZE];
+    DWORD dwTitleID;
+    XNKID SessionID;
+    FILETIME GameInviteTime;
+} XONLINE_GAMEINVITE_ANSWER_INFO, *PXONLINE_GAMEINVITE_ANSWER_INFO;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+		<dt><b>xuidInvitingUser</b></dt>
+<dd>An <a href="xuid.htm">XUID</a> structure uniquely identifying the user making the game invitation.</dd>
+
+		<dt><b>szInvitingUserGamertag</b></dt>
+<dd>Character string containing the Gamertag of the user making the game invitation.</dd>
+
+		<dt><b>dwTitleID</b></dt>
+<dd>Title identifier of the title associated with the invitation.</dd>
+
+		<dt><b>SessionID</b></dt>
+<dd>An <a href="xbox_xnkid_xsnl.htm">XNKID</a> structure representing the session.</dd>
+
+		<dt><b>GameInviteTime</b></dt>
+<dd>A <a href="time_0fzm.htm">FILETIME</a> structure containing the date and time of the game invitation.</dd>
+	</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineGameInviteAnswer.htm">XOnlineGameInviteAnswer</a></p>
+
+        
+    </body>
+    </html>

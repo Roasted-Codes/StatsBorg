@@ -1,0 +1,50 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Error C2632</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c2632"></A>Compiler Error C2632</H1>
+
+
+<P><B>'<I>type1</I>' followed by '<I>type2</I>' is illegal</B></P>
+
+<P><B>Possible cause</B>
+
+<UL>
+	<LI>Missing code between two type specifiers.</li>
+</UL>
+
+<P>The following sample generates C2632:</P>
+
+<PRE class="code">int float i;   // error</PRE>
+
+Programs can also generate this error by attempting to use the keyword <b>bool</b>
+as an identifier. In versions of the Visual C++ compiler prior to Visual Studio 
+.NET 2003, the type <b>bool</b> was created using a typedef. As a result, programs could 
+create identifiers with that name. Now, however, <b>bool</b> is a proper type. Therefore, 
+it cannot be used as an identifier name.</p>
+
+<p>The following sample generates C2632:</p>
+
+<PRE class="code">// C2632b.cpp
+// compile with: /LD
+void f(int bool);   // C2632
+</PRE>
+
+<p>To resolve this error so that the code is valid in both the Visual Studio .NET 
+2003 and prior versions of Visual Studio, rename any variables called <em>bool</em>.</p>
+
+
+</BODY>
+</HTML>

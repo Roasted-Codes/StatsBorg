@@ -1,0 +1,66 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundStream::GetStatus</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundStream::GetStatus [C++]">
+<META NAME="MS-HKWD" CONTENT="GetStatus (IDirectSoundStream) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetStatus [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsoundstream_getstatus_dxaudio"></A>IDirectSoundStream::GetStatus</H1>
+
+<P>Retrieves the status of the sound stream.</P>
+
+<PRE class="syntax"><b>HRESULT GetStatus(</b>
+  <B>LPDWORD</B> <I>pdwStatus</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pdwStatus</I></DT>
+<DD>Pointer to a variable that receives the current object status. Can be a combination of the following values:</DD>
+
+<TABLE>
+<TR VALIGN="top">
+<TH align=left width=30%>Flag</TH>
+<TH align=left width=70%>Description</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD widTD=30%>DSSTREAMSTATUS_PLAYING</TD>
+<TD widTD=70%>Indicates that the stream is playing. This function will return either DSSTREAMSTATUS_PLAYING or DSSTREAMSTATUS_PAUSED, but never both.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD widTD=30%>DSSTREAMSTATUS_PAUSED</TD>
+<TD widTD=70%>Indicates that the stream has data queued, but playback is paused. This function will return either DSSTREAMSTATUS_PLAYING or DSSTREAMSTATUS_PAUSED, but never both.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD widTD=30%>DSSTREAMSTATUS_READY</TD>
+<TD widTD=70%>Indicates that the stream is ready to accept input data.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD widTD=30%>DSSTREAMSTATUS_STARVED</TD>
+<TD widTD=70%>Indicates that the stream has been paused because no data is available to be played.</TD>
+</TR>
+</TABLE>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, an error code otherwise.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+
+</BODY>
+</HTML>

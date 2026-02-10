@@ -1,0 +1,38 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::SubmitIncomingVoicePacket</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::SubmitIncomingVoicePacket</h1>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SubmitIncomingVoicePacket(</b>
+    <b>XUID</b> <i>xuidRemoteTalker</i><b>,</b>
+    <b>VOID</b> *<i>pvData</i><b>,</b>
+    <b>DWORD</b> <i>dwSize</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>xuidRemoteTalker</i></dt>
+				<dd>[in]  <a href="xuid.htm">XUID</a> defining the remote player associated with the incoming voice packet.</dd>
+			
+			<dt><i>pvData</i></dt>
+				<dd>[in]  Pointer to the data packet.</dd>
+			
+			<dt><i>dwSize</i></dt>
+				<dd>[in]  Size, in bytes, of the data packet.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

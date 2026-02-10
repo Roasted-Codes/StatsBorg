@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_ACCEPTED_GAMEINVITE</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_ACCEPTED_GAMEINVITE</h1>
+
+        
+        
+<p>Contains details about an accepted game invitation.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    XONLINE_FRIEND InvitingFriend;
+    XUID xuidAcceptedFriend;
+    FILETIME InviteAcceptTime;
+    XUID xuidLogonUsers[XONLINE_MAX_LOGON_USERS];
+} XONLINE_ACCEPTED_GAMEINVITE, *PXONLINE_ACCEPTED_GAMEINVITE;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>InvitingFriend</b></dt>
+<dd> <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure containing information about the user that sent the invitation.</dd>
+            <dt><b>xuidAcceptedFriend</b></dt>
+<dd> <a href="xuid.htm">XUID</a> structure containing the user identifier of the Friend that accepted the invitation.</dd>
+            <dt><b>InviteAcceptTime</b></dt>
+<dd> <b>FILETIME</b> value specifying the time that the Friend accepted the invitation. An invitation should be considered expired after 15 minutes.</dd>
+            <dt><b>xuidLogonUsers</b></dt>
+<dd>Array of <b>XUID</b> structures that specify the users that were logged in at the time the cross-title invitation was accepted. Use the <a href="XOnlineGetUsers.htm">XOnlineGetUsers</a> function to retrieve information for these users (see Remarks below). The index of a <b>XUID</b> in this array is not necessarily equal to the controller index of the corresponding user.</dd>
+        </dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+            <p>The <b>XOnlineGetUsers</b> function returns an array of <a href="XONLINE_USER.htm">XONLINE_USER</a> structures for the users accounts stored on the Xbox console hard disk and connected memory units.</p>
+        
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+            <p> <a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineFriendsGetAcceptedGameInvite.htm">XOnlineFriendsGetAcceptedGameInvite</a>, <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a>, <a href="xuid.htm">XUID</a></p>
+        
+
+        
+    </body>
+    </html>

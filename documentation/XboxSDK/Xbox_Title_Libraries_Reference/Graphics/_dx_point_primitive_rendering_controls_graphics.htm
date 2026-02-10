@@ -1,0 +1,21 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Point Primitive Rendering Controls</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_point_primitive_rendering_controls_graphics"></A>Point Primitive Rendering Controls</H1>
+
+<P>Within the programmable pipeline, Microsoft&#174; Direct3D&#174; for Xbox supports additional parameters to control the rendering of point sprites (point primitives). These parameters enable points to be of variable size and have a full texture map applied. The size of each point is determined by an application-specified size combined with a distance-based function computed by Direct3D. The application can specify point size either as per-vertex or by setting <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointsize_graphics">D3DRS_POINTSIZE</A>, which applies to points without a per-vertex size. The point size is expressed in camera space units, with the exception of when the application is passing post-transformed flexible vertex format (FVF) vertices. In this case, the distance-based function is not applied and the point size is expressed in units of pixels on the render target. </P>
+
+<P>The texture coordinates computed and used when rendering points depends on the setting of <A HREF="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_pointspriteenable_graphics">D3DRS_POINTSPRITEENABLE</A>. When this value is set to TRUE, the texture coordinates are set so that each point displays the full-texture. In general, this is only useful when points are significantly larger than one pixel. When D3DRS_POINTSPRITEENABLE is set to FALSE, each point's vertex texture coordinate is used for the entire point.</P>
+
+<p>Variable sized point sprites are not supported within the fixed-function pipeline. Within the fixed-function pipeline, the size of point sprites is constant and is set by D3DRS_POINTSIZE.<p>
+
+
+</BODY>
+</HTML>

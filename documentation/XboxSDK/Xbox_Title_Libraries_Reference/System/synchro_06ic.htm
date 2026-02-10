@@ -1,0 +1,50 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>InterlockedDecrement</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="InterlockedDecrement">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_interlockeddecrement"></A>InterlockedDecrement</H1>
+
+<P>The <B>InterlockedDecrement</B> function decrements (decreases by one) the value of the specified variable and checks the resulting value. The function prevents more than one thread from using the same variable simultaneously.</P>
+
+<PRE class=syntax><B>LONG InterlockedDecrement(
+  LPLONG</B><I> lpAddend</I>   // variable address
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpAddend</I></DT>
+
+<DD>[in/out] Pointer to the variable to decrement. 
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>The return value is the resulting decremented value. </P>
+
+<H4>Remarks</H4>
+
+<P>The functions <B>InterlockedDecrement</B>, <B>InterlockedCompareExchange</B>, <B>InterlockedExchange</B>, <B>InterlockedExchangeAdd</B>, and <B>InterlockedIncrement</B> provide a simple mechanism for synchronizing access to a variable that is shared by multiple threads.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p><H4>See Also</H4>
+<P> 
+
+<a href="xbox_mt_xtl_sll_synchronization_functions.htm">Synchronization Functions</a> | 
+<A HREF="synchro_1lb9.htm">InterlockedCompareExchange</a>,  <A HREF="synchro_4qed.htm">InterlockedExchange</a>,  <A HREF="synchro_5q04.htm">InterlockedExchangeAdd</a>,  <A HREF="synchro_1k38.htm">InterlockedIncrement</a> </P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IPluginSupport::GetScreenImage</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IPluginSupport::GetScreenImage</h1>
+<p>Retrieves the image with the specified screen and image resource identifiers from the skin file.  The image is returned as an <a href="_dx_idirect3dtexture8_graphics.htm">IDirect3DTexture8</a> texture.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetScreenImage(</b>
+    <b>DWORD</b> <i>ScreenResID</i><b>,</b>
+    <b>DWORD</b> <i>ImageResID</i><b>,</b>
+    <b>IDirect3DTexture8</b> **<i>ppTexture</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>ScreenResID</i></dt>
+<dd>[in]  Resource identifier of the screen.</dd>
+<dt><i>ImageResID</i></dt>
+<dd>[in]  Resource identifier of the image.</dd>
+<dt><i>ppTexture</i></dt>
+<dd>[out]  Address of an <b>IDirect3DTexture8</b> pointer that receives the texture.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The returned texture should not be modified or freed.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

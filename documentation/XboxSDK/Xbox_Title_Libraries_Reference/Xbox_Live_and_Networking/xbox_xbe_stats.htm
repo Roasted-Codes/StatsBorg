@@ -1,0 +1,118 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Xbox Statistics Manager (Stats.xbe)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Xbox Statistics Manager (Stats.xbe)</h1>
+            <p>The Xbox Statistics Manager (Stats.xbe) tool is a precertified Xbox application (XBE) that provides a way for non&#8211;Xbox <i>Live</i> titles to store title statistics for users of the Xbox <i>Live</i> service.</p>
+        <p>The title uses the <a href="XWriteStatStore.htm">XWriteStatStore</a> function to store the user's statistics locally on the hard disk. (The function does not digitally sign the statistics that it writes to the Xbox hard disk.) After storing the stats locally, the title calls Stats.xbe with <a href="x_jsk_xlaunchnewtitle.htm">XLaunchNewImage</a>. Stats.xbe automatically updates the user's scores on the server with this local information and then deletes the local copy.</p><p>To use Stats.xbe, titles must support the idea of "identities." Scores must be reported for a specific user. Stats.xbe maps these offline identities to Xbox <i>Live</i> accounts. The tool logs onto the Xbox <i>Live</i> service using the account of the user whose statistics will be posted. Although the user is technically logged on, he or she is set to appear offline. Also, he or she does not have access to the standard Friends List functionality. Using Stats.xbe is essentially an offline experience.</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;The title provides information about its leaderboards using an INX (Xbox Initialization) file. This INX file describes the statistics stored by the title, the formulas used to compute them, and the leaderboards on which to store them.</p><p></p><h2><a name="IDAURQM"></a>
+                Types of Game Scores Supported
+            </h2>
+<p>Stats.xbe supports scores that are the "best" score for the user. For example, the tool supports scores such as fastest time to complete a level, shortest time around a race track, high score on a level, highest number of kills, and most difficult level completed.</p><p>Stats.xbe cannot store scores that contain both desirable and potentially undesirable values. For example, Stats.xbe will not support storing the average time for a particular level, nor will it store a record of wins and losses. The reason such scores are not supported is because the title cannot force the user to post every score.  Because the title is played offline, the user always has the option to quit and erase the score if he or she is not doing well. For Xbox <i>Live</i> titles, such behavior is recorded negatively as a "drop."  In an offline game, however, the title never even knows that the drop occurred.  If a title attempted to write the "drop" data to the hard disk, the user could avoid posting it by deleting the game from the Dashboard before reconnecting to Xbox <i>Live</i>.  Thus, the only scores that Stats.xbe can store are scores that a user would want to post&#8212;that is, high scores.</p><h2><a name="IDACSQM"></a>
+                Xbox Statistics Manager Components
+            </h2>
+<p>The Xbox Statistics Manager consists of three sets of components:</p><ul>
+                <li>Required XBE files. These include Stats.xbe itself, as well as Update.xbe and DashUpdate.xbe.</li>
+                <li>Functions:
+                    <ul>
+                        <li><a href="XWriteStatStore.htm">XWriteStatStore</a> &#8211; Stores the user's statistics on the local Xbox hard disk.</li>
+                        <li><a href="XClearStatStore.htm">XClearStatStore</a> &#8211; Clears the user's statistics from the local store.</li>
+                    </ul>
+                </li>
+                <li>Configuration files. These files must reside in a directory called <i>media</i>, which must be located in the same directory as the Stats.xbe executable. The following files must be present in the media folder:
+                    <ul>
+                        <li>Font file. Typically, this will be the standard Arial Unicode font (ArialUni.ttf), but you may use any font. If Unicode characters are to be displayed, the font must be a Unicode font.</li>
+                        <li>Stats.inx. This is the configuration file for Stats.  The file defines the characteristics, such as the color and size, of the Stats user interface elements.</li>
+                        <li>Leaderboards.inx. This file provides information about the leaderboards on the Xbox <i>Live</i> service that Stats.xbe interacts with. The title must ensure that the formulas provided in this INX file to calculate the scores on Xbox <i>Live</i> are the same as the formulas used internally in the game to calculate local scores.</li>
+                        <li>Stats.xpr. This is a packed resource file that contains art for customizing the appearance of the Stats user interface.</li>
+                        <li>Stats.xsb, Stats.xwb. These are <a href="xbox_xact_dxaudio.htm">XACT</a> sound bank and wave bank files, which define the sounds Stats makes as the user interacts with it.</li>
+                    </ul>
+                </li>
+            </ul>
+<h2><a name="IDAWTQM"></a>
+                Statistics Manager User Interface
+            </h2>
+<p>The Statistics Manager user interface consists of the following screens:</p><ul>
+<li><a href="#IDA3TQM">
+                	Logon Screen
+                </a></li><li><a href="#IDATUQM">
+                	Main Screen
+                </a></li><li><a href="#IDA3UQM">
+                    Friends Scores
+                </a></li><li><a href="#IDAFVQM">
+                    My Scores
+                </a></li><li><a href="#IDAVVQM">
+                   Top Scores
+                </a></li><li><a href="#IDABWQM">
+                     Screen Saver
+                 </a></li></ul>
+<h3><a name="IDA3TQM"></a>
+                	Logon Screen
+                </h3><img alt="" height="480" width="640" src="../../images/xbox_xbe_stats_logon.jpg"><p>On this screen, users select the Xbox <i>Live</i> account to use to logon and post scores. If at any point while using Stats.xbe, users press <b>B</b>(ack) to go backwards repeatedly, they will pass this logon screen and from here back to the game. This behavior differs from <a href="xbox_lrf_downloader.htm">Downloader</a>, in which pressing <b>B</b>(ack) takes the user back to the game instead of the logon screen. The reason is that multiple users may need to logon consecutively, so that each can post scores.</p><h3><a name="IDATUQM"></a>
+                	Main Screen
+                </h3><img alt="" height="480" width="640" src="../../images/xbox_xbe_stats_main.jpg"><h3><a name="IDA3UQM"></a>
+                    Friends Scores
+                </h3>
+<p>This screen displays the scores for members of the user's Friends List. This Friends List refreshes only if the user presses <b>B</b>(ack) and then returns to this screen. We display this screen with the user initially positioned in the middle.</p><h3><a name="IDAFVQM"></a>
+                    My Scores
+                </h3><img alt="" height="480" width="640" src="../../images/xbox_xbe_stats_scores.jpg"><p>This screen displays the current user, and the 100 closest users by score&#8212;50 above and 50 below the current user.  As the user scrolls this list, additional users are retrieved. As the user scrolls up and down, their own scores are always displayed at the bottom of the screen. The speed at which this screen scrolls increases as the user continues to press the directional pad. The list refreshes only if the user presses <b>B</b>(ack) and then returns to this screen.</p><h3><a name="IDAVVQM"></a>
+                   Top Scores
+                </h3><img alt="" height="480" width="640" src="../../images/xbox_xbe_stats_top.jpg"><p>This screen displays the scores from the top users and the current user's scores.  Initially, the screen displays the top 10 scores and the current user's score at the bottom of the screen. As with the My Scores screen, the speed at which this screen scrolls increases as the user continues to press the directional pad.</p><h3><a name="IDABWQM"></a>
+                     Screen Saver
+                 </h3>
+<p>If no button is pressed for a period of time, Stats.xbe goes into a screen saver mode.  At this point, the screen is dimmed so as not to damage the television.  The next button the user presses takes them out of screen saver mode, but does not perform any other action.</p><h2><a name="IDAIWQM"></a>
+                    Art Skinning
+                </h2>
+<p>You can customize the art used for the Stats background and for the screen displayed while loading a demo. The art must be contained in a packed resource file named Stats.xpr, which you create by running the <a href="xbox_jbh_tool_bundler.htm">Bundler</a> tool. The .rdf file that you use to generate Stats.xpr must contain the   TEX_MAIN_BACKGROUND texture, which is the skin for the Stats user interface.</p><p>The .rdf file you pass to Bundler should look similar to the following example.</p>
+<pre class="clsCode">
+out_header   rescustom.h
+out_packedresource obj\i386\stats.xpr
+out_error          rescustom.err
+out_prefix         RESCUSTOM
+
+Texture TEX_MAIN_BACKGROUND
+{
+    Source srcmedia\background.bmp
+    Format D3DFMT_DXT3
+    Levels 1
+}
+
+                
+</pre>
+    <h2><a name="IDAWWQM"></a>
+                    Sound Skinning
+                </h2>
+<p>You may also customize the sounds that Stats uses in response to user actions and events. You can skin a sound in Stats by using XACT to replace the existing Stats sound bank and wave bank with your own. (See the <a href="xbox_xact_dxaudio.htm">XACT</a> documentation for a full explanation of how to use XACT.) To customize the Stats sounds, do the following:</p><ol>
+                    <li>Create a new XACT project called Stats.</li>
+                    <li>Create an in-memory wave bank with the source waves you wish to use in Stats. </li>
+                    <li>Create a sound bank with the following cue names:
+
+                        <table>
+                            <tr>
+<th>XACT Cue Name</th>    <th>Triggering Action</th>
+</tr>
+                            <tr>
+<td>PressA</td>           <td>User presses the <b>A</b> button.</td>
+</tr>
+                            <tr>
+<td>PressB</td>           <td>User presses the <b>B</b> button.</td>
+</tr>
+                            <tr>
+<td>MenuItemSelect</td>   <td>User presses up or down on the D-pad to change the highlighted menu item.</td>
+</tr>
+                            <tr>
+<td>NoScroll</td>         <td>User attempts to scroll beyond the top or bottom of the menu.</td>
+</tr>
+                        </table>
+
+                    </li>
+                    <li>Build the wave bank and sound bank, creating the files Stats.xwb and Stats.xsb.</li>
+                </ol>
+
+</body>
+</html>

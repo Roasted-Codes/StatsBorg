@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleAudioPlugin::DoWork</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleAudioPlugin::DoWork</h1>
+<p>Perform periodic work required by the audio plug-in.  <b>DoWork</b> is called by the Xbox Drop-in UI engine every time <b>ILiveEngine::DoWork</b> is called (typically once per frame).</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>DoWork(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The default <a href="ITitleAudioPlugin.htm">ITitleAudioPlugin</a> implements <b>DoWork</b> by simply calling <a href="xbox_xactenginedowork_dxaudio.htm">XACTEngineDoWork</a>.</p>
+<p>The Xbox Drop-in UI engine currently ignores the return value of <b>DoWork</b>.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_DoWork.htm">ILiveEngine::DoWork</a>,
+<a href="xbox_xactenginedowork_dxaudio.htm">XACTEngineDoWork</a>
+</p>
+
+</body>
+</html>

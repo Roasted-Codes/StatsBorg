@@ -1,0 +1,46 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineSignatureVerifyGetResults</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineSignatureVerifyGetResults</h1>
+<p>Retrieves the results of signature verification initiated with a call to <a href="XOnlineSignatureVerify.htm">XOnlineSignatureVerify</a>.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineSignatureVerifyGetResults(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>HRESULT</b> **<i>prgHresults</i><b>,</b>
+    <b>DWORD</b> *<i>pdwHresults</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>hTask</i></dt>
+<dd>[in]  Online task handle returned by the call to <b>XOnlineSignatureVerify</b> that began the verification.</dd>
+
+	<dt><i>prgHresults</i></dt>
+<dd>[out]  Pointer to a variable that receives an array of <b>HRESULT</b> values indicating the success or failure of each digest/signature pair.</dd>
+
+	<dt><i>pdwHresults</i></dt>
+<dd>[out]  Pointer to a <b>DWORD</b> variable that receives the count of results returned in <i>prgHresults</i>.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>For each digest/signature pair passed to <b>XOnlineSignatureVerify</b>, a corresponding <b>HRESULT</b> will be returned in the <i>prgHresults</i> array.  A result of XONLINETASK_S_SUCCESS indicates that the digest/signature pair was successfully verified.  Any other result indicates that the verification failed and the data should be treated as invalid.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonlines.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a>, <a href="x_mt_storage_ov_live_signatures.htm">Xbox Live Signatures</a> |
+<a href="XOnlineSignatureVerify.htm">XOnlineSignatureVerify</a>,
+
+<a href="x_mt_xcalculatesignaturebegin.htm">XCalculateSignatureBegin</a>,
+<a href="x_mt_xcalculatesignatureend.htm">XCalculateSignatureEnd</a>
+</p>
+
+</body>
+</html>

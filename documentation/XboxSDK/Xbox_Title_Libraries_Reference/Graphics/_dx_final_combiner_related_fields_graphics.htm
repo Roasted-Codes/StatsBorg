@@ -1,0 +1,35 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Final Combiner-Related Fields</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME=""></A>Final Combiner-Related Fields</H1>
+
+
+<p>The following sections provide a description of the final combiner-related fields of <a href="xbox_jbh_dxref_psh_binformat.htm"><b>D3DPIXELSHADERDEF</b></a>.</p>
+
+<p>The next two fields specify the inputs to the final combiner. The final combiner is typically used to add the specular color in the v1 register to the fragment color and also to blend in the fog color. If both final combiner fields are set to 0, the usual function of the final combiner is retained. However, if either of the final combiner fields is set to a non-zero value, the final combiner operation is completely specified by the pixel shader. No outputs need be set for the final combiner. The RGB and alpha results are set as follows:</p>
+
+<blockquote><pre>rgbout = a*b + (1-a)*c + d
+alphaout = alpha channel of g
+prod = e*f</pre></blockquote>
+
+<ul>
+	<li><a href="_dx_psfinalcombinerinputsabcd_graphics.htm"><b>PSFinalCombinerInputsABCD</b></a></li>
+	<li><a href="_dx_psfinalcombinerinputsefg_graphics.htm"><b>PSFinalCombinerInputsEFG</b></a></li>
+</ul>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,26 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>FresnelReflect Sample</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>FresnelReflect Sample</H1>
+
+
+<P class="intro">This FresnelReflect sample shows how to make glass or other shiny things look much more realistic by adding a Fresnel reflection to the sphere map. Most reflective objects do not reflect perfectly over their entire surfaces. In general, the more direct the view angle to surface normal, the less reflective the substance is and the more oblique the view angle, the more reflective it is. The fresnel3 shader has been setup to demonstrate this. Also included are two other shaders that show Fresnel transparency using the same technique. They are viewed by changing the object to the untextured teapot. You can see how the fresnel3 shader gives an almost frosted glass look, while the fresnel2 shader gives a holographic look to the object. The fresnel1 shader is a "pure" Fresnel shader without the biases applied to the fresnel3 shader.</P>
+
+<P class="intro">Also included are two more examples. The first uses the Fresnel-type shader for reflectivity on a car. Note how the same shader can be used for the windows and the main body by just changing the constants passed to it. The second example uses the Fresnel-type shader for transparency. Changing the object to the planet Earth, the Fresnel transparency shader is used to simulate the thickening of the atmosphere at the planet's limb.  To keep the sample focused on the Fresnel shader, the Earth is drawn as three separate globes. The first is the color map, the second is the cloud map and the third is the Fresnel transparency.</P>
+
+
+</BODY>
+</HTML>

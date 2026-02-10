@@ -1,0 +1,30 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>TOPOLOGY_ID</title>
+</head>
+<body topmargin="0">
+
+
+<h1>TOPOLOGY_ID</h1>
+<p>Builds a topology ID from a round number and an event number.</p><pre class="syntax" xml:space="preserve">#define <b>TOPOLOGY_ID</b>(<i>roundNumber</i><b>,</b><i>eventNumber</i>) (((roundNumber) &lt;&lt; 16) + (eventNumber))</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>roundNumber</i></dt>
+<dd>[in]  Type is <b>WORD</b>. Round number.</dd>
+	<dt><i>eventNumber</i></dt>
+<dd>[in]  Type is <b>WORD</b>. Event number.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>This macro evaluates to a topology ID.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+	<p>
+		<a href="x_mt_xonline_macros.htm">Xbox Live Macros</a> | <a href="XOnlineCompetitionTopologySingleElimination.htm">XOnlineCompetitionTopologySingleElimination</a> 
+	</p>
+
+</body>
+</html>

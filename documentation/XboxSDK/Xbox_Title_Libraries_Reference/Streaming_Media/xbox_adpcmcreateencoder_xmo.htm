@@ -1,0 +1,45 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>AdpcmCreateEncoder</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="AdpcmCreateEncoder [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_adpcmcreateencoder_xmo"></A>AdpcmCreateEncoder</H1>
+
+<P>Encodes linear PCM data into ADPCM format.</P>
+
+<PRE class="syntax"><B>HRESULT AdpcmCreateEncoder(</B>
+    <B>LPCWAVEFORMATEX</B> <I>pwfxDecoded</I>,
+    <B>DWORD</B> <I>dwBytesPerDecodedBlock</I>,
+    <B>LPIMAADPCMWAVEFORMAT</B> <I>pwfxEncoded</I>,
+    <B>LPXMEDIAOBJECT</B> <I>*ppMediaObject</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pwfxDecoded</I></DT>
+    <DD>Address of a <B>WAVEFORMATEX</B> struture that describes the input format.</DD>
+<DT><I>dwBytesPerDecodedBlock</I></DT>
+    <DD>DWORD value that specifies the number of bytes in each block.</DD>
+<DT><I>pwfxEncoded</I></DT>
+    <DD>Address of the ADPCM format that describes the output.</DD>
+<DT><I>ppMediaObject</I></DT>
+    <DD>Address of a pointer to the Xbox media object that is returned.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns DS_OK if successful, a Xbox media object specific error code otherwise.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

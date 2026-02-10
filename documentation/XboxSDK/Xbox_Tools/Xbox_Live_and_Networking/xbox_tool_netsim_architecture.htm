@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>How NetSim 2 Works</title>
+</head>
+<body topmargin="0">
+
+
+<h1>How NetSim 2 Works</h1>
+<p>NetSim 2 essentially works like a network address translator (NAT). It serves as a default 
+network gateway between multiple Xbox clients and the Internet. A given Xbox console sends 
+packets to NetSim 2 at its internal address. NetSim 2 either passes the packets to the Internet 
+through an external IP address, or it passes the packets to other Xbox consoles. </p><p>Unlike ordinary NAT implementations, NetSim 2 does not pass the packets through unaltered. 
+To simulate real-world network conditions, it changes the packets or the speed at which the 
+packets are sent. It can also throw away packets entirely to simulate the type of packet 
+loss that games normally experience when played over the Internet.</p><p>The other major difference between NetSim 2 and a typical NAT implementation is that 
+NetSim can handle multiple internal IP addresses. NetSim 2 separates individual client Xbox 
+consoles from each other by putting them on separate subnets. This separation forces packet 
+flow through the development system running NetSim 2, rather than routing those packets 
+directly between consoles. Because NetSim is handling all the packets between Xbox 
+consoles, it has the ability to simulate realistic network conditions between those consoles. 
+NetSim 2 also has the ability to simulate a variety of network conditions between the Xbox 
+consoles and the rest of the Internet.</p>
+</body>
+</html>

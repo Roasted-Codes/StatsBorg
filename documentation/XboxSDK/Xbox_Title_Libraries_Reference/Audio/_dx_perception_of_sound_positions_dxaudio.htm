@@ -1,0 +1,28 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Perception of Sound Positions</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H3><A NAME="_dx_perception_of_sound_positions_dxaudio"></A>Perception of Sound Positions</H3>
+
+<P>In the real world, the perception of a sound's position in space is influenced by several factors. Not all of these factors are acoustical; one of the most important is sight. Clues from the sounds themselves include the following:
+
+<UL>
+	<LI><I>Overall loudness.</I> As a sound source moves away from the listener, its perceived volume decreases at a fixed rate. This phenomenon is known as rolloff.</LI>
+
+	<LI><I>Interaural intensity difference</I>. A sound coming from the listener's right sounds louder in the right ear than in the left.</LI>
+
+	<LI><I>Interaural time difference.</I> A sound emitted by a source to the listener's right will arrive at the right ear slightly before it arrives at the left ear. The duration of this offset is approximately a millisecond.</LI>
+</UL>
+
+<P>Although these are not the only cues people use to discern the position of sound, they are the main ones, and they are the factors that have been implemented in the positioning system of DirectX Audio. Hardware optimized for 3D sound can support other cues as well, such as the effect of the earlobes on the pitch and timing of sounds arriving from different directions. The mathematics behind this effect are known as the head-related transfer function (HRTF).</P>
+
+<P>In most cases, DirectSound creates virtual 3D effects on two speakers or a set of headphones. <!-- COMMENT: However, it will also take advantage of four-channel systems with WDM drivers if the user has selected the surround sound speaker configuration in Control Panel. --> For more information, see <A HREF="_dx_dsbufferdesc_dxaudio.htm"><B>DSBUFFERDESC</B></A>.</P>
+
+</BODY>
+</HTML>

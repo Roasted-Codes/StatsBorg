@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineGameJoin</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineGameJoin</h1>
+            <p>Enables a player to join a game.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineGameJoin(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>const XONLINE_GAME_JOIN_INFO</b> *<i>pGameJoinInfo</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwUserIndex</i></dt>
+				<dd>[in]  Controller index (zero-based) of the player. The player must have been successfully logged 
+				on with a previous call to <a href="XOnlineLogon.htm">XOnlineLogon</a>.</dd>
+			
+            <dt><i>pGameJoinInfo</i></dt>
+				<dd>[in]  Address of a <a href="XONLINE_GAME_JOIN_INFO.htm">XONLINE_GAME_JOIN_INFO</a> structure containing the information 
+				required to join a game.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+			<p><a href="XONLINE_GAME_JOIN_INFO.htm">XONLINE_GAME_JOIN_INFO</a></p>
+		
+</body>
+</html>

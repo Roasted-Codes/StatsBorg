@@ -1,0 +1,66 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DM_XBE</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DM_XBE</H1>
+
+<P>The <B>DM_XBE</B> structure is used by the <A HREF="xbox_jbh_debugapi_function_DmGetXbeInfo.htm">DmGetXbeInfo</A> function.</P>
+
+<PRE class=syntax>typedef struct _DM_XBE {
+    char LaunchPath[MAX_PATH+1];
+    DWORD TimeStamp;
+    DWORD CheckSum;
+    DWORD StackSize;
+} DM_XBE, *PDM_XBE;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+
+<DT><B>LaunchPath</B></DT>
+<DD>Path from which the XBE was launched.</DD>
+
+<DT><B>TimeStamp</B></DT>
+<DD>Time and date that the XBE was generated.</DD>
+
+<DT><B>CheckSum</B></DT>
+<DD>Checksum of the XBE.</DD>
+
+<DT><B>StackSize</B></DT>
+<DD>Size of the stack for the XBE.</DD>
+
+</DL>
+
+<!--
+<H4>Remarks</H4>
+
+<P>Some remarks.</P>
+-->
+
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

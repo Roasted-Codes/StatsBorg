@@ -1,0 +1,30 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveEngine::SetAudioPlugin</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveEngine::SetAudioPlugin</h1>
+<p>Sets the <a href="ITitleAudioPlugin.htm">ITitleAudioPlugin</a> used by the Xbox Drop-in UI engine.  This can be the default audio plug-in obtained with <a href="UIXCreateAudioPlugin.htm">UIXCreateAudioPlugin</a>, or a custom plug-in implemented by the title.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetAudioPlugin(</b>
+    <b>ITitleAudioPlugin</b> *<i>pAudioPlugin</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pAudioPlugin</i></dt>
+<dd>[in]  Pointer to an <a href="ITitleAudioPlugin.htm">ITitleAudioPlugin</a> interface for the audio plug-in.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>After an audio plug-in has been exposed to the Xbox Drop-in UI engine with <b>SetAudioPlugin</b>, the plug-in will begin receiving audio requests through its <b>ITitleAudioPlugin</b> interface.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

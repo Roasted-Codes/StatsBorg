@@ -1,0 +1,86 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGetVideoFlags</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="XGetVideoFlags">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_xbox_xgetvideoflags"></A>XGetVideoFlags</H1>
+
+<P>The <B>XGetVideoFlags</B> function returns the global video settings selected in the Dashboard.</P>
+
+<PRE class=syntax><B>DWORD XGetVideoFlags();</B></PRE>
+
+<H4>Parameters</H4>
+
+<p>None.</p>
+
+<H4>Return Values</H4>
+
+<p>The function will return one or more of the flags below ORed together:</p>
+
+<table>
+<tr>
+<th align=left>Value</th>
+<th align=left>Meaning</th>
+</tr>
+
+<tr>
+<td>XC_VIDEO_FLAGS_WIDESCREEN</td>
+<td>The user selected wide screen.</td>
+</tr>
+
+<tr>
+<td>XC_VIDEO_FLAGS_HDTV_720p</td>
+<td>The user selected 720p.</td>
+</tr>
+
+<tr>
+<td>XC_VIDEO_FLAGS_HDTV_1080i</td>
+<td>The user selected 1080i. </td>
+</tr>
+
+<tr>
+<td>XC_VIDEO_FLAGS_HDTV_480p</td>
+<td>The user selected 480p.</td>
+</tr>
+
+<tr>
+<td>XC_VIDEO_FLAGS_LETTERBOX</td>
+<td>The user selected letterbox.</td>
+</tr>
+
+<tr>
+<td>XC_VIDEO_FLAGS_PAL_60Hz</td>
+<td>The user selected 60Hz PAL (rather than the default of 50Hz).</td>
+</tr>
+
+</table>
+
+<h4>Remarks</h4>
+
+<p>The XC_VIDEO_FLAGS_WIDESCREEN and XC_VIDEO_FLAGS_LETTERBOX flags are mutually exclusive.</p>
+
+<p>For PAL output (<a href="x_jg_xgetvideostandard.htm">XGetVideoStandard</a> returns XC_VIDEO_STANDARD_PAL_I), the XC_VIDEO_FLAGS_WIDESCREEN, XC_VIDEO_FLAGS_LETTERBOX, and XC_VIDEO_FLAGS_PAL_60Hz flags are valid and may be set, but none of the HDTV flags will be set.  Widescreen and letterbox formats are supported with PAL, but HDTV is not.</p>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Xbox.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+
+<H4>See Also</H4>
+<P>
+<A HREF="x_mt_settings_functions.htm">Settings Functions</a> |
+<a href="x_jg_xgetvideostandard.htm">XGetVideoStandard</a>,
+<a href="x_jg_xgetaudioflags.htm">XGetAudioFlags</a>
+</P>
+
+
+</BODY>
+</HTML>

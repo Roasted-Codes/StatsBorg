@@ -1,0 +1,66 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSoundBuffer8::GetStatus</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSoundBuffer8::GetStatus [C++]">
+<META NAME="MS-HKWD" CONTENT="GetStatus (IDirectSoundBuffer8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetStatus [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectsoundbuffer8_getstatus_dxaudio"></A>IDirectSoundBuffer8::GetStatus</H1>
+
+<P>Retrieves the status of the sound buffer.</P>
+
+<PRE class="syntax"><B>HRESULT GetStatus(</B>
+  <B>LPDWORD</B> <I>pdwStatus</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pdwStatus</I></DT>
+<DD>Address of a variable to contain the status of the sound buffer. The status can be a combination of the following flags:</DD>
+
+<TABLE>
+<TR VALIGN="top">
+<TH align=left width=30%>Flag</TH>
+<TH align=left width=70%>Description</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DSBSTATUS_PLAYING</TD>
+<TD width=70%>The buffer is playing. If this value is not set, the buffer is stopped or paused.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DSBSTATUS_PAUSED</TD>
+<TD width=70%>The buffer is paused. If this value is not set, the buffer is stopped or playing.</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=30%>DSBSTATUS_LOOPING</TD>
+<TD width=70%>The buffer is being looped. If this value is not set, the buffer will stop when it reaches the end of the sound data. This value is returned only in combination with DSBSTATUS_PLAYING or DSBSTATUS_PAUSED.</TD>
+</TR>
+</TABLE>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, an error code otherwise.</P>
+
+<!-- OMIT:
+<h4>Remarks</h4>
+
+<p><b>GetStatus</b> cannot be used on buffers that were created with either the DSBCAPS_MIXIN or DSBCAPS_FXIN flag set.</p>
+-->
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSound.h.</P>
+
+
+</BODY>
+</HTML>

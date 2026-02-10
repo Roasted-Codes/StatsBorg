@@ -1,0 +1,56 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>g_pfnDirectSoundDebugCallback</title>
+</head>
+	    <body topmargin="0">
+	        
+
+	
+	        <h1>g_pfnDirectSoundDebugCallback</h1>
+	
+	                
+	        
+			<p>Provides the ability for a game to intercept all debug output calls from DirectSound.</p>
+			
+			
+		<pre class="syntax">LPFNDSDPFCALLBACK g_pfnDirectSoundDebugCallback;</pre>
+	
+			
+			
+	            <h4><a name="remarks"></a>Remarks</h4>
+			<p>This global callback variable provides a way to intercept all debug output calls from DirectSound. When this callback is set, DirectSound will not send debug information to the debugger, unless the callback function returns TRUE. To use this global, define your own callback function (see Dsound.H for definition) and assign the function as in the following example:</p>
+
+<pre class="clsCode">
+extern "C" LPFNDSDPFCALLBACK g_pfnDirectSoundDebugCallback;
+BOOL CALLBACK DebugPrint(DWORD dwLevel, LPCSTR pszString)
+{
+    DbgPrint("Debug: %s", pszString);
+    return FALSE;
+}
+
+VOID __cdecl main()
+{
+    g_pfnDirectSoundDebugCallback = DebugPrint;
+    ...
+}
+</pre>
+    
+		
+				
+	        
+	        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+	        <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_directsound_callback_functions_dxaudio.htm">DirectSound Callback Functions</a>
+		</p>
+	
+	        
+	    </body>
+    </html>

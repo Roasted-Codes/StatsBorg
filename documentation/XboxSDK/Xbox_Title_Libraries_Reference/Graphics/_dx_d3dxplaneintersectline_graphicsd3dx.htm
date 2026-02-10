@@ -1,0 +1,61 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXPlaneIntersectLine</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXPlaneIntersectLine">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxplaneintersectline_graphicsd3dx"></A>D3DXPlaneIntersectLine</H1>
+
+<P>Finds the intersection between a plane and a line.</P>
+
+<PRE class=syntax><B>D3DXVECTOR3* D3DXPlaneIntersectLine(
+  D3DXVECTOR3* </B><I>pOut</I><B>,</B>
+  <B>CONST</B> <B>D3DXPLANE* </B><I>pP</I><B>,</B>
+<B>  CONST D3DXVECTOR3*</B><I> pV1</I><B>,</B>
+<B>  CONST D3DXVECTOR3* </B><I>pV2</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to a <A HREF="_dx_d3dxvector3_graphicsd3dx.htm"><B>D3DXVECTOR3</B></A> structure, identifying the intersection between the specified plane and line.</DD>
+
+<DT><I>pP</I></DT>
+
+<DD>[in] Pointer to the source <A HREF="_dx_d3dxplane_graphicsd3dx.htm"><B>D3DXPLANE</B></A> structure.</DD>
+
+<DT><I>pV1</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXVECTOR3</B> structure, defining a line starting point.</DD>
+
+<DT><I>pV2</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXVECTOR3</B> structure, defining a line ending point.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Pointer to a <B>D3DXVECTOR3</B> structure that is the intersection between the specified plane and line.</P>
+
+<H4>Remarks</H4>
+
+<P>If the line is parallel to the plane, NULL is returned.</P>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>D3DXPlaneIntersectLine</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8math.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3dx8.lib.</P>
+
+</BODY>
+</HTML>

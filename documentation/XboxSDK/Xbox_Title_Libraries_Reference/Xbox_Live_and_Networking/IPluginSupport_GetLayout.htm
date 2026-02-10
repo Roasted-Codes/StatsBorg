@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IPluginSupport::GetLayout</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IPluginSupport::GetLayout</h1>
+<p>Retrieves, from the skin file, the skin layout information for the layout with the specified screen and object resource identifiers.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetLayout(</b>
+    <b>DWORD</b> <i>ScreenResID</i><b>,</b>
+    <b>DWORD</b> <i>ObjectResID</i><b>,</b>
+    <b>UIX_SKIN_LAYOUT_INFO</b> **<i>ppLayout</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>ScreenResID</i></dt>
+<dd>[in]  Resource identifier of the screen.</dd>
+<dt><i>ObjectResID</i></dt>
+<dd>[in]  Resource identifier of the object.</dd>
+<dt><i>ppLayout</i></dt>
+<dd>[out]  Pointer to a <a href="UIX_SKIN_LAYOUT_INFO.htm">UIX_SKIN_LAYOUT_INFO</a> structure that receives the layout information.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

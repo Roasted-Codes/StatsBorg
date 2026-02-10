@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>pixelShaderPass Element</title>
+</head>
+<body topmargin="0">
+
+
+<h1>pixelShaderPass Element</h1>
+<p>Sets the pixel shader for current render pass.</p>
+<pre class="syntax" xml:space="preserve">&lt;pixelShaderPass
+   pixelShader = string
+/&gt;</pre>
+<h4>Required Attributes</h4>
+<dl id="idXML">
+<dt><b>pixelShader</b></dt>
+<dd>
+						<p>Name of the pixel shader to use for the render pass. This value must correspond to the <b>id</b> attribute of a previously defined &lt;<a href="xdx_element_pixelshader.htm">pixelShader</a>&gt;.</p>
+					</dd>
+</dl>
+<h4>Optional Attributes</h4>
+<p>None.</p><h4>Element Information</h4>
+<table>
+<tr>
+<td><b>Parent Elements</b></td>
+<td><a href="xdx_element_pass.htm">pass</a></td>
+</tr>
+<tr>
+<td><b>Child Elements</b></td>
+<td><a href="xdx_element_constantps.htm">constantPS</a></td>
+</tr>
+</table>
+<h4><a name="remarks"></a>Remarks</h4>Any constants made using &lt;<a href="xdx_element_constantVS.htm">constantVS</a>&gt; inside of a &lt;<b>pixelShaderPass</b>&gt; will add to or overwrite  those made inside the shader referenced by the <b>pixelShader</b> attribute.
+</body>
+</html>

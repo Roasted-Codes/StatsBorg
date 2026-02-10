@@ -1,0 +1,24 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Color/Vector Write Mask</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_color_vector_write_mask_graphics"></A>Color/Vector Write Mask</H1>
+
+<P><B>.rgb</B></P>
+
+<P>When specified on the output register, this flag indicates that the operation will update only the three color channels of the destination register, and therefore should be performed in the color (vector) pipeline for the instruction.</P>
+
+<P>The following example shows how to use this output write mask.</P>
+
+<PRE>mul r0.rgb,  t0, v0
+add r0.a,    t1, v1
+</PRE>
+
+</BODY>
+</HTML>

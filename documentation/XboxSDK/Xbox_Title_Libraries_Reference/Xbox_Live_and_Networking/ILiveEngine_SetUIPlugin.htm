@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveEngine::SetUIPlugin</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveEngine::SetUIPlugin</h1>
+<p>Sets the <a href="ITitleUIPlugin.htm">ITitleUIPlugin</a> used by the Xbox Drop-in UI engine.  This can be the default UI plug-in obtained with <a href="UIXCreateUIPlugin.htm">UIXCreateUIPlugin</a>, or a custom plug-in implemented by the title.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetUIPlugin(</b>
+    <b>ITitleUIPlugin</b> *<i>pUIPlugin</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pUIPlugin</i></dt>
+<dd>[in]  Pointer to an <a href="ITitleUIPlugin.htm">ITitleUIPlugin</a> interface for the UI plug-in.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>After a UI plug-in has been exposed to the Xbox Drop-in UI engine with <b>SetUIPlugin</b>, the plug-in will begin receiving UI requests through its <b>ITitleUIPlugin</b> interface.  The engine immediately calls <a href="ITitleUIPlugin_SetPluginSupport.htm">ITitleUIPlugin::SetPluginSupport</a> on the interface in order to provide UI plug-in support through an <a href="IPluginSupport.htm">IPluginSupport</a> interface.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleUIPlugin.htm">ITitleUIPlugin</a>,
+<a href="IPluginSupport.htm">IPluginSupport</a>,
+<a href="UIXCreateUIPlugin.htm">UIXCreateUIPlugin</a>,
+<a href="ITitleUIPlugin_SetPluginSupport.htm">ITitleUIPlugin::SetPluginSupport</a>
+</p>
+
+</body>
+</html>

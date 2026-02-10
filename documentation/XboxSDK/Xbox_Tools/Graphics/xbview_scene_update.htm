@@ -1,0 +1,14 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Scene::Update (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Scene::Update (XbView)</h1>
+<p><b>Scene::Update</b> is called to update the scene, updating both the timing and animation code. The function takes two parameters. The first is a <b>FLOAT</b> that tells the update function how much time, in seconds, has elapsed since the last update. The second parameter is a <b>DWORD</b>, that acts as an index into which skeleton(s) to update. If this second parameter is 0xffffffff, the update function updates all of the skeletons. If the second parameter is a number other than 0xffffffff, update treats this number as an index into the list of skeletons and only updates that skeleton. The function insures that passing in an index outside of valid range does nothing.</p><p>Based on the index (the second parameter) passed in, <b>Scene::Update</b> will make either a single call to <a href="xbview_baseskeletonnode_update.htm">BaseSkeletonNode::Update</a> or if the index passed in is 0xffffffff, <b>Scene::Update</b> calls all of the <b>BaseSkeletonNode::Update</b> functions in the list. <b>Scene::Update</b> returns the result of the last <b>BaseSkeletonNode::Update</b> that was called.</p><p>This function is instrumented to show up in PIX timing runs. </p>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineGetNotification</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineGetNotification</h1>
+<p>The <b>XOnlineGetNotification</b> function tests whether the specified notification exists for the specified user.</p>
+<pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>XOnlineGetNotification(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>XONLINE_NOTIFICATION_TYPE</b> <i>NotificationType</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+            <dt><i>dwUserIndex</i></dt>
+<dd>[in]  Specifies the controller index of the user for whom to check for notifications.</dd>
+
+             <dt><i>NotificationType</i></dt>
+<p>
+                    <dd>[in]  Specifies a value of type <a href="XONLINE_NOTIFICATION_TYPE.htm">XONLINE_NOTIFICATION_TYPE</a>. See the <b>XONLINE_NOTIFICATION_TYPE</b> page for a list of possible values.</dd>
+                </p>
+
+            
+
+        </dl>
+<h4><a name="return"></a>Return Values</h4>If the specified notification exists for the specified user, the function returns TRUE. Otherwise, the function returns false.<h4><a name="remarks"></a>Remarks</h4>
+            <p>To use the <b>XOnlineGetNotification</b> function, only the <a href="XOnlineLogon.htm">XOnlineLogon</a> task need be active. The <a href="XOnlineFriendsStartup.htm">XOnlineFriendsStartup</a> and <a href="XOnlineFriendsEnumerate.htm">XOnlineFriendsEnumerate</a> tasks need not be active.</p>
+            <p>To take action on any of these notifications, the title needs to enumerate the friends list using <a href="XOnlineFriendsEnumerate.htm">XOnlineFriendsEnumerate</a>.</p>
+            <p>The <b>XOnlineGetNotification</b> function supersedes the no-longer-supported <b>XOnlineNotificationIsPending</b> function.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+
+            <p> <a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="XOnlineFriendsEnumerate.htm">XOnlineFriendsEnumerate</a>, <a href="XOnlineLogon.htm">XOnlineLogon</a>, <a href="XONLINE_NOTIFICATION_TYPE.htm">XONLINE_NOTIFICATION_TYPE</a></p>
+
+        
+</body>
+</html>

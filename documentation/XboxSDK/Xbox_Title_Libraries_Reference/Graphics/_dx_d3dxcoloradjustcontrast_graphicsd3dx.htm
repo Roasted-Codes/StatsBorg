@@ -1,0 +1,64 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXColorAdjustContrast</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXColorAdjustContrast">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxcoloradjustcontrast_graphicsd3dx"></A>D3DXColorAdjustContrast</H1>
+
+<P>Adjusts the contrast value of a color.</P>
+
+<PRE class=syntax><B>D3DXCOLOR* D3DXColorAdjustContrast(
+  D3DXCOLOR* </B><I>pOut</I><B>,</B>
+<I>  </I><B>D3DXCOLOR* </B><I>pC</I><B>,</B>
+<I>  </I><B>FLOAT </B><I>c</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to a <A HREF="_dx_d3dxcolor_graphicsd3dx.htm"><B>D3DXCOLOR</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pC</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXCOLOR</B> structure.</DD>
+
+<DT><I>c</I></DT>
+
+<DD>[in] Contrast value. This parameter linearly interpolates between 50 percent gray and the color, <I>pC</I>. There are not limits on the value of <I>c</I>. If this parameter is zero, then the returned color is 50 percent gray. If this parameter is 1, then the returned color is the original color.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function returns a pointer to a <B>D3DXCOLOR</B> structure that is the result of the contrast adjustment.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>D3DXColorAdjustContrast</B> function can be used as a parameter for another function.</P>
+
+<P>This function interpolates the red, green, and blue color components of a <B>D3DXCOLOR</B> structure between 50 percent gray and a specified contrast value, as shown in the following example.</P>
+
+<PRE>    pOut-&gt;r = 0.5f + c * (pC-&gt;r - 0.5f);
+</PRE>
+
+<P>If <I>c</I> is greater than 0 and less than 1, the contrast is decreased. If <I>c</I> is greater than 1, then the contrast is increased. </P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8math.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3dx8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_d3dxcoloradjustsaturation_graphicsd3dx.htm"><B>D3DXColorAdjustSaturation</B></A> </P>
+
+</BODY>
+</HTML>

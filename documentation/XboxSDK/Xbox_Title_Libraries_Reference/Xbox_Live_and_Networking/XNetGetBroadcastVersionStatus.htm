@@ -1,0 +1,99 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XNetGetBroadcastVersionStatus</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XNetGetBroadcastVersionStatus</h1>
+<p>
+            Returns a value that indicates 
+            whether the local Xbox console has received broadcast packets from an 
+            incompatible version of the same title.
+        </p>
+<pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>XNetGetBroadcastVersionStatus(</b>
+    <b>BOOL</b> <i>fReset</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+            <dt><i>fReset</i></dt>
+                <dd>
+Value indicating whether to reset the status after returning the current status value.
+If this parameter is TRUE, the  status is reset. If this parameter is FALSE,
+the status persists until the next call to <b>XNetGetBroadcastVersionStatus</b>.
+                </dd>
+
+            
+
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>
+                If no incompatible broadcast packets have been received, the return value is 
+                zero. Otherwise, the return value is one of the following.
+            </p>
+            <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                <tr>
+<td>XNET_BROADCAST_VERSION_OLDER</td>
+<td>
+                    The local Xbox console received broadcast packets from an older incompatible 
+                    version of title.
+                </td>
+</tr>
+                <tr>
+<td>XNET_BROADCAST_VERSION_NEWER</td>
+<td>
+                    The local Xbox console received broadcast packets from a more recent 
+                    incompatible version of title
+                </td>
+</tr>
+            </table>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p>
+                A title can receive broadcast packets from an incompatible version of the same 
+                title if the two XBEs have the same title ID, but different LAN keys and version 
+                numbers. This situation occurs if one of the XBEs receives an auto-update, but 
+                the other XBE does not.
+            </p>
+            <p>
+                The code below demonstrates calling <b>XNetGetBroadcastVersionStatus</b>. In 
+                this example, the function resets the status after returning the current value:
+            </p>
+
+<pre class="clsCode">
+
+    DWORD dwStatus = XNetGetBroadcastVersionStatus( TRUE );
+    if( dwStatus != 0 )
+    {
+        return TRUE;
+    }
+    return FALSE;
+</pre>
+    
+
+            <p>
+                See the <b>WinsockPeer</b> sample for an example of calling <b>XNetGetBroadcastVersionStatus</b> 
+                in the context of a complete program.
+            </p>
+
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Winsockx.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib or xnets.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p>
+                <a href="xbox_secure_network_library_functions_xsnl.htm">Xbox Secure Network Library Functions</a> | <a href="whitepaper_xbox_secure_network_library_xsnl.htm">Xbox 
+                Secure Network Library White Paper</a> | <a href="XNetGetConnectStatus.htm">XNetGetConnectStatus</a>
+            </p>
+
+        
+</body>
+</html>

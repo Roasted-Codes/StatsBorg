@@ -1,0 +1,61 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTEngine::SetVariable</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTEngine::SetVariable</h1>
+<p>Sets the current value of a specified global XACT trigger variable.  Changing the value of a trigger variable causes transitions in XACT interactive audio cues that are based on that variable.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetVariable(</b>
+    <b>DWORD</b> <i>dwVariable</i><b>,</b>
+    <b>WORD</b> <i>wValue</i><b>,</b>
+    <b>DWORD</b> <i>dwApply</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>dwVariable</i></dt>
+				<dd>[in]  Trigger variable to set.  Valid values are 0 to 31 (XACT_GLOBAL_VARIABLE_MIN_INDEX to XACT_GLOBAL_VARIABLE_MAX_INDEX).</dd>
+			
+			<dt><i>wValue</i></dt>
+				<dd>[in]  Value to set.  Valid values are 0 to 65535, but note that interactive audio cues only use the values 0 to 10000 (XACT_GLOBAL_VARIABLE_MIN_VALUE to XACT_GLOBAL_VARIABLE_MAX_VALUE).</dd>
+			
+			<dt><i>dwApply</i></dt>
+				<dd>[in]  Specifies when the new value should be applied.  Must be one of the following values:
+				<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+				<tr>
+<td>DS3D_IMMEDIATE</td>
+<td>The variable's value is changed immediately.</td>
+</tr>
+				<tr>
+<td>DS3D_DEFERRED</td>
+<td>The variable's value change is deferred until a subsequent call to <b>SetVariable</b> (for a different variable) specifies DS3D_IMMEDIATE.</td>
+</tr>
+				</table>
+				</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful, an error code otherwise.</p>
+        <h4><a name="remarks"></a>Remarks</h4>
+		<p>Each XACT interactive audio cue is dependent on a particular trigger variable, as set in the cue's <b>Interactive Audio</b> tab.  Run-time, programmatic changes to the value of the trigger variable cause transitions in the interactive audio cue based on weights assigned to the cue.  The <i>wValue</i> values 0 to 10000 map to the interactive audio cue weights 0.00 to 100.00.  Any value greater than 10000 (or otherwise not in the range of weights as set for the cue) is out of range and causes a stop transition.</p>
+		<p>To change multiple variables at once (without causing cue transitions each time a variable is changed), specify DS3D_DEFERRED in <i>dwApply</i> for each variable change except the final one.  Specify DS3D_IMMEDIATE for the final variable change to cause that variable change, and all deferred changes, to be committed at once.</p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+		<a href="xbox_ixactengine_getvariable_dxaudio.htm">IXACTEngine::GetVariable</a>
+		</p>
+
+</body>
+</html>

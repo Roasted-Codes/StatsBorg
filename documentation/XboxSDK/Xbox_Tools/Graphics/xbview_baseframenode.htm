@@ -1,0 +1,22 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>BaseFrameNode (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>BaseFrameNode (XbView)</h1>
+<p>This <b>BaseFrameNode</b> class stores a node in the skeleton hierarchy. This class gathers the data from the <a href="xbview_xbr.htm">XBR</a> class and its helper classes necessary to draw the geometry. It stores pointers to the world matrix needed to transform the geometry, the actual geometry itself (in the <b>m_pMesh</b> pointer), and a flag that stores whether or not the geometry needs any alpha blending to render itself. </p><p>There are two constructors for this class and both are called from the <a href="xbview_baseskeletonnode.htm">BaseSkeletonNode</a> constructor.</p><ol>
+<li><p>The first constructor is passed three parameters. The first is a <b>DWORD</b> index into the list of matrices stored in the skeleton hierarchy. This index points to the matrix used by this node to transform itself when it draws. The other two parameters for the first constructor are pointers to the node's <a href="xbview_skeleton.htm">Skeleton</a> class and a pointer to the <b>XBR</b> class itself so that this class can find and save the pointers it needs to draw itself. During the first constructor, the class runs through the <b>XBR</b> class's list of resources and attempts to find an <a href="xbview_effect.htm">Effect</a> structure with the same ID as the <b>Skeleton</b> class pointed to by the <b>DWORD</b> index passed in. If it finds an <b>Effect</b> with the same ID, it stores a pointer to the <b>Effect</b>, stores a pointer to the matrix needed to transform the <b>Effect</b> from the <b>Skeleton</b> class, and sets a flag that tells the <b>BaseFrameNode</b> if the <b>Effect</b> uses any alpha blending.</p></li> 
+
+<li><p>The second constructor is called when there is an <b>Effect</b> structure that is not attached to any skeleton node. In this case, the <b>Effect</b> itself is passed into the constructor, and the constructor uses the identity matrix for the transform. It also checks the <b>Effect</b> to see if any alpha blending is needed to draw it and sets the <b>m_bHasAlpha</b> flag accordingly.</p> </li>
+</ol>
+<p>In both cases, the <b>m_pChild</b> and <b>m_pNext</b> pointers are set to NULL. These are fixed up in the <b>BaseSkeletonNode</b> after the lists are created. The class stores a pointer to its <b>Skeleton</b> class if one was passed in and NULL if not.</p><p>Although <b>BaseFrameNode</b> has many methods, only one is described in detail:</p><ul>
+<li><a href="xbview_baseframenode_draw.htm">Draw</a></li>
+</ul>
+
+</body>
+</html>

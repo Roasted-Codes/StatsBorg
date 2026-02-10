@@ -1,0 +1,22 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>TextureState (XbView)</title>
+</head>
+<body topmargin="0">
+
+
+<h1>TextureState (XbView)</h1>
+<p>The <b>TextureState</b> structure stores a Direct3D texture stage state constant and the value assigned to that state.</p>
+<pre class="clsCode">
+struct TextureState 
+{
+	DWORD State;
+	DWORD Value;
+};
+</pre>
+    <p>Just as with render states, texture stage states are reset by <a href="xbview_xbr_setdefaultstate.htm">XBR::SetDefaultState</a> every pass to the defaults required by XbView.</p>
+</body>
+</html>

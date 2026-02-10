@@ -1,0 +1,62 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XGColorModulate</TITLE>
+<META NAME="MS-HKWD" CONTENT="XGColorModulate">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxcolormodulate_graphicsd3dx"></A>XGColorModulate</H1>
+
+<P>Blends two colors.</P>
+
+<PRE class=syntax><B>XGCOLOR* XGColorModulate(
+  XGCOLOR* </B><I>pOut</I><B>,</B>
+<I>  </I><B>CONST</B> <B>XGCOLOR* </B><I>pC1</I><B>,</B>
+<I>  </I><B>CONST</B> <B>XGCOLOR* </B><I>pC2</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to a <A HREF="xgraphics_xgcolor.htm"><B>XGCOLOR</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pC1</I></DT>
+
+<DD>[in] Pointer to a source <B>XGCOLOR</B> structure.</DD>
+
+<DT><I>pC2</I></DT>
+
+<DD>[in] Pointer to a source <B>XGCOLOR</B> structure.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function returns a pointer to a <B>XGCOLOR</B> structure that is the result of the blending operation.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>XGColorModulate</B> function can be used as a parameter for another function.</P>
+
+<P>This function blends together two colors by multiplying matching color components, as shown in the following example.</P>
+
+<PRE>    pOut-&gt;r = pC1-&gt;r * pC2-&gt;r;
+</PRE>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in xgmath.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use xgraphics.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="xgraphics_xgcolorlerp.htm"><B>XGColorLerp</B></A>, <A HREF="xgraphics_xgcolornegative.htm"><B>XGColorNegative</B></A>, <A HREF="xgraphics_xgcolorscale.htm"><B>XGColorScale</B></A> </P>
+
+</BODY>
+</HTML>

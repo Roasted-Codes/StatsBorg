@@ -1,0 +1,52 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XWmaDecoderCreateMediaObject</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XWmaDecoderCreateMediaObject</h1>
+<p>Creates and initializes a WMA Xbox Media Object (XMO).</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XWmaDecoderCreateMediaObject(</b>
+    <b>LPCWMAXMODECODERPARAMETERS</b> <i>pParameters</i><b>,</b>
+    <b>XWmaFileMediaObject</b> **<i>ppMediaObject</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pParameters</i></dt>
+                <dd>Address of a <a href="xbox_wmaxmodecoderparameters_xmo.htm">WMAXMODECODERPARAMETERS</a> structure that specifies how the XMO should be created.</dd>
+            
+            <dt><i>ppMediaObject</i></dt>
+                <dd>Address of a pointer to the <a href="xbox_xwmafilemediaobject_xmo.htm">XWmaFileMediaObject</a> that is created.</dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+			<p>This XMO is asynchronous. After <b>XWmaDecoderCreateMediaObject</b> is called to instantiate the XMO, you must call DoWork() on the object on a regular interval.</p>
+
+<pre class="clsCode">
+// Create the XMO
+hr = XWmaDecoderCreateMediaObject(&amp;Params, &amp;pTrack-&gt;StreamData.pSourceXMO);
+</pre>
+    
+			<p>Do the following once per frame (or in a tight loop if you don't care to block):</p>
+
+<pre class="clsCode">
+pTrack-&gt;StreamData.pSourceXMO-&gt;DoWork();
+pTrack-&gt;StreamData.pSourceXMO-&gt;GetStatus(&amp;dwStatus);
+bReady = (dwStatus &amp; XMO_STATUSF_ACCEPT_OUTPUT_DATA) != 0;
+</pre>
+    
+			<p>Once <a href="xbox_jc_xmediaobject_getstatus_xmo.htm">XMediaObject::GetStatus</a> indicates that the XMO is ready, <a href="xbox_jc_xmediaobject_process_xmo.htm">XMediaObject::Process</a> can be called.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSound.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use DSound.lib.</p>
+    
+</body>
+</html>

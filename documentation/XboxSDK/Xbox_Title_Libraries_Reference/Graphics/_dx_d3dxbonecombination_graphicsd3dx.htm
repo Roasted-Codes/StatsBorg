@@ -1,0 +1,64 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXBONECOMBINATION</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXBONECOMBINATION">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxbonecombination_graphicsd3dx"></A>D3DXBONECOMBINATION</H1>
+
+<P>Describes a subset of the mesh that has the same attribute and bone combination.</P>
+
+<PRE class=syntax>typedef struct _D3DXBONECOMBINATION {
+    DWORD AttribId;
+    DWORD FaceStart;
+    DWORD FaceCount;
+    DWORD VertexStart;
+    DWORD VertexCount;
+    DWORD* BoneId;
+} D3DXBONECOMBINATION, *LPD3DXBONECOMBINATION;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>AttribId</B></DT>
+
+<DD>Attribute table identifier.</DD>
+
+<DT><B>FaceStart</B></DT>
+
+<DD>Starting face.</DD>
+
+<DT><B>FaceCount</B></DT>
+
+<DD>Face count.</DD>
+
+<DT><B>VertexStart</B></DT>
+
+<DD>Starting vertex.</DD>
+
+<DT><B>VertexCount</B></DT>
+
+<DD>Vertex count.</DD>
+
+<DT><B>BoneId</B></DT>
+
+<DD>Pointer to an array of values that identify each of the bones that can be drawn in a single drawing call. Note that the array can be of variable length to accommodate variable length bone combinations of <A HREF="_dx_id3dxskinmesh_converttoindexedblendedmesh_graphicsd3dx.htm"><B>ID3DXSkinMesh::ConvertToIndexedBlendedMesh</B></A>.
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>The subset of the mesh described by <B>D3DXBONECOMBINATION</B> can be rendered in a single drawing call.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8mesh.h.</P>
+
+</BODY>
+</HTML>

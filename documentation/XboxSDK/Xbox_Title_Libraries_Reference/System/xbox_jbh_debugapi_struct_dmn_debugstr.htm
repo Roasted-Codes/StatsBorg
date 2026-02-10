@@ -1,0 +1,61 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DMN_DEBUGSTR</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="CreateFile">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+<DIV STYLE="display:none;">
+
+</DIV>
+
+
+<H1><A NAME="_win32_createfile"></A>DMN_DEBUGSTR</H1>
+
+<P>Contains information relevant to a DM_DEBUGSTR notification type. For a complete list of notification types, see <A HREF="xbox_jbh_debugapi_function_dmnotify.htm">DmNotify</A>.</P>
+
+<PRE class=syntax>typedef struct _DMN_DEBUGSTR {
+    DWORD ThreadId;
+    DWORD Length;
+    LPCSTR String;
+} DMN_DEBUGSTR, *PDMN_DEBUGSTR;</PRE>
+
+<H4>Members</H4>
+
+<DL>
+
+<DT><B>ThreadId</B></DT>
+<DD>ID of the thread that triggered the notification.</DD>
+
+<DT><B>Length</B></DT>
+<DD>Length of the string containing the message.</DD>
+
+<DT><B>String</B></DT>
+<DD>String containing the message. The string may not be NULL terminated.</DD>
+
+</DL>
+
+<!--
+<H4>Remarks</H4>
+
+<P>Some remarks.</P>
+-->
+
+<h4>Requirements</h4>
+<p class="content">
+<b>Header:</b> Declared in XbDm.h and XboxDbg.h
+<br><b>Import Library:</b> Use XbDm.lib for target system code; and XboxDbg.lib for development system code.
+</p>
+
+<!--
+<H4>See Also</H4>
+<P class="content"></P>
+-->
+
+
+</BODY>
+</HTML>

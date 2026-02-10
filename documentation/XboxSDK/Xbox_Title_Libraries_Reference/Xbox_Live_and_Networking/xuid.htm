@@ -1,0 +1,104 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XUID</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XUID</h1>
+
+        
+        
+<p>Contains the user identification and user-specific settings.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    ULONGLONG qwUserID;
+    DWORD dwUserFlags;
+} XUID;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>qwUserID</b></dt>
+                <dd>Value that contains the user identification.</dd>
+            
+            <dt><b>dwUserFlags</b></dt>
+                <p><dd>Value that contains settings associated with this user. Can be a combination of the following flags:</dd>
+                <table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                     <tr>
+<td>XONLINE_USER_VOICE_NOT_ALLOWED</td>
+<td>This user is not allowed to use the voice chat feature.</td>
+</tr>
+                    <tr>
+<td>XONLINE_USER_PURCHASE_NOT_ALLOWED</td>
+<td>This user is not allowed to make any purchases.</td>
+</tr>
+                    <tr>
+<td>XONLINE_USER_NICKNAME_NOT_ALLOWED</td>
+<td>This user is not allowed to choose custom nicknames.</td>
+</tr>
+                </table>
+				<p>Additionally, the following masks indicate the bit offsets of additional data stored in the <b>dwUserFlags</b> member:</p>
+					<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+                   <tr>
+<td>XONLINE_USER_GUEST_MASK</td>
+<td>Mask for the bits that contain the user guest number.  If this user is not a guest, the value is zero.  If this user is a guest, the sponsoring user is specified in <b>qwUserID</b>.  Up to three guest users (one for each additional controller) can be associated with a single logged on user.</td>
+</tr>
+                   <tr>
+<td>XONLINE_USER_COUNTRY_MASK</td>
+<td>Mask for the bits that contain the user country identifier, representing the country in which the user is registered.  This value will be one of the XONLINE_COUNTRY_ values in xonline.h.</td>
+</tr>
+</table>
+				</p>
+            
+        </dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+	<p>For titles using Arbitration, the service aggregates information about playing patterns. Specifically, Arbitration service keeps a tally of the number of Arbitrated sessions a user has engaged in, as well as the number of times a user disconnected from an arbitrated session prematurely. All users are divided into eight buckets based on the ratio of disconnects to the total number of sessions played.</p>
+	<p>Likewise, the service keeps track of the total number of tournament matches each user has registered for as well as the number of matches each user failed to show for. All users are divided into eight buckets based on the ratio of no-shows to the total number of tournament matches played.</p>
+	<p>Titles can use this information for player profiles, matchmaking, unlocking content, trophies, and so on. Because the Disconnect and No-Show ratings are updated every time a user participates in a tournament or an arbitrated game session, they must not be persisted beyond the duration of a user session.</p>
+	<p>The NoShowRating and Disconnect Rating are returned by <a href="XOnlineLogon.htm">XOnlineLogon</a> in the <b>dwUserFlags</b> field of the <b>XUID</b> structure.</p>
+	<p>Use the <a href="XOnlineUserDisconnectRating.htm">XOnlineUserDisconnectRating</a>(<i>dwUserFlags</i>) macro to access the DisconnectRating and the <a href="XOnlineUserNoShowRating.htm">XOnlineUserNoShowRating</a>(<i>dwUserFlags</i>) macro to access the NoShowRating.</p>
+	<p>Use <a href="XOnlineAreUsersIdentical.htm">XOnlineAreUsersIdentical</a>,
+<a href="XOnlineIsUserGuest.htm">XOnlineIsUserGuest</a>,
+<a href="XOnlineIsUserNicknameAllowed.htm">XOnlineIsUserNicknameAllowed</a>,
+<a href="XOnlineIsUserPurchaseAllowed.htm">XOnlineIsUserPurchaseAllowed</a>,
+<a href="XOnlineIsUserVoiceAllowed.htm">XOnlineIsUserVoiceAllowed</a>,
+<a href="XOnlineUserGuestNumber.htm">XOnlineUserGuestNumber</a>, and
+<a href="XOnlineUserCountryId.htm">XOnlineUserCountryId</a> to extract user information from an <b>XUID</b> structure.</p>
+
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XOnline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> |
+<a href="XOnlineFriendsAnswerRequest.htm">XOnlineFriendsAnswerRequest</a>,
+<a href="XOnlineFriendsRequest.htm">XOnlineFriendsRequest</a>,
+<a href="XOnlineMutelistAdd.htm">XOnlineMutelistAdd</a>,
+<a href="XOnlineMutelistRemove.htm">XOnlineMutelistRemove</a>,
+<a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a>,
+<a href="XONLINE_USER.htm">XONLINE_USER</a>
+</p>
+
+
+        
+    </body>
+    </html>

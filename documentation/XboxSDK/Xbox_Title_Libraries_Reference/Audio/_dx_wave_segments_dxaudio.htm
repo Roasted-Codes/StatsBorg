@@ -1,0 +1,21 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Wave Segments</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_wave_segments_dxaudio">Wave Segments</A></H4>
+
+<P>Segments based on wave files are played just like any other segment. They pass through the performance as <A HREF="_dx_dmus_wave_pmsg_dxaudio.htm"><B>DMUS_WAVE_PMSG</B></A> messages and are always played on performance channel 0 of the audiopath. Although waves are not synthesized in the same sense as musical notes, they do pass through the synthesizer and can be manipulated by MIDI controllers.</P>
+
+<P>Waves can also be embedded in DirectMusic Producer files, where they can behave somewhat like styles with variations. For an example, see the DMScript sample application, where the Baseball.spt script plays variations on the vendor's cry each time the user plays it.</P>
+
+<P>DirectMusic for the Xbox also supports wave files with a single looping region that must be at the end of the wave file. The looping region must be no larger than 512 KB in size. DirectMusic for the Xbox will load these files and play them back with their loop intact.</P>
+
+
+</BODY>
+</HTML>

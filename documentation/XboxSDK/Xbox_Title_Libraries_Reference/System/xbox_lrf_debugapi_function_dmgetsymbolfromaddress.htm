@@ -1,0 +1,56 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmGetSymbolFromAddress</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmGetSymbolFromAddress</h1>
+<p>Retrieves the symbol nearest a specified address.</p>
+<pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmGetSymbolFromAddress(</b>
+    <b>ULONG_PTR</b> <i>Address</i><b>,</b>
+    <b>CHAR</b> *<i>SymbolName</i><b>,</b>
+    <b>SIZE_T</b> <i>BufferSize</i><b>,</b>
+    <b>PULONG</b> <i>Displacement</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+<dt><i>Address</i></dt>
+<dd>[in]  Address for which a symbol should be located.</dd>
+
+
+<dt><i>SymbolName</i></dt>
+<dd>[out]  Pointer to a buffer that receives the symbol name.</dd>
+
+
+<dt><i>BufferSize</i></dt>
+<dd>[in]  Size, in bytes, of the <i>SymbolName</i> buffer.  If <i>SymbolName</i> is not large enough to contain the entire symbol name, the symbol name will be truncated.</dd>
+
+
+<dt><i>Displacement</i></dt>
+<dd>[out, optional]  Pointer to a <b>ULONG</b> variable that receives the displacement of the specified address, in bytes, from the beginning of the nearest symbol found.  If <i>Displacement</i> is NULL, no displacement value is returned.</dd>
+
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns XBDM_NOERR if successful, an error value otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XboxDbg.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_lrf_debugapi_function_dmgetsourcelinefromaddress.htm">DmGetSourceLineFromAddress</a>,
+<a href="xbox_lrf_debugapi_function_dmloadsymbolsforallloadedmodules.htm">DmLoadSymbolsForAllLoadedModules</a>,
+<a href="xbox_lrf_debugapi_function_dmloadsymbolsformodule.htm">DmLoadSymbolsForModule</a>,
+<a href="xbox_lrf_debugapi_function_dmsetsymbolsearchpath.htm">DmSetSymbolSearchPath</a>,
+<a href="xbox_lrf_debugapi_function_dmunloadsymbolsformodule.htm">DmUnloadSymbolsForModule</a>
+</p>
+
+</body>
+</html>

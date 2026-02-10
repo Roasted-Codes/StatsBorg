@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineIsUserVoiceAllowed</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineIsUserVoiceAllowed</h1>
+<p>Macro that, given the <b>dwUserFlags</b> value from an <a href="xuid.htm">XUID</a> structure, determines whether a user is permitted to use voice chat.</p><pre class="syntax" xml:space="preserve">#define <b>XOnlineIsUserVoiceAllowed</b>(<i>dwUserFlags</i>) \
+   (((dwUserFlags) &amp; XONLINE_USER_VOICE_NOT_ALLOWED) == 0)</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+	<dt><i>dwUserFlags</i></dt>
+<dd>[in]  Type is <b>DWORD</b>. The <b>dwUserFlags</b> value from an <b>XUID</b> structure contained in an <a href="XONLINE_USER.htm">XONLINE_USER</a> structure.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>The return value is TRUE if the user is permitted to use voice chat;  FALSE otherwise.</p>
+<p>The return value is of type <b>BOOL</b>.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+	<p><b>XOnlineIsUserVoiceAllowed</b> accepts the entire <b>dwUserFlags</b> from an <b>XUID</b> structure and determines whether that user is permitted to use voice communication.  Titles must enforce this restriction by not allowing restricted users access to voice chat functionality.  This restriction reflects the parental control setting in the Xbox Dashboard.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_macros.htm">Xbox Live Macros</a> |
+<a href="XOnlineIsUserPurchaseAllowed.htm">XOnlineIsUserPurchaseAllowed</a>,
+<a href="XOnlineIsUserNicknameAllowed.htm">XOnlineIsUserNicknameAllowed</a>,
+<a href="XOnlineIsUserGuest.htm">XOnlineIsUserGuest</a>
+</p>
+</body>
+</html>

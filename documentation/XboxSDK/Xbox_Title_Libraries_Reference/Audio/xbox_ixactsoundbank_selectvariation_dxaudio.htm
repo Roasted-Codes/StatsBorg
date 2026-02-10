@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTSoundBank::SelectVariation</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTSoundBank::SelectVariation</h1>
+<p>Selects a sound and/or wave variation before a cue has been prepared or played.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SelectVariation(</b>
+    <b>DWORD</b> <i>dwSoundCueIndex</i><b>,</b>
+    <b>PCXACT_SOUNDBANK_SELECT_VARIATION</b> <i>pVariation</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>dwSoundCueIndex</i></dt>
+				<dd>[in]  A value indicating the index of the sound cue to select the variations for.</dd>
+			
+			<dt><i>pVariation</i></dt>
+				<dd>[in]  Optional pointer to an <a href="xbox_xactsoundbankselectvariation_dxaudio.htm">XACT_SOUNDBANK_SELECT_VARIATION</a> structure defining the variations to set. If NULL, the engine selects the variation normally.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+			<p>Returns DS_OK if successful, an error code otherwise.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    
+</body>
+</html>

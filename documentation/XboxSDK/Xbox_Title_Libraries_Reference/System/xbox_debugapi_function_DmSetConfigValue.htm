@@ -1,0 +1,51 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmSetConfigValue</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmSetConfigValue</h1>
+	<p>Programmatically sets hardware configuration values on the Xbox development 
+	console.</p>
+<pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmSetConfigValue(</b>
+    <b>ULONG</b> <i>ulValueIndex</i><b>,</b>
+    <b>ULONG</b> <i>ulType</i><b>,</b>
+    <b>PVOID</b> <i>pValue</i><b>,</b>
+    <b>ULONG</b> <i>cbValueLength</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+	<dt><i>ulValueIndex</i></dt>
+		<dd>Zero-based index number of the value to set.</dd>
+	
+
+	<dt><i>ulType</i></dt>
+		<dd>Type of the value to set. Currently, this parameter must be 
+		set to REG_DWORD.</dd>
+	
+
+	<dt><i>pValue</i></dt>
+		<dd>Address of the data to copy into the configuration value.</dd>
+	
+
+	<dt><i>cbValueLength</i></dt>
+		<dd>Number of bytes in the data. Currently, this must be set to 
+		sizeof(DWORD).</dd>
+	
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns XBDM_NOERR if successful, an error value otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XboxDbg.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    
+</body>
+</html>

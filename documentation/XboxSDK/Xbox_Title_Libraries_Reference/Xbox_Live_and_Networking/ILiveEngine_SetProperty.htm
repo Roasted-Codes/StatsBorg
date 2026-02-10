@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveEngine::SetProperty</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveEngine::SetProperty</h1>
+<p>Sets the current value of an <a href="ILiveEngine.htm">ILiveEngine</a> property.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetProperty(</b>
+    <b>UIX_PROPERTY_TYPE</b> <i>Property</i><b>,</b>
+    <b>DWORD</b> <i>Value</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>Property</i></dt>
+<dd>[in]  <a href="UIX_PROPERTY_TYPE.htm">UIX_PROPERTY_TYPE</a> value specifying the property to set.</dd>
+<dt><i>Value</i></dt>
+<dd>[in]  <b>DWORD</b> specifying the new property value.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>Current property values are retrieved with <a href="ILiveEngine_GetProperty.htm">GetProperty</a>.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_GetProperty.htm">ILiveEngine::GetProperty</a>
+</p>
+
+</body>
+</html>

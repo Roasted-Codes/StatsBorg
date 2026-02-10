@@ -1,0 +1,59 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XFindNextSoundtrack</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="XFindNextSoundtrack">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_xbox_XFindNextSoundtrack"></A>XFindNextSoundtrack</H1>
+
+<P>The <B>XFindNextSoundtrack</B> continues the enumeration of soundtracks begun with <a href="x_xfindfirstsoundtrack.htm">XFindFirstSoundtrack</a>.</P>
+
+<PRE class=syntax><B>BOOL WINAPI XFindNextSoundtrack(
+  HANDLE</b> <i>hFindHandle,</i>
+  <b>PXSOUNDTRACK_DATA</b> <i>pSoundtrackData</i>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>hFindHandle</I></DT>
+<DD>[in] A search handle returned by a previous call to the <b>XFindFirstSoundtrack</b> function.
+</DD>
+
+<DT><I>pSoundtrackData</I></DT>
+<DD>[out] Pointer to an <a href="x_soundtrack_data.htm">XSOUNDTRACK_DATA</a> structure that receives data describing the next soundtrack in the list.</DD>
+
+</DL>
+
+<H4>Return Values</H4>
+
+<p>The function returns TRUE if there are additional soundtracks to enumerate and FALSE otherwise.</p>
+
+<H4>Remarks</H4>
+
+<P>When the search handle is no longer needed, close it using the <A HREF="x_jsk_xfindclose.htm">XFindClose</a> function.</P>
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Xbox.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib</p>
+
+
+<H4>See Also</H4>
+<p>
+<a href="x_xfindfirstsoundtrack.htm">XFindFirstSoundtrack</a>,
+<A HREF="x_xgetsoundtracksonginfo.htm">XGetSoundtrackSongInfo</a>,
+<a href="x_xopensoundtracksong.htm">XOpenSoundtrackSong</a>
+</p>
+
+
+</BODY>
+</HTML>

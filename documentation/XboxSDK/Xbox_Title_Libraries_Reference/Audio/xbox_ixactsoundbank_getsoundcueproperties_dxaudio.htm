@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTSoundBank::GetSoundCueProperties</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTSoundBank::GetSoundCueProperties</h1>
+<p>Returns properties of a sound cue.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>GetSoundCueProperties(</b>
+    <b>DWORD</b> <i>dwSoundCueIndex</i><b>,</b>
+    <b>PXACT_SOUNDCUE_PROPERTIES</b> <i>pSoundCueProperties</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>dwSoundCueIndex</i></dt>
+				<dd>[in]  Sound cue index to query.</dd>
+			
+			<dt><i>pSoundCueProperties</i></dt>
+				<dd>[out]  Pointer to an <a href="xbox_xactsoundcueproperties_dxaudio.htm">XACT_SOUNDCUE_PROPERTIES</a> structure that recieves the properties. This parameter cannot be NULL.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+			<p>Returns DS_OK if successful, an error code otherwise.  If any wavebank used by the sound is not currently loaded, the function returns E_FAIL.</p>
+        <h4><a name="remarks"></a>Remarks</h4>If there is an active cue instance associated with the cue index, the 3D properties will be returned from the cue instance and not the sound bank.<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    
+</body>
+</html>

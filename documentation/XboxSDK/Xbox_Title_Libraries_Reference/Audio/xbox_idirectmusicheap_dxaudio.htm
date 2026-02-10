@@ -1,0 +1,54 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicHeap</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectMusicHeap">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="xbox_idirectmusicheap_dxaudio"></A>IDirectMusicHeap</H1>
+
+<P>This interface controls the heap used by DirectMusic.</P>
+
+
+<P>The <B>IDirectMusicHeap</B> interface contains the following methods.</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TD width=40%><B>IDirectMusicHeap Methods</B></TD>
+<TD width=60%><A HREF="xbox_idirectmusicheap_allocate_dxaudio.htm"><B>Allocate</B></A></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=40%><B>&nbsp;</B></TD>
+<TD width=60%><A HREF="xbox_idirectmusicheap_free_dxaudio.htm"><B>Free</B></A></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=40%><B>&nbsp;</B></TD>
+<TD width=60%><A HREF="xbox_idirectmusicheap_getsize_dxaudio.htm"><B>GetSize</B></A></TD>
+</TR>
+
+</TABLE>
+
+<P>The <B>IDirectMusicHeap</B> interface also includes the <A HREF="_dx_iunknown_addref_dxintro.htm"><B>AddRef</B></A> and <A HREF="_dx_iunknown_release_dxintro.htm"><B>Release</B></A> methods. Unlike many of the other interfaces on Xbox, the <B>QueryInterface</B> method is also included.</P>
+
+<H4>Remarks</H4>
+<P>Currently, the <B>Release</B> and <B>QueryInterface</B> methods are both unused by DirectMusic's heap implementations.</P>
+
+<P>This interface can be implemented by titles that want to control the normal and/or physical heaps used by DirectMusic.</P>
+
+<P>The normal heap can use any threadsafe method of allocating memory (like <A HREF="memman_2fxf.htm"><B>LocalAlloc</B></A>) and the physical heap should use <A HREF="xbox_mt_sll_memman_xphysicalalloc.htm">XPhysicalAlloc</A>, which is also threadsafe.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusicI.h.</P>
+
+
+</BODY>
+</HTML>

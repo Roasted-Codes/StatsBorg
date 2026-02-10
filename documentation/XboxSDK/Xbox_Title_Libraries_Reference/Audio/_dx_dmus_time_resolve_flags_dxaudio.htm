@@ -1,0 +1,90 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DMUS_TIME_RESOLVE_FLAGS</TITLE>
+<META NAME="MS-HKWD" CONTENT="DMUS_TIME_RESOLVE_FLAGS  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_dmus_time_resolve_flags_dxaudio"></A>DMUS_TIME_RESOLVE_FLAGS</H1>
+
+<P>Used in the <B>dwFlags</B> member of the <A HREF="_dx_dmus_pmsg_dxaudio.htm"><B>DMUS_PMSG</B></A> structure.</P>
+
+<PRE class=syntax>typedef enum enumDMUS_TIME_RESOLVE_FLAGS {
+    DMUS_TIME_RESOLVE_AFTERPREPARETIME = DMUS_SEGF_AFTERPREPARETIME,
+    DMUS_TIME_RESOLVE_AFTERQUEUETIME = DMUS_SEGF_AFTERQUEUETIME,
+    DMUS_TIME_RESOLVE_AFTERLATENCYTIME = DMUS_SEGF_AFTERLATENCYTIME,
+    DMUS_TIME_RESOLVE_GRID = DMUS_SEGF_GRID,
+    DMUS_TIME_RESOLVE_BEAT = DMUS_SEGF_BEAT,
+    DMUS_TIME_RESOLVE_MEASURE = DMUS_SEGF_MEASURE
+    DMUS_TIME_RESOLVE_MARKER = DMUS_SEGF_MARKER,
+    DMUS_TIME_RESOLVE_SEGMENTEND = DMUS_SEGF_SEGMENTEND,
+} DMUS_TIME_RESOLVE_FLAGS;
+</PRE>
+
+<H4>Constants</H4>
+
+<DL>
+<DT>DMUS_TIME_RESOLVE_AFTERPREPARETIME</DT>
+
+<DD>Resolve to a time after the prepare time.</DD>
+
+<DT>DMUS_TIME_RESOLVE_AFTERQUEUETIME</DT>
+
+<DD>Resolve to a time after the queue time.</DD>
+
+<DT>DMUS_TIME_RESOLVE_AFTERLATENCYTIME</DT>
+
+<DD>Resolve to a time after the latency time.</DD>
+
+<DT>DMUS_TIME_RESOLVE_GRID</DT>
+
+<DD>Resolve to a time on a <A HREF="g.htm#_dx_grid_glos" CLASS="POPUP"><B>grid</B></A> boundary.</DD>
+
+<DT>DMUS_TIME_RESOLVE_BEAT</DT>
+
+<DD>Resolve to a time on a beat boundary.</DD>
+
+<DT>DMUS_TIME_RESOLVE_MEASURE</DT>
+
+<DD>Resolve to a time on a measure boundary.</DD>
+
+<DT>DMUS_TIME_RESOLVE_MARKER</DT>
+
+<DD>
+
+<DL>
+<DT>Resolve to a marker.</DT>
+</DL>
+</DD>
+
+<DT>DMUS_TIME_RESOLVE_SEGMENTEND</DT>
+
+<DD>
+
+<DL>
+<DT>Resolve to the end of the segment.</DT>
+
+<DD></DD>
+</DL>
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>These flags can be used interchangeably with the corresponding <A HREF="_dx_dmus_segf_flags_dxaudio.htm"><B>DMUS_SEGF_FLAGS</B></A>.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dmusici.h.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_timing_dxaudio.htm"><B>Timing</B></A></P>
+
+
+</BODY>
+</HTML>

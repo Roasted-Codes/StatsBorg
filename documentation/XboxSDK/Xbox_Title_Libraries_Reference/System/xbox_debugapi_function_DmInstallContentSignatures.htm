@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DmInstallContentSignatures</title>
+</head>
+<body topmargin="0">
+
+
+<h1>DmInstallContentSignatures</h1>
+	<p>Installs the file of signed metadata containing the content signature for the 
+	title. For more information, see 
+	<a href="x_mt_storage_ov_signatures.htm">Content Signatures</a>.</p>
+<pre class="syntax" xml:space="preserve"><b>DMHRAPI</b> <b>DmInstallContentSignatures(</b>
+    <b>LPCSTR</b> <i>szSignatureFileName</i><b>,</b>
+    <b>DWORD</b> <i>dwTitleID</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+	<dt><i>szSignatureFileName</i></dt>
+		<dd>Name of the file of signed metadata containing the content 
+		signature for the title.</dd>
+	
+
+	<dt><i>dwTitleID</i></dt>
+		<dd>Unique hexadecimal title identifier.</dd>
+	
+
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+	<p>Returns XBDM_NOERR if successful, an error value otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XboxDbg.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XboxDbg.lib.</p>
+    
+</body>
+</html>

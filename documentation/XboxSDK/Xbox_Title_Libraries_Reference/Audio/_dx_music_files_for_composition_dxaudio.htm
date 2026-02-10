@@ -1,0 +1,63 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Music Files for Composition</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H3><A NAME="_dx_music_files_for_composition_dxaudio"></A>Music Files for Composition</H3>
+
+<P>When programming for DirectMusic composition, you will use a variety of files created in DirectMusic Producer or a similar application. You load these elements into the application as COM objects and obtain interfaces to them. See <A HREF="_dx_loading_audio_data_dxaudio.htm"><B>Loading Audio Data</B></A>.</P>
+
+<P>The following table summarizes the types of file objects you will encounter. Any of these objects can also be obtained from a container file or from a resource.</P>
+
+<P>The Class GUID is the value that you put in the <B>guidClass</B> member of the <A HREF="_dx_dmus_objectdesc_dxaudio.htm"><B>DMUS_OBJECTDESC</B></A> structure when loading the object. </P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TH align=left width=16%>Element</TH>
+<TH align=left width=40%>Class GUID</TH>
+<TH align=left width=33%>Interface</TH>
+<TH align=left width=11%>File type</TH>
+</TR>
+
+<TR VALIGN="top">
+<TD width=16%>Chordmap</TD>
+<TD width=40%>CLSID_DirectMusicChordMap</TD>
+<TD width=33%></TD>
+<TD width=11%>cdm</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=16%>DLS collection</TD>
+<TD width=40%>CLSID_DirectMusicCollection</TD>
+<TD width=33%></TD>
+<TD width=11%>dls</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=16%>Segment</TD>
+<TD width=40%>CLSID_DirectMusicSegment</TD>
+<TD width=33%><A HREF="_dx_idirectmusicsegment8_dxaudio.htm"><B>IDirectMusicSegment8</B></A></TD>
+<TD width=11%>sgt</TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=16%>Style</TD>
+<TD width=40%>CLSID_DirectMusicStyle</TD>
+<TD width=33%></TD>
+<TD width=11%>sty</TD>
+</TR>
+</TABLE><BR>
+
+<P class="note"><B><I>Note</I></B>&nbsp;&nbsp;Bands can be authored as part of a style, in which case they are automatically loaded when the style is loaded. Similarly, styles and bands can be authored into a segment, in which case you don't need separate files for those elements. </P>
+
+<P class="note">Files can also contain references to other files. If a style contains a reference to a band file, the band is automatically loaded when the style is, provided the loader can find the band file.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINE_TEAM_MEMBER_PROPERTIES</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINE_TEAM_MEMBER_PROPERTIES</h1>
+
+        
+        
+
+
+	
+		
+
+<pre class="syntax">typedef struct _XONLINE_TEAM_MEMBER_PROPERTIES{
+    DWORD dwPrivileges;
+    WORD TeamMemberDataSize;
+    BYTE TeamMemberData[XONLINE_MAX_TEAM_MEMBER_DATA_SIZE];
+} XONLINE_TEAM_MEMBER_PROPERTIES, *PXONLINE_TEAM_MEMBER_PROPERTIES;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>dwPrivileges</b></dt>
+<dd>Flags representing the team member's privileges.</dd>
+<dt><b>TeamMemberDataSize</b></dt>
+<dd>Size of the team member data, in bytes.</dd>
+<dt><b>TeamMemberData</b></dt>
+<dd>Block containing the team member data.</dd>
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> | <a href="XOnlineTeamCreate.htm">XOnlineTeamCreate</a>, <a href="XOnlineTeamMemberRecruit.htm">XOnlineTeamMemberRecruit</a>, <a href="XOnlineTeamMemberRecruitByName.htm">XOnlineTeamMemberRecruitByName</a>, <a href="XOnlineTeamMemberSetProperties.htm">XOnlineTeamMemberSetProperties</a>, <a href="XOnlineStringVerify.htm">XOnlineStringVerify</a></p>
+
+        
+    </body>
+    </html>

@@ -1,0 +1,71 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XNQOS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XNQOS</h1>
+
+        
+        
+<p>Stores the results from asynchronous QoS probes to multiple remote hosts.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    UINT cxnqos;
+    UINT cxnqosPending;
+    XNQOSINFO axnqosinfo[1];
+} XNQOS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+
+
+<dt><b>cxnqos</b></dt>
+
+<dd>
+Total number of remote hosts being probed.
+</dd>
+
+
+<dt><b>cxnqosPending</b></dt>
+
+<dd>
+Number of remote hosts for which data has not yet been received. When this member is zero, all probes are complete. This member is always less than or equal to the <b>cxnqos</b> member.
+</dd>
+
+
+<dt><b>axnqosinfo</b></dt>
+
+<dd>
+Pointer to a variable length array of <a href="xbox_XNQOSINFO_xsnl.htm">XNQOSINFO</a> structures. The size of this array is specified by the <b>cxnqos</b> member. Each of the structures in this array contains the results for a single remote host.
+</dd>
+
+
+</dl>
+                
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Winsockx.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="xbox_secure_network_library_structures_xsnl.htm">Xbox Secure Network Library Structures</a> |
+<a href="xbox_XNetQosLookup_xsnl.htm">XNetQosLookup</a>,
+<a href="xbox_XNQOSINFO_xsnl.htm">XNQOSINFO</a>
+</p>
+
+
+        
+    </body>
+    </html>

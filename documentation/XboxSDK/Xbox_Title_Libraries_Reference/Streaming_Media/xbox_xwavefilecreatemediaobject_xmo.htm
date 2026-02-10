@@ -1,0 +1,45 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XWaveFileCreateMediaObject</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="XWaveFileCreateMediaObject [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_xwavefilecreatemediaobject_xmo"></A>XWaveFileCreateMediaObject</H1>
+
+<P>Creates an Xbox Media Object (XMO) from a wave file on a disk.</P>
+
+<PRE class="syntax"><B>HRESULT XWaveFileCreateMediaObject(</B>
+    <B>LPCSTR</B> <I>pszFileName,</I>
+    <B>LPCWAVEFORMATEX</B> <I>*ppwfxFormat</I>,
+    <B>XFileMediaObject</B> <I>**ppMediaObject</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pszFileName</I></DT>
+    <DD>String value that contains the file name to use as the source of the streamed data.</DD>
+<DT><I>ppwfxFormat</I></DT>
+    <DD>Address of a pointer to a <a href="_dx_waveformatex_dxaudio.htm">WAVEFORMATEX</a> structure that describes the input format. This will be filled in by the XMO as specified by the header information in the .wav file.</DD>
+<DT><I>ppMediaObject</I></DT>
+    <DD>Address of a pointer to the <a href="xbox_xfilemediaobject_xmo.htm">XFileMediaObject</a> that is returned.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns DS_OK if successful, an XMO-specific error code otherwise.</P>
+
+<H4>Remarks</H4>
+<P>The title is responsible for freeing the <A HREF="xbox_xwavefilemediaobject_xmo.htm">XWaveFileMediaObject</A> that is created by using the <A HREF="_dx_iunknown_release_dxintro.htm">Release</A> method.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+
+</BODY>
+</HTML>

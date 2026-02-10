@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXACTSoundSource::SetMixBins</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXACTSoundSource::SetMixBins</h1>
+<p>Sets the mixbins of an IXACTSoundSource object.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetMixBins(</b>
+    <b>LPCDSMIXBINS</b> <i>pMixBins</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>pMixBins</i></dt>
+				<dd>[in]  Address of a <a href="xbox_dsmixbins_dxaudio.htm">DSMIXBINS</a> structure that specifies the mixbins to assign to this buffer. This parameter can be NULL, in which case the default mixbins will be used.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+            <p>Returns DS_OK if successful; returns an error code otherwise.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_jc_setting_individual_mixbin_destinations_dxaudio.htm">Setting Individual Mixbin Destinations</a>
+		</p>
+
+</body>
+</html>

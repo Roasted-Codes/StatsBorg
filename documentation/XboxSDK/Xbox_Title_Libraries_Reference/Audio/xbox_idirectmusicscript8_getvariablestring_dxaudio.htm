@@ -1,0 +1,50 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicScript8::GetVariableString</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="IDirectMusicScript8::GetVariableString [C++]">
+<META NAME="MS-HKWD" CONTENT="GetVariableString (IDirectMusicScript8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetVariableString [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_idirectmusicscript8_getvariablestring_dxaudio"></A>IDirectMusicScript8::GetVariableString</H1>
+
+<P>Retrieves the specified string value in a DirectMusic script.</P>
+
+<PRE class="syntax"><B>HRESULT GetVariableString(</B>
+    <B>char</B> <I>*pszVariableName</I>,
+    <B>char</B> <I>*pszValue</I>,
+    <B>LONG</B> <I>lLength</I>,
+    <B>LONG</B> <I>*plConverted</I>, 
+    <B>DMUS_SCRIPT_ERRORINFO</B> <I>*pErrorInfo</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pszVariableName</I></DT>
+    <DD>Address of string value that contains the variable name.</DD>
+<DT><I>pszValue</I></DT>
+    <DD>Address of a string buffer that receives the value of the variable. Can be set to NULL to get the size of the string value, to make sure you have a large enough buffer.</DD>
+<DT><I>lLength</I></DT>
+    <DD>Value that contains the size of the string buffer.</DD>
+<DT><I>plConverted</I></DT>
+    <DD>Address of a value that receives the number of bytes (including the NULL terminator) returned in <I>pszValue</I>. If <I>pszValue</I> was set to NULL, this parameter receives the size, in bytes, of the buffer needed to receive the string and its NULL terminator.</DD>
+<DT><I>pErrorInfo</I></DT>
+    <DD>Address of a <B>DMUS_SCRIPT_ERRORINFO</B> structure.</DD>
+</DL>
+
+<H4>Return Values</H4>
+<P>Returns S_OK if successful, an error code otherwise. Will return DMUS_E_SCRIPT_VARIABLE_NOT_FOUND if the specified variable doesn't exist in the script.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DMusicI.h.</P>
+
+
+</BODY>
+</HTML>

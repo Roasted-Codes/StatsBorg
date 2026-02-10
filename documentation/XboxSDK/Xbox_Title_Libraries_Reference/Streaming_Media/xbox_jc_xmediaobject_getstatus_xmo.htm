@@ -1,0 +1,56 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>XMediaObject::GetStatus</TITLE>
+<META NAME="MS-HKWD" CONTENT="XMediaObject::GetStatus [C++]">
+<META NAME="MS-HKWD" CONTENT="GetStatus (XMediaObject) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetStatus [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_xmediaobject_getstatus_xmo"></A>XMediaObject::GetStatus</H1>
+
+<P>Checks if the Xbox Media Object can accept new data.</P>
+
+<PRE class=syntax><B>HRESULT GetStatus(</B>
+    <B>LPDWORD</B> <I>pdwStatus</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pdwStatus</I></DT>
+    <DD>Address of a DWORD value that receives the status of the Xbox Media Object.  Can receive a combination of the following values:</DD>
+
+<DL>
+    <DT>XMO_STATUSF_ACCEPT_INPUT_DATA</DT>
+        <DD>Xbox Media Object is ready to accept the input data structure.</DD>
+    <DT>XMO_STATUSF_ACCEPT_OUTPUT_DATA</DT>
+        <DD>Xbox Media Object is ready to accept the output data structure.</DD>
+</DL>
+<!-- OMIT: 
+<DT><I>dwInputStatus</I></DT>
+<DD>Pointer to input status. States: XMO_INPUT_STATUSF_ACCEPT_DATA (Xbox Media Object is ready to accept data).</DD>
+
+<DT><I>dwOutputStatus</I></DT>
+<DD>Pointer to output status. States: XMO_OUTPUT_STATUSF_ACCEPT DATA.</DD>
+
+-->
+</DL>
+
+<H4>Return Values</H4>
+
+<P>Returns DS_OK if successful, or an error specific to the Xbox Media Object otherwise.</P>
+
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

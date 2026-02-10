@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XACTEngineDoWork</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XACTEngineDoWork</h1>
+<p>Updates the XACT audio engine.</p>
+<pre class="syntax" xml:space="preserve"><b>void</b> <b>XACTEngineDoWork(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>None.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+			<p>This function is required to update the XACT engine and must be called continuously. It is responsible for the following:</p>
+			<ul>
+				<li>Processing notifications.</li>
+				<li>Processing audio streams.</li>
+				<li>Sequencing events for all active tracks.</li>
+				<li>Calling <a href="xbox_directsounddowork_dxaudio.htm">DirectSoundDoWork</a>.</li>
+			</ul>
+			<p><b>XACTEngineDoWork</b> should be called at least once before entering the main code loop. This allows the XACT engine to begin processing on any primed sound banks by copying the audio data into sound memory from the DVD or hard disk.</p>
+			<p>The granularity of processing notifications, audio streams, and sequencing events depends on the frequency of calls to this function. To help minimize latency and provide more timely notification in the game code, this function should be called as often as reasonably possible (such as during the main game loop).</p>
+			<p></p>
+		<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in XACT.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use XACTEng.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+			<a href="xbox_directsounddowork_dxaudio.htm">DirectSoundDoWork</a>
+		</p>
+
+</body>
+</html>

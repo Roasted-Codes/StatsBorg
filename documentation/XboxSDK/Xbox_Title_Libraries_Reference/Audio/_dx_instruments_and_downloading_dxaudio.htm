@@ -1,0 +1,23 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>Instruments and Downloading</TITLE>
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H4><A NAME="_dx_instruments_and_downloading_dxaudio"></A>Instruments and Downloading</H4>
+
+<P>To play an instrument, the synthesizer needs information about how the instrument should sound. This information, consisting of wave samples and articulation data, is stored in <A HREF="d.htm#_dx_dls_glos"><B>DLS</B></A> collections. Instrument data is made available to the synthesizer by being downloaded.</P>
+
+<P>Typically a range of notes for one instrument is based on one sample that is appropriately pitched for each note. However, DLS Level 2 enables each note to be based on a different sample or combination of samples. Even the velocity of a note can trigger the use of different samples for that instrument.</P>
+
+<P>Custom collections can include instruments of any kind. The wave samples for an instrument do not have to be based on a musical instrument but can be any recorded sound such as a sound effect, a fragment of speech, or even a fully formed measure of music. </P>
+
+<P>Most applications do not need to access collections directly, as the necessary data is either contained in the default collection or referenced by a band object associated with a segment. A band is a set of instruments and settings mapped to performance channels. Several techniques are available for ensuring that band instruments are downloaded before use. </P>
+
+
+</BODY>
+</HTML>

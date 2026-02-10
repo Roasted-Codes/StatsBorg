@@ -1,0 +1,39 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectSound8::GetTime</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectSound8::GetTime [C++]">
+<META NAME="MS-HKWD" CONTENT="GetTime (IDirectSound8) [C++]">
+<META NAME="MS-HKWD" CONTENT="GetTime [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_jc_idirectsound8_gettime_dxaudio"></A>IDirectSound8::GetTime</H1>
+
+<P>Gets the current reference time.</P>
+
+<PRE class=syntax><B>HRESULT GetTime(
+  REFERENCE_TIME</B><I> *prtCurrent</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>prtCurrent</I></DT>
+<DD>Pointer to a REFERENCE_TIME value to be filled in with the current reference time.</DD>
+</DL>
+
+<H4>Remarks</H4>
+<P>The time returned by the master clock is a 64-bit value defined as type REFERENCE_TIME. Reference time is measured in units of approximately 100 nanoseconds, so the clock ticks about 10 million times each second.</P>
+
+<P CLASS="note"><B><I>Note</I></B>&nbsp;&nbsp;&nbsp;&nbsp;<B>GetTime</B> does not retrieve it's time from the Audio Processor's (Xbox MCP) sample clock.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dsound.h.</P>
+
+
+</BODY>
+</HTML>

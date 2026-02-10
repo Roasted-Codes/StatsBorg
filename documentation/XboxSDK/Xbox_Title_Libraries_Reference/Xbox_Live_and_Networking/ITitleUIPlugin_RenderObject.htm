@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleUIPlugin::RenderObject</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleUIPlugin::RenderObject</h1>
+<p>Renders a specified UI object to the current render target.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>RenderObject(</b>
+    <b>DWORD</b> <i>ObjectID</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>ObjectID</i></dt>
+<dd>[in]  Object identifier, previously returned by <a href="ITitleUIPlugin_CreateObject.htm">CreateObject</a>.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p>The plug-in's current render target is set with <a href="ITitleUIPlugin_SetRenderTarget.htm">SetRenderTarget</a>.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleUIPlugin_SetRenderTarget.htm">ITitleUIPlugin::SetRenderTarget</a>,
+<a href="ITitleUIPlugin_CreateObject.htm">ITitleUIPlugin::CreateObject</a>
+</p>
+
+</body>
+</html>

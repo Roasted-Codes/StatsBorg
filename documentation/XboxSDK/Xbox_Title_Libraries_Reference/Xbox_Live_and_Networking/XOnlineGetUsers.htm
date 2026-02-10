@@ -1,0 +1,72 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineGetUsers</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineGetUsers</h1>
+<p>
+            Retrieves information about the online users stored on the Xbox hard disk and 
+            any attached Xbox Memory Units (MUs).
+        </p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineGetUsers(</b>
+    <b>PXONLINE_USER</b> <i>pUsers</i><b>,</b>
+    <b>DWORD</b> *<i>pdwUsers</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>pUsers</i></dt>
+                <dd>[out]  
+Address of an array of <a href="XONLINE_USER.htm">XONLINE_USER</a> structures that will receive the
+online users. The array must be able to hold XONLINE_MAX_STORED_ONLINE_USERS
+structures of type <b>XONLINE_USER</b>.
+                </dd>
+            
+            <dt><i>pdwUsers</i></dt>
+                <dd>[out]  
+Pointer to a variable of type <b>DWORD</b> that receives the number
+of <b>XONLINE_USER</b> structures written to <i>pUsers</i>.
+                </dd>
+            
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+            <p>
+                <a href="x_mt_xinitdevices.htm">XInitDevices</a> must be called before calling <b>XOnlineGetUsers</b>.
+            </p>
+            <p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                To allow for proper initialization of the devices, do not call <b>XOnlineGetUsers</b> until <a href="XGetDeviceEnumerationStatus.htm">XGetDeviceEnumerationStatus</a> returns XDEVICE_ENUMERATION_IDLE.
+            </p>
+            <p>
+                The users returned by <b>XOnlineGetUsers</b> are automatically sorted by the 
+                most recent logon time. Users that have logged on more recently appear at the beginning of the array. 
+                The title should position the cursor on the most recently logged on user to make it easier for him/her to logon again. 
+            </p>
+            <p>
+                If multiple copies of the user's information are found, the copy with the most 
+                recent logon time is returned, and the duplicates are automatically removed from 
+                the array of users returned.  Additionally, if the user exists on both the hard 
+                disk and on an MU, the routine will report that the user came from the hard disk. 
+                To determine whether a user was found on the hard disk or on an MU, check the <b>dwUserOptions</b> 
+                member of the returned <a href="XONLINE_USER.htm">XONLINE_USER</a> structure.
+            </p>
+            <p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                Do not use the <a href="xuid.htm">xuid.dwUserFlags</a> members 
+                in the <b>XONLINE_USER</b> structures returned by <b>XOnlineGetUsers</b> 
+                to check for conditions such as voice banning or nickname banning. Instead, use 
+                the <b>xuid.dwUserFlags</b> members in the <b>XONLINE_USER</b> 
+                structures returned by <a href="XOnlineGetLogonUsers.htm">XOnlineGetLogonUsers</a>.
+                </p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    
+</body>
+</html>

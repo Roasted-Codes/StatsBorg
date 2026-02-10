@@ -1,0 +1,56 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DeleteFiber</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DeleteFiber">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_deletefiber"></A>DeleteFiber</H1>
+
+<P>The <B>DeleteFiber</B> function deletes an existing fiber.</P>
+
+<PRE class=syntax><B>VOID DeleteFiber(
+  LPVOID</B><I> lpFiber</I>   // pointer to the fiber to delete
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>lpFiber</I></DT>
+
+<DD>[in] Specifies the address of the fiber to delete.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function does not return a value.</P>
+
+<H4>Remarks</H4>
+
+<P>The <B>DeleteFiber</B> function deletes all data associated with the fiber, including the fiber's stack. 
+
+<P><B>DeleteFiber</B> cannot be used to delete the currently executing fiber, and it cannot be used to delete a fiber created with <A HREF="prothred_converttofiber.htm">ConvertThreadToFiber</a>.  Either action will cause an assertion breakpoint in debug builds and access violations in retail builds.</P>
+
+
+<h4>Requirements</h4>
+<p>
+<b>Header: </b>Declared in Winbase.h, for include use Xtl.h.<br><b>Import Library: </b>Use Xapilib.lib
+</p>
+
+<H4>See Also</H4>
+<P>
+<a href="xbox_mt_xtl_sll_threads_overview.htm">Thread Overview</a>,
+<a href="xbox_mt_xtl_sll_threads_functions.htm">Thread Functions</a> | 
+<A HREF="prothred_531g.htm">ExitThread</a>
+</P>
+
+
+</BODY>
+</HTML>

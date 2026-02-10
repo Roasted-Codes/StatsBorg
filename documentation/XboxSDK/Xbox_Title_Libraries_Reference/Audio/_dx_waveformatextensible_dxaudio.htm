@@ -1,0 +1,87 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>WAVEFORMATEXTENSIBLE</TITLE>
+<META NAME="MS-HKWD" CONTENT="WAVEFORMATEXTENSIBLE  [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_waveformatextensible_dxaudio"></A>WAVEFORMATEXTENSIBLE</H1>
+
+<p>Contains the format of waveform-audio data.</p>
+
+<PRE class="syntax">typedef struct {
+    WAVEFORMATEX  Format;
+    union {
+        WORD      wValidBitsPerSample;
+        WORD      wSamplesPerBlock;
+        WORD      wReserved;
+    } Samples;
+    DWORD         dwChannelMask; 
+    GUID          SubFormat;
+} WAVEFORMATEXTENSIBLE, *PWAVEFORMATEXTENSIBLE;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>Format</B></DT>
+
+<DD><A HREF="_dx_waveformatex_dxaudio.htm"><B>WAVEFORMATEX</B></A> structure that specifies the basic format. The <B>wFormatTag</B> member must be WAVE_FORMAT_EXTENSIBLE, defined in DSound.h. The <B>cbSize</B> member must be set to the following: sizeof(WAVEFORMATEXTENSIBLE)&ndash;sizeof(WAVEFORMATEX)</DD>
+
+<DT><B>wValidBitsPerSample</B></DT>
+
+<DD>Value that contains how many bits of precision are present in the signal. Usually equal to <B>WAVEFORMATEX.wBitsPerSample</B>.</DD>
+
+<DT><B>wSamplesPerBlock</B></DT>
+
+<DD>Value that contains the number of samples that are contained in one compressed block of audio data. Set to zero if the number of samples in each block is variable.</DD>
+
+<DT><B>wReserved</B></DT>
+
+<DD>Set to zero if neither <B>wValidBitsPerSample</B> nor <B>wSamplesPerBlock</B> applies to the format.</DD>
+
+<DT><B>dwChannelMask</B></DT>
+
+<DD>Bitmask that contains which channels are present in the multichannel stream. The least significant bit corresponds with the front left speaker, the next least significant bit corresponds to the front right speaker, and so on. The bits, in order of significance, are defined in DSound.h as follows:</DD>
+<dl>
+<dt>SPEAKER_FRONT_LEFT</dt>
+<dt>SPEAKER_FRONT_RIGHT</dt>
+<dt>SPEAKER_FRONT_CENTER</dt>
+<dt>SPEAKER_LOW_FREQUENCY</dt>
+<dt>SPEAKER_BACK_LEFT</dt>
+<dt>SPEAKER_BACK_RIGHT</dt>
+</dl>
+
+<DT><B>SubFormat</B></DT>
+
+<DD>Value that specifies the subformat of the data. Can be one of the following values:</DD>
+<table> 
+    <tr>
+		<th>Value</th>
+	</tr>
+    <tr>
+		<td>KSDATAFORMAT_SUBTYPE_XBOX_ADPCM</td>
+	</tr>
+    <tr>
+		<td>KSDATAFORMAT_SUBTYPE_PCM</td>
+	</tr>
+</table>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>Attempting to create a DirectSound buffer with formats outside those listed above will fail or not play properly. </P>
+
+<P>For more information on this structure, see the document "Enhanced Audio Formats for Multi-Channel Configurations and High-Bit Resolution", available at <A HREF="http://www.microsoft.com/hwdev/audio/multichaud.htm">http://www.microsoft.com/hwdev/audio/multichaud.htm</A>.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSound.h.</P>
+
+
+</BODY>
+</HTML>

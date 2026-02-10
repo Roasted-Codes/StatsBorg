@@ -1,0 +1,348 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Xbox Certification Tools</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Xbox Certification Tools</H1>
+
+
+<p class=MsoSubtitle>By Richard Bailey, Developer Support Engineer, Xbox
+Advanced Technology Group</p>
+
+<p class=MsoNormal style='text-autospace:none'><span style='font-family:"Courier New"'>&nbsp;</span></p>
+
+<p class=MsoBodyText>Titles published for the Xbox&#174; video game system from
+Microsoft&#174; must be certified to ensure they meet compatibility, quality, and
+policy requirements established by Microsoft. The Technical Certification
+Requirements (TCRs) outlined in the Xbox Guide explain the tests that will be
+performed on each title during the certification process. </p>
+
+<p class=MsoBodyText>The XDK Launcher includes a suite of certification tools
+to aid title developers in testing their titles against the TCRs.</p>
+
+<p class=MsoBodyText>For more information on the Technical Certification
+Requirements, see the Xbox Guide, available on the Xbox developer support Web
+site at https://xds.xbox.com.</p>
+
+<p class=MsoBodyText>This document describes the steps expected to be used with
+each tool but does not describe each TCR in detail.</p>
+
+<p class=MsoBodyText>&nbsp;</p>
+
+<h1>Using the Tools</h1>
+
+<p class=MsoBodyText>From the XDK Launcher, press the <b>X</b> button to access
+settings, then select <b>Certification Tools</b>. Each tool is named with the
+TCR number of the requirement the tool is designed to address. Most of the
+tools help prepare the Xbox to run the title to see if it functions within the
+guidelines of the TCR.</p>
+
+<h2>1-11 Remove system files: Soundtracks &amp; Nicknames</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+tests on title, including accessing any libraries for choosing in-game
+soundtracks and any portion of the game that can use nicknames, for example,
+player initialization or save game.</p>
+
+<h2>1-12 List all global settings</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Write
+down all global settings listed; make note of the settings for later use.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+title; thoroughly test all aspects of title.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Confirm
+that none of the global settings have changed.</p>
+
+<h2>2-01 Fragments Title and User data directories</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that all game performance is acceptable and reliability is
+unaffected.</p>
+
+<h2>2-02 Removes all soundtracks</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that in-game audio plays title-provided audio. Ensure that
+any UI for soundtrack selection functions properly under this condition.</p>
+
+<h2>2-07 Fills User Data directory with 4096 entries</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; start a new game, and then attempt to save it in the user data
+space. The save will fail, and the title must recover gracefully.</p>
+
+<h2>2-10 Clears utility partition for &lt;titleid&gt;</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Start
+and save a game.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Reboot.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the title functions properly without any data on the
+utility region.</p>
+
+<h2>2-18 Draws outline of non-HDTV safe area (white)</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Connect
+Xbox to non-HDTV system.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Physically
+mark the area outside of the white box on the screen with tape or post-it
+notes.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that during gameplay all text critical to gameplay is visible
+<i>within</i> this box.</p>
+
+<h2>2-19 Draws outline of HDTV safe area (yellow)</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Connect
+Xbox to HDTV system.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Physically
+mark the area outside of the yellow box on the screen with tape or post-it
+notes.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that during gameplay all text critical to gameplay is visible
+<i>within</i> this box.</p>
+
+<h2>3-02, 3-03, 3-04 Fills Title and User data directories</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the title displays compliant UI informing user of the
+need to free space.</p>
+
+<h2>3-11 Lists available blocks for all memory devices</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+tool; note the space available for each memory device.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that game UI matches the values displayed by the tool for
+each device. If a graphical display is present, ensure that it follows the
+guidelines in 3-11.</p>
+
+<h2>3-14 Change Language Setting</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool; choose a language.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the title functions as desired.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Repeat
+steps 1 and 2 for each language listed.</p>
+
+<h2>3-15 Change time zone setting</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool; choose a time zone.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the title functions properly and that time, if
+displayed, is correct for the selected time zone.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Repeat
+steps 1 and 2 for each time zone listed.</p>
+
+<h2>3-26 Create Soundtracks with localized text</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the localized soundtracks created are displayed as
+required by the TCR.</p>
+
+<h2>3-26 Create Nicknames with localized text</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the localized nicknames created are displayed as required
+by the TCR.</p>
+
+<h2>3-26 Create MU with localized text</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the localized MU created is displayed as required by the
+TCR.</p>
+
+<h2>3-26 Create Saved Game names with localized text</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the tool.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the localized saved game names created are displayed as
+required by the TCR.</p>
+
+<h2>3-33 List all files on Xbox; hard disk and MUs</h2>
+
+<p class=MsoBodyText>&nbsp;</p>
+
+<h1>Certification Testing Techniques</h1>
+
+<p class=MsoBodyText>Certification tests may include steps that are not
+immediately evident from the TCR description. These tests will be outlined
+here.</p>
+
+<h2>Unusable MUs</h2>
+
+<p class=MsoBodyText>Steps for testing:</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>From
+the XDK Launcher, press <b>X</b> for settings.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Choose
+<b>Configure Memory Areas</b>.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Select
+the memory unit to be corrupted.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Choose
+unformat and confirm.</p>
+
+<p class=MsoBodyText style='margin-left:.5in;text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the title; ensure that the MU is visually distinct and cannot be chosen.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+
+</BODY>
+</HTML>

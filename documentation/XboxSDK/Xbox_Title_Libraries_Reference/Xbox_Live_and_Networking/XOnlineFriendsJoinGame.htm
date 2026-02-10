@@ -1,0 +1,80 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineFriendsJoinGame</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineFriendsJoinGame</h1>
+<p>Enables a user to join an online-game session being played by a member of the user's Friends List.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineFriendsJoinGame(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>const XONLINE_FRIEND</b> *<i>pToFriend</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+
+            <dt><i>dwUserIndex</i></dt>
+<dd>[in]  Controller index of the user who is choosing to join the online-game session.</dd>
+
+            
+            <dt><i>pToFriend</i></dt>
+<dd>[in]  Pointer to an <a href="XONLINE_FRIEND.htm">XONLINE_FRIEND</a> structure for the friend who is playing the game to be joined.</dd>
+
+            
+
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+
+
+    
+    
+    <p>If <b>XOnlineFriendsJoinGame</b> succeeds, the return value is S_OK.</p>
+
+
+<p>If <b>XOnlineFriendsJoinGame</b> fails, the return value is one of the following error codes.</p>
+
+<table>
+
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>XONLINE_E_NOTIFICATION_SAME_TITLE</td>
+<td>The invitation is to join the same title as the one currently running. The game should allow the user to join another instance of the same title. The <b>XOnlineFriendsJoinGame</b> function is not necessary in this case. To avoid this situation, use the <a href="XOnlineTitleIdIsSameTitle.htm">XOnlineTitleIdIsSameTitle</a> function to  check the <b>dwTitleID</b> of the <b>XONLINE_FRIEND</b> structure.
+</td>
+</tr>
+<tr>
+<td>XONLINE_E_NOTIFICATION_NO_TASK</td>
+<td>The Friends startup task is not active. You must first call <a href="XOnlineFriendsStartup.htm">XOnlineFriendsStartup</a> to create the startup task.</td>
+</tr>
+
+<tr>
+<td>Other</td>
+<td>See <a href="xbox_online_errors.htm">Online Errors</a> for information about other possible errors.</td>     
+</tr>
+</table>
+
+
+            
+
+        <h4><a name="remarks"></a>Remarks</h4>
+            <p>If the user chooses to join a game session for a title that is different than the title currently running on the Xbox console, <b>XOnlineFriendsJoinGame</b> writes information to the Xbox hard disk that enables the new title to join the game session. The new title retrieves this information by calling <a href="XOnlineFriendsGetAcceptedGameInvite.htm">XOnlineFriendsGetAcceptedGameInvite</a>. The new title can inspect the flags of the <b>InvitingFriend</b> member of the returned <a href="XONLINE_ACCEPTED_GAMEINVITE.htm">XONLINE_ACCEPTED_GAMEINVITE</a> structure to determine if the information on the hard disk is for a cross-title join or cross-title invitation.</p>
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+
+            <p> <a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="XOnlineFriendsAnswerGameInvite.htm">XOnlineFriendsAnswerGameInvite</a></p>
+
+        
+</body>
+</html>

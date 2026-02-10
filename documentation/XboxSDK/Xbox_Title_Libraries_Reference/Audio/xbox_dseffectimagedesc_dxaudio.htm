@@ -1,0 +1,40 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DSEFFECTIMAGEDESC</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="DSEFFECTIMAGEDESC [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_dseffectimagedesc_dxaudio"></A>DSEFFECTIMAGEDESC</H1>
+
+<P>Contains information about the effects in the image.</P>
+
+<PRE class="syntax">typedef struct _DSEFFECTIMAGEDESC{
+    DWORD dwEffectCount;
+    DWORD dwTotalScratchSize;
+    DSEFFECTMAP aEffectMaps[1];
+} DSEFFECTIMAGEDESC, *LPDSEFFECTIMAGEDESC;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwEffectCount</B></DT>
+    <DD>Value that contains the number of effects in the image.</DD>
+<DT><B>dwTotalScratchSize</B></DT>
+    <DD>Value that contains the total amount of space required by effects that use scratch space for delay lines.</DD>
+<DT><B>aEffectMaps</B></DT>
+    <DD>Variable-length array that contains the effect descriptions.</DD>
+</DL>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dsound.h.</P>
+
+
+</BODY>
+</HTML>

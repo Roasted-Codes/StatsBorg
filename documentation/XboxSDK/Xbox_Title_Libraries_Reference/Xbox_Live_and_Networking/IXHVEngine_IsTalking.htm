@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IXHVEngine::IsTalking</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IXHVEngine::IsTalking</h1>
+<p>Determines whether voice data is currently being received by a specified remote talker.</p>
+<pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>IsTalking(</b>
+    <b>XUID</b> <i>xuidRemoteTalker</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>xuidRemoteTalker</i></dt>
+				<dd>[in]  The <a href="xuid.htm">XUID</a> of the registered remote talker.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>Returns TRUE if voice data is currently being received by a remote talker, FALSE otherwise.<h4><a name="remarks"></a>Remarks</h4>This function returns TRUE if voice data is currently being decoded for the specified remote talker.  Due to network and processing delays, the remote talker may not be speaking into the microphone at the precise moment that <b>IsTalking</b> returns TRUE.<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    
+</body>
+</html>

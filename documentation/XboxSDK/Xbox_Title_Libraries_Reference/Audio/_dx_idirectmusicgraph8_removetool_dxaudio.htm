@@ -1,0 +1,58 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirectMusicGraph8::RemoveTool</TITLE>
+<META NAME="MS-HKWD" CONTENT="IDirectMusicGraph8::RemoveTool [C++]">
+<META NAME="MS-HKWD" CONTENT="RemoveTool (IDirectMusicGraph8) [C++]">
+<META NAME="MS-HKWD" CONTENT="RemoveTool [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirectmusicgraph8_removetool_dxaudio"></A>IDirectMusicGraph8::RemoveTool</H1>
+
+<P>Removes a tool from the graph.</P>
+
+<PRE class=syntax><B>HRESULT RemoveTool(
+  IDirectMusicTool * </B><I>pTool</I>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pTool</I></DT>
+
+<DD>Tool to be removed.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is S_OK.</P>
+
+<P>If it fails, the method can return one of the following error values:</P>
+
+<TABLE>
+
+<TR VALIGN="top">
+<TD width=100%><A HREF="_dx_directmusic_return_values_by_name_dxaudio.htm#_dx_dmus_e_not_found_dxaudio"><B>DMUS_E_NOT_FOUND</B></A></TD>
+</TR>
+
+<TR VALIGN="top">
+<TD width=100%><A HREF="_dx_directmusic_return_values_by_name_dxaudio.htm#_dx_e_pointer_dxaudio"><B>E_POINTER</B></A></TD>
+</TR>
+</TABLE><BR>
+
+<H4>Remarks</H4>
+
+<P>The graph's reference to the tool object is released.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in dmusici.h.</P>
+
+</BODY>
+</HTML>

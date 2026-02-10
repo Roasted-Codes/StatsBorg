@@ -1,0 +1,66 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DSWAPDATA</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dswapdata_graphics"></A>D3DSWAPDATA</H1>
+
+<P>Describes the current swap.</P>
+
+<PRE class=syntax>typedef struct _D3DSWAPDATA {  // Xbox extension
+    DWORD           Swap;
+    DWORD           SwapVBlank;
+    DWORD           MissedVBlanks;
+    DWORD           TimeUntilSwapVBlank;
+    DWORD           TimeBetweenSwapVBlanks;
+} D3DSWAPDATA;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>Swap</B></DT>
+
+<DD>The count of the current swap.</DD>
+
+<DT><B>SwapVBlank</B></DT>
+
+<DD>The vertical blank count at which the current swap will be made visible.</DD>
+
+<DT><B>MissedVBlanks</B></DT>
+
+<DD>The number of missed vertical blanks.</DD>
+
+<DT><B>TimeUntilSwapVBlank</B></DT>
+
+<DD>The approximate time until the next vertical blank at which the swap will be made visible.</DD>
+
+<DT><B>TimeBetweenSwapVBlanks</B></DT>
+
+<DD>The expected time between successive vertical blanks in which swaps were made visible. If using NTSC, this should correspond to 1/60 seconds with D3DPRESENT_INTERVAL_ONE, and 2/60 seconds with D3DPRESENT_INTERVAL_TWO.</DD>
+
+</DL>
+
+<h4>Remarks</h4>
+
+<p>This structure is used by the callback function set on the device by <a href="_dx_idirect3ddevice8_setswapcallback_graphics.htm"><b>IDirect3DDevice8::SetSwapCallback</b></a>.</p>
+
+<p>The time values reported in <b>TimeUntilSwapVBlank</b> and <b>TimeBetweenSwapVBlanks</b> are in 'rdtsc' units.<p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8types.h.</P>
+
+<H4>See Also</H4>
+
+<p><a href="_dx_idirect3ddevice8_setswapcallback_graphics.htm"><b>IDirect3DDevice8::SetSwapCallback</b></a></p>
+
+
+</BODY>
+</HTML>

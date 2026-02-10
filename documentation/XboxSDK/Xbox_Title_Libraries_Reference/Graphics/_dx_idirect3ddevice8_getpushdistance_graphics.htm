@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::GetPushDistance</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::GetPushDistance</h1>
+<p>Allows the title to compute how close the GPU is to releasing a resource, or how close it is to idling or waiting.</p>
+<pre class="syntax" xml:space="preserve"><b>DWORD</b> <b>GetPushDistance(</b>
+    <b>DWORD</b> <i>Handle</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>Handle</i></dt>
+<dd>[in]  Determines from which point to measure the distance. <i>Handle</i> must be either the handle to a fence (as returned by <a href="_dx_idirect3ddevice8_insertfence_graphics.htm">IDirect3DDevice8::InsertFence</a>), or a member of the <a href="_dx_d3ddistancetype_graphics.htm">D3DDISTANCETYPE</a> enumerated type.</dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>Returns the number of fences that the GPU must process before hitting the fence (or idling, or waiting) as specified in <i>Handle</i>.<h4><a name="remarks"></a>Remarks</h4>
+<p>Querying the number of fences is a very light-weight operation, and so may be done repeatedly with little overhead for the CPU, and no overhead for the GPU. Fences are automatically inserted into the push-buffer at regular intervals (as dictated by the <i>KickOffSize</i> parameter of <a href="xbox_dx_graphics_IDirect3D8_SetPushBufferSize.htm">IDirect3D8::SetPushBufferSize</a>) and whenever <b>InsertFence</b> is called.</p>
+
+<p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;<b>GetPushDistance</b> can't return a good predictor of actual clock time, as that depends greatly on the complexity of the rendering operations that have been recorded in the push-buffer.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_d3ddistancetype_graphics.htm">D3DDISTANCETYPE</a>, <a href="_dx_idirect3ddevice8_setwaitcallback_graphics.htm">IDirect3DDevice8::SetWaitCallback</a></p>
+
+</body>
+</html>

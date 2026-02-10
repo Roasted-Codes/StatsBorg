@@ -1,0 +1,77 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XONLINEOFFERING_ENUM_PARAMS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>XONLINEOFFERING_ENUM_PARAMS</h1>
+
+        
+        
+<p>Specifies parameters and options for an offering enumeration initiated with <a href="XOnlineOfferingEnumerate.htm">XOnlineOfferingEnumerate</a>.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct{
+    DWORD dwOfferingType;
+    DWORD dwBitFilter;
+    DWORD dwDescriptionIndex;
+    WORD wStartingIndex;
+    WORD wMaxResults;
+} XONLINEOFFERING_ENUM_PARAMS, *PXONLINEOFFERING_ENUM_PARAMS;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+<dt><b>dwOfferingType</b></dt>
+<p><dd>General type of offerings that should be enumerated.  This parameter can be a combination of the following values.</dd>
+<table>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>XONLINE_OFFERING_SUBSCRIPTION</td>
+<td>Subscription services.</td>
+</tr>
+<tr>
+<td>XONLINE_OFFERING_CONTENT</td>
+<td>Content offerings.</td>
+</tr>
+</table>
+</p>
+<dt><b>dwBitFilter</b></dt>
+<dd>Return offerings that have one or more of these title-specific bits set.</dd>
+<dt><b>dwDescriptionIndex</b></dt>
+<dd>Title-specific value used as a selector between alternate descriptions of a single offering.  It is intended primarily to distinguish between supported languages, but the specific use of this value is up to the title.</dd>
+<dt><b>wStartingIndex</b></dt>
+<dd>Starting index at which to begin offering enumeration.</dd>
+<dt><b>wMaxResults</b></dt>
+<dd>Maximum number of results to return per enumeration request.  If more records are available, only the first <b>wMaxResults</b> will be returned with each enumeration request.  Setting this member to zero indicates that as many records as possible (that will fit into the allocated results buffer) should be returned.</dd>
+</dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+<p>The <b>dwBitFilter</b> member is used by the Xbox <i>Live</i> service to determine specific content to enumerate.  <b>dwBitFilter</b> is bitwise AND'ed with the <b>dwBitFlags</b> specified in the content package (see <a href="xbox_online_contentpack.htm">Offering Packages</a>); if the result is zero, the package is not returned in the enumeration.  Thus, 0x00000000 should never be used for <b>dwBitFlags</b> in the content package or <b>dwBitFilter</b> in the enumeration parameters.  The intended use of <b>dwBitFilter</b> is for publishers to define a bit scheme that separates types of content for enumeration (for example, new cars and new levels, so that an enumeration can enumerate only cars, only levels, or both).</p>
+
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+                <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_xonline_structures.htm">Xbox Live Structures</a> |
+<a href="XOnlineOfferingEnumerate.htm">XOnlineOfferingEnumerate</a>,
+<a href="XOnlineOfferingEnumerateMaxSize.htm">XOnlineOfferingEnumerateMaxSize</a>
+</p>
+
+
+        
+    </body>
+    </html>

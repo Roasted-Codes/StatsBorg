@@ -1,0 +1,80 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Warning (level 3) C4686</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c4686"></A>Compiler Warning (level 3) C4686</H1>
+
+
+<P><b>'<i>user-defined type</i>' : possible change in behavior, change in UDT return 
+calling convention</b></P>
+
+<P>A class template specialization was not defined before it was used in a 
+return type. Anything that instantiates the class will resolve C4686; declaring an 
+instance or accessing a member (C&lt;int&gt;::anything) are also options.</p>
+
+<p>This warning is off by default.</p>
+
+<p>The following example generates C4686:</p>
+
+<pre class = "code">// C4686.cpp
+// compile with: /W3
+#pragma warning (default : 4686)
+template &lt;class T&gt;
+class C;
+
+template &lt;class T&gt;
+C&lt;T&gt; f(T);
+
+template &lt;class T&gt;
+class C {};
+
+int main()
+{
+   f(1);   // C4686
+}
+
+template &lt;class T&gt;
+C&lt;T&gt; f(T)
+{
+   return C&lt;int&gt;();
+}</pre>
+
+<p>Try the following approach instead.</p>
+
+<pre class = "code">// C4686b.cpp
+#pragma warning (default : 4686)
+template &lt;class T&gt;
+class C {};
+
+template class C&lt;int&gt;;
+
+template &lt;class T&gt;
+C&lt;T&gt; f(T);
+
+int main()
+{
+   f(1);
+}
+
+template &lt;class T&gt;
+C&lt;T&gt; f(T)
+{
+   return C&lt;int&gt;();
+}
+</pre>
+
+
+</BODY>
+</HTML>

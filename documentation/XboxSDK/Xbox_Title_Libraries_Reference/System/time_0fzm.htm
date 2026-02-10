@@ -1,0 +1,70 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>FILETIME</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="FILETIME">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1><A NAME="_win32_filetime_str"></A>FILETIME</H1>
+
+<P>The <B>FILETIME</B> structure is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601. </P>
+
+<PRE class=syntax>typedef struct _FILETIME { 
+    DWORD dwLowDateTime; 
+    DWORD dwHighDateTime; 
+} FILETIME, *PFILETIME; </PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwLowDateTime</B></DT>
+
+<DD>Specifies the low-order 32 bits of the file time. </DD>
+
+<DT><B>dwHighDateTime</B></DT>
+
+<DD>Specifies the high-order 32 bits of the file time. 
+</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>To convert a <B>FILETIME</B> structure into a time that is easy to display to a user, use the <A HREF="time_8cdh.htm">FileTimeToSystemTime</A> function. </P>
+
+<P>It is not recommended that you add and subtract values from the <B>FILETIME</B> structure to obtain relative times. Instead, you should: 
+
+<UL>
+	<LI>Copy the resulting <B>FILETIME</B> structure to a <B>ULARGE_INTEGER</B> structure.</LI>
+
+	<LI>Use normal 64-bit arithmetic on the <B>ULARGE_INTEGER</B> value.</LI>
+</UL>
+
+<P>The FATX file system supports the file creation, last access, and last write time values.</P>
+
+<P>Not all file systems can record creation and last access time, and not all file systems record them in the same manner. For example, on FATX, create time, write time, and last access time all have a  resolution of 2 seconds. Therefore, <B>GetFileTime</B> may not return the same file time information set using the <A HREF="time_33qd.htm">SetFileTime</A> function.  FATX records times on disk using UTC rather than local file time.</P>
+
+<P>The UDFX file system used with game discs (DVDs) stores a single time stamp for the entire volume, with a 100ns resolution (the same resolution used by <A HREF="time_7uzp.htm">GetSystemTimeAsFileTime</A>).</P>
+
+<h4>Requirements</h4>
+
+<p>
+<B>Header: </B>Declared in Olectl.h.</P>
+
+<H4>See Also</H4>
+<P>
+
+<A HREF="xbox_mt_xtl_sll_file_io_structures.htm">File I/O Structures</A> | 
+<A HREF="time_91d1.htm">CompareFileTime</A>,
+<A HREF="time_8cdh.htm">FileTimeToSystemTime</A>,
+<A HREF="time_5r51.htm">GetFileTime</A>,
+<A HREF="filesio_44tu.htm">ULARGE_INTEGER</A> </P>
+
+
+</BODY>
+</HTML>

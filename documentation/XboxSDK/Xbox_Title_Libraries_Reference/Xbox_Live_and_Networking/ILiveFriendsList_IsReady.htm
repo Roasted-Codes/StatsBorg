@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ILiveFriendsList::IsReady</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ILiveFriendsList::IsReady</h1>
+<p>Indicates whether the friends list has initialized and is ready to service requests.</p><pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>IsReady(</b><b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<p>None.</p>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns TRUE if the friends list has initialized and is ready, FALSE otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>After an <a href="ILiveFriendsList.htm">ILiveFriendsList</a> is created with <a href="ILiveEngine_GetFriendsForUser.htm">ILiveEngine::GetFriendsForUser</a>, <b>IsReady</b> will continue to return FALSE until initialization is complete and the friends list has been enumerated.  After initialization is complete, other <b>ILiveFriendsList</b> methods may then be called.</p><h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ILiveEngine_GetFriendsForUser.htm">ILiveEngine::GetFriendsForUser</a>,
+<a href="ILiveFriendsList_HasChanged.htm">ILiveFriendsList::HasChanged</a>
+</p>
+
+</body>
+</html>

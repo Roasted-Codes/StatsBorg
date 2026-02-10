@@ -1,0 +1,40 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Using Memory Units</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Using Memory Units</H1>
+
+
+<P>Memory units (MUs) are connected to the Xbox through the peripheral slots in attached controllers. Each controller has up to two slots for MUs, and a total of four controllers can be attached to the system at a time, for a potential total of eight memory units simultaneously available on the console.</P>
+
+To determine the currently available memory units, use the <A HREF="x_jsk_xgetdevices.htm">XGetDevices</A> function.
+
+Once you have determined the available memory units, you can track further insertions and deletions with the <A HREF="x_jsk_xgetdevicechanges.htm">XGetDeviceChanges</A> function.
+
+<P>After determining that an MU is connected, a title must specifically mount that MU before it can be used. Mounting an MU adds it to the file system namespace and makes the MU available to the title through a logical drive letter. The <A HREF="x_jsk_xmountmu.htm">XMountMU</A> function mounts a connected memory unit and returns the drive letter that can be used to access it.</P>
+
+<P>When the title is finished using the MU, it must call <A HREF="x_jsk_xunmountmu.htm">XUnmountMU</A> to unmount the memory unit and free the associated resources.</P>
+
+<P>Source code demonstrating the steps required to access memory units is presented in the <A HREF="x_mt_input_oview.htm">Using Xbox Peripherals</A> section.</P>
+
+<H3>Personalizing Memory Units</H3>
+
+<P>The process of selecting from available save locations can potentially be confusing for the user, especially considering the large possible number of simultaneously connected memory units on the Xbox. To make this selection process simpler, users can personalize memory units with a descriptive string, such as "Marc's Games", "jeffsjunk", or "RAD LIFT".  The desired memory unit can then be easily recognized in selection lists.  From within the Xbox Dashboard, users will be able to set and change the descriptive text.  Titles can retrieve this information from the memory unit for use when presenting the selection list to the user.  This personalized name is retrieved from the memory unit by calling the <A HREF="x_mt_xmunamefromdriveletter.htm">XMUNameFromDriveLetter</A> function.</P>
+
+<P>When setting this descriptive text, users will be able to use any of the Unicode characters available within the Xbox Dashboard (including, for example, Katakana, Hiragana, and extended European characters).  Therefore, games need to determine what characters they will support and may need to handle cases in which their font package cannot display all of the characters in the text. This is true in general for all instances of Unicode text on the Xbox.</P>
+
+
+</BODY>
+</HTML>

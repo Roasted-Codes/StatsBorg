@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Enumerating Soundtracks</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Enumerating Soundtracks</h1>
+<p>The example routine below uses the <a href="x_xfindfirstsoundtrack.htm">XFindFirstSoundtrack</a> and <a href="x_xfindnextsoundtrack.htm">XFindNextSoundtrack</a> functions to enumerate the soundtracks currently on the user's Xbox. For each soundtrack (ignoring empty soundtracks) we copy the information into our own SOUNDTRACK structure and add it to our vector. We'll use this information later as we browse for playback.</p>
+<pre class="clsCode">
+void EnumerateSoundtracks()
+{
+    // Add each user provided soundtrack to the soundtrack vector
+    XSOUNDTRACK_DATA stData;
+    HANDLE hSoundtrack = XFindFirstSoundtrack( &amp;stData );
+    if( INVALID_HANDLE_VALUE != hSoundtrack )
+    {
+        do
+        {
+            // Ignore empty soundtracks
+            if( stData.uSongCount &gt; 0 )
+            {
+                SOUNDTRACK sndtrk;
+
+                sndtrk.uSoundtrackID = stData.uSoundtrackId;
+                sndtrk.uSongCount    = stData.uSongCount;
+                wcscpy( sndtrk.strName, stData.szName );
+
+                g_vSoundtracks.push_back( sndtrk );
+            }
+        } while( XFindNextSoundtrack( hSoundtrack, &amp;stData ) );
+    }
+}
+</pre>
+    
+</body>
+</html>

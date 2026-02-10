@@ -1,0 +1,57 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>D3DXColorAdd</TITLE>
+<META NAME="MS-HKWD" CONTENT="D3DXColorAdd">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_d3dxcoloradd_graphicsd3dx"></A>D3DXColorAdd</H1>
+
+<P>Adds two color values together to create a new color value.</P>
+
+<PRE class=syntax><B>D3DXCOLOR* D3DXColorAdd(
+  D3DXCOLOR* </B><I>pOut</I><B>,</B>
+<I>  </I><B>CONST</B> <B>D3DXCOLOR* </B><I>pC1</I><B>,</B>
+<I>  </I><B>CONST</B> <B>D3DXCOLOR* </B><I>pC2</I>
+<B>); </B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>pOut</I></DT>
+
+<DD>[in, out] Pointer to a <A HREF="_dx_d3dxcolor_graphicsd3dx.htm"><B>D3DXCOLOR</B></A> structure that is the result of the operation.</DD>
+
+<DT><I>pC1</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXCOLOR</B> structure.</DD>
+
+<DT><I>pC2</I></DT>
+
+<DD>[in] Pointer to a source <B>D3DXCOLOR</B> structure.
+</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>This function returns a pointer to a <B>D3DXCOLOR</B> structure that is the sum of two color values.</P>
+
+<H4>Remarks</H4>
+
+<P>The return value for this function is the same value returned in the <I>pOut</I> parameter. In this way, the <B>D3DXColorAdd</B> function can be used as a parameter for another function.</P>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3dx8math.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3dx8.lib.</P>
+
+<H4>See Also</H4>
+
+<P><A HREF="_dx_d3dxcolormodulate_graphicsd3dx.htm"><B>D3DXColorModulate</B></A>, <A HREF="_dx_d3dxcolorsubtract_graphicsd3dx.htm"><B>D3DXColorSubtract</B></A> </P>
+
+</BODY>
+</HTML>

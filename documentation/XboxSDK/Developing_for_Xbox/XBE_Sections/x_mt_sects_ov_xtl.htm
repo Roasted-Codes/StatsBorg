@@ -1,0 +1,36 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>XTL XBE Sections</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>XTL XBE Sections</H1>
+
+
+<P>Many of the functions available in the Xbox Title Libraries have been organized into sections based on their functional group.  For example, networking code is contained in the XNET section.  A title that only occasionally uses networking functions could mark this section as delayed load, and only load it as necessary when using the networking functions.  Other sections can be treated similarly to further reduce a title's memory footprint.  The following XTL sections are defined:</P>
+
+<TABLE>
+<TR><TH>Section</TH><TH>Functionality</TH></TR>
+<TR><TD>D3D</TD><TD>Direct3D classes and functions</TD></TR>
+<TR><TD>D3DX</TD><TD>Direct3DX classes and functions</TD></TR>
+<TR><TD>DSOUND</TD><TD>DirectSound classes and functions</TD></TR>
+<TR><TD>XGRPH</TD><TD>Xbox graphics functions in <A HREF="xbox_jbh_dxref_xgraphics_intro.htm">xgraphics.lib</a> (for example, <B>XGSwizzleBox</B>)</TD></TR>
+<TR><TD>XPP</TD><TD>Xbox peripherals functions (including <A HREF="x_mt_xinitdevices.htm">XInitDevices</a>)</TD></TR>
+<TR><TD>XNET</TD><TD>Xbox networking functions in xnet.lib</TD></TR>
+</TABLE>
+
+<P>These sections can be marked as delayed load sections and then explicitly loaded before their functions are called.  Currently, it is recommended that these sections, once loaded, remain loaded (in other words, do not call <B>XFreeSection</B> or <B>XFreeSectionByHandle</B> on them).  For more detailed information, use <B>link -dump -symbols</B> on a .lib file to determine the sections that individual functions are located in.</P> 
+
+
+</BODY>
+</HTML>

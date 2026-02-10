@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>UIXCreateUIPlugin</title>
+</head>
+<body topmargin="0">
+
+
+<h1>UIXCreateUIPlugin</h1>
+<p>Creates the default Xbox Drop-in UI plug-in interface.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>UIXCreateUIPlugin(</b>
+    <b>ITitleFontRenderer</b> *<i>pFont</i><b>,</b>
+    <b>ITitleUIPlugin</b> **<i>ppUIPlugin</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pFont</i></dt>
+<dd>[in]  Pointer to an <a href="ITitleFontRenderer.htm">ITitleFontRenderer</a> interface that the UI plug-in will use for text rendering.</dd>
+<dt><i>ppUIPlugin</i></dt>
+<dd>[out]  Address of an <a href="ITitleUIPlugin.htm">ITitleUIPlugin</a> pointer that receives the UI plug-in interface.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="remarks"></a>Remarks</h4>
+<p><b>ITitleUIPlugin</b> implements the UI plug-in interface to the Xbox Drop-in UI engine.  The engine calls <b>ITitleUIPlugin</b> methods to provide user interface elements and interaction.  Titles can provide their own implementation or use the default <b>ITitleUIPlugin</b> obtained with <b>UIXCreateUIPlugin</b>.</p>
+<p>To free the UI plug-in interface when it is no longer needed, call <a href="_dx_iunknown_release_dxintro.htm">Release</a> on the <b>ITitleUIPlugin</b> pointer.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Uix.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="ITitleUIPlugin.htm">ITitleUIPlugin</a>,
+<a href="ITitleFontRenderer.htm">ITitleFontRenderer</a>,
+<a href="ILiveEngine_SetUIPlugin.htm">ILiveEngine::SetUIPlugin</a>
+</p>
+
+</body>
+</html>

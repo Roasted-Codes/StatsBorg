@@ -1,0 +1,46 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>WMAXMOFileHeader</TITLE>
+
+<META NAME="MS-HKWD" CONTENT="WMAXMOFileHeader [C++]">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_wmaxmofileheader_xmo"></A>WMAXMOFileHeader</H1>
+
+<P>Contains the header information from a Microsoft&#174; Windows Media&#174; Audio (WMA) file.</P>
+
+<PRE class="syntax">typedef struct _WMAXMOFileHeader{
+    DWORD dwVersion;
+    DWORD dwSampleRate;
+    DWORD dwNumChannels;
+    DWORD dwDuration;
+    DWORD dwBitrate;
+} WMAXMOFileHeader;
+</PRE>
+
+<H4>Members</H4>
+
+<DL>
+<DT><B>dwVersion</B></DT>
+    <DD>Value that contains the version of the codec.</DD>
+<DT><B>dwSampleRate</B></DT>
+    <DD>Value that contains the sampling rate in Hertz.</DD>
+<DT><B>dwNumChannels</B></DT>
+    <DD>Value that contains the number of audio channels.</DD>
+<DT><B>dwDuration</B></DT>
+    <DD>Value that contains the duration of the file in milliseconds.</DD>
+<DT><B>dwBitrate</B></DT>
+    <DD>Value that contains the bit-rate of the WMA bitstream.</DD>
+</DL>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in DSound.h.</P>
+
+
+</BODY>
+</HTML>

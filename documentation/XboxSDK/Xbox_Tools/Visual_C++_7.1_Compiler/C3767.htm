@@ -1,0 +1,79 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Compiler Error C3767</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME="c3767"></A>Compiler Error C3767</H1>
+
+
+<P><B>'<I>function</I>' matching function is not accessible</B></P>
+
+<P>A friend function defined in class is not supposed to be treated as if it were 
+defined and declared in the global namespace scope. It can, however, be found by 
+argument-dependent lookup.</P>
+
+<p>In Visual Studio .NET, the compiler changed the way it looked up symbols. In some 
+cases, it would have automatically looked for symbols in a specified namespace. Now, it 
+will use argument-dependent lookup.</p>
+
+<P>The following example generates C3767.</P>
+
+<PRE class="code">// C3767.cpp
+namespace N
+{
+   class C
+   {
+      friend void FriendFunc()
+      {
+      }
+      friend void AnotherFriendFunc(C* c)
+      {
+      }
+   };
+}
+
+int main()
+{
+   using namespace N;
+   FriendFunc();   // C3767
+   C* pC = new C();
+   AnotherFriendFunc(pC);   // found via argument-dependent lookup
+}
+</pre>
+
+<p>For code that is valid in both the Visual Studio .NET 2003 and Visual Studio .NET 
+versions of Visual C++, declare the friend in class scope and define it in namespace scope.</p>
+
+<pre class = "code">// C3767b.cpp
+class MyClass
+{
+   int m_private;
+   friend void func();
+};
+
+void func()
+{
+   MyClass s;
+   s.m_private = 0;
+}
+
+int main()
+{
+   func();
+}
+</PRE>
+
+
+</BODY>
+</HTML>

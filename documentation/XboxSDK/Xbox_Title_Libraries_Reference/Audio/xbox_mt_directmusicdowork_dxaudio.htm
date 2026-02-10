@@ -1,0 +1,36 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>DirectMusicDoWork</TITLE>
+<META NAME="MS-HKWD" CONTENT="DirectMusicDoWork">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="xbox_mt_directmusicdowork_dxaudio"></A>DirectMusicDoWork</H1>
+
+<P>Perform DirectMusic work items.</P>
+
+<PRE class="syntax"><B>void DirectMusicDoWork(</B>
+    <B>DWORD</B> <I>dwQuantum</I>
+<B>);</B></PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>dwQuantum</I></DT>
+<DD>Amount of time, in milliseconds, before the application expects to call <B>DirectMusicDoWork</B> again.  Typically this will equal the video frame rate, presuming <B>DirectMusicDoWork</B> is called once every frame.</DD>
+</DL>
+
+<H4>Remarks</H4>
+
+<P>If your title has specified that no threads be used when the performance was initialized, <B>DirectMusicDoWork</B> must be called periodically (typically once every video frame) by the title to allow DirectMusic to perform necessary processing.</P>
+
+<H4>Requirements </H4>
+<P><B>&nbsp;&nbsp;Header: </B>Declared in Dmusici.h.</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,220 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>Competitions Overview</title>
+</head>
+<body topmargin="0">
+
+
+<h1>Competitions Overview</h1>
+<p>The Xbox <i>Live</i> Competitions service is responsible for scheduling competitions, sending reminders to players, and 
+progressing players. Implementing Competitions requires the following services: Competitions, Arbitration, Presence, and 
+Matchmaking. Optionally, it may also require the Statistics, Teams, and Messaging services.</p><p>This document offers an introduction to the terms and concepts of Competitions 
+and includes an overview of how to use it. This document also references the 
+<a href="xbox_tool_xlast_competitions.htm">XLAST Competitions Configuration tool</a>, which is used for 
+generating competitions and competitions code.</p><p>This overview presents the following topics.</p><ul>
+<li><a href="#IDA5AUM">Terminology</a></li><li><a href="#IDALFUM">Competitions and Arbitration</a></li><li><a href="#IDAVFUM">Templates, Datasets, and Targets</a></li><li><a href="#IDAJHUM">Attributes</a></li><li><a href="#IDAPHUM">Bracketing and Byes</a></li><li><a href="#IDAXHUM">XLAST Competition Configuration Tool </a></li><li><a href="#IDAHIVM">Implementation</a></li><li><a href="#IDADPVM">Outage Scenario</a></li><li><a href="#IDARPVM">Time Advancement</a></li></ul>
+<h2><a name="IDA5AUM"></a>Terminology</h2>
+<p>The following terms and concepts are used in Competitions.</p><ul>
+	<li><i>Bracket</i> &#8211; The grouping of players per round. It indicates who plays whom for a given round.</li>
+	<li><i>Check-in</i> &#8211; For each round in a competition, a player must check-in prior to the round starting. Players may choose to check-in to a competition before the allotted round start time.</li>
+	<li><i>Competition</i> &#8211; Any form of competitive play. This includes both tournaments and other forms of competition, such as ladders. </li>
+	<li><i>Entrant</i> &#8211; An individual player or a team in a competition, uniquely identified by Gamertag or team PUID. </li>
+	<li>
+		<i>Entry</i> &#8211; The atomic unit competing in a competition. An entry could represent 
+		either a player or a team. An entry always advances or is eliminated from the competition as a whole, regardless of 
+		the individual stats of the members who make up that entry. 
+	</li>
+	<li><i>Event</i> &#8211; A set of matches with one result per entry reported to the Tournaments service. An event is most commonly represented by a single match. Events take place with a collection of two or more entries participating in the competition. </li>
+	<li><i>Format</i> &#8211; The basic structure of the tournament. Ladder, single elimination, or round robin are examples of competition formats.</li>
+	<li><i>Match</i> &#8211; A single game session. </li>
+	<li><i>Multilevel</i> &#8211; Tournaments in which both the winners and losers from each round progress to the next round. However, the winners from each round are bracketed with the other winners from that round, and the losers from each round are bracketed with the other losers from that round.</li>
+	<li><i>Rank</i> &#8211; The relative ordinal position of an entry based on rating. Ranks may be scoped to an event or competition, or globally (stats).    </li>
+	<li><i>Rating</i> &#8211; The entrant's score. The ratings of entrants are ordered to determine relative rank. </li>
+	<li><i>Registration</i> &#8211; The window of time before the first round in which players can register their entry in a competition. </li>
+	<li><i>Round</i> &#8211; A timeframe where one or more events take place. A given entry will play in only one event per entry. </li>
+	<li><i>Seed</i> &#8211; The initial ordering of entries in a competition. An entry maintains its seed throughout the competition. It is analogous to the initial order of the competition-specific leaderboard. Seed values are commonly used to describe an event. Example: The first seed plays the third seed in the semifinals. </li>
+	<li><i>Session registration</i> &#8211; The process of registering players in a competition event 
+	with the arbitration service.</li>
+	<li><i>Single elimination</i> &#8211; A tournament in which the winner of each round moves to the next round and the loser is eliminated.</li>
+	<li><i>Slot</i> &#8211; The ordinal position of an entry in the initial listing of an event. This concept can be used to describe who has "home field" advantage in the event; it can also be used for similar concepts. </li>
+	<li><i>Slotting</i> &#8211; The process of mapping seeds to slots within a competition. </li>
+	<li><i>Start time</i> &#8211; The time by which entrants much check in for an event.</li>
+	<li><i>Team</i> &#8211; A group of players that compete together as a unit. </li>	
+	<li><i>Topology</i> &#8211; Information about each round and each match or event in each round.</li>
+	<li><i>Tournament</i> &#8211; A structured competition with rounds. Tournaments are best 
+	exemplified by traditional formats such as single elimination and round robin. </li>
+</ul>
+<h2><a name="IDALFUM"></a>Competitions and Arbitration</h2>
+<p>All Xbox <i>Live</i> tournament matches are arbitrated. The Xbox <i>Live</i> Arbitration service enables accurate score reporting for all tournament matches. Arbitrated sessions require all players to register before the game and submit a complete score report for all players in the session. The service makes the binding decision about the final outcome of the match, looking up the past profiles of each of the players to settle any disputes. Client functions ensure that all tournament matches are arbitrated in this way.</p><h2><a name="IDAVFUM"></a>Templates, Datasets, and Targets</h2>
+<p>Creating single-elimination tournaments a two-step process. First, the game publisher must create a template for 
+the tournament using the <b>XLAST Competitions Configuration tool</b>. The 
+template must then be instantiated. This can be done by the publisher or, if the publisher permits, by players. You 
+can make multiple styles of competitions by creating a template for each style.</p><p>Instantiating a template creates a dataset on an Xbox <i>Live</i> server. A dataset can be thought 
+of as a database whose format is determined by the template. The dataset contains information describing 
+all competitions based on the template. The dataset's information is kept in the following three tables or lists.</p><ul>
+	<li><i>Competitions List</i> &#8211; The competitions currently running, open for registration, 
+	or scheduled for cleanup. The list is limited to the set of all competitions based on the selected temlpate.</li>
+	<li><i>Entrants List</i> &#8211; The players or teams enrolled in each competition.</li>
+	<li><i>Events List</i> &#8211; All events in each competition. This include events already played, 
+	currently in progress, and scheduled for the future.</li>
+</ul>
+<p>These three lists are referred to as the "targets" of the queries that update the dataset. These queries are 
+configured via the <a href="xbox_tool_xlast_competitions_queries.htm">Queries node</a> in the XLAST Competition 
+Configuration tool.</p><p>From a programming point of view, titles create a competition by instantiating a template. They then perform 
+updates on the competition information by updating the target lists. Updates can include (but are not limited to) 
+such tasks as setting start times, registering players or teams, and storing the results of a match.</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;In the Competitions API functions, the <i>dwTemplateID</i> parameter is used to reference the 
+appropriate competition template.</p><p>To provide maximum flexibility for title developers, the Competitions and Events targets can configured to store 
+title-specific custom attributes. You <a href="Adding Custom Attributes">define these attributes</a> in XLAST include 
+them in the various queries associated with the competition template.</p><h2><a name="IDAJHUM"></a>Attributes</h2>
+<p>Attributes, which you define in the Xbox Competition Configuration tool, are always associated with a specific 
+competition template. They specify the contents of the three tables mentioned in the previous section. Attributes 
+can store 64-bit integer values, byte arrays up to 800 bytes, or Unicode strings up to 400 characters. </p><h2><a name="IDAPHUM"></a>Bracketing and Byes</h2>
+<p>The service can bracket players automatically for single elimination. At registration, your title passes 
+in the relative ranking for each user, which determines their seed. The service then brackets players in a fashion 
+similar to a tennis tournament, with the aim of ensuring that the best seeds cannot play each other until the final 
+match. The first match in the round has the highest seed playing the lowest seed. The last match in the round has 
+the second highest seed playing the second lowest seed, and so on. </p><p>Should the number of players not be a multiple of 2, bracketing grants byes to the highest seeded players. These 
+players do not have to play in the first round and automatically progress to the next round.</p><h2><a name="IDAXHUM"></a>XLAST Competition Configuration Tool </h2>
+<p>The <a href="xbox_tool_xlast_competitions.htm">XLAST</a> Competition Configuration tool provides the Xbox 
+<i>Live</i> service the query configuration file it requires and generates editable code to help 
+with development of competitions.</p><h2><a name="IDAHIVM"></a>Implementation</h2>
+<p>To successfully use competitions, the following steps must be performed.</p><ul>
+<li><a href="#IDAOIVM">Competition Configuration</a></li><li><a href="#IDAWIVM">Creating a Competition Instance</a></li><li><a href="#IDAEJVM">Scheduling Rounds</a></li><li><a href="#IDAMKVM">Joining a Competition</a></li><li><a href="#IDACLVM">Getting Schedule Information</a></li><li><a href="#IDAULVM">Checking In</a></li><li><a href="#IDAMMVM">Obtaining Presence information</a></li><li><a href="#IDAWMVM">Establishing a Connection Between Players</a></li><li><a href="#IDAANVM">Registering an Event Session</a></li><li><a href="#IDAUNVM">Playing a Round in a Competition</a></li><li><a href="#IDA0NVM">Submitting Event Scores</a></li><li><a href="#IDACOVM">Ejecting Players</a></li><li><a href="#IDAIOVM">Forfeiting</a></li><li><a href="#IDAOOVM">Canceling a Competition</a></li><li><a href="#IDA0OVM">Submitting Results</a></li></ul>
+<h3><a name="IDAOIVM"></a>Competition Configuration</h3>
+<p>Create a competition configuration file containing competition templates. Submit it to the Xbox <i>Live</i> 
+service using XLAST. This configures the competition on the service.</p><h3><a name="IDAWIVM"></a>Creating a Competition Instance</h3>
+<p>With a competition configuration on Xbox <i>Live</i>, you (or your users) can create a competition 
+instance based on the template in the configuration. This can be done via the client (your title) by calling the 
+<a href="XOnlineCompetitionCreateSingleElimination.htm">XOnlineCompetitionCreateSingleElimination</a> function. Competitions can also be created via the Web.</p><p>When you create a competition, you must  specify certain attributes. These include the registration start time, 
+the registration end time, the competition start time, the time at which reminders are sent, the round intervals, 
+and whether this is a team competition.</p><p>You can create competitions with either public or private slots. Typically, a title uses private slots for those 
+players who are explicitly invited to join.  Public are accessible to anyone.</p><h3><a name="IDAEJVM"></a>Scheduling Rounds</h3>
+<p>The method for scheduling rounds is specified in the parameters to the 
+<b>XOnlineCompetitionCreateSingleElimination</b> function. This function contains a parameter called 
+<i>pDefaultAttributes</i>, which is of type <a href="XONLINE_COMP_SINGLE_ELIMINATION_ATTRIBUTES.htm">XONLINE_COMP_SINGLE_ELIMINATION_ATTRIBUTES</a>. Use this 
+structure's <b>Interval</b> and <b>UnitOrMask</b> members to set the interval between rounds. 
+The interval can be a set number of of minutes or hours. Rounds can also be held daily or weekly.</p><p>To specify the interval between rounds, you must store the interval type (Minute, Hour, Daily, or Weekly) in 
+<b>Interval</b>. If the interval type is minutes, hours or weeks, store the number of minutes, 
+hours or weeks in <b>dwUnitsOfTime</b>. So, for example, to specify that the competition's rounds occur 
+every two hours, set the <b>Interval</b> member to XONLINE_COMP_INTERVAL_HOUR and 
+<b>dwUnitsOfTime.DayMask</b> to 2.</p><p>Daily intervals are handled a bit differently. They use a day mask to indicate the days of the week by 
+which rounds must be played. For example, to make a competition with rounds that occur every Monday, Wednesday, and 
+Friday, set the <b>Interval</b> member to XONLINE_COMP_INTERVAL_DAILY and 
+<b>dwUnitsOfTime.DayMask</b> to (XONLINE_COMP_DAY_MASK_MONDAY || XONLINE_COMP_DAY_MASK_WEDNESDAY || 
+XONLINE_COMP_DAY_MASK_FRIDAY).</p><p class="note"><b><i>Note</i></b>&nbsp;&nbsp;&nbsp;&nbsp;All rounds are scheduled relative to the time specified in the <b>ftRoundOneStart</b> member of 
+the <b>XONLINE_COMP_SINGLE_ELIMINATION_ATTRIBUTES</b> structure that is passed to 
+<b>XOnlineCompetitionCreateSingleElimination</b>. </p><h3><a name="IDAMKVM"></a>Joining a Competition</h3>
+<p>After a competition has been created, other players can be invited to join (using messaging) in. Your title can 
+also enable players tp search for available competitions by invoking the <a href="XOnlineCompetitionSearch.htm">XOnlineCompetitionSearch</a> function. </p><p>During the competition registration period, players who want to take part in a competition must register for it. 
+To register a player, your title must call <a href="XOnlineCompetitionManageEntrant.htm">XOnlineCompetitionManageEntrant</a>. If the player has been explicitly 
+invited, your title should set the <b>XOnlineCompetitionManageEntrant</b> function's <i>dwAction</i> 
+parameter to XONLINE_ACTION_JOIN_PRIVATE. For all others, your title should set the <i>dwAction</i> 
+parameter to XONLINE_ACTION_JOIN.</p><p>When the registration period ends, the service automatically performs event slotting to initialize the first round 
+events if enough players have registered. If the minimum number of players have not registered for the competition, 
+the competition instance is canceled, then deleted 48 hours after close of registration.</p><p>If the competition was not canceled and slotting has taken place, the competition becomes "active." This is 
+indicated by the fact that the XONLINE_COMP_ATTR_STATUS attribute in the Competitions target table contains the value 
+XONLINE_COMP_STATUS_ACTIVE. If a competition is active, players may play through each event match as the matches occur.</p><h3><a name="IDACLVM"></a>Getting Schedule Information</h3>
+<p>Players who are registered in a competition must be able to find out when their matches occur and who their 
+opponents are. To provide this information for your users, your title calls <b>XOnlineCompetitionSearch</b> and 
+specifies the <b>My Competitions</b> query defined in XLAST. This is a standard query that XLAST creates automatically 
+for you. The <b>My Competitions</b> query returns the list of events the player is scheduled to 
+participate in for all competitions of the selected template type. </p><p>Alternatively, a player may discover the next event they're scheduled to participate in by viewing the topology 
+of a competition. Your title can obtain topology information by invoking the 
+<a href="XOnlineCompetitionTopologySingleElimination.htm">XOnlineCompetitionTopologySingleElimination</a> function. This function queries for all scheduled events in a 
+given range. The title can then iterate through these events to find the event the player is scheduled to 
+participate in next.</p><p>Even before a match has been played, it is possible for the winner to have already been determined in a 
+scheduled event. For instance, if the player has received a "bye" for the round, or if their opponent forfeited the 
+event, they win automatically. In such cases, it is not necessary for the player to check in or play the event. The 
+player should simply be notified of their automatic victory for this round, and may proceed to play in the following 
+round as the next event becomes available.</p><h3><a name="IDAULVM"></a>Checking In</h3>
+<p>Just before a match occurs, the participants must go online and your title must check the player in. It 
+accomplishes this by calling the <a href="XOnlineCompetitionCheckin.htm">XOnlineCompetitionCheckin</a> function. A player may check in for an event any 
+time after the competition begins (the value of XONLINE_COMP_ATTR_STATUS attribute in the Competitions table is 
+set to XONLINE_COMP_STATUS_ACTIVE) and the event's scheduled time arrives. </p><p>The purpose of check-in is to correctly and fairly resolve cases when a score is not submitted for an event by 
+round end, due to no-shows, peer-to-peer connectivity problems, and so forth. If a round ends before a score has 
+been submitted for a match, the following rules apply.</p><ol>
+	<li>If no players checked in to the match before the end of the round, both players are eliminated from the 
+	match, and their opponent in the following round receives a bye.</li>
+	<li>If only one player checked in to the match before the end of the round, that player is granted an automatic 
+	win.</li>
+	<li>If both players checked in, but neither player checked in within five minutes of the start time, both players 
+	are eliminated and the opponent in the subsequent round receives a bye. This window is intended to account for 
+	potential time drift of up to five minutes between the player's Xbox consoles and the Xbox <i>Live</i> 
+	service.</li>
+	<li>If both players checked in, but only one of those players checked in five minutes before or after the 
+	start time, that player wins.  </li>
+	<li>If both players checked in five minutes before or after the start time, Arbitration selects the winner based 
+	on each player's past record.</li>
+</ol>
+<h3><a name="IDAMMVM"></a>Obtaining Presence information</h3>
+<p>Your title should enable players to what for their opponents to appear online. To obtain this information for players, 
+your title can call <a href="XOnlinePresenceAdd.htm">XOnlinePresenceAdd</a> and pass it the opponent's XUID. It then invokes 
+<a href="XOnlinePresenceGetLatest.htm">XOnlinePresenceGetLatest</a> to retrieve the most recent presence session information.</p><h3><a name="IDAWMVM"></a>Establishing a Connection Between Players</h3>
+<p>When both players are online, a connection must be established between the players so that the match can begin. The 
+player's opponent can be notified of the individual waiting to play by calling the <a href="XOnlineMessageSend.htm">XOnlineMessageSend</a> function 
+to send a game invite message. Upon receiving this message, the opponent's copy of your title call 
+<b>XOnlineCompetitionCheckin</b> to check in to the tournament. Meanwhile, the originating player's copy of your 
+title should attempt to establish the peer-to-peer connection to the opponent using the XNKID indicated in the 
+opponent's presence information. </p><h3><a name="IDAANVM"></a>Registering an Event Session</h3>
+<p>At this point, both players in the event are connected and prepared to begin the competition match. Therefore, 
+the session should be registered with Arbitration using <a href="XOnlineArbitrationRegister.htm">XOnlineArbitrationRegister</a>. This function's 
+<i>pArbID</i> parameter is of type <a href="XONLINE_ARB_ID.htm">XONLINE_ARB_ID</a>. The host (as determined by the title) 
+initializes the <b>dwSession</b> member of this structure with the its own XNKID. It then calls 
+<a href="XOnlineArbitrationCreateRoundID.htm">XOnlineArbitrationCreateRoundID</a> to obtain the value for the <b>qwRoundID</b> member. Next, this 
+structure is shared with the opponent, and both player's copies of your title use it to call 
+<a href="XOnlineCompetitionSessionRegister.htm">XOnlineCompetitionSessionRegister</a>. </p><h3><a name="IDAUNVM"></a>Playing a Round in a Competition</h3>
+<p>Now that all of the preliminaries are complete, the players can enjoy participating in the match.</p><h3><a name="IDA0NVM"></a>Submitting Event Scores</h3>
+<p>After game play has completed, results are submitted to the service using <a href="XOnlineCompetitionSubmitResults.htm">XOnlineCompetitionSubmitResults</a>. The 
+results are checked by arbitration and forwarded to competitions service. The winner is progressed to the next 
+round, and the loser is marked as eliminated from the competition</p><h3><a name="IDACOVM"></a>Ejecting Players</h3>
+<p>In extreme cases, the competition creator can eject a specific player/team from a competition.  Ejected players are not allowed to check in for subsequent matches. A player scheduled to face off with an ejected opponent automatically advances to the next round.</p><h3><a name="IDAIOVM"></a>Forfeiting</h3>
+<p>A player who learns in advance that he/she must forfeit the next match should forfeit the match ahead of time. By forfeiting a match instead of simply not showing up, a player avoids the no-show penalty to his/her competitor profile. A player whose opponent forfeits the match automatically advances to the following round.</p><h3><a name="IDAOOVM"></a>Canceling a Competition</h3>
+<p>Competitions can be canceled only by the competition creator by using <a href="XOnlineCompetitionCancel.htm">XOnlineCompetitionCancel</a>. The 
+competition continues to show up (for a further 48 hours) on players' lists of competitions in the canceled state, 
+thereby allowing all entrants to see that the competition has been canceled.</p><p>The suggested client behavior is to disallow canceling a competition that has already started. </p><p>Competitions that do not have at least the minimum number of entrants registered (as specified at competition 
+creation) at registration close will be automatically canceled.</p><h3><a name="IDA0OVM"></a>Submitting Results</h3>
+<p>When the competition is complete, results must be submitted using the <b>XOnlineCompetitionSubmitResults</b> function. These results are forwarded to the Arbitration service, which will determine the final results. The match must be completed and scores submitted before the end of each round. However, the match can also be played in advance if both players are present.</p><h2><a name="IDADPVM"></a>Outage Scenario</h2>
+<p>Round progression is halted and player check-in is blocked during scheduled Xbox <i>Live</i> service maintenance. If the outage spans a period longer than three rounds, the tournament is automatically canceled. Otherwise, the rounds affected by the outage are re-scheduled for the next available time slots. For example, if an all-day outage on Wednesday prevents the Wednesday round of a three-round Monday/Wednesday/Friday tournament from taking place, then the Wednesday round is pushed out to Friday, and the Friday round is pushed out to Monday. During the outage the player check-in returns the E_SERVER_OUTAGE error. Please direct the user to check the Xbox <i>Live</i> service status on <a href="http://www.xbox.com/live">www.xbox.com/live</a>.</p><h2><a name="IDARPVM"></a>Time Advancement</h2>
+<p>Developing competitions presents unique challenges in dealing with the passage of time. A series of rounds in a competition can be configured such that it takes weeks, if not months, to progress through the lifetime of a single competition. Of course, it isn't feasible to wait the expected duration for an automatic event (such as round progression) to take place during development.</p><p>To help address this issue, a means has been exposed to allow for the dates associated with a competition to be adjusted. This allows a developer to "jump forward" in time with respect to an instance of a competition, in order to trigger any events or to avoid waiting for a specific window of time (for example, registration open/close).</p><p>To adjust the time on a competition, call the <a href="XOnlineQuerySelect.htm">XOnlineQuerySelect</a> function with the following parameters.</p><table>
+<tr>
+<td><i>dwPlayerIndex</i></td>
+<td>0</td>
+</tr>
+<tr>
+<td><i>dwTeamId</i></td>
+<td>0</td>
+</tr>
+<tr>
+<td><i>dwDatasetId</i></td>
+<td>Competition Template ID (the same value used for <i>dwTemplate</i> in the original call to <a href="XOnlineCompetitionCreate.htm">XOnlineCompetitionCreate</a>/<b>XOnlineCompetitionCreateSingleElimination</b>)</td>
+</tr>
+<tr>
+<td><i>entityID</i></td>
+<td>The <i>qwCompetitionID</i> from <a href="XOnlineCompetitionCreateGetResults.htm">XOnlineCompetitionCreateGetResults</a></td>
+</tr>
+<tr>
+<td><i>dwAction</i></td>
+<td>XONLINE_COMP_ACTION_DEBUG_ADVANCE_TIME</td>
+</tr>
+<tr>
+<td><i>dwNumAttributes</i></td>
+<td>1</td>
+</tr>
+<tr>
+<td><i>pAttributes</i></td>
+<td>Pointer to an array of <a href="XONLINE_ATTRIBUTE.htm">XONLINE_ATTRIBUTE</a> structures, with a single element. For the <b>dwAttributeID</b> field of this structure, specify XONLINE_COMP_ATTR_DEBUG_ADVANCE_TIME. The <b>qwValue</b> field is used to specify the time, in seconds, you wish to advance.</td>
+</tr>
+</table>
+<p>Call <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a> to complete the task. After it's finished, the timing of various events associated 
+with the competition will be adjusted by the specified time. This method simulates the advancement of time by 
+moving any time values used on the service back by the specified time delta. For example, specifying a time 
+advancement of five minutes would modify the competition to appear as though it had been created five minutes 
+earlier than it was. This method also adjusts any scheduled events (for example, slotting or round progression); 
+however, because these events are not instantaneous and run asynchronously, it is unlikely the events will have 
+completed immediately after the time adjustment. A wait of at least one minute after the competition start time is 
+recommended to enable these events to complete.</p>
+</body>
+</html>

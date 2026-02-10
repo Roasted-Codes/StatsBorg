@@ -1,0 +1,39 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DPushBuffer8::SetRenderState</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DPushBuffer8::SetRenderState</h1>
+<p>Used only within a <a href="_dx_idirect3dpushbuffer8_beginfixup_graphics.htm">IDirect3DPushBuffer8::BeginFixup</a>/<a href="_dx_idirect3dpushbuffer8_endfixup_graphics.htm">IDirect3DPushBuffer8::EndFixup</a> bracket to modify the corresponding call to <a href="_dx_idirect3ddevice8_setrenderstate_graphics.htm">IDirect3DDevice8::SetRenderState</a> as it was recorded inthe push-buffer. Only simple render states (those whose values are less than D3DRS_SIMPLE_MAX) can be fixed-up in push-buffers.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetRenderState(</b>
+    <b>DWORD</b> <i>Offset</i><b>,</b>
+    <b>D3DRENDERSTATETYPE</b> <i>State</i><b>,</b>
+    <b>DWORD</b> <i>Value</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>Offset</i></dt>
+<dd>[in]  The offset determined during the recording in the push-buffer as returned from <a href="_dx_idirect3ddevice8_getpushbufferoffset_graphics.htm">IDirect3DDevice8::GetPushBufferOffset</a> just before <b>IDirect3DDevice8::SetRenderState</b> was recorded.</dd>
+			<dt><i>State</i></dt>
+<dd>[in]  Device state variable that is being modified. This parameter must be a member of the <a href="_dx_d3drenderstatetype_graphics.htm">D3DRENDERSTATETYPE</a> enumerated type whose value is less than D3DRS_SIMPLE_MAX. 
+</dd>
+			<dt><i>Value</i></dt>
+<dd>[in]  New value for the device render state to be set. The meaning of this parameter is dependent on the value specified for <i>State</i>. For example, if <i>State</i> were <a href="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_shademode_graphics">D3DRS_SHADEMODE</a>, the second parameter would be one member of the <a href="_dx_d3dshademode_graphics.htm">D3DSHADEMODE</a> enumerated type. </dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_pushbuffer_overview_graphics.htm">Push-Buffer Overview</a> | <a href="_dx_idirect3ddevice8_setrenderstate_graphics.htm">IDirect3DDevice8::SetRenderState</a></p>
+
+</body>
+</html>

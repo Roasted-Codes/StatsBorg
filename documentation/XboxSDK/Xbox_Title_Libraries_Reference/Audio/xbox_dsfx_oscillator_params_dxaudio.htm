@@ -1,0 +1,64 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>DSFX_OSCILLATOR_PARAMS</title>
+</head>
+    <body topmargin="0">
+        
+
+        <h1>DSFX_OSCILLATOR_PARAMS</h1>
+
+        
+        
+<p>Contains the parameters used by the sinusoidal oscillator effect.</p>
+
+	
+		
+
+<pre class="syntax">typedef struct _DSFX_OSCILLATOR_PARAMS{
+    DSFX_OSCILLATOR_STATE State;
+    DWORD dwOscillator_H;
+    DWORD dwOscillator_Y1;
+    DWORD dwOscillator_Y2;
+} DSFX_OSCILLATOR_PARAMS, *LPDSFX_OSCILLATOR_PARAM;</pre>
+                    
+                
+            
+            
+                <h4><a name="members"></a>Members</h4>
+<dl>
+            <dt><b>State</b></dt>
+                <dd><a href="xbox_dsfx_oscillator_state_dxaudio.htm">DSFX_OSCILLATOR_STATE</a> structure that contains the state information for this effect.</dd>
+            
+            <dt><b>dwOscillator_H</b></dt>
+                <dd>H parameter used to create the sine wave.</dd>
+            
+            <dt><b>dwOscillator_Y1</b></dt>
+                <dd>Y1 parameter used to create the sine wave.</dd>
+            
+            <dt><b>dwOscillator_Y2</b></dt>
+                <dd>Y2 parameter used to create the sine wave.</dd>
+            
+        </dl>
+                <h4><a name="remarks"></a>Remarks</h4>
+            <p>The following equation is used to calculate the output for this effect.</p>
+
+<pre class="clsCode">
+
+  y[n] = h*y[n-1] - y[n-2] 
+
+</pre>
+    
+        
+				
+            
+                <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in DSFXParm.h.</p>
+            
+                
+
+        
+    </body>
+    </html>

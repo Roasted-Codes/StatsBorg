@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineStorageEnumerateGetResults</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineStorageEnumerateGetResults</h1>
+<p>Returns the results of a call to <a href="XOnlineStorageEnumerate.htm">XOnlineStorageEnumerate</a>.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineStorageEnumerateGetResults(</b>
+    <b>XONLINETASK_HANDLE</b> <i>hTask</i><b>,</b>
+    <b>DWORD</b> *<i>pdwTotalResults</i><b>,</b>
+    <b>DWORD</b> *<i>pdwResultsReturned</i><b>,</b>
+    <b>PXONLINESTORAGE_FILE_INFO</b> **<i>prgpStorageFileInfo</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+		<dt><i>hTask</i></dt>
+<dd>[in]  Pointer to a variable of type <b>XONLINETASK_HANDLE</b> that receives a task handle. Use this handle in calls to <a href="XOnlineTaskContinue.htm">XOnlineTaskContinue</a> to process the file enumeration. </dd>
+		
+		<dt><i>pdwTotalResults</i></dt>
+<dd>[out]  Number of files in global storage.</dd>
+
+		<dt><i>pdwResultsReturned</i></dt>
+<dd>[out]  Number of structures in the array of results returned.</dd>
+
+		<dt><i>prgpStorageFileInfo</i></dt>
+<dd>[out]  Array of pointers to <a href="XONLINESTORAGE_FILE_INFO.htm">XONLINESTORAGE_FILE_INFO</a> structures containing the results of the enumeration.</dd>
+	</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p><h4><a name="remarks"></a>Remarks</h4>
+		<p>This function should be called after the pumping of the <a href="XOnlineStorageEnumerate.htm">XOnlineStorageEnumerate</a> task returns a success code other than XONLINETASK_S_RUNNING.</p>
+	<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a></p>
+
+</body>
+</html>

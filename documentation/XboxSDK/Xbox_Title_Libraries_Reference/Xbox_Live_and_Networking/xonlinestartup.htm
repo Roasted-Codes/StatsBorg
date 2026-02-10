@@ -1,0 +1,32 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineStartup</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineStartup</h1>
+<p>Performs initialization and startup for Xbox <i>Live</i> functions.</p><pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineStartup(</b>
+    <b>const XONLINE_STARTUP_PARAMS</b> *<i>pxosp</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>pxosp</i></dt>
+<dd>[in]  Pointer to an <a href="XONLINE_STARTUP_PARAMS.htm">XONLINE_STARTUP_PARAMS</a> structure that specifies initialization parameters.  This parameter can be NULL if default startup parameters are desired.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>If the function succeeds, the return value is S_OK.</p><h4><a name="remarks"></a>Remarks</h4>
+<p>This function must be successfully called before any other Xbox <i>Live</i> functions can be called.  When finished using all Xbox <i>Live</i> functions, call <a href="xonlinecleanup.htm">XOnlineCleanup</a>.</p>
+<p><b>XOnlineStartup</b> internally automatically calls <a href="xbox_xnetstartup_xsnl.htm">XNetStartup</a> and <a href="xbox_wsastartup_winsock.htm">WSAStartup</a> with default parameters in order to initialize the Xbox Secure Network Libary and the Winsock layer.  To specify non-default startup parameters for <b>XNetStartup</b> or <b>WSAStartup</b>, call those functions prior to calling <b>XOnlineStartup</b>.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="x_mt_xonline_functions.htm">Xbox Live Functions</a> | <a href="xonlinecleanup.htm">XOnlineCleanup</a></p>
+</body>
+</html>

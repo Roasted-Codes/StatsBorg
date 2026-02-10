@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>IDirect3DDevice8::SetRenderStateNotInline</title>
+</head>
+<body topmargin="0">
+
+
+<h1>IDirect3DDevice8::SetRenderStateNotInline</h1>
+<p>Sets a single device render-state parameter.  Titles may use either this method or <a href="_dx_idirect3ddevice8_setrenderstate_graphics.htm">IDirect3DDevice8::SetRenderState</a> to change renders states. Titles using a non-constant value for the state should use <a href="_dx_idirect3ddevice8_setrenderstatenotinline_graphics.htm">IDirect3DDevice8::SetRenderStateNotInline</a>.</p>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>SetRenderStateNotInline(</b>
+    <b>D3DRENDERSTATETYPE</b> <i>State</i><b>,</b>
+    <b>DWORD</b> <i>Value</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>State</i></dt>
+<dd>[in]  Member of the <a href="_dx_d3drenderstatetype_graphics.htm">D3DRENDERSTATETYPE</a> enumerated type, specifying the device render state that will be modified.</dd>
+			<dt><i>Value</i></dt>
+<dd>[in]  New value that will be set for the device render state given in <i>State</i>. The meaning of this parameter is dependent on the value specified for State. For example, if State were <a href="_dx_d3drenderstatetype_graphics.htm#_dx_d3drs_shademode_graphics">D3DRS_SHADEMODE</a>, the second parameter would be one member of the <a href="_dx_d3dshademode_graphics.htm">D3DSHADEMODE</a> enumerated type. </dd>
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in D3d8.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use D3d8.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p><a href="_dx_idirect3ddevice8_setrenderstate_graphics.htm">IDirect3DDevice8::SetRenderState</a>, <a href="_dx_idirect3ddevice8_getrenderstate_graphics.htm">IDirect3DDevice8::GetRenderState</a></p>
+
+</body>
+</html>

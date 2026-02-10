@@ -1,0 +1,30 @@
+<html>
+
+
+<HEAD>
+<meta charset="UTF-8">
+
+
+<TITLE>Utility Data Storage Region</TITLE>
+
+
+<META NAME="MS-HKWD" CONTENT="">
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+
+<H1 class="heading"><A NAME=""></A>Utility Data Storage Region</H1>
+
+
+<P>The utility data region is used by titles for temporary scratch space, caching data from the game DVD, or other transitory data storage as desired.  Games may use the utility partition for essentially any purpose they wish. Few restrictions are placed upon the use of this region.</P>
+ 
+<P>The utility region itself spans three different partitions, each sized 750 MB.  During title initialization, a title is assigned one of these partitions on a Least Recently Used (LRU) basis.  If a title has previously saved data on a utility partition, and that partition has not been assigned to another title in the interim, the title will receive back the same partition it previously had and will thus have access to its previously saved data.  If such a partition is not available, a new, clean partition will be assigned to the title based on LRU aging.</P> 
+
+<P>Note that there are multiple uses for this utility space besides the caching of data that can be recreated. Titles can use this to store any data that can be deleted in between game sessions. Titles may, for instance, use this region to store environment deformations, to implement a limited form of virtual memory, or for other in-game scratch space.</P>
+
+<P>Titles also have some initialization options concerning the utility region. Based on options specified at build time, a title can choose whether or not this region will be automatically mounted when the title is initialized.  Additionally, the title can choose whether or not the utility area should be automatically formatted when mounted.  This would be desirable for the case where the region is used for scratch data only and the title always wants a clean partition.  The title can also mount (and either format or not) its utility partition at run-time.</P>
+
+
+</BODY>
+</HTML>

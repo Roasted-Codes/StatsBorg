@@ -1,0 +1,75 @@
+<html>
+
+<HEAD>
+<meta charset="UTF-8">
+
+<TITLE>IDirect3DDevice8::SetScreenSpaceOffset</TITLE>
+
+
+</HEAD>
+<BODY TOPMARGIN="0">
+
+<H1><A NAME="_dx_idirect3ddevice8_setscreenspaceoffset_graphics"></A>IDirect3DDevice8::SetScreenSpaceOffset</H1>
+
+<P>Sets a screen-space offset which is applied to all rendering.</P>
+
+<PRE class=syntax><B>HRESULT SetScreenSpaceOffset(</B>
+  <b>float</B> <I>x</I><b>,
+  float</b> <i>y</i>
+<B>);</B>
+</PRE>
+
+<H4>Parameters</H4>
+
+<DL>
+<DT><I>x</I></DT>
+<DD>[in] The horizontal offset.</DD>
+
+<DT><I>y</I></DT>
+<DD>[in] The vertical offset.</DD>
+</DL>
+
+<H4>Return Values</H4>
+
+<P>If the method succeeds, the return value is S_OK.</P>
+
+<h4>Remarks</h4>
+
+<p>An offset of (-0.5f, -0.5f) results in the same pixel fill conventions as OpenGL.</p>
+
+<p>When using field rendering, <b>SetScreenSpaceOffset</b> may be used to apply the even-field offset as shown below.</p>
+
+<pre>// Assume that pDevice is a valid pointer 
+// to an IDirect3DDevice8 interface.
+
+// Handle the odd field.
+pDevice->SetScreenSpaceOffset( 0.0f, 0.0f );
+
+// Render your geometry.
+// ...
+
+pDevice->Swap( D3DSWAP_DEFAULT );
+
+// Now handle the even field.
+pDevice->SetScreenSpaceOffset( 0.0f, 0.5f );
+
+// Render your geometry.
+// ...
+
+pDevice->Swap( D3DSWAP_DEFAULT );
+</pre>
+
+<p>When field rendering, the offset applies to non-back-buffer render targets as well, so the title will need to reset the offset when changing render targets.</p>
+
+<H4>Requirements </H4>
+
+<P><B>&nbsp;&nbsp;Header: </B>Declared in D3d8.h.<BR>
+<B>&nbsp;&nbsp;Import Library:</B> Use D3d8.lib.</P>
+
+<H4>See Also</H4>
+
+<p><a href="_dx_idirect3ddevice8_getscreenspaceoffset_graphics.htm"><b>IDirect3DDevice8::GetScreenSpaceOffset</b></a></p>
+
+
+</BODY>
+</HTML>

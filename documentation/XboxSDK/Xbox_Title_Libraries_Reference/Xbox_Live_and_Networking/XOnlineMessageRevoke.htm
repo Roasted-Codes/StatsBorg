@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XOnlineMessageRevoke</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XOnlineMessageRevoke</h1>
+            <p>Revokes a message that has already been sent.</p>
+        <pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>XOnlineMessageRevoke(</b>
+    <b>DWORD</b> <i>dwUserIndex</i><b>,</b>
+    <b>DWORD</b> <i>dwNumMsgSendResults</i><b>,</b>
+    <b>const XONLINE_MSG_SEND_RESULT</b> *<i>pMsgSendResults</i><b>,</b>
+    <b>HANDLE</b> <i>hWorkEvent</i><b>,</b>
+    <b>PXONLINETASK_HANDLE</b> <i>phTask</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+            <dt><i>dwUserIndex</i></dt>
+				<dd>[in]  Controller index (zero-based) of the player. The player must have been 
+				successfully logged on with a previous call to <a href="XOnlineLogon.htm">XOnlineLogon</a>.</dd>
+			
+            <dt><i>dwNumMsgSendResults</i></dt>
+				<dd>[in]  Number of recipients whose copy of the sent message should be revoked.</dd>
+			
+            <dt><i>pMsgSendResults</i></dt>
+				<dd>[in]  Pointer to the <a href="XONLINE_MSG_SEND_RESULT.htm">XONLINE_MSG_SEND_RESULT</a> array obtained from 
+				<a href="XOnlineMessageSendGetResults.htm">XOnlineMessageSendGetResults</a>.</dd>
+			
+            <dt><i>hWorkEvent</i></dt>
+				<dd>[in, optional]  Handle of the event you want triggered every time there is work to be performed on this task. 
+				If you do not want to assign an event, set this parameter to NULL.</dd>
+			
+            <dt><i>phTask</i></dt>
+				<dd>[out]  Pointer to an <b>XONLINETASK_HANDLE</b> type. The handle is associated 
+				with the task started by this function.</dd>
+			
+        </dl>
+<h4><a name="return"></a>Return Values</h4>
+            
+                <p>Returns S_OK if successful, an error code otherwise.</p>
+            
+        <h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xonline.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xonline.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+            <p><a href="XOnlineMessageSendGetResults.htm">XOnlineMessageSendGetResults</a></p>
+        
+</body>
+</html>

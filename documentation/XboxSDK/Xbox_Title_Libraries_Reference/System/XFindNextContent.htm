@@ -1,0 +1,44 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>XFindNextContent</title>
+</head>
+<body topmargin="0">
+
+
+<h1>XFindNextContent</h1>
+<p>Continues an enumeration of title content offerings that have been installed on the hard disk.</p><pre class="syntax" xml:space="preserve"><b>BOOL</b> <b>XFindNextContent(</b>
+    <b>HANDLE</b> <i>hFindContent</i><b>,</b>
+    <b>PXCONTENT_FIND_DATA</b> <i>pFindContentData</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+<dt><i>hFindContent</i></dt>
+<dd>[in]  A search handle returned by a previous call to <a href="XFindFirstContent.htm">XFindFirstContent</a>.</dd>
+<dt><i>pFindContentData</i></dt>
+<dd>[out]  Pointer to the <a href="XCONTENT_FIND_DATA.htm">XCONTENT_FIND_DATA</a> structure that receives information about the next content offering found.</dd>
+</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>If the function succeeds, the return value is TRUE.</p>
+<p>If the function fails, the return value is FALSE. To get extended error information, call <a href="errors_3uwi.htm">GetLastError</a>.</p><h4><a name="remarks"></a>Remarks</h4>
+<p><b>XFindNextContent</b> returns information about the next content offering found. Continue to enumerate content with repeated calls to <b>XFindNextContent</b> with the search handle and content data structure. When no more content is available, <b>XFindNextContent</b> will return FALSE and <b>GetLastError</b> will return ERROR_NO_MORE_FILES. When the search handle is no longer needed, close it with the <a href="x_jsk_xfindclose.htm">XFindClose</a> function to free up associated resources.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xbox.h, for include use Xtl.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xapilib.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="x_mt_storage_oview.htm">Storage Overview</a>,
+<a href="x_jsk_storage_functions.htm">Storage Functions</a> |
+<a href="XFindFirstContent.htm">XFindFirstContent</a>,
+<a href="x_jsk_xfindclose.htm">XFindClose</a>,
+<a href="XOnlineOfferingEnumerate.htm">XOnlineOfferingEnumerate</a>,
+<a href="XCreateContentSimple.htm">XCreateContentSimple</a>,
+<a href="XLoadContentSignatures.htm">XLoadContentSignatures</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<title>ITitleXHV::LocalChatDataReady</title>
+</head>
+<body topmargin="0">
+
+
+<h1>ITitleXHV::LocalChatDataReady</h1>
+<pre class="syntax" xml:space="preserve"><b>HRESULT</b> <b>LocalChatDataReady(</b>
+    <b>DWORD</b> <i>dwLocalPort</i><b>,</b>
+    <b>DWORD</b> <i>dwSize</i><b>,</b>
+    <b>VOID</b> *<i>pData</i>
+<b>);</b>
+</pre>
+<h4><a name="parameters"></a>Parameters</h4>
+<dl>
+			<dt><i>dwLocalPort</i></dt>
+				<dd>[in]  Port of the local talker associated with the voice data callback.</dd>
+			
+			<dt><i>dwSize</i></dt>
+				<dd>[in]  Size of encoded voice data.</dd>
+			
+			<dt><i>pData</i></dt>
+				<dd>[in]  Pointer to encoded voice data.</dd>
+			
+		</dl>
+<h4><a name="return"></a>Return Values</h4>
+<p>Returns S_OK if successful, an error code otherwise.</p>
+<h4><a name="requirements"></a>Requirements</h4>
+        <p class="clsInfo"><b>  Header: </b>Declared in Xhv.h.</p>
+            
+        <p class="clsInfo"><b>  Import Library: </b>Use Xvoice.lib.</p>
+    <h4><a name="seealso"></a>See Also</h4>
+<p>
+<a href="IXHVEngine_SetCallbackInterface.htm">SetCallbackInterface</a>
+</p>
+
+</body>
+</html>
