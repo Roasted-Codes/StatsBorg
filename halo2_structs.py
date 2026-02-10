@@ -933,9 +933,10 @@ class PCRPlayerStats:
         0x68: Assists            (int32)
         0x6C: Suicides           (int32)
         0x70: Place              (int16)
-        0x72: Unknown            (int16)
-        0x74: Unknown            (byte + pad24)
-        0x78: Unknown            (int32)
+        0x72: Team               (int16, team index: 0=Red, 1=Blue, etc.)
+        0x74: Observer           (bool, 1 byte + 3 padding)
+        0x78: Rank               (int16, Halo 2 skill rank 1-50)
+        0x7A: RankVerified       (int16, whether rank is official)
         0x7C: MedalsEarned       (int32)
         0x80: MedalsEarnedByType (flags)
         0x84: TotalShots         (int32)
@@ -965,6 +966,10 @@ class PCRPlayerStats:
     assists: int = 0
     suicides: int = 0
     place: int = 0
+    team: int = 0               # Team index (0=Red, 1=Blue, 2=Yellow, etc.)
+    observer: bool = False      # Is player spectating?
+    rank: int = 0               # Halo 2 skill rank (1-50)
+    rank_verified: int = 0      # Whether rank is official/verified
     place_string: str = ""
     medals_earned: int = 0
     medals_earned_by_type: int = 0  # Bitmask of medal types
@@ -998,6 +1003,12 @@ class PCRPlayerStats:
         # Place at 0x70
         place = struct.unpack('<H', data[0x70:0x72])[0]
 
+        # Team, observer, rank at 0x72-0x7B
+        team = struct.unpack('<H', data[0x72:0x74])[0]
+        observer = bool(data[0x74])
+        rank = struct.unpack('<H', data[0x78:0x7A])[0]
+        rank_verified = struct.unpack('<H', data[0x7A:0x7C])[0]
+
         # Medals at 0x7C and 0x80
         medals_earned = struct.unpack('<I', data[0x7C:0x80])[0]
         medals_by_type = struct.unpack('<I', data[0x80:0x84])[0]
@@ -1027,6 +1038,10 @@ class PCRPlayerStats:
             assists=assists,
             suicides=suicides,
             place=place,
+            team=team,
+            observer=observer,
+            rank=rank,
+            rank_verified=rank_verified,
             place_string=place_string,
             medals_earned=medals_earned,
             medals_earned_by_type=medals_by_type,
@@ -1048,6 +1063,10 @@ class PCRPlayerStats:
             "score_string": self.score_string,
             "place": self.place,
             "place_string": self.place_string,
+            "team": self.team,
+            "observer": self.observer,
+            "rank": self.rank,
+            "rank_verified": self.rank_verified,
             "kills": self.kills,
             "deaths": self.deaths,
             "assists": self.assists,

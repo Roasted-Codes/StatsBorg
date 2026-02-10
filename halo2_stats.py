@@ -46,6 +46,7 @@ from halo2_structs import (
     GameStats,
     PlayerProperties,
     GameType,
+    GameTeam,
     GAMETYPE_NAMES,
     TeamStats,
     calculate_pcr_address,
@@ -537,7 +538,7 @@ def build_snapshot(players,
         gametype = detect_gametype_from_medals(players)
 
     snapshot = {
-        "schema_version": 2,
+        "schema_version": 3,
         "timestamp": datetime.now().isoformat(),
         "fingerprint": fingerprint,
         "source": source,
@@ -874,7 +875,11 @@ def print_scoreboard_rich(players: List[PCRPlayerStats],
 
         place_str = player.place_string or f"#{player.place}"
         score_str = player.score_string or ""
-        print(f"\n {i:2d}. {name}  {place_str:>4s}  Score: {score_str}")
+        try:
+            team_label = GameTeam(player.team).name.capitalize()
+        except ValueError:
+            team_label = f"Team{player.team}"
+        print(f"\n {i:2d}. {name}  {place_str:>4s}  Score: {score_str}  [{team_label}]")
         print(f"     K:{k:3d}  D:{d:3d}  A:{a:3d}  S:{player.suicides:2d}  K/D:{kd:.2f}")
 
         if player.total_shots > 0:
