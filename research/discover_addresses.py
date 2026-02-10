@@ -8,6 +8,8 @@ Usage: python discover_addresses.py [host]
 """
 import sys
 import time
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from xbdm_client import XBDMClient
 
 HOST = sys.argv[1] if len(sys.argv) > 1 else "172.20.0.51"

@@ -13,6 +13,8 @@ import pickle
 import sys
 import time
 from pathlib import Path
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from xbdm_client import XBDMClient
 
 

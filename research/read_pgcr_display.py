@@ -8,6 +8,8 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 import struct
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from xbdm_client import XBDMClient
 
 PGCR_DISPLAY_BASE = 0x56B900

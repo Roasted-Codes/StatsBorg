@@ -8,6 +8,8 @@ The PCR address 0x55CAF0 works. Let's explore nearby memory.
 import argparse
 import time
 import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from xbdm_client import XBDMClient
 
 
