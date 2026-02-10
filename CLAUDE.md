@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Cross-platform Python tool to read Halo 2 multiplayer statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) protocol. Linux-compatible alternative to Windows-only HaloCaster.
 
-**Requirements:** Python 3.7+ (standard library only for core tool; `psycopg2-binary` + `openpyxl` optional for export scripts — see `requirements-export.txt`)
+**Requirements:** Python 3.7+ (standard library only for core tool; `psycopg2-binary` + `openpyxl` optional for export scripts — see `exports/requirements.txt`)
 
 **Target setup:** Docker-bridged Xemu with CerbiosDebug XBDM at `172.20.0.51:731`
 
@@ -34,46 +34,46 @@ python halo2_stats.py --host 172.20.0.51 --simple
 # JSON output
 python halo2_stats.py --host 172.20.0.51 --json
 
-# XBDM diagnostics
-python discover_addresses.py    # walkmem + modsections
-python xbdm_client.py [host]   # connection test
+# Hex dump PGCR Display header (research)
+python halo2_stats.py --host 172.20.0.51 --dump-header
+
+# XBDM diagnostics (in research/)
+python research/discover_addresses.py    # walkmem + modsections
+python xbdm_client.py [host]             # connection test
 
 # Export to PostgreSQL (requires psycopg2-binary, uses DATABASE_URL env var)
-python db_export.py --init-schema              # create tables
-python db_export.py --import-history           # import all history/*.json
-python db_export.py --import-file <path>       # import single file
-python db_export.py --summary                  # print aggregate stats
+python exports/db_export.py --init-schema              # create tables
+python exports/db_export.py --import-history           # import all history/*.json
+python exports/db_export.py --import-file <path>       # import single file
+python exports/db_export.py --summary                  # print aggregate stats
 
 # Export to Excel (requires openpyxl)
-python xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
-python xlsx_export.py --from 2026-02-05 --to 2026-02-10 -o stats.xlsx
+python exports/xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
+python exports/xlsx_export.py --from 2026-02-05 --to 2026-02-10 -o stats.xlsx
 ```
 
 **Watch mode** (`--watch`): Polls PGCR Display every 3s. Detects game end by player name presence, deduplicates via fingerprint hash (MD5 of sorted player names + K/D/A/S), auto-saves to `history/`.
 
 **History directory** (`history/`): JSON files named `YYYY-MM-DD_HH-MM-SS_<fingerprint>.json`.
 
-**`--live` mode**: Exists in code but **does not work** via XBDM. HaloCaster live stats addresses fall in an uncommitted kernel VA gap. Requires QMP (not yet implemented).
+**Live stats** (`live_stats.py`): Extracted module containing code for reading real-time in-game stats (per-weapon breakdowns, detailed medal counts, game variant info). **Does not work** via XBDM — HaloCaster addresses land in an uncommitted kernel VA gap (`0x83145000-0x83AC4000`). See `live_stats.py` header for detailed explanation and future fix options.
 
-**Utility scripts** (for debugging/research, not production):
-- `discover_addresses.py` - walkmem + modsections enumeration
-- `diagnose_addresses.py`, `scan_near_pcr.py`, `find_player.py` - address discovery
-- `diff_monitor.py`, `live_monitor.py` - memory change tracking
-- `read_pgcr_display.py`, `read_live_safe.py` - targeted memory reads
-- `debug_xbdm_protocol.py`, `debug_alignment.py`, `debug_boundary.py` - protocol debugging
-- `bridge_client.py` - alternate XBDM bridge testing
+**Research scripts** (`research/`): Debugging and memory discovery tools, not part of production. See `research/README.md`.
 
 ## Code Architecture
 
 ```
-xbdm_client.py      # XBDM protocol: TCP:731, getmem2, walkmem, modsections, breakpoints
+xbdm_client.py           # XBDM protocol: TCP:731, getmem2, walkmem, modsections, breakpoints
        |
-halo2_structs.py    # Data layer: addresses, struct parsing, enums, dataclasses
+halo2_structs.py         # Data layer: addresses, struct parsing, enums, dataclasses
        |
-halo2_stats.py      # CLI: stats reader, scoreboard display, JSON/text output, watch mode
+halo2_stats.py           # CLI: stats reader, scoreboard display, JSON/text output, watch mode
        |
-db_export.py        # PostgreSQL export (optional: psycopg2-binary)
-xlsx_export.py      # Excel export (optional: openpyxl)
+exports/db_export.py     # PostgreSQL export (optional: psycopg2-binary)
+exports/xlsx_export.py   # Excel export (optional: openpyxl)
+
+live_stats.py            # Live in-game stats (non-functional via XBDM, future QMP)
+research/                # Debugging/discovery scripts (not production)
 ```
 
 **Key classes:**
@@ -83,16 +83,16 @@ xlsx_export.py      # Excel export (optional: openpyxl)
 - `TeamStats` - Post-game team struct (0x84 bytes stride at 0x55DC30). Name, score, place.
 - `GameType` - IntEnum for gametype (0=None, 1=CTF, 2=Slayer, ..., 9=Assault) readable from 0x50224C
 - `Halo2StatsReader` - High-level: reads players, teams, gametype; validates names; probes PGCR Display
-- `Halo2Database` (db_export.py) - PostgreSQL interface: `init_schema()`, `import_snapshot()`, `import_history_dir()`
+- `Halo2Database` (exports/db_export.py) - PostgreSQL interface: `init_schema()`, `import_snapshot()`, `import_history_dir()`
 
 **Data flow (default one-shot read):**
 1. `probe_pgcr_display_populated()` — lightweight check: read 32 bytes at 0x56B990, validate ASCII name
 2. If populated → `read_active_pgcr_display()` using `PCRPlayerStats.from_bytes()` at PGCR Display addresses
 3. If empty → fallback to `read_all_players_indexed()` at PCR addresses (0x55CAF0)
 4. Both paths produce `List[PCRPlayerStats]` — same struct, different base address
-5. `read_gametype()` reads enum from 0x50224C (replaces medal-based heuristic)
-6. `read_teams()` reads team data from 0x55DC30 (contiguous after PCR player array)
-7. `build_snapshot()` assembles JSON with schema_version 2, gametype_id, teams
+5. `read_gametype()` reads enum from PGCR Display header at 0x56B984 (replaces medal-based heuristic)
+6. `read_teams()` reads team data from 0x56CAD0 (PGCR) or 0x55DC30 (PCR fallback)
+7. `build_snapshot()` assembles JSON with schema_version 3, gametype_id, teams
 
 ## Memory Layout (Confirmed Feb 2026)
 
@@ -126,6 +126,10 @@ Source: OpenSauce `Networking/Statistics.hpp`, verified against Yelo Carnage `St
 | 0x68 | int32 | Assists |
 | 0x6C | int32 | Suicides |
 | 0x70 | int16 | Place (0-indexed) |
+| 0x72 | int16 | Team index (0=Red, 1=Blue, 2=Yellow, etc.) |
+| 0x74 | bool (1 byte) | Observer (spectating?) |
+| 0x78 | int16 | Rank (Halo 2 skill rank 1-50) |
+| 0x7A | int16 | Rank verified |
 | 0x7C | int32 | Medals earned (count) |
 | 0x80 | int32 | Medals by type (24-bit bitmask) |
 | 0x84 | int32 | Total shots |
