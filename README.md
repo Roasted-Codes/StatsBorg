@@ -1,11 +1,11 @@
 # StatsBorg — Halo 2 Post-Game Stats Reader
 
-Cross-platform Python tool to read Halo 2 multiplayer post-game statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) protocol. Linux-compatible alternative to Windows-only HaloCaster.
+Cross-platform Python tool to read Halo 2 multiplayer post-game statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) and QMP (QEMU Machine Protocol). Linux-compatible alternative to Windows-only HaloCaster.
 
 ## Features
 
 - **Cross-platform**: Works on Windows, Linux, and macOS
-- **Direct XBDM**: Reads memory via standard XBDM protocol (no Windows APIs)
+- **Dual protocol**: XBDM (direct Xbox memory) and QMP (Xemu guest physical memory)
 - **Post-game stats**: Kills, deaths, assists, suicides, accuracy, medals, gametype-specific stats
 - **Team support**: Team names, scores, and per-player team assignments
 - **Watch mode**: Auto-detects game completions and saves history
@@ -20,16 +20,22 @@ Cross-platform Python tool to read Halo 2 multiplayer post-game statistics from 
 - One of:
   - Xbox with XBDM enabled (debug kit or modded console with CerbiosDebug)
   - Xemu emulator with [xbdm_gdb_bridge](https://github.com/abaire/xbdm_gdb_bridge) or native CerbiosDebug
+  - Xemu with QMP enabled (`-qmp tcp:0.0.0.0:4444,server,nowait`)
 - Halo 2 running on the Xbox/emulator
 
 ## Usage
 
+### XBDM (direct Xbox memory reads)
+
 ```bash
-# Read post-game stats (tries PGCR Display first, falls back to PCR)
+# Read post-game stats
 python halo2_stats.py --host 172.20.0.51
 
 # Watch for game completions and auto-save history
 python halo2_stats.py --host 172.20.0.51 --watch
+
+# Watch with instant breakpoint detection (instead of polling)
+python halo2_stats.py --host 172.20.0.51 --watch --breakpoint
 
 # One-shot save to history directory
 python halo2_stats.py --host 172.20.0.51 --save
@@ -37,26 +43,31 @@ python halo2_stats.py --host 172.20.0.51 --save
 # JSON output
 python halo2_stats.py --host 172.20.0.51 --json
 
-# Simple K/D/A output (compact format)
-python halo2_stats.py --host 172.20.0.51 --simple
-
-# Label gametype-specific stats
-python halo2_stats.py --host 172.20.0.51 -g ctf
-
-# Hex dump PGCR Display header (research)
-python halo2_stats.py --host 172.20.0.51 --dump-header
-
 # Test XBDM connection
 python xbdm_client.py 172.20.0.51
+```
+
+### QMP (Xemu guest physical memory reads)
+
+```bash
+# Read post-game stats via QMP (same output as XBDM)
+python halo2_stats.py --host 172.20.0.10 --qmp 4444
+
+# Watch mode via QMP
+python halo2_stats.py --host 172.20.0.10 --qmp 4444 --watch
+
+# Test QMP connection
+python qmp_client.py 172.20.0.10 4444 --pgcr
 ```
 
 ## Project Structure
 
 ```
 xbdm_client.py           # XBDM protocol client (TCP:731)
+qmp_client.py            # QMP protocol client (TCP:4444, guest physical reads)
 halo2_structs.py          # Data structures, addresses, struct parsing
 halo2_stats.py            # Main CLI tool
-live_stats.py             # Live in-game stats (non-functional via XBDM — see file header)
+live_stats.py             # Live in-game stats structs/parsers
 exports/
   db_export.py            # PostgreSQL export (requires psycopg2-binary)
   xlsx_export.py          # Excel export (requires openpyxl)
@@ -81,12 +92,12 @@ python exports/xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
 
 ## How It Works
 
-1. Connect to XBDM on port 731
+1. Connect via XBDM (port 731) or QMP (port 4444)
 2. Probe PGCR Display at `0x56B900` for populated player data
 3. Read player stats (0x114-byte structs), team data, and gametype from memory
 4. Parse into structured data and output as rich scoreboard or JSON
 
-The primary data source is the **PGCR Display** structure at `0x56B900`, which contains a 0x90-byte header followed by 16 player records and 8 team records. This is populated during gameplay and on the post-game carnage report screen.
+The primary data source is the **PGCR Display** structure at `0x56B900`, which contains a 0x90-byte header followed by 16 player records and 8 team records. QMP translates Xbox virtual addresses to physical via `gva2gpa` page table walk, making both protocols read the exact same data.
 
 ## Credits
 

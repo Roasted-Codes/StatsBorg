@@ -1089,25 +1089,42 @@ Examples:
         action="store_true",
         help="Hex dump the PGCR Display header (0x90 bytes) for research"
     )
+    parser.add_argument(
+        "--qmp",
+        type=int,
+        metavar="PORT",
+        help="Use QMP protocol on PORT for live stats (requires Xemu -qmp flag)"
+    )
 
     args = parser.parse_args()
 
-    # Connect to XBDM
-    print(f"Connecting to XBDM at {args.host}:{args.port}...")
-    read_delay = 0.2 if args.slow else 0.05  # 200ms slow mode, 50ms normal
-    client = XBDMClient(args.host, args.port, timeout=args.timeout, read_delay=read_delay)
-    if args.slow:
-        print("Using slow mode (200ms between reads)")
+    # Connect via QMP or XBDM
+    if args.qmp:
+        from qmp_client import QMPClient
+        print(f"Connecting to QMP at {args.host}:{args.qmp}...")
+        client = QMPClient(args.host, args.qmp, timeout=args.timeout)
+        if not client.connect():
+            print("ERROR: Failed to connect to QMP", file=sys.stderr)
+            print("Make sure Xemu is running with:", file=sys.stderr)
+            print(f"  -qmp tcp:0.0.0.0:{args.qmp},server,nowait", file=sys.stderr)
+            sys.exit(1)
+        print("Connected to QMP!")
+    else:
+        print(f"Connecting to XBDM at {args.host}:{args.port}...")
+        read_delay = 0.2 if args.slow else 0.05  # 200ms slow mode, 50ms normal
+        client = XBDMClient(args.host, args.port, timeout=args.timeout, read_delay=read_delay)
+        if args.slow:
+            print("Using slow mode (200ms between reads)")
 
-    if not client.connect():
-        print("ERROR: Failed to connect to XBDM", file=sys.stderr)
-        print("Make sure:", file=sys.stderr)
-        print("  - For Xemu: xbdm_gdb_bridge is running", file=sys.stderr)
-        print("  - For Xbox: Console is on with XBDM enabled", file=sys.stderr)
-        print(f"  - Port {args.port} is accessible", file=sys.stderr)
-        sys.exit(1)
+        if not client.connect():
+            print("ERROR: Failed to connect to XBDM", file=sys.stderr)
+            print("Make sure:", file=sys.stderr)
+            print("  - For Xemu: xbdm_gdb_bridge is running", file=sys.stderr)
+            print("  - For Xbox: Console is on with XBDM enabled", file=sys.stderr)
+            print(f"  - Port {args.port} is accessible", file=sys.stderr)
+            sys.exit(1)
 
-    print("Connected!")
+        print("Connected!")
 
     reader = Halo2StatsReader(client, verbose=args.verbose)
 

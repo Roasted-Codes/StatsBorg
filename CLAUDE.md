@@ -2,13 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Maintenance:** Keep this file up to date as the project evolves. When adding new features, changing addresses, modifying CLI flags, or altering architecture, update the relevant sections here.
+
 ## Project Overview
 
-Cross-platform Python tool to read Halo 2 multiplayer statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) protocol. Linux-compatible alternative to Windows-only HaloCaster.
+Cross-platform Python tool to read Halo 2 multiplayer statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) and QMP (QEMU Machine Protocol). Linux-compatible alternative to Windows-only HaloCaster.
 
 **Requirements:** Python 3.7+ (standard library only for core tool; `psycopg2-binary` + `openpyxl` optional for export scripts — see `exports/requirements.txt`)
 
-**Target setup:** Docker-bridged Xemu with CerbiosDebug XBDM at `172.20.0.51:731`
+**Target setup:** Docker-bridged Xemu with CerbiosDebug XBDM at `172.20.0.51:731`, QMP at `172.20.0.10:4444`
 
 ## Commands
 
@@ -19,11 +21,17 @@ python xbdm_client.py [host]
 # Read post-game stats (default: tries PGCR Display first, falls back to PCR)
 python halo2_stats.py --host 172.20.0.51
 
-# Watch for game completions and auto-save history
+# Watch for game completions and auto-save history (polls every 3s)
 python halo2_stats.py --host 172.20.0.51 --watch
+
+# Watch using XBDM breakpoint for instant game-end detection (instead of polling)
+python halo2_stats.py --host 172.20.0.51 --watch --breakpoint
 
 # One-shot save to history directory
 python halo2_stats.py --host 172.20.0.51 --save
+
+# Poll at custom interval (seconds)
+python halo2_stats.py --host 172.20.0.51 --poll 2
 
 # Label gametype-specific stats
 python halo2_stats.py --host 172.20.0.51 -g ctf
@@ -36,6 +44,30 @@ python halo2_stats.py --host 172.20.0.51 --json
 
 # Hex dump PGCR Display header (research)
 python halo2_stats.py --host 172.20.0.51 --dump-header
+
+# Additional flags (work with both XBDM and QMP):
+#   --watch-interval 5   Custom watch poll interval (default 3s)
+#   --timeout 10         Connection timeout in seconds (default 5)
+#   --output stats.json  Save JSON output to file
+#   --slow               200ms read delay instead of 50ms (XBDM only)
+#   --verbose            Debug logging
+
+# --- QMP mode (reads same PGCR data via QEMU Machine Protocol) ---
+
+# Read post-game stats via QMP (same output as XBDM)
+python halo2_stats.py --host 172.20.0.10 --qmp 4444
+
+# Watch mode via QMP (polls, auto-saves, identical to XBDM --watch)
+python halo2_stats.py --host 172.20.0.10 --qmp 4444 --watch
+
+# Poll via QMP every 2 seconds
+python halo2_stats.py --host 172.20.0.10 --qmp 4444 --poll 2
+
+# Test QMP connection + PGCR read
+python qmp_client.py 172.20.0.10 4444 --pgcr
+
+# Test QMP connection (live stats, HaloCaster addresses)
+python qmp_client.py [host] [port]
 
 # XBDM diagnostics (in research/)
 python research/discover_addresses.py    # walkmem + modsections
@@ -52,65 +84,85 @@ python exports/xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
 python exports/xlsx_export.py --from 2026-02-05 --to 2026-02-10 -o stats.xlsx
 ```
 
-**Watch mode** (`--watch`): Polls PGCR Display every 3s. Detects game end by player name presence, deduplicates via fingerprint hash (MD5 of sorted player names + K/D/A/S), auto-saves to `history/`.
+**Watch mode** (`--watch`): Polls PGCR Display every 3s (or use `--breakpoint` for instant detection via XBDM breakpoint at `0x23975C`). Detects game end by player name presence, deduplicates via fingerprint hash (MD5 of sorted player names + K/D/A/S), auto-saves to `history/`.
 
 **History directory** (`history/`): JSON files named `YYYY-MM-DD_HH-MM-SS_<fingerprint>.json`.
 
-**Live stats** (`live_stats.py`): Extracted module containing code for reading real-time in-game stats (per-weapon breakdowns, detailed medal counts, game variant info). **Does not work** via XBDM — HaloCaster addresses land in an uncommitted kernel VA gap (`0x83145000-0x83AC4000`). See `live_stats.py` header for detailed explanation and future fix options.
+**QMP mode** (`--qmp PORT`): Reads the same PGCR data as XBDM but via QMP (QEMU Machine Protocol). User-space VAs are automatically translated to physical addresses via `gva2gpa` page table walk. All flags (`--watch`, `--save`, `--json`, `--poll`, `--breakpoint`) work identically. Requires Xemu launched with `-qmp tcp:0.0.0.0:PORT,server,nowait`.
 
-**Research scripts** (`research/`): Debugging and memory discovery tools, not part of production. See `research/README.md`.
+**Live stats** (`--live`): Reads HaloCaster kernel-space addresses for in-game stats. **Does not work via XBDM** — addresses land in an uncommitted kernel VA gap (`0x83145000-0x83AC4000`). With `--qmp`, live stats can be read via physical memory but HaloCaster offsets are not portable to our CerbiosDebug build (different physical layout).
 
 ## Code Architecture
 
 ```
 xbdm_client.py           # XBDM protocol: TCP:731, getmem2, walkmem, modsections, breakpoints
+qmp_client.py            # QMP protocol: TCP:4444, xp physical reads, JSON command/response
        |
 halo2_structs.py         # Data layer: addresses, struct parsing, enums, dataclasses
+live_stats.py            # Live stats: HaloCaster offsets, structs, parsers (used by --qmp)
        |
 halo2_stats.py           # CLI: stats reader, scoreboard display, JSON/text output, watch mode
        |
 exports/db_export.py     # PostgreSQL export (optional: psycopg2-binary)
 exports/xlsx_export.py   # Excel export (optional: openpyxl)
 
-live_stats.py            # Live in-game stats (non-functional via XBDM, future QMP)
 research/                # Debugging/discovery scripts (not production)
+documentation/           # Xbox SDK reference docs (XboxSDK.chm, H2WhitePaper.rtf)
 ```
 
 **Key classes:**
-- `XBDMClient` - TCP connection, `read_memory(addr, len)`, 50ms rate limiting, `walk_memory()`, `get_module_sections()`, `set_breakpoint()`, `continue_execution()`, `continue_thread()`
-- `XBDMNotificationListener` - Separate TCP connection for async XBDM notifications (breakpoint events)
-- `PCRPlayerStats` - Post-game player struct (0x114 bytes), `from_bytes()` parser. Used for **both** PCR and PGCR Display reads (same struct layout at different base addresses)
-- `TeamStats` - Post-game team struct (0x84 bytes stride at 0x55DC30). Name, score, place.
-- `GameType` - IntEnum for gametype (0=None, 1=CTF, 2=Slayer, ..., 9=Assault) readable from 0x50224C
-- `Halo2StatsReader` - High-level: reads players, teams, gametype; validates names; probes PGCR Display
-- `Halo2Database` (exports/db_export.py) - PostgreSQL interface: `init_schema()`, `import_snapshot()`, `import_history_dir()`
+- `XBDMClient` — TCP connection, `read_memory(addr, len)`, 50ms rate limiting, `walk_memory()`, `get_module_sections()`, `set_breakpoint()`, `continue_execution()`, `continue_thread()`
+- `QMPClient` — QMP protocol over TCP, `read_memory(addr, len)` as drop-in replacement for `XBDMClient`. Auto-detects address type: user-space VAs (< 0x80000000) go through `gva2gpa` page table walk, kernel VAs strip the high bit. VA→PA translations are cached (page tables stable at runtime). Also exposes `translate_va()` and `read_memory_va()` directly
+- `XBDMNotificationListener` — Separate TCP connection for async XBDM notifications (breakpoint events)
+- `PCRPlayerStats` — Post-game player struct (0x114 bytes), `from_bytes()` parser. Used for **both** PCR and PGCR Display reads (same struct layout at different base addresses)
+- `TeamStats` — Post-game team struct (0x84 bytes stride). Name, score, place.
+- `GameType` — IntEnum (0=None, 1=CTF, 2=Slayer, 3=Oddball, 4=KOTH, 7=Juggernaut, 8=Territories, 9=Assault)
+- `Halo2StatsReader` — High-level: reads players, teams, gametype; validates names; probes PGCR Display
+- `Halo2Database` (exports/db_export.py) — PostgreSQL interface: `init_schema()`, `import_snapshot()`, `import_history_dir()`
 
 **Data flow (default one-shot read):**
 1. `probe_pgcr_display_populated()` — lightweight check: read 32 bytes at 0x56B990, validate ASCII name
 2. If populated → `read_active_pgcr_display()` using `PCRPlayerStats.from_bytes()` at PGCR Display addresses
 3. If empty → fallback to `read_all_players_indexed()` at PCR addresses (0x55CAF0)
 4. Both paths produce `List[PCRPlayerStats]` — same struct, different base address
-5. `read_gametype()` reads enum from PGCR Display header at 0x56B984 (replaces medal-based heuristic)
+5. `read_gametype()` reads enum from PGCR Display header at 0x56B984
 6. `read_teams()` reads team data from 0x56CAD0 (PGCR) or 0x55DC30 (PCR fallback)
 7. `build_snapshot()` assembles JSON with schema_version 3, gametype_id, teams
 
+**Gametype detection:** Primary path reads `GameType` enum from `0x56B984` (PGCR header +0x84). Fallback `detect_gametype_from_medals()` uses medal bitmask bits but cannot distinguish Slayer/Juggernaut/Territories.
+
 ## Memory Layout (Confirmed Feb 2026)
 
-### What works via XBDM
+### Address Table
 
 | Address | Name | Notes |
 |---------|------|-------|
-| `0x50224C` | Gametype Enum (xbox7887) | Reads as zero on docker-bridged-xemu. Not used |
+| `0x50224C` | Gametype Enum (xbox7887) | Reads as zero on docker-bridged-xemu. **Do not use** |
 | `0x55CAF0` | PCR | EMPTY on docker-bridged-xemu. Fallback only |
 | `0x55DC30` | Team Data (PCR) | EMPTY on docker-bridged-xemu. Fallback only |
 | `0x56B900` | **PGCR Display** | PRIMARY source. 0x90-byte header + player records + team records |
 | `0x56B984` | **Gametype Enum** | int32 in PGCR header (+0x84). Populated during gameplay AND post-game |
 | `0x56B990` | Player 0 in PGCR Display | First player = 0x56B900 + 0x90 |
 | `0x56CAD0` | **Team Data (PGCR)** | After 16 player records. 0x84 stride, up to 8 teams |
-| `0x23975C` | **PGCR Breakpoint** | Code address: PGCR clear function, fires at game end. Resume with `continue thread=N` then `go` per SDK |
+| `0x23975C` | **PGCR Breakpoint** | Code address: PGCR clear function, fires at game end |
 
 Player N address: `0x56B990 + N * 0x114` (stride = 276 bytes, max 16 players)
 Team N address: `0x56CAD0 + N * 0x84` (stride = 132 bytes, max 8 teams)
+
+**Inaccessible via XBDM:** HaloCaster offsets (game_stats at `0x35ADF02`, stride `0x36A`) land at physical ~54MB inside an uncommitted kernel VA gap (`0x83145000-0x83AC4000`). Accessible only via QMP on the host side.
+
+### XBE Memory Layout
+
+```
+Module: halo2ship.exe  base=0x000118E0  size=0x005ADBC0
+
+Section         Start        End          Size       Prot
+.text           0x00012000   0x00383D2C   3.46 MB    CODE
+DSOUND          0x00383D40   0x00391464   54 KB      DATA
+.rdata          0x0041B600   0x0046D6CC   321 KB     RONLY
+.data           0x0046D6E0   0x00573858   1.02 MB    RW     <- PCR, PGCR here
+DOLBY           0x00573860   0x0057A9E0   28 KB      CODE
+```
 
 ### pcr_stat_player struct (0x114 = 276 bytes)
 
@@ -142,7 +194,7 @@ Source: OpenSauce `Networking/Statistics.hpp`, verified against Yelo Carnage `St
 
 ### team_stats struct (0x84 = 132 bytes)
 
-Source: xbox7887 memory locations + hex dump verification. Located after 16 player records in both PCR (0x55DC30) and PGCR Display (0x56CAD0).
+Located after 16 player records in both PCR (0x55DC30) and PGCR Display (0x56CAD0).
 
 | Offset | Type | Field |
 |--------|------|-------|
@@ -167,32 +219,49 @@ Source: xbox7887 memory locations + hex dump verification. Located after 16 play
 
 Bits 0-5: multi-kills (Double through Killimanjaro). Bits 6-12: style (Sniper, Splatter, Beat Down, Assassination, Vehicle, Carjack, Stick). Bits 13-17: sprees (5/10/15/20/25 kills). Bits 18-20: CTF (Flag Grab, Carrier Kill, Returned). Bits 21-23: Assault (Bomb Planted, Carrier Kill, Defused).
 
-### What does NOT work via XBDM
+## XBDM Protocol Reference
 
-HaloCaster offsets (game_stats at `0x35ADF02`, stride `0x36A`) land at physical ~54MB, inside an uncommitted kernel VA gap (`0x83145000-0x83AC4000`). These are valid in Xemu's flat 64MB RAM but inaccessible via XBDM's `getmem2`. They require QMP (QEMU Machine Protocol) to read.
+Text-based protocol on port 731, similar to FTP. Server sends `201- connected\r\n` on connect, commands end with `\r\n`.
 
-### Gametype detection
+| Command | Response | Description |
+|---------|----------|-------------|
+| `getmem2 addr=X length=Y` | 203 + binary | Read memory (preferred) |
+| `getmem addr=X length=Y` | 200 + hex text | Read memory (fallback) |
+| `setmem addr=X data=HEX` | 200 | Write memory |
+| `modules` | 202 + list | List loaded modules |
+| `modsections name=X` | 202 + list | List module sections |
+| `walkmem` | 202 + list | List committed memory pages |
+| `go` | 200 | Resume execution |
+| `break addr=X` | 200 | Set breakpoint |
+| `break clearall` | 200 | Clear all breakpoints |
+| `continue thread=N` | 200 | Resume thread after breakpoint |
+| `notifyat port=N` | 200/205 | Register for async notifications |
+| `bye` | — | Disconnect |
 
-**Primary**: `read_gametype()` reads the `GameType` enum from PGCR Display header at `0x56B984` (offset +0x84). Populated both during gameplay and on post-game screen. Resolves all gametypes including Slayer/Juggernaut/Territories.
-
-**Fallback**: `detect_gametype_from_medals()` checks medal bits: CTF (18-20), Assault (21-23), time-format scores for Oddball/KOTH. Cannot distinguish Slayer/Juggernaut/Territories without medals.
-
-**Note**: xbox7887's documented address `0x50224C` reads as zero on docker-bridged-xemu — do not use.
+| Status Code | Meaning |
+|-------------|---------|
+| 200 | Success (text response) |
+| 201 | Connected |
+| 202 | Multiline response follows |
+| 203 | Binary response follows |
+| 205 | Now a notification channel (CerbiosDebug) |
+| 401 | Max connections exceeded (limit: 4) |
+| 404 | Memory not mapped |
 
 ## Important Constraints
 
 - **50ms rate limit** between XBDM reads prevents Xemu freezes (configurable via `--slow` for 200ms)
 - **PGCR Display is the reliable source**, not PCR (PCR is empty on docker-bridged-xemu)
 - **ASCII validation required** on player names to reject garbage memory (check 0x20-0x7E range). See `_is_valid_player_name()` in halo2_stats.py
-- **Module name** is `halo2ship.exe` (base=0x000118E0), .data section at 0x0046D6E0
 - **Port 731** is XBDM (not 9269 which is GDB)
 - `PYTHONIOENCODING=utf-8` needed on Windows for non-ASCII gamertags
 - **XBDM variant**: Target setup uses CerbiosDebug (native XBDM on modded Xbox/Xemu). Alternative: xbdm_gdb_bridge translates XBDM to Xemu's GDB stub (localhost setups)
-- **No tests**: This is a hardware-dependent tool. No automated test suite — manual testing against live Xemu instance required
+- **Xemu networking**: NAT mode = localhost, easy debugging, no system link. Bridge mode = LAN IP, system link works, must open firewall port 731 and bind to LAN IP (not 127.0.0.1)
+- **No tests**: Hardware-dependent tool. Manual testing against live Xemu instance required
 
 ## Reference Projects
 
-- `c:\Users\james\code\yelo-neighborhood\Yelo Carnage\Stats.cs` - PCR struct reference, medal/gametype enums
-- `c:\Users\james\code\yelo-neighborhood\Yelo Carnage\Program.Watch.cs` - Breakpoint reference (0x233194 is CC padding in our build; use 0x23975C instead)
-- `c:\Users\james\code\HaloCaster\` - QMP-based reader, HaloCaster offsets in `Form1.cs` resolve_addresses()
-- OpenSauce: `Networking/Statistics.hpp` - Canonical struct definitions (pcr_stat_player = 0x114 bytes)
+- `c:\Users\james\code\yelo-neighborhood\Yelo Carnage\Stats.cs` — PCR struct reference, medal/gametype enums
+- `c:\Users\james\code\yelo-neighborhood\Yelo Carnage\Program.Watch.cs` — Breakpoint reference (0x233194 is CC padding in our build; use 0x23975C instead)
+- `c:\Users\james\code\HaloCaster\` — QMP-based reader, HaloCaster offsets in `Form1.cs` resolve_addresses()
+- OpenSauce: `Networking/Statistics.hpp` — Canonical struct definitions (pcr_stat_player = 0x114 bytes)

@@ -512,8 +512,8 @@ class GameStats:
         """Parse GameStats from raw memory bytes."""
         if len(data) < 54:
             raise ValueError(f"Need at least 54 bytes, got {len(data)}")
-        # Format: 17 ushorts, 1 uint32 (oddball_score), 8 more ushorts
-        fields = struct.unpack('<17H I 8H', data[:54])
+        # Format: 16 ushorts, 1 uint32 (oddball_score), 9 more ushorts
+        fields = struct.unpack('<16H I 9H', data[:54])
         return cls(
             kills=fields[0], assists=fields[1], deaths=fields[2],
             betrayals=fields[3], suicides=fields[4], best_spree=fields[5],
@@ -523,12 +523,12 @@ class GameStats:
             assault_suicides=fields[11], assault_scores=fields[12],
             assault_bomber_kills=fields[13], assault_bomb_grabbed=fields[14],
             assault_bomb_unknown=fields[15],
-            oddball_score=fields[17],  # uint32 at index 17
-            oddball_ball_kills=fields[18], oddball_carried_kills=fields[19],
-            koth_kills_as_king=fields[20], koth_kings_killed=fields[21],
-            juggernauts_killed=fields[22], kills_as_juggernaut=fields[23],
-            juggernaut_time=fields[24],
-            territories_taken=fields[25], territories_lost=fields[26],
+            oddball_score=fields[16],  # uint32 at index 16
+            oddball_ball_kills=fields[17], oddball_carried_kills=fields[18],
+            koth_kills_as_king=fields[19], koth_kings_killed=fields[20],
+            juggernauts_killed=fields[21], kills_as_juggernaut=fields[22],
+            juggernaut_time=fields[23],
+            territories_taken=fields[24], territories_lost=fields[25],
         )
 
     def to_dict(self) -> dict:

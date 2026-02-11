@@ -2,10 +2,10 @@ __pycache__/
 *.pyc
 *.pkl
 *.xlsx
+*.bak
 *.xbe.orig.map
 history/
 exports/bungie/
 exports/rampant/
 documentation/
-_ul
-nul
+.claude/settings.local.json
