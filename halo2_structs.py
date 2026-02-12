@@ -15,6 +15,15 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 from enum import IntEnum, IntFlag
 
+from addresses import (
+    ADDRESSES, get_address, PCR_PLAYER_SIZE,
+    PGCR_DISPLAY_HEADER, PGCR_DISPLAY_HEADER_SIZE,
+    PGCR_DISPLAY_GAMETYPE_OFFSET, PGCR_DISPLAY_GAMETYPE_ADDR,
+    PGCR_DISPLAY_BASE, PGCR_DISPLAY_SIZE,
+    PGCR_DISPLAY_TEAM_BASE, TEAM_DATA_BASE, TEAM_DATA_STRIDE,
+    MAX_TEAMS, PGCR_BREAKPOINT_ADDR,
+)
+
 
 # =============================================================================
 # Enumerations
@@ -136,13 +145,16 @@ def decode_medals(medals_by_type: int) -> List[str]:
 
 def detect_gametype_from_medals(players) -> Optional[str]:
     """
-    Auto-detect gametype from medal bitmasks and score string format.
+    Auto-detect gametype from medal bitmasks.
 
     Detection order:
     1. CTF medals (bits 18-20) -> "ctf"
     2. Assault medals (bits 21-23) -> "assault"
-    3. Time-format scores (e.g. "1:32") -> "oddball" (could also be KOTH)
-    4. Otherwise -> None (likely Slayer, Juggernaut, or Territories)
+    3. Otherwise -> None (cannot distinguish Slayer, Oddball, KOTH,
+       Juggernaut, Territories from medals/scores alone)
+
+    Note: Time-format scores (e.g. "1:32") appear in Oddball, KOTH, AND
+    Territories, so they cannot be used to identify a specific gametype.
 
     Returns:
         Gametype string or None if unable to determine
@@ -158,11 +170,6 @@ def detect_gametype_from_medals(players) -> Optional[str]:
         return "ctf"
     if combined_medals & ASSAULT_BITS:
         return "assault"
-
-    # Detect time-based gametypes from score string format (e.g. "1:32", ":00")
-    for p in players:
-        if p.score_string and ':' in p.score_string:
-            return "oddball"
 
     return None
 
@@ -184,40 +191,7 @@ def detect_gametype_from_medals(players) -> Optional[str]:
 # Source: https://github.com/smx-smx/open-sauce/blob/master/OpenSauce/Halo2/Halo2_Xbox/Networking/Statistics.hpp
 # Also: Yelo Carnage Stats.cs - "1.0 Address: 0x55CAF0"
 
-# Direct Xbox memory addresses (verified working with Xemu XBDM)
-# These addresses work directly - no translation needed
-ADDRESSES = {
-    # Gametype enum - single int32 value
-    # Source: xbox7887 memory research
-    # Values: 0=None, 1=CTF, 2=Slayer, 3=Oddball, 4=KOTH, 7=Jugg, 8=Terr, 9=Assault
-    "gametype_enum": 0x50224C,
-
-    # Post-game Carnage Report stats (pcr_stat_player array)
-    # Only populated AFTER game ends, shows zeros during gameplay
-    # Size: 0x114 bytes per player, 16 players max
-    # Source: Yelo Carnage Stats.cs - "1.0 Address: 0x55CAF0"
-    "pcr_stats": 0x55CAF0,
-
-    # Team data - contiguous after PCR player array (0x55CAF0 + 16*0x114 = 0x55DC30)
-    # Stride: 0x84 per team, up to 8 teams
-    # Source: xbox7887 memory research
-    "team_data": 0x55DC30,
-
-    # Profile/session data (found via memory scanning)
-    # Contains player name but stats don't update during gameplay
-    "profile_data": 0x53D000,
-
-    # String table addresses (from v1.5 map file, verified working)
-    "str_kills": 0x4603B8,
-    "str_deaths": 0x4603A8,
-}
-
-def get_address(name: str) -> int:
-    """Get Xbox virtual memory address by name."""
-    return ADDRESSES.get(name, 0)
-
-
-PCR_PLAYER_SIZE = 0x114      # Size of pcr_stat_player (276 bytes)
+# ADDRESSES, get_address, PCR_PLAYER_SIZE imported from addresses.py
 
 
 # =============================================================================
@@ -298,9 +272,9 @@ class PCRPlayerStats:
 
         # Names at offsets 0x00, 0x20, and 0x40 (16 wide chars each)
         try:
-            player_name = data[0:32].decode('utf-16-le').rstrip('\x00')
-            display_name = data[0x20:0x40].decode('utf-16-le').rstrip('\x00')
-            score_string = data[0x40:0x60].decode('utf-16-le').rstrip('\x00')
+            player_name = data[0:32].decode('utf-16-le').rstrip('\x00').strip()
+            display_name = data[0x20:0x40].decode('utf-16-le').rstrip('\x00').strip()
+            score_string = data[0x40:0x60].decode('utf-16-le').rstrip('\x00').strip()
         except:
             player_name = ""
             display_name = ""
@@ -453,26 +427,33 @@ def calculate_pcr_address(player_index: int) -> int:
 #   0x56BAA4: Player 1
 #   0x56BBB8: Player 2
 #   ...
-PGCR_DISPLAY_HEADER = 0x56B900
-PGCR_DISPLAY_HEADER_SIZE = 0x90
-PGCR_DISPLAY_GAMETYPE_OFFSET = 0x84  # Gametype enum within header (int32)
-PGCR_DISPLAY_GAMETYPE_ADDR = 0x56B984  # Absolute address (0x56B900 + 0x84)
-PGCR_DISPLAY_BASE = 0x56B990  # First player record (header + 0x90)
-PGCR_DISPLAY_SIZE = 0x114     # Same stride as PCR player records
+# PGCR Display, team data, and breakpoint constants imported from addresses.py
 
-# Team data constants
-# PCR team data: 0x55DC30 = immediately after 16 PCR player records (0x55CAF0 + 16*0x114)
-# PGCR Display team data: 0x56CAD0 = immediately after 16 PGCR player records (0x56B990 + 16*0x114)
-# On docker-bridged-xemu, PCR team data is EMPTY — use PGCR Display team data instead
-# Source: xbox7887 memory research (PCR), verified via hex dump (PGCR)
-TEAM_DATA_BASE = 0x55DC30
-PGCR_DISPLAY_TEAM_BASE = 0x56CAD0  # 0x56B990 + 16*0x114
-TEAM_DATA_STRIDE = 0x84  # 132 bytes per team
-MAX_TEAMS = 8
 
-# PGCR breakpoint address - fires when engine clears PGCR display at game end
-# Confirmed via live testing (0x233194 from Yelo Carnage is CC padding in our XBE build)
-PGCR_BREAKPOINT_ADDR = 0x23975C
+def _parse_score_string(s: str) -> int:
+    """Parse a PGCR score string into an integer value.
+
+    Handles plain integers ("3"), time formats ("1:51", ":32", "2:00"),
+    and returns 0 for empty/unparseable strings.
+    Time strings are converted to total seconds.
+    """
+    s = s.strip()
+    if not s:
+        return 0
+    # Time format: "M:SS" or ":SS"
+    if ':' in s:
+        parts = s.split(':')
+        try:
+            minutes = int(parts[0]) if parts[0] else 0
+            seconds = int(parts[1]) if len(parts) > 1 and parts[1] else 0
+            return minutes * 60 + seconds
+        except (ValueError, IndexError):
+            return 0
+    # Plain integer
+    try:
+        return int(s)
+    except ValueError:
+        return 0
 
 
 @dataclass
@@ -484,17 +465,19 @@ class TeamStats:
     - PCR: 0x55DC30 (after 16 PCR player records) — EMPTY on docker-bridged-xemu
     - PGCR Display: 0x56CAD0 (after 16 PGCR player records) — PRIMARY source
 
-    Layout per team (verified via hex dump on PGCR Display):
+    Layout per team (verified via hex dump on PGCR Display, Feb 2026):
         0x00: Team name (wchar_t[32], 64 bytes UTF-16LE)
-        0x40: Team score (int32)
+        0x40: Score string (UTF-16LE, e.g. "3", "2:00", ":32")
         0x60: Team place (int16, 0-indexed)
-        0x62: Unknown (int16)
+        0x62: Team identity index (int16) — maps to H2 team colors
         0x64: Place string (UTF-16LE, e.g. "1st", "2nd")
     """
     name: str = ""
     score: int = 0
+    score_string: str = ""
     place: int = 0
     place_string: str = ""
+    team_id: int = -1
     index: int = 0
 
     @classmethod
@@ -506,13 +489,22 @@ class TeamStats:
             name = data[0:64].decode('utf-16-le').rstrip('\x00')
         except (UnicodeDecodeError, ValueError):
             name = ""
-        score = struct.unpack('<i', data[0x40:0x44])[0]
+        # Score at 0x40 is a UTF-16LE display string (e.g. "3", "2:00", ":32"),
+        # NOT an int32. Parse as string and convert to int when possible.
+        try:
+            score_string = data[0x40:0x60].decode('utf-16-le').rstrip('\x00').strip()
+        except (UnicodeDecodeError, ValueError):
+            score_string = ""
+        score = _parse_score_string(score_string)
         place = struct.unpack('<h', data[0x60:0x62])[0]
+        team_id = struct.unpack('<h', data[0x62:0x64])[0]
         try:
             place_string = data[0x64:0x84].decode('utf-16-le').rstrip('\x00')
         except (UnicodeDecodeError, ValueError):
             place_string = ""
-        return cls(name=name, score=score, place=place, place_string=place_string, index=index)
+        return cls(name=name, score=score, score_string=score_string,
+                   place=place, place_string=place_string,
+                   team_id=team_id, index=index)
 
     def to_dict(self) -> dict:
         """Convert to dictionary for JSON serialization."""
@@ -520,7 +512,9 @@ class TeamStats:
             "index": self.index,
             "name": self.name,
             "score": self.score,
+            "score_string": self.score_string,
             "place": self.place,
+            "team_id": self.team_id,
         }
         if self.place_string:
             result["place_string"] = self.place_string

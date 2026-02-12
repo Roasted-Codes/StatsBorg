@@ -96,6 +96,17 @@ from typing import Dict, List, Optional
 from enum import IntEnum
 from datetime import datetime
 
+from addresses import (
+    XBE_BASE, PHYSICAL_BASE,
+    HALOC_OFFSETS, LIVE_ADDRESSES,
+    YELO_ADDRESSES, DISCOVERED_ADDRESSES,
+    GAME_STATS_SIZE, GAME_STATS_STRUCT,
+    SESSION_PLAYER_SIZE, WEAPON_STAT_SIZE,
+    MEDAL_STATS_STRUCT, WEAPON_COUNT, LOBBY_PLAYER_SIZE,
+    get_live_address, get_haloc_address,
+    haloc_to_xbox_virtual, xbox_virtual_to_physical,
+)
+
 
 # =============================================================================
 # Enums (used by live stats structs)
@@ -212,85 +223,7 @@ class LifeCycle(IntEnum):
 # Address Constants
 # =============================================================================
 
-# XBE base address for Xbox virtual address calculation
-# The XBE (Xbox Executable) is loaded at this virtual address by the kernel
-XBE_BASE = 0x8005C000
-
-# Physical offset where the XBE starts in the 64MB RAM
-PHYSICAL_BASE = 0x5C000  # XBE_BASE - 0x80000000
-
-# HaloCaster offsets (relative to XBE base in Xbox virtual memory)
-# Source: HaloCaster Form1.cs resolve_addresses() lines 878-893
-# To get Xbox kernel VA: XBE_BASE + offset
-# To get physical address: PHYSICAL_BASE + offset
-HALOC_OFFSETS = {
-    "game_stats": 0x35ADF02,           # s_game_stats array, stride 0x36A per player
-    "session_players": 0x35AD344,      # s_player_properties, stride 0xA4 per player
-    "weapon_stats": 0x35ADFE0,         # Per-player per-weapon, stride 0x10 per weapon
-    "medal_stats": 0x35ADF4E,          # Per-player medal counts, stride 0x36A per player
-    "life_cycle": 0x35E4F04,           # Game state enum (0=None..4=PostGame)
-    "post_game_report": 0x363A990,     # Post-game report, stride 0x114 per player
-    "variant_info": 0x35AD0EC,         # Game variant: name, type, scenario path
-    "profile_enabled": 0x3569128,      # Dedi mode toggle (bool)
-    "game_engine_globals": 0x35A53B8,  # Game engine state
-    "players": 0x35A44F4,              # Pointer to game_state_players
-    "objects": 0x35BBBD0,              # Pointer to game_state_objects
-    "game_results_globals": 0x35ACFB0, # Game results (players 0-4), 0xDD8C bytes
-    "game_results_globals_extra": 0x35CF014,  # Game results (players 5-15), 0x1980 bytes
-    "disable_rendering": 0x3520E22,    # Rendering toggle (bool)
-    "lobby_players": 0x35CC008,        # Lobby player data, stride 0x10C per player
-    "tags": 0x360558C,                 # Tag database pointer (used for validation)
-}
-
-# Xbox kernel virtual addresses (XBE_BASE + offset)
-# ALL of these fall in the kernel VA gap 0x83145000-0x83AC4000
-# and are NOT accessible via XBDM's getmem2 command
-LIVE_ADDRESSES = {
-    "game_stats": XBE_BASE + HALOC_OFFSETS["game_stats"],                # 0x83609F02
-    "weapon_stats": XBE_BASE + HALOC_OFFSETS["weapon_stats"],            # 0x83609FE0
-    "medal_stats": XBE_BASE + HALOC_OFFSETS["medal_stats"],              # 0x83609F4E
-    "session_players": XBE_BASE + HALOC_OFFSETS["session_players"],      # 0x83609344
-    "life_cycle": XBE_BASE + HALOC_OFFSETS["life_cycle"],                # 0x83640F04
-    "variant_info": XBE_BASE + HALOC_OFFSETS["variant_info"],            # 0x836090EC
-    "post_game_report": XBE_BASE + HALOC_OFFSETS["post_game_report"],    # 0x83696990
-    "players_ptr": XBE_BASE + HALOC_OFFSETS["players"],                  # 0x835FA4F4
-    "objects_ptr": XBE_BASE + HALOC_OFFSETS["objects"],                   # 0x83617BD0
-    "tags_ptr": XBE_BASE + HALOC_OFFSETS["tags"],                        # 0x8366158C
-    "game_results_extra": XBE_BASE + HALOC_OFFSETS["game_results_globals_extra"],
-    "game_results_globals": XBE_BASE + HALOC_OFFSETS["game_results_globals"],
-    "lobby_players": XBE_BASE + HALOC_OFFSETS["lobby_players"],
-    "profile_enabled": XBE_BASE + HALOC_OFFSETS["profile_enabled"],
-}
-
-# Yelo Carnage breakpoint and patch addresses
-# Source: Yelo Carnage Program.Watch.cs
-# NOTE: The breakpoint at 0x233194 does NOT work with our XBE build.
-# Use 0x23975C instead (confirmed working, see PGCR_BREAKPOINT_ADDR in halo2_structs.py)
-YELO_ADDRESSES = {
-    "pgcr_breakpoint": 0x233194,  # Yelo's version — CC padding in our build
-    "ai_enable_patch": 0x1C79E5,  # AI in multiplayer patch address
-}
-
-# Empirically discovered Xbox addresses (via diff_monitor.py analysis)
-# These are Xbox virtual addresses found during memory scanning
-DISCOVERED_ADDRESSES = {
-    "profile_base": 0x53E0C0,        # Player profile region, stride 0x90
-    "session_player_base": 0x55D790, # Session player data, stride 0x1F8
-    "player_struct_base": 0x53D000,  # Player structure with name
-    "game_state_area": 0x55C300,     # Changes during gameplay
-    "game_state_extended": 0x510000,
-    "cached_deaths_array": 0x53D08C, # 16 int32s snapshot
-    "pgcr_display_base": 0x56B900,   # PGCR Display (now the primary source)
-}
-
-# Structure sizes and strides
-GAME_STATS_SIZE = 0x36A      # Stride between players in game_stats/weapon_stats/medal_stats
-GAME_STATS_STRUCT = 0x36     # Actual s_game_stats size (54 bytes)
-SESSION_PLAYER_SIZE = 0xA4   # Size of s_player_properties (164 bytes)
-WEAPON_STAT_SIZE = 0x10      # Size per weapon stats entry (16 bytes)
-MEDAL_STATS_STRUCT = 0x30    # Actual s_medal_stats size (48 bytes, 24 ushorts)
-WEAPON_COUNT = 41            # Number of weapon types (indices 0-40)
-LOBBY_PLAYER_SIZE = 0x10C    # Lobby player entry stride (268 bytes)
+# Address constants, struct sizes, and helper functions imported from addresses.py
 
 
 # =============================================================================
@@ -347,58 +280,8 @@ WEAPON_NAMES = [
 # Address Helper Functions
 # =============================================================================
 
-def haloc_to_xbox_virtual(haloc_offset: int) -> int:
-    """
-    Convert HaloCaster offset to Xbox kernel virtual address.
-
-    Args:
-        haloc_offset: Offset from HaloCaster (e.g., 0x35ADF02)
-
-    Returns:
-        Xbox kernel virtual address (e.g., 0x8360DF02)
-
-    Note:
-        These addresses fall in the kernel VA gap (0x83145000-0x83AC4000)
-        and are NOT accessible via XBDM's getmem2 command.
-    """
-    return XBE_BASE + haloc_offset
-
-
-def xbox_virtual_to_physical(xbox_virtual: int) -> int:
-    """
-    Convert Xbox kernel virtual address to physical RAM address.
-
-    On the original Xbox, kernel addresses 0x80000000+ map directly
-    to physical RAM: physical = virtual - 0x80000000.
-
-    Args:
-        xbox_virtual: Xbox kernel virtual address (0x80000000+)
-
-    Returns:
-        Physical address in the 64MB RAM (0x00000000-0x03FFFFFF)
-    """
-    if xbox_virtual >= 0x80000000:
-        return xbox_virtual - 0x80000000
-    return xbox_virtual
-
-
-def get_haloc_address(name: str) -> int:
-    """
-    Get physical address from HaloCaster offset name.
-
-    Converts HaloCaster offsets → Xbox kernel VA → physical address.
-    The physical address is where the data lives in the flat 64MB RAM,
-    but it may not be accessible via XBDM if the kernel VA is in the gap.
-    """
-    if name not in HALOC_OFFSETS:
-        return 0
-    xbox_virt = haloc_to_xbox_virtual(HALOC_OFFSETS[name])
-    return xbox_virtual_to_physical(xbox_virt)
-
-
-def get_live_address(name: str) -> int:
-    """Get Xbox kernel virtual memory address for live stats by name."""
-    return LIVE_ADDRESSES.get(name, 0)
+# haloc_to_xbox_virtual, xbox_virtual_to_physical, get_haloc_address,
+# get_live_address imported from addresses.py
 
 
 def calculate_live_stats_address(player_index: int) -> int:

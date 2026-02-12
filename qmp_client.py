@@ -55,7 +55,7 @@ class QMPClient:
         self._sock: Optional[socket.socket] = None
         self._sockfile = None
         self._connected = False
-        self._va_cache: dict = {}  # VA→PA cache (page tables stable at runtime)
+        self._va_cache: dict = {}  # VA→PA cache (page tables change between games!)
 
     def connect(self) -> bool:
         """Connect to QMP and negotiate capabilities."""
@@ -103,6 +103,14 @@ class QMPClient:
             except Exception:
                 pass
             self._sock = None
+
+    def clear_va_cache(self):
+        """Clear the VA→PA translation cache.
+
+        MUST be called when detecting a new game — Xbox page tables change
+        between games, remapping user-space VAs to different physical pages.
+        """
+        self._va_cache.clear()
 
     @property
     def is_connected(self) -> bool:

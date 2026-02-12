@@ -62,10 +62,12 @@ from halo2_structs import (
     PGCR_DISPLAY_HEADER_SIZE,
     PGCR_DISPLAY_GAMETYPE_ADDR,
 )
+from addresses import DISCOVERED_ADDRESSES
 from live_stats import (
     PGCRDisplayStats,
     GameStats,
     PlayerProperties,
+    VariantInfo,
     calculate_live_stats_address,
     calculate_session_player_address,
     get_live_address,
@@ -109,6 +111,7 @@ class Halo2StatsReader:
         self.client = client
         self.verbose = verbose
         self._last_error: Optional[str] = None
+        self._variant_info = None  # Reserved for future use
 
     def log(self, message: str):
         """Print message if verbose mode enabled."""
@@ -277,10 +280,9 @@ class Halo2StatsReader:
     def read_gametype(self) -> Optional[GameType]:
         """Read gametype enum from PGCR Display header at 0x56B984.
 
-        The gametype is stored at offset +0x84 within the PGCR Display header
-        (0x56B900). This is populated both during gameplay and on the post-game
-        screen. The previously-documented address 0x50224C reads as zero on
-        docker-bridged-xemu.
+        WARNING: This address is STALE on docker-bridged-xemu — it retains the
+        gametype from the PREVIOUS game, not the current one. Use
+        read_gametype_discovered() as the primary source. This is a fallback.
         """
         addr = PGCR_DISPLAY_GAMETYPE_ADDR
         self.log(f"Reading gametype from 0x{addr:08X}")
@@ -294,6 +296,67 @@ class Halo2StatsReader:
         except ValueError:
             self.log(f"Unknown gametype value: {value}")
             return None
+
+    # .data section VA start — used for linear physical reads that bypass
+    # stale page table entries (see _read_via_data_section_offset)
+    _DATA_SECTION_VA = 0x46D6E0
+
+    def _read_via_data_section_offset(self, va: int, length: int = 4) -> Optional[bytes]:
+        """Read a .data section address via linear physical offset.
+
+        Xbox page table entries for individual pages within .data can be
+        stale/wrong between games, but the section is physically contiguous.
+        Translates the .data section START VA to physical, then adds the
+        fixed offset to reach the target address.
+
+        Only works for QMP clients that expose translate_va and _read_physical.
+        """
+        if not hasattr(self.client, 'translate_va') or not hasattr(self.client, '_read_physical'):
+            return None
+        phys_start = self.client.translate_va(self._DATA_SECTION_VA)
+        if phys_start is None:
+            return None
+        offset = va - self._DATA_SECTION_VA
+        if offset < 0:
+            return None
+        return self.client._read_physical(phys_start + offset, length)
+
+    def read_gametype_discovered(self) -> Optional[GameType]:
+        """Read gametype from discovered address 0x52ED24.
+
+        This is the ONLY address in the entire .data section that holds the
+        correct gametype enum for all 7 gametypes (CTF=1, Slayer=2, Oddball=3,
+        KOTH=4, Juggernaut=7, Territories=8, Assault=9). Confirmed via 7-way
+        cross-reference of full .data section snapshots (Feb 2026).
+
+        IMPORTANT: Uses linear physical offset from .data section start,
+        NOT per-page gva2gpa translation. The Xbox page table entries for
+        individual pages within .data can be stale/wrong, but the section
+        is physically contiguous. Translate the .data start VA once, then
+        add the fixed offset to get the correct physical address.
+
+        Returns None if the address reads as 0 (not yet populated or cleared).
+        """
+        addr = DISCOVERED_ADDRESSES.get("gametype_confirmed", 0)
+        if not addr:
+            return None
+
+        # Read via linear physical offset from .data start (bypasses stale PTEs)
+        data = self._read_via_data_section_offset(addr)
+        if not data or len(data) < 4:
+            # Fallback to direct VA translation
+            data = self.client.read_memory(addr, 4)
+        if not data or len(data) < 4:
+            return None
+        value = struct.unpack('<I', data)[0]
+        try:
+            gt = GameType(value)
+            if gt != GameType.NONE:
+                self.log(f"Gametype from 0x{addr:08X}: {value} -> {gt.name}")
+                return gt
+        except ValueError:
+            self.log(f"Unknown gametype value at 0x{addr:08X}: {value}")
+        return None
 
     def read_teams(self) -> List[TeamStats]:
         """Read team data, trying PGCR Display location first then PCR fallback.
@@ -545,14 +608,13 @@ def build_snapshot(players,
     """
     fingerprint = compute_game_fingerprint(players)
 
-    # Determine gametype string: enum-based if available, else medal-based fallback
+    # Determine gametype string from enum value
+    gametype = None
     if gametype_id is not None and gametype_id > 0:
         try:
             gametype = GAMETYPE_NAMES.get(GameType(gametype_id), f"Unknown({gametype_id})").lower()
         except ValueError:
-            gametype = detect_gametype_from_medals(players)
-    else:
-        gametype = detect_gametype_from_medals(players)
+            pass
 
     snapshot = {
         "schema_version": 3,
@@ -604,6 +666,43 @@ def save_game_history(snapshot: Dict[str, Any], history_dir: str) -> str:
     return filepath
 
 
+def dump_pgcr_raw(client, history_dir: str, fingerprint: str) -> Optional[str]:
+    """Dump raw hex of PGCR header, player records, and team structs to a file."""
+    regions = [
+        ("PGCR Header", PGCR_DISPLAY_HEADER, PGCR_DISPLAY_HEADER_SIZE),
+    ]
+    for i in range(16):
+        addr = calculate_pgcr_display_address(i)
+        regions.append((f"Player {i}", addr, PCR_PLAYER_SIZE))
+    for i in range(MAX_TEAMS):
+        addr = calculate_pgcr_display_team_address(i)
+        regions.append((f"Team {i}", addr, TEAM_DATA_STRIDE))
+
+    lines = []
+    for label, addr, length in regions:
+        try:
+            data = client.read_memory(addr, length)
+            if not data:
+                lines.append(f"=== {label} (0x{addr:08X}, 0x{length:X} bytes) === NO DATA")
+                continue
+            lines.append(f"=== {label} (0x{addr:08X}, 0x{length:X} bytes) ===")
+            for i in range(0, len(data), 16):
+                chunk = data[i:i+16]
+                hex_part = " ".join(f"{b:02X}" for b in chunk)
+                ascii_part = "".join(chr(b) if 0x20 <= b < 0x7F else "." for b in chunk)
+                lines.append(f"  {addr + i:08X}  {hex_part:<48}  {ascii_part}")
+            lines.append("")
+        except Exception as e:
+            lines.append(f"=== {label} (0x{addr:08X}) === ERROR: {e}")
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    fp_short = fingerprint[:8] if fingerprint else "unknown"
+    filepath = os.path.join(history_dir, f"{timestamp}_{fp_short}_memdump.txt")
+    with open(filepath, 'w') as f:
+        f.write("\n".join(lines))
+    return filepath
+
+
 def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
     """
     Watch mode: continuously monitor for game completions.
@@ -645,29 +744,73 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
             if players:
                 fingerprint = compute_game_fingerprint(players)
                 if fingerprint != last_fingerprint:
+                    # Stability check: wait briefly and re-read to avoid
+                    # transitional captures (e.g. stale player data + new
+                    # team data while PGCR memory is being overwritten)
+                    time.sleep(1)
+                    recheck_players = None
+                    if reader.probe_pgcr_display_populated():
+                        recheck_players = reader.read_active_pgcr_display()
+                    if recheck_players:
+                        recheck_fp = compute_game_fingerprint(recheck_players)
+                        if recheck_fp != fingerprint:
+                            # Data is still changing — skip this poll
+                            continue
+                        players = recheck_players
+
                     last_fingerprint = fingerprint
 
-                    gametype_id = reader.read_gametype()
+                    # Clear VA→PA cache — page tables change between games,
+                    # so cached translations point to wrong physical pages
+                    if hasattr(reader.client, 'clear_va_cache'):
+                        reader.client.clear_va_cache()
+
+                    # Re-read players and teams with fresh VA translations
+                    if reader.probe_pgcr_display_populated():
+                        fresh_players = reader.read_active_pgcr_display()
+                        if fresh_players:
+                            players = fresh_players
                     teams = reader.read_teams()
+
+                    # Read gametype from discovered address (0x52ED24).
+                    # Retry up to 3x with 500ms delay if not populated yet.
+                    gametype_id = None
+                    for _gt_attempt in range(3):
+                        gametype_id = reader.read_gametype_discovered()
+                        if gametype_id:
+                            break
+                        time.sleep(0.5)
+                    if not gametype_id:
+                        gametype_id = reader.read_gametype()  # stale PGCR header fallback
+                    gt_label = GAMETYPE_NAMES.get(gametype_id, "Unknown") if gametype_id else "Unknown"
+                    print(f"[Gametype] {gt_label} ({gametype_id.value if gametype_id else '?'})")
                     snapshot = build_snapshot(
                         players, source=source,
                         gametype_id=gametype_id.value if gametype_id else None,
                         teams=teams,
                     )
 
-                    print(f"[Watch] Game detected! ({len(players)} players, source: {source})")
+                    gt_label = GAMETYPE_NAMES.get(gametype_id, "Unknown") if gametype_id else "Unknown"
+                    print(f"[Watch] Game detected! ({len(players)} players, source: {source}, gametype: {gt_label})")
 
                     if args.json:
                         print(json.dumps(snapshot, indent=2))
                     else:
-                        # CLI --gametype flag overrides; otherwise use enum-derived name
                         gametype_for_display = args.gametype
                         if not gametype_for_display and gametype_id and gametype_id.value > 0:
                             gametype_for_display = GAMETYPE_NAMES.get(gametype_id, str(gametype_id)).lower()
                         print_scoreboard_rich(players, gametype=gametype_for_display, teams=teams)
 
                     filepath = save_game_history(snapshot, history_dir)
-                    print(f"  -> Saved to {filepath}\n")
+                    print(f"  -> Saved to {filepath}")
+
+                    # Dump raw PGCR memory for struct analysis
+                    try:
+                        dump_path = dump_pgcr_raw(reader.client, history_dir, fingerprint)
+                        if dump_path:
+                            print(f"  -> Memory dump saved to {dump_path}\n")
+                    except Exception as e:
+                        print(f"  -> Memory dump failed: {e}\n")
 
         except Exception as e:
             print(f"[Watch] Error: {e}")
@@ -776,14 +919,22 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
 
             print(f"[{ts}] Breakpoint fired at {bp_addr_hex}!")
 
+            # Clear VA→PA cache — page tables change between games
+            if hasattr(reader.client, 'clear_va_cache'):
+                reader.client.clear_va_cache()
+
             # The breakpoint fires at the ENTRY of the PGCR clear function.
             # The Xbox is halted, so PGCR data still has the current game's
             # stats. Read everything NOW (while halted) before resuming.
+            # CRITICAL: gametype at 0x52ED24 must be read while halted —
+            # the clear function will zero it after we resume.
             players = None
             teams = None
+            gametype_id = None
             try:
                 players = reader.read_active_pgcr_display()
                 teams = reader.read_teams()
+                gametype_id = reader.read_gametype_discovered()
             except Exception as e:
                 print(f"[{ts}] Error reading stats while halted: {e}")
 
@@ -805,13 +956,12 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
             last_fingerprint = fingerprint
 
             try:
-                # Don't use PGCR header gametype — it's unreliable (stale
-                # from previous games). Use medal-based heuristic or user
-                # override via -g flag instead.
-                gametype_id = None
-                if players:
-                    from halo2_structs import detect_gametype_from_medals
-                    gametype_id = detect_gametype_from_medals(players)
+                # gametype_id was already read while halted above;
+                # fall back to PGCR header only if discovered addr was empty
+                if not gametype_id:
+                    gametype_id = reader.read_gametype()
+                gt_label = GAMETYPE_NAMES.get(gametype_id, "Unknown") if gametype_id else "Unknown"
+                print(f"[Gametype] {gt_label} ({gametype_id.value if gametype_id else '?'})")
 
                 snapshot = build_snapshot(
                     players, source="pgcr_display",
@@ -872,7 +1022,10 @@ def print_scoreboard_rich(players: List[PCRPlayerStats],
                 slot_names[idx] = p.player_name
 
     print("\n" + "=" * 72)
-    print(" HALO 2 POST-GAME CARNAGE REPORT")
+    if gametype:
+        print(f" HALO 2 POST-GAME CARNAGE REPORT  —  {gametype.upper()}")
+    else:
+        print(" HALO 2 POST-GAME CARNAGE REPORT")
     print("=" * 72)
 
     # Print team scores if available
@@ -1207,8 +1360,8 @@ Examples:
                     players = [p for p in all_indexed if p is not None]
                     source = "pcr"
 
-                # Read gametype enum and team data
-                gametype_enum = reader.read_gametype()
+                # Read gametype from discovered address, PGCR header fallback
+                gametype_enum = reader.read_gametype_discovered() or reader.read_gametype()
                 teams = reader.read_teams()
                 gametype_id_val = gametype_enum.value if gametype_enum else None
 
