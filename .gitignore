@@ -9,3 +9,5 @@ exports/bungie/
 exports/rampant/
 documentation/
 .claude/settings.local.json
+.vscode/
+HaloCaster/

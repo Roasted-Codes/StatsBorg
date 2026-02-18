@@ -1204,10 +1204,15 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
     if not players:
         return
 
-    # Get gametype-specific value labels
-    gametype_labels = None
+    # Get gametype-specific column labels (keys only — values come from each player)
+    gametype_label_keys = None
+    has_gt_values = False
     if players and gametype:
-        gametype_labels = players[0].get_gametype_stats(gametype)
+        gametype_label_keys = list(players[0].get_gametype_stats(gametype).keys())
+        has_gt_values = any(
+            any(v != 0 for v in p.get_gametype_stats(gametype).values())
+            for p in players
+        )
 
     print("\n" + "=" * 100)
     print("POSTGAME CARNAGE REPORT")
@@ -1228,8 +1233,8 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
     print("\nPLAYER STATS")
     player_stat_cols = ["Player", "Place"]
 
-    if gametype_labels and all(v != 0 for v in gametype_labels.values()):
-        player_stat_cols.extend(gametype_labels.keys())
+    if gametype_label_keys and has_gt_values:
+        player_stat_cols.extend(gametype_label_keys)
 
     player_stat_cols.append("Score")
 
@@ -1243,9 +1248,10 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
             (player.place_string or f"#{player.place}").ljust(20)
         ]
 
-        if gametype_labels and any(v != 0 for v in gametype_labels.values()):
-            for val in gametype_labels.values():
-                row_parts.append(str(val).ljust(20))
+        if gametype_label_keys and has_gt_values:
+            player_gt = player.get_gametype_stats(gametype)
+            for key in gametype_label_keys:
+                row_parts.append(str(player_gt.get(key, 0)).ljust(20))
 
         score_str = player.score_string or str(player.kills)
         row_parts.append(score_str.ljust(20))

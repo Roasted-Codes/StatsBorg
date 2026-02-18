@@ -44,6 +44,9 @@ python halo2_stats.py --host 172.20.0.51 --simple
 # JSON output
 python halo2_stats.py --host 172.20.0.51 --json
 
+# PGCR-display tabular format (matches in-game screenshot layout)
+python halo2_stats.py --host 172.20.0.51 --pgcr
+
 # Hex dump PGCR Display header (research)
 python halo2_stats.py --host 172.20.0.51 --dump-header
 
@@ -52,6 +55,7 @@ python halo2_stats.py --host 172.20.0.51 --dump-header
 #   --timeout 10         Connection timeout in seconds (default 5)
 #   --output stats.json  Save JSON output to file
 #   --slow               200ms read delay instead of 50ms (XBDM only)
+#   --save-ram            Save full 64MB RAM snapshot at game end (QMP only, large files)
 #   --verbose            Debug logging
 
 # --- QMP mode (reads same PGCR data via QEMU Machine Protocol) ---
@@ -84,14 +88,16 @@ python exports/db_export.py --summary                  # print aggregate stats
 # Export to Excel (requires openpyxl)
 python exports/xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
 python exports/xlsx_export.py --from 2026-02-05 --to 2026-02-10 -o stats.xlsx
+python exports/xlsx_export.py --per-game --style bungie -o exports/bungie/   # one xlsx per game
+python exports/xlsx_export.py --per-game --style rampant -o exports/rampant/ # alternate style
 
-# View game history in browser
-python pgcr_server.py                   # serves pgcr_viewer.html + /api/games from history/
+# View game history in browser (default port 8080)
+python pgcr_server.py [port]            # serves pgcr_viewer.html + /api/games from history/
 ```
 
 **Watch mode** (`--watch`): Polls PGCR Display every 3s (or use `--breakpoint` for instant detection via XBDM breakpoint at `0x23975C`). Detects game end by player name presence, deduplicates via fingerprint hash (MD5 of sorted player names + K/D/A/S + score_string + shots/headshots + gametype values), auto-saves JSON + raw hex memdump to `history/`. Includes 1-second stability check (re-reads to ensure PGCR isn't mid-transition).
 
-**History directory** (`history/`): JSON files named `YYYY-MM-DD_HH-MM-SS_<fingerprint>.json` and raw memory dumps named `YYYY-MM-DD_HH-MM-SS_<fingerprint>_memdump.txt`. Directory is gitignored.
+**History directory** (`history/`): Three files per game: `YYYY-MM-DD_HH-MM-SS_<fingerprint>.json` (game data), `*_memdump.txt` (raw hex dump), and `*_pgcr_annotated.txt` (annotated hex dump with field labels). Directory is gitignored.
 
 **QMP mode** (`--qmp PORT`): Reads the same PGCR data as XBDM but via QMP (QEMU Machine Protocol). User-space VAs are automatically translated to physical addresses via `gva2gpa` page table walk. Most flags (`--watch`, `--save`, `--json`, `--poll`) work identically. **`--breakpoint` is XBDM-only** (requires `XBDMNotificationListener` for async breakpoint events; does not work with QMP). Requires Xemu launched with `-qmp tcp:0.0.0.0:PORT,server,nowait`.
 
@@ -101,6 +107,8 @@ python pgcr_server.py                   # serves pgcr_viewer.html + /api/games f
 
 ```
 addresses.json           # Canonical address/offset/struct reference (language-agnostic)
+                         #   Sections: post_game, live_stats, discovered, yelo, sizing, structs
+                         #   structs key has full field layouts for game_stats, session_player, etc.
 addresses.py             # JSON loader: exposes all constants as Python module-level vars
        |
 xbdm_client.py           # XBDM protocol: TCP:731, getmem2, walkmem, modsections, breakpoints
@@ -140,6 +148,8 @@ documentation/           # Xbox SDK reference docs (XboxSDK.chm, H2WhitePaper.rt
 5. `read_gametype_discovered()` reads enum from `0x52ED24` via linear physical offset from .data section start. Fallback: `read_gametype()` reads stale PGCR header at `0x56B984`
 6. `read_teams()` reads team data from 0x56CAD0 (PGCR) or 0x55DC30 (PCR fallback)
 7. `build_snapshot()` assembles JSON with schema_version 3, gametype_id, teams
+
+**JSON schema v3 output:** `{ schema_version, timestamp, fingerprint, source, gametype, gametype_id, player_count, players[], teams[]?, pgcr_display[]? }`. Each player dict includes `gametype_stats` (labeled gametype values) when gametype is known. Export scripts (`db_export.py`, `xlsx_export.py`) consume this format from `history/` directory
 
 **Linear physical read (QMP only):** `_read_via_data_section_offset(va)` translates only the .data section START VA (`0x46D6E0`) to physical via `gva2gpa`, then adds a fixed offset to reach the target address. This bypasses stale per-page PTEs — Xbox page table entries for individual pages within .data can be wrong between games, but the section is physically contiguous. Used by `read_gametype_discovered()` and any future .data section reads via QMP.
 
