@@ -226,10 +226,12 @@ Located after 16 player records in both PCR (0x55DC30) and PGCR Display (0x56CAD
 | CTF | Flag Saves | Flag Steals |
 | Slayer | Avg Life | Best Spree |
 | Oddball | Ball Carrier Kills | Kills As Carrier |
-| KOTH | Control Time | Time On Hill |
+| KOTH | Kings Killed | Kills From |
 | Juggernaut | Juggernaut Kills | Kills As Juggernaut |
 | Territories | Territories Taken | Territories Lost |
 | Assault | Bomb Grabs | Bomb Carrier Kills |
+
+**TODO: JSON formatting for Slayer "Avg Life" and Juggernaut time values** — Currently output as raw seconds (e.g., `3525`). Should be formatted as MM:SS (e.g., `58:45`) in JSON output to match in-game PGCR display. Note: KOTH and Oddball `gametype_values` are integer counts, not time-based (King kills, carrier kills, etc.), so no formatting needed for those.
 
 ### Medal bitmask (24 bits)
 
