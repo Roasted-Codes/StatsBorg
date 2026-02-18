@@ -765,6 +765,18 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
                     if hasattr(reader.client, 'clear_va_cache'):
                         reader.client.clear_va_cache()
 
+                    # Save full RAM snapshot if requested (must be before re-reading)
+                    if args.save_ram:
+                        if hasattr(reader.client, 'save_ram'):
+                            ram_filepath = os.path.join(history_dir, f"{fingerprint}_ram.bin")
+                            print(f"[Watch] Saving RAM snapshot to {ram_filepath}...")
+                            if reader.client.save_ram(ram_filepath):
+                                print(f"  -> RAM snapshot saved ({os.path.getsize(ram_filepath) / 1024 / 1024:.1f} MB)")
+                            else:
+                                print(f"  -> RAM snapshot save failed (not supported on this connection)")
+                        else:
+                            print("[Watch] --save-ram requires QMP mode")
+
                     # Re-read players and teams with fresh VA translations
                     if reader.probe_pgcr_display_populated():
                         fresh_players = reader.read_active_pgcr_display()
@@ -793,24 +805,36 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
                     gt_label = GAMETYPE_NAMES.get(gametype_id, "Unknown") if gametype_id else "Unknown"
                     print(f"[Watch] Game detected! ({len(players)} players, source: {source}, gametype: {gt_label})")
 
+                    # Determine gametype label for display
+                    gametype_for_display = args.gametype
+                    if not gametype_for_display and gametype_id and gametype_id.value > 0:
+                        gametype_for_display = GAMETYPE_NAMES.get(gametype_id, str(gametype_id)).lower()
+
                     if args.json:
                         print(json.dumps(snapshot, indent=2))
+                    elif args.pgcr:
+                        print_pgcr_report(players, teams, gametype_for_display)
                     else:
-                        gametype_for_display = args.gametype
-                        if not gametype_for_display and gametype_id and gametype_id.value > 0:
-                            gametype_for_display = GAMETYPE_NAMES.get(gametype_id, str(gametype_id)).lower()
                         print_scoreboard_rich(players, gametype=gametype_for_display, teams=teams)
 
                     filepath = save_game_history(snapshot, history_dir)
                     print(f"  -> Saved to {filepath}")
 
-                    # Dump raw PGCR memory for struct analysis
+                    # Save annotated PGCR dump + raw memory for struct analysis
+                    fp8 = fingerprint[:8] if len(fingerprint) >= 8 else fingerprint
+                    try:
+                        annotated_path = dump_pgcr_annotated(reader.client, history_dir, fp8)
+                        if annotated_path:
+                            print(f"  -> Annotated hex dump saved to {os.path.basename(annotated_path)}")
+                    except Exception as e:
+                        print(f"  -> Annotated hex dump failed: {e}")
+
                     try:
                         dump_path = dump_pgcr_raw(reader.client, history_dir, fingerprint)
                         if dump_path:
-                            print(f"  -> Memory dump saved to {dump_path}\n")
+                            print(f"  -> Raw memory dump saved to {os.path.basename(dump_path)}\n")
                     except Exception as e:
-                        print(f"  -> Memory dump failed: {e}\n")
+                        print(f"  -> Raw memory dump failed: {e}\n")
 
         except Exception as e:
             print(f"[Watch] Error: {e}")
@@ -955,6 +979,21 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
 
             last_fingerprint = fingerprint
 
+            # Save full RAM snapshot if requested (after execution resumed)
+            fp8 = fingerprint[:8] if len(fingerprint) >= 8 else fingerprint
+            if args.save_ram:
+                if hasattr(reader.client, 'save_ram'):
+                    ram_filepath = os.path.join(history_dir, f"{fp8}_ram.bin")
+                    print(f"[{ts}] Saving RAM snapshot...")
+                    if reader.client.save_ram(ram_filepath):
+                        try:
+                            ram_size = os.path.getsize(ram_filepath) / 1024 / 1024
+                            print(f"  -> RAM snapshot saved ({ram_size:.1f} MB)")
+                        except:
+                            print(f"  -> RAM snapshot saved")
+                    else:
+                        print(f"  -> RAM snapshot save failed (not supported on this connection)")
+
             try:
                 # gametype_id was already read while halted above;
                 # fall back to PGCR header only if discovered addr was empty
@@ -971,16 +1010,29 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
 
                 print(f"[{ts}] Game captured! ({len(players)} players)")
 
+                # Determine gametype label for display
+                gametype_for_display = args.gametype
+                if not gametype_for_display and gametype_id and gametype_id.value > 0:
+                    gametype_for_display = GAMETYPE_NAMES.get(gametype_id, str(gametype_id)).lower()
+
                 if args.json:
                     print(json.dumps(snapshot, indent=2))
+                elif args.pgcr:
+                    print_pgcr_report(players, teams, gametype_for_display)
                 else:
-                    gametype_for_display = args.gametype
-                    if not gametype_for_display and gametype_id and gametype_id.value > 0:
-                        gametype_for_display = GAMETYPE_NAMES.get(gametype_id, str(gametype_id)).lower()
                     print_scoreboard_rich(players, gametype=gametype_for_display, teams=teams)
 
                 filepath = save_game_history(snapshot, history_dir)
-                print(f"  -> Saved to {filepath}\n")
+                print(f"  -> Saved to {filepath}")
+
+                # Save annotated PGCR dump for struct analysis
+                try:
+                    annotated_path = dump_pgcr_annotated(reader.client, history_dir, fp8)
+                    if annotated_path:
+                        print(f"  -> Annotated hex dump saved to {os.path.basename(annotated_path)}\n")
+                except Exception as e:
+                    print(f"  -> Annotated hex dump failed: {e}\n")
+
                 print("Waiting for next game...\n")
             except Exception as e:
                 print(f"[{ts}] Error reading stats: {e}")
@@ -1134,6 +1186,178 @@ def print_scoreboard_display(players: List[PGCRDisplayStats]):
     print()
 
 
+def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamStats]], gametype: Optional[str]):
+    """Print stats in PGCR Display tabular format (matching in-game screenshots).
+
+    Prints separate sections: TEAM STATS, PLAYER STATS, KILLS, HIT STATS, MEDALS, PvP.
+    """
+    if not players:
+        return
+
+    # Get gametype-specific value labels
+    gametype_labels = None
+    if players and gametype:
+        gametype_labels = players[0].get_gametype_stats(gametype)
+
+    print("\n" + "=" * 100)
+    print("POSTGAME CARNAGE REPORT")
+    print("=" * 100)
+
+    # TEAM STATS
+    if teams:
+        print("\nTEAM STATS")
+        print(f"{'Team':<25} {'Place':<10} {'Score':<15}")
+        print("-" * 50)
+        for team in teams:
+            team_name = team.name[:25].ljust(25)
+            place_str = team.place_string or f"#{team.place}"
+            score_str = team.score_string or str(team.score)
+            print(f"{team_name} {place_str:<10} {score_str:<15}")
+
+    # PLAYER STATS (with gametype-specific columns)
+    print("\nPLAYER STATS")
+    player_stat_cols = ["Player", "Place"]
+
+    if gametype_labels and all(v != 0 for v in gametype_labels.values()):
+        player_stat_cols.extend(gametype_labels.keys())
+
+    player_stat_cols.append("Score")
+
+    header = "  ".join(f"{col:<20}" for col in player_stat_cols)
+    print(header)
+    print("-" * len(header))
+
+    for player in players:
+        row_parts = [
+            player.name[:20].ljust(20),
+            (player.place_string or f"#{player.place}").ljust(20)
+        ]
+
+        if gametype_labels and any(v != 0 for v in gametype_labels.values()):
+            for val in gametype_labels.values():
+                row_parts.append(str(val).ljust(20))
+
+        score_str = player.score_string or str(player.kills)
+        row_parts.append(score_str.ljust(20))
+
+        print("  ".join(row_parts))
+
+    # KILLS
+    print("\nKILLS")
+    print(f"{'Player':<20} {'Kills':<10} {'Assists':<10} {'Deaths':<10} {'Suicides':<10}")
+    print("-" * 60)
+    for player in players:
+        print(f"{player.name[:20]:<20} {player.kills:<10} {player.assists:<10} {player.deaths:<10} {player.suicides:<10}")
+
+    # HIT STATS
+    if any(p.accuracy['total_shots'] > 0 for p in players):
+        print("\nHIT STATS")
+        print(f"{'Player':<20} {'Shots Hit':<15} {'Shots Fired':<15} {'Hit %':<10} {'Head Shots':<10}")
+        print("-" * 70)
+        for player in players:
+            if player.accuracy['total_shots'] > 0:
+                hit_pct = player.accuracy['percentage']
+                print(f"{player.name[:20]:<20} {player.accuracy['shots_hit']:<15} {player.accuracy['total_shots']:<15} {hit_pct:<10.1f} {player.accuracy['headshots']:<10}")
+            else:
+                print(f"{player.name[:20]:<20} {'0':<15} {'0':<15} {'0':<10} {'0':<10}")
+
+    # MEDALS
+    if any(p.medals['total'] > 0 for p in players):
+        print("\nMEDALS")
+        print(f"{'Player':<20} {'Total Medals':<20} {'Types':<40}")
+        print("-" * 80)
+        for player in players:
+            if player.medals['total'] > 0:
+                from halo2_structs import decode_medals
+                medal_names = decode_medals(player.medals['by_type'])
+                types_str = ", ".join(medal_names[:3]) if medal_names else "?"
+                if len(medal_names) > 3:
+                    types_str += f" (+{len(medal_names) - 3} more)"
+                print(f"{player.name[:20]:<20} {player.medals['total']:<20} {types_str:<40}")
+
+    # PLAYER VS. PLAYER (kill matrix)
+    if len(players) > 1:
+        print("\nPLAYER VS. PLAYER")
+        player_names = [p.name[:15] for p in players]
+        max_name_len = max(len(n) for n in player_names) + 2
+
+        # Header row
+        header = "".ljust(max_name_len)
+        for name in player_names:
+            header += name.ljust(max_name_len)
+        print(header)
+        print("-" * len(header))
+
+        # Data rows
+        for i, player in enumerate(players):
+            row = player.name[:max_name_len-2].ljust(max_name_len)
+            for j in range(len(players)):
+                if i == j:
+                    row += "-".ljust(max_name_len)
+                else:
+                    kills = player.killed[j] if j < len(player.killed) else 0
+                    row += str(kills).ljust(max_name_len)
+            print(row)
+
+    print("\n" + "=" * 100)
+    print()
+
+
+def dump_pgcr_annotated(client, history_dir: str, fingerprint: str) -> Optional[str]:
+    """Dump annotated PGCR struct hex dump to file.
+
+    Reads PGCR header, all 16 player records, and 8 team records with field annotations.
+
+    Returns:
+        Filepath if successful, None on error
+    """
+    from addresses import PGCR_DISPLAY_BASE, PGCR_DISPLAY_SIZE, PGCR_DISPLAY_HEADER, PGCR_DISPLAY_HEADER_SIZE, TEAM_DATA_BASE, TEAM_DATA_STRIDE
+
+    regions = [
+        ("PGCR Header", PGCR_DISPLAY_BASE, PGCR_DISPLAY_HEADER_SIZE),
+    ]
+
+    # 16 player records
+    for i in range(16):
+        addr = PGCR_DISPLAY_BASE + 0x90 + (i * PGCR_DISPLAY_SIZE)
+        regions.append((f"Player {i}", addr, PGCR_DISPLAY_SIZE))
+
+    # 8 team records
+    for i in range(8):
+        addr = TEAM_DATA_BASE + (i * TEAM_DATA_STRIDE)
+        regions.append((f"Team {i}", addr, TEAM_DATA_STRIDE))
+
+    output_path = os.path.join(history_dir, f"{fingerprint}_pgcr_annotated.txt")
+
+    try:
+        with open(output_path, 'w') as f:
+            for region_name, region_addr, region_size in regions:
+                try:
+                    data = client.read_memory(region_addr, region_size)
+                    if data is None or len(data) < region_size:
+                        f.write(f"\n=== {region_name} (0x{region_addr:08X}, 0x{region_size:X} bytes) ===\n")
+                        f.write("[Read failed or incomplete]\n")
+                        continue
+                except Exception as e:
+                    f.write(f"\n=== {region_name} (0x{region_addr:08X}, 0x{region_size:X} bytes) ===\n")
+                    f.write(f"[Error: {e}]\n")
+                    continue
+
+                f.write(f"\n=== {region_name} (0x{region_addr:08X}, 0x{region_size:X} bytes) ===\n")
+
+                # Hex dump with ASCII
+                for i in range(0, len(data), 16):
+                    chunk = data[i:i+16]
+                    hex_str = " ".join(f"{b:02X}" for b in chunk)
+                    ascii_str = "".join(chr(b) if 0x20 <= b < 0x7F else "." for b in chunk)
+                    f.write(f"  {region_addr + i:08X}  {hex_str:<48}  {ascii_str}\n")
+
+        return output_path
+    except Exception as e:
+        print(f"ERROR: Failed to dump PGCR annotated: {e}", file=sys.stderr)
+        return None
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Read live Halo 2 statistics via XBDM",
@@ -1247,6 +1471,16 @@ Examples:
         type=int,
         metavar="PORT",
         help="Use QMP protocol on PORT for live stats (requires Xemu -qmp flag)"
+    )
+    parser.add_argument(
+        "--pgcr",
+        action="store_true",
+        help="Print output in PGCR-display format (tabular, matching in-game screenshots)"
+    )
+    parser.add_argument(
+        "--save-ram",
+        action="store_true",
+        help="Save full 64MB RAM snapshot at each game end (QMP only, creates large files)"
     )
 
     args = parser.parse_args()
@@ -1386,6 +1620,8 @@ Examples:
 
                     if args.simple:
                         print_scoreboard(players)
+                    elif args.pgcr:
+                        print_pgcr_report(players, teams, gametype_for_display)
                     else:
                         print_scoreboard_rich(
                             players,

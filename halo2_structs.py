@@ -388,8 +388,8 @@ class PCRPlayerStats:
             "oddball": {"Carrier Kills": self.gametype_value0, "Ball Kills": self.gametype_value1},
             "koth": {"Kings Killed": self.gametype_value0, "Kills From": self.gametype_value1},
             "juggernaut": {"Jugs Killed": self.gametype_value0, "Kills As Jug": self.gametype_value1},
-            "territories": {"Territories Taken": self.gametype_value0, "Territories Lost": self.gametype_value1},
-            "assault": {"Bomb Grabs": self.gametype_value0, "Bomb Carrier Kills": self.gametype_value1},
+            "territories": {"Terr. Taken": self.gametype_value0, "Terr. Lost": self.gametype_value1},
+            "assault": {"Bomb Grabs": self.gametype_value0, "Bomber Kills": self.gametype_value1},
         }
         return mappings.get(gametype.lower(), {"value0": self.gametype_value0, "value1": self.gametype_value1})
 

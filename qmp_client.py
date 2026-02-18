@@ -281,6 +281,40 @@ class QMPClient:
 
         return bytes(result)
 
+    def save_ram(self, filepath: str) -> bool:
+        """Save full 64MB Xbox RAM to a file via pmemsave.
+
+        Args:
+            filepath: Destination file path (can be absolute or relative)
+
+        Returns:
+            True if command was sent successfully, False otherwise
+        """
+        if not self._connected:
+            print("ERROR: Not connected to QMP", file=sys.stderr)
+            return False
+
+        cmd = {
+            "execute": "pmemsave",
+            "arguments": {
+                "val": 0,                    # start address (physical)
+                "size": 67108864,            # 64MB in bytes
+                "filename": str(filepath)
+            }
+        }
+
+        try:
+            response = self._send_command(cmd)
+            if response and "error" not in response:
+                return True
+            else:
+                error = response.get("error", {}).get("desc", "unknown") if response else "no response"
+                print(f"ERROR: pmemsave failed: {error}", file=sys.stderr)
+                return False
+        except Exception as e:
+            print(f"ERROR: pmemsave exception: {e}", file=sys.stderr)
+            return False
+
     @staticmethod
     def _parse_xp_response(text: str, expected_length: int) -> Optional[bytes]:
         """Parse QMP monitor hex output into bytes.

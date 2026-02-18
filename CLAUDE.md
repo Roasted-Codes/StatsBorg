@@ -230,8 +230,8 @@ Located after 16 player records in both PCR (0x55DC30) and PGCR Display (0x56CAD
 | Oddball | Carrier Kills | Ball Kills |
 | KOTH | Kings Killed | Kills From |
 | Juggernaut | Jugs Killed | Kills As Jug |
-| Territories | Territories Taken | Territories Lost |
-| Assault | Bomb Grabs | Bomb Carrier Kills |
+| Territories | Terr. Taken | Terr. Lost |
+| Assault | Bomb Grabs | Bomber Kills |
 
 **TODO: JSON formatting for Slayer "Avg Life"** — Currently output as raw seconds (e.g., `3525`). Should be formatted as MM:SS (e.g., `58:45`) in JSON output to match in-game PGCR display. Note: KOTH, Oddball, and Juggernaut `gametype_values` are integer counts, not time-based, so no formatting needed for those.
 
