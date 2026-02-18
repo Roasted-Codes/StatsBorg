@@ -379,11 +379,13 @@ class PCRPlayerStats:
 
         Returns:
             Dictionary with gametype-specific stat names and values
+
+        Note: Label names match the in-game PGCR display column headers exactly.
         """
         mappings = {
             "ctf": {"Flag Saves": self.gametype_value0, "Flag Steals": self.gametype_value1},
             "slayer": {"Avg Life": self.gametype_value0, "Best Spree": self.gametype_value1},
-            "oddball": {"Ball Carrier Kills": self.gametype_value0, "Kills As Carrier": self.gametype_value1},
+            "oddball": {"Carrier Kills": self.gametype_value0, "Ball Kills": self.gametype_value1},
             "koth": {"Kings Killed": self.gametype_value0, "Kills From": self.gametype_value1},
             "juggernaut": {"Juggernaut Kills": self.gametype_value0, "Kills As Juggernaut": self.gametype_value1},
             "territories": {"Territories Taken": self.gametype_value0, "Territories Lost": self.gametype_value1},
