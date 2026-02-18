@@ -768,12 +768,19 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
                     # Save full RAM snapshot if requested (must be before re-reading)
                     if args.save_ram:
                         if hasattr(reader.client, 'save_ram'):
-                            ram_filepath = os.path.join(history_dir, f"{fingerprint}_ram.bin")
-                            print(f"[Watch] Saving RAM snapshot to {ram_filepath}...")
-                            if reader.client.save_ram(ram_filepath):
-                                print(f"  -> RAM snapshot saved ({os.path.getsize(ram_filepath) / 1024 / 1024:.1f} MB)")
-                            else:
-                                print(f"  -> RAM snapshot save failed (not supported on this connection)")
+                            ram_filepath = os.path.abspath(os.path.join(history_dir, f"{fingerprint}_ram.bin"))
+                            print(f"[Watch] Saving RAM snapshot...")
+                            try:
+                                if reader.client.save_ram(ram_filepath):
+                                    try:
+                                        ram_size = os.path.getsize(ram_filepath) / 1024 / 1024
+                                        print(f"  -> RAM snapshot saved ({ram_size:.1f} MB)")
+                                    except:
+                                        print(f"  -> RAM snapshot saved to {os.path.basename(ram_filepath)}")
+                                else:
+                                    print(f"  -> RAM snapshot save failed (not supported on this connection)")
+                            except Exception as e:
+                                print(f"  -> RAM snapshot save error: {e}")
                         else:
                             print("[Watch] --save-ram requires QMP mode")
 
@@ -983,16 +990,19 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
             fp8 = fingerprint[:8] if len(fingerprint) >= 8 else fingerprint
             if args.save_ram:
                 if hasattr(reader.client, 'save_ram'):
-                    ram_filepath = os.path.join(history_dir, f"{fp8}_ram.bin")
+                    ram_filepath = os.path.abspath(os.path.join(history_dir, f"{fp8}_ram.bin"))
                     print(f"[{ts}] Saving RAM snapshot...")
-                    if reader.client.save_ram(ram_filepath):
-                        try:
-                            ram_size = os.path.getsize(ram_filepath) / 1024 / 1024
-                            print(f"  -> RAM snapshot saved ({ram_size:.1f} MB)")
-                        except:
-                            print(f"  -> RAM snapshot saved")
-                    else:
-                        print(f"  -> RAM snapshot save failed (not supported on this connection)")
+                    try:
+                        if reader.client.save_ram(ram_filepath):
+                            try:
+                                ram_size = os.path.getsize(ram_filepath) / 1024 / 1024
+                                print(f"  -> RAM snapshot saved ({ram_size:.1f} MB)")
+                            except:
+                                print(f"  -> RAM snapshot saved to {os.path.basename(ram_filepath)}")
+                        else:
+                            print(f"  -> RAM snapshot save failed (not supported on this connection)")
+                    except Exception as e:
+                        print(f"  -> RAM snapshot save error: {e}")
 
             try:
                 # gametype_id was already read while halted above;
