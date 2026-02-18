@@ -1239,7 +1239,7 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
 
     for player in players:
         row_parts = [
-            player.name[:20].ljust(20),
+            player.player_name[:20].ljust(20),
             (player.place_string or f"#{player.place}").ljust(20)
         ]
 
@@ -1257,7 +1257,7 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
     print(f"{'Player':<20} {'Kills':<10} {'Assists':<10} {'Deaths':<10} {'Suicides':<10}")
     print("-" * 60)
     for player in players:
-        print(f"{player.name[:20]:<20} {player.kills:<10} {player.assists:<10} {player.deaths:<10} {player.suicides:<10}")
+        print(f"{player.player_name[:20]:<20} {player.kills:<10} {player.assists:<10} {player.deaths:<10} {player.suicides:<10}")
 
     # HIT STATS
     if any(p.accuracy['total_shots'] > 0 for p in players):
@@ -1267,9 +1267,9 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
         for player in players:
             if player.accuracy['total_shots'] > 0:
                 hit_pct = player.accuracy['percentage']
-                print(f"{player.name[:20]:<20} {player.accuracy['shots_hit']:<15} {player.accuracy['total_shots']:<15} {hit_pct:<10.1f} {player.accuracy['headshots']:<10}")
+                print(f"{player.player_name[:20]:<20} {player.accuracy['shots_hit']:<15} {player.accuracy['total_shots']:<15} {hit_pct:<10.1f} {player.accuracy['headshots']:<10}")
             else:
-                print(f"{player.name[:20]:<20} {'0':<15} {'0':<15} {'0':<10} {'0':<10}")
+                print(f"{player.player_name[:20]:<20} {'0':<15} {'0':<15} {'0':<10} {'0':<10}")
 
     # MEDALS
     if any(p.medals['total'] > 0 for p in players):
@@ -1283,12 +1283,12 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
                 types_str = ", ".join(medal_names[:3]) if medal_names else "?"
                 if len(medal_names) > 3:
                     types_str += f" (+{len(medal_names) - 3} more)"
-                print(f"{player.name[:20]:<20} {player.medals['total']:<20} {types_str:<40}")
+                print(f"{player.player_name[:20]:<20} {player.medals['total']:<20} {types_str:<40}")
 
     # PLAYER VS. PLAYER (kill matrix)
     if len(players) > 1:
         print("\nPLAYER VS. PLAYER")
-        player_names = [p.name[:15] for p in players]
+        player_names = [p.player_name[:15] for p in players]
         max_name_len = max(len(n) for n in player_names) + 2
 
         # Header row
@@ -1300,7 +1300,7 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
 
         # Data rows
         for i, player in enumerate(players):
-            row = player.name[:max_name_len-2].ljust(max_name_len)
+            row = player.player_name[:max_name_len-2].ljust(max_name_len)
             for j in range(len(players)):
                 if i == j:
                     row += "-".ljust(max_name_len)
