@@ -1260,30 +1260,30 @@ def print_pgcr_report(players: List[PCRPlayerStats], teams: Optional[List[TeamSt
         print(f"{player.player_name[:20]:<20} {player.kills:<10} {player.assists:<10} {player.deaths:<10} {player.suicides:<10}")
 
     # HIT STATS
-    if any(p.accuracy['total_shots'] > 0 for p in players):
+    if any(p.total_shots > 0 for p in players):
         print("\nHIT STATS")
         print(f"{'Player':<20} {'Shots Hit':<15} {'Shots Fired':<15} {'Hit %':<10} {'Head Shots':<10}")
         print("-" * 70)
         for player in players:
-            if player.accuracy['total_shots'] > 0:
-                hit_pct = player.accuracy['percentage']
-                print(f"{player.player_name[:20]:<20} {player.accuracy['shots_hit']:<15} {player.accuracy['total_shots']:<15} {hit_pct:<10.1f} {player.accuracy['headshots']:<10}")
+            if player.total_shots > 0:
+                hit_pct = (player.shots_hit / player.total_shots * 100) if player.total_shots > 0 else 0
+                print(f"{player.player_name[:20]:<20} {player.shots_hit:<15} {player.total_shots:<15} {hit_pct:<10.1f} {player.headshots:<10}")
             else:
                 print(f"{player.player_name[:20]:<20} {'0':<15} {'0':<15} {'0':<10} {'0':<10}")
 
     # MEDALS
-    if any(p.medals['total'] > 0 for p in players):
+    if any(p.medals_earned > 0 for p in players):
         print("\nMEDALS")
         print(f"{'Player':<20} {'Total Medals':<20} {'Types':<40}")
         print("-" * 80)
         for player in players:
-            if player.medals['total'] > 0:
+            if player.medals_earned > 0:
                 from halo2_structs import decode_medals
-                medal_names = decode_medals(player.medals['by_type'])
+                medal_names = decode_medals(player.medals_earned_by_type)
                 types_str = ", ".join(medal_names[:3]) if medal_names else "?"
                 if len(medal_names) > 3:
                     types_str += f" (+{len(medal_names) - 3} more)"
-                print(f"{player.player_name[:20]:<20} {player.medals['total']:<20} {types_str:<40}")
+                print(f"{player.player_name[:20]:<20} {player.medals_earned:<20} {types_str:<40}")
 
     # PLAYER VS. PLAYER (kill matrix)
     if len(players) > 1:
