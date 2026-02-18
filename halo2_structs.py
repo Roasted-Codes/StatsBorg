@@ -387,7 +387,7 @@ class PCRPlayerStats:
             "slayer": {"Avg Life": self.gametype_value0, "Best Spree": self.gametype_value1},
             "oddball": {"Carrier Kills": self.gametype_value0, "Ball Kills": self.gametype_value1},
             "koth": {"Kings Killed": self.gametype_value0, "Kills From": self.gametype_value1},
-            "juggernaut": {"Juggernaut Kills": self.gametype_value0, "Kills As Juggernaut": self.gametype_value1},
+            "juggernaut": {"Jugs Killed": self.gametype_value0, "Kills As Jug": self.gametype_value1},
             "territories": {"Territories Taken": self.gametype_value0, "Territories Lost": self.gametype_value1},
             "assault": {"Bomb Grabs": self.gametype_value0, "Bomb Carrier Kills": self.gametype_value1},
         }

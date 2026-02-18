@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Maintenance:** Keep this file up to date as the project evolves. When adding new features, changing addresses, modifying CLI flags, or altering architecture, update the relevant sections here.
 
+**🚨 CRITICAL: Always ask for user confirmation before pushing to GitHub!**
+
 ## Project Overview
 
 Cross-platform Python tool to read Halo 2 multiplayer statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) and QMP (QEMU Machine Protocol). Linux-compatible alternative to Windows-only HaloCaster.
@@ -225,13 +227,13 @@ Located after 16 player records in both PCR (0x55DC30) and PGCR Display (0x56CAD
 |----------|---------|---------|
 | CTF | Flag Saves | Flag Steals |
 | Slayer | Avg Life | Best Spree |
-| Oddball | Ball Carrier Kills | Kills As Carrier |
+| Oddball | Carrier Kills | Ball Kills |
 | KOTH | Kings Killed | Kills From |
-| Juggernaut | Juggernaut Kills | Kills As Juggernaut |
+| Juggernaut | Jugs Killed | Kills As Jug |
 | Territories | Territories Taken | Territories Lost |
 | Assault | Bomb Grabs | Bomb Carrier Kills |
 
-**TODO: JSON formatting for Slayer "Avg Life" and Juggernaut time values** — Currently output as raw seconds (e.g., `3525`). Should be formatted as MM:SS (e.g., `58:45`) in JSON output to match in-game PGCR display. Note: KOTH and Oddball `gametype_values` are integer counts, not time-based (King kills, carrier kills, etc.), so no formatting needed for those.
+**TODO: JSON formatting for Slayer "Avg Life"** — Currently output as raw seconds (e.g., `3525`). Should be formatted as MM:SS (e.g., `58:45`) in JSON output to match in-game PGCR display. Note: KOTH, Oddball, and Juggernaut `gametype_values` are integer counts, not time-based, so no formatting needed for those.
 
 ### Medal bitmask (24 bits)
 
