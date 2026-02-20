@@ -10,7 +10,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 HISTORY_DIR = os.path.join(ROOT, "history")
-VIEWER_PATH = os.path.join(ROOT, "exports", "pgcr_viewer.html")
+VIEWER_PATH = os.path.join(ROOT, "pgcr_viewer.html")
 
 
 class PGCRHandler(SimpleHTTPRequestHandler):
@@ -35,17 +35,23 @@ class PGCRHandler(SimpleHTTPRequestHandler):
             try:
                 with open(path) as f:
                     d = json.load(f)
-                winner = ""
-                if d.get("players"):
-                    p0 = d["players"][0]
-                    winner = f"{p0.get('name', '?')} ({p0.get('score_string', '?')})"
-                games.append({
+                game_entry = {
                     "filename": os.path.basename(path),
                     "timestamp": d.get("timestamp", ""),
                     "gametype": d.get("gametype", "unknown"),
                     "player_count": d.get("player_count", 0),
-                    "winner": winner,
-                })
+                    "winner": "",
+                }
+                if d.get("teams"):
+                    teams_sorted = sorted(d["teams"], key=lambda t: t.get("place", 99))
+                    game_entry["teams"] = [
+                        {"name": t.get("name", "?"), "score_string": t.get("score_string", "0"),
+                         "team_id": t.get("team_id", 0)} for t in teams_sorted
+                    ]
+                elif d.get("players"):
+                    p0 = d["players"][0]
+                    game_entry["winner"] = f"{p0.get('name', '?')} ({p0.get('score_string', '?')})"
+                games.append(game_entry)
             except (json.JSONDecodeError, KeyError):
                 continue
         self.send_response(200)

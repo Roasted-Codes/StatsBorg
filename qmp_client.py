@@ -2,7 +2,7 @@
 QMP Client — Read Xemu guest physical memory via QEMU Machine Protocol.
 
 Provides the same read_memory(addr, size) interface as XBDMClient,
-so existing reader functions in live_stats.py work unchanged.
+so it is a drop-in replacement for reading Xbox memory.
 
 Two read modes:
   1. read_memory(addr, size)    — kernel VAs (0x80000000+), strips high bit
@@ -16,11 +16,8 @@ Usage:
     data = client.read_memory(0x83640F04, 4)      # kernel VA → physical read
     data = client.read_memory_va(0x56B990, 0x114)  # user VA → gva2gpa → physical
 
-    # Standalone test (live stats)
+    # Standalone test (reads PGCR Display)
     python qmp_client.py [host] [port]
-
-    # Read PGCR Display (same data XBDM reads)
-    python qmp_client.py [host] [port] --pgcr
 
 Requires Xemu launched with:
     -qmp tcp:0.0.0.0:4444,server,nowait
@@ -352,48 +349,6 @@ def _is_valid_name(data: bytes) -> bool:
     return bool(name) and all(0x20 <= ord(c) <= 0x7E for c in name)
 
 
-def _test_live_stats(client: QMPClient):
-    """Test live stats via HaloCaster kernel-space addresses."""
-    from live_stats import (
-        LifeCycle, GameStats, VariantInfo,
-        GAME_STATS_STRUCT,
-        calculate_live_stats_address, get_live_address,
-    )
-
-    print("--- Life Cycle ---")
-    addr = get_live_address("life_cycle")
-    data = client.read_memory(addr, 4)
-    if data:
-        value = struct.unpack('<I', data)[0]
-        try:
-            state = LifeCycle(value)
-            print(f"  State: {state.name} ({value})")
-        except ValueError:
-            print(f"  Raw value: {value}")
-    else:
-        print("  Failed to read")
-
-    print("\n--- Variant Info ---")
-    addr = get_live_address("variant_info")
-    data = client.read_memory(addr, 0x230)
-    if data:
-        info = VariantInfo.from_bytes(data)
-        print(f"  Variant: {info.variant_name}")
-        print(f"  Type:    {info.game_type_name}")
-        print(f"  Map:     {info.map_name}")
-    else:
-        print("  Failed to read (game may not be loaded)")
-
-    print("\n--- Player Stats (slots 0-3) ---")
-    for i in range(4):
-        addr = calculate_live_stats_address(i)
-        data = client.read_memory(addr, GAME_STATS_STRUCT)
-        if data:
-            stats = GameStats.from_bytes(data)
-            if stats.kills or stats.deaths or stats.assists:
-                print(f"  Player {i}: K:{stats.kills} D:{stats.deaths} A:{stats.assists}")
-
-
 def _test_pgcr(client: QMPClient):
     """Read PGCR Display via QMP (same data XBDM reads at 0x56B900)."""
     from halo2_structs import (
@@ -488,8 +443,6 @@ if __name__ == "__main__":
     parser.add_argument("host", nargs="?", default="localhost", help="QMP host")
     parser.add_argument("port", nargs="?", type=int, default=QMPClient.DEFAULT_PORT,
                         help="QMP port")
-    parser.add_argument("--pgcr", action="store_true",
-                        help="Read PGCR Display (post-game stats) via gva2gpa translation")
     args = parser.parse_args()
 
     print(f"Connecting to QMP at {args.host}:{args.port}...")
@@ -500,10 +453,7 @@ if __name__ == "__main__":
         sys.exit(1)
     print("Connected!\n")
 
-    if args.pgcr:
-        _test_pgcr(client)
-    else:
-        _test_live_stats(client)
+    _test_pgcr(client)
 
     client.disconnect()
     print("\nDone.")

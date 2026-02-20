@@ -1,30 +1,22 @@
 #!/usr/bin/env python3
 """
-Halo 2 Stats Reader - Cross-platform live stats collection via XBDM
+Halo 2 Stats Reader - Cross-platform post-game stats via XBDM/QMP
 
-Connects to XBDM on port 731 to read game statistics.
-
-Requirements:
-- For Xemu: xbdm_gdb_bridge must be running (implements XBDM protocol)
-- For Real Xbox: Connect directly (native XBDM support)
+Reads Halo 2 post-game statistics from Xbox/Xemu via XBDM (port 731)
+or QMP (QEMU Machine Protocol).
 
 Usage:
-    # PCR stats (post-game only, default)
-    python halo2_stats.py --host 127.0.0.1
+    # Read post-game stats (default: tries PGCR Display first, falls back to PCR)
+    python halo2_stats.py --host 172.20.0.51
 
-    # LIVE stats during gameplay (uses HaloCaster addresses)
-    python halo2_stats.py --host 127.0.0.1 --live
-
-    # Poll live stats every 2 seconds
-    python halo2_stats.py --host 127.0.0.1 --live --poll 2
+    # Watch for game completions and auto-save history
+    python halo2_stats.py --host 172.20.0.51 --watch
 
     # JSON output
-    python halo2_stats.py --host 127.0.0.1 --live --json
+    python halo2_stats.py --host 172.20.0.51 --json
 
-Stats Modes:
-    --live    Read real-time stats during gameplay (HaloCaster addresses)
-              Works with Halo 2 v1.5 debug XBE
-    (default) Read PCR stats - only populated after game ends
+    # QMP mode (reads same PGCR data via QEMU Machine Protocol)
+    python halo2_stats.py --host 172.20.0.10 --qmp 4444
 """
 
 import argparse
@@ -63,19 +55,6 @@ from halo2_structs import (
     PGCR_DISPLAY_GAMETYPE_ADDR,
 )
 from addresses import DISCOVERED_ADDRESSES
-from live_stats import (
-    PGCRDisplayStats,
-    GameStats,
-    PlayerProperties,
-    VariantInfo,
-    calculate_live_stats_address,
-    calculate_session_player_address,
-    get_live_address,
-    GAME_STATS_STRUCT,
-    SESSION_PLAYER_SIZE,
-    LifeCycle,
-    LIVE_ADDRESSES,
-)
 
 
 def _is_valid_player_name(name_bytes: bytes) -> bool:
@@ -388,153 +367,6 @@ class Halo2StatsReader:
                 self.log(f"Failed to parse team {i}: {e}")
         return teams
 
-    # =========================================================================
-    # Live Stats Methods (read during gameplay)
-    # =========================================================================
-
-    def read_life_cycle(self) -> Optional[LifeCycle]:
-        """
-        Read current game life cycle state.
-
-        Returns:
-            LifeCycle enum value, or None on error
-        """
-        addr = get_live_address("life_cycle")
-        self.log(f"Reading life_cycle from 0x{addr:08X}")
-
-        data = self.client.read_memory(addr, 4)
-        if not data or len(data) < 4:
-            self._last_error = f"Failed to read life_cycle at 0x{addr:08X}"
-            return None
-
-        value = struct.unpack('<I', data)[0]
-        try:
-            return LifeCycle(value)
-        except ValueError:
-            self.log(f"Unknown life_cycle value: {value}")
-            return LifeCycle.NONE
-
-    def read_live_player_stats(self, player_index: int) -> Optional[GameStats]:
-        """
-        Read LIVE stats for a single player during gameplay.
-
-        Args:
-            player_index: Player slot (0-15)
-
-        Returns:
-            GameStats if successful, None on error
-        """
-        addr = calculate_live_stats_address(player_index)
-        self.log(f"Reading live stats for player {player_index} from 0x{addr:08X}")
-
-        # Read the full game stats structure (54 bytes)
-        data = self.client.read_memory(addr, GAME_STATS_STRUCT)
-        if not data:
-            self._last_error = f"Failed to read live stats for player {player_index} at 0x{addr:08X}"
-            return None
-
-        try:
-            stats = GameStats.from_bytes(data)
-            self.log(f"  Live stats: K:{stats.kills} D:{stats.deaths} A:{stats.assists}")
-            return stats
-        except Exception as e:
-            self._last_error = f"Failed to parse live stats for player {player_index}: {e}"
-            return None
-
-    def read_session_player(self, player_index: int) -> Optional[PlayerProperties]:
-        """
-        Read player session properties (name, team, etc.)
-
-        Args:
-            player_index: Player slot (0-15)
-
-        Returns:
-            PlayerProperties if successful, None on error
-        """
-        addr = calculate_session_player_address(player_index)
-        self.log(f"Reading session player {player_index} from 0x{addr:08X}")
-
-        data = self.client.read_memory(addr, SESSION_PLAYER_SIZE)
-        if not data:
-            self._last_error = f"Failed to read session player {player_index} at 0x{addr:08X}"
-            return None
-
-        try:
-            props = PlayerProperties.from_bytes(data)
-            if props.player_name:
-                self.log(f"  Found: {props.player_name} on team {props.team.name}")
-            return props
-        except Exception as e:
-            self._last_error = f"Failed to parse session player {player_index}: {e}"
-            return None
-
-    def read_all_live_players(self) -> List[Dict[str, Any]]:
-        """Read live stats for all players with valid names."""
-        players = []
-        for i in range(self.MAX_PLAYERS):
-            props = self.read_session_player(i)
-            if props and props.player_name.strip():
-                stats = self.read_live_player_stats(i)
-                if stats:
-                    players.append({
-                        "index": i,
-                        "name": props.player_name,
-                        "team": props.team.name.lower(),
-                        "kills": stats.kills,
-                        "deaths": stats.deaths,
-                        "assists": stats.assists,
-                        "betrayals": stats.betrayals,
-                        "suicides": stats.suicides,
-                    })
-        return players
-
-    def get_live_snapshot(self) -> Dict[str, Any]:
-        """
-        Get a complete snapshot of current LIVE game state.
-
-        Returns a dictionary ready for JSON serialization.
-        """
-        life_cycle = self.read_life_cycle()
-        players = self.read_all_live_players()
-
-        return {
-            "timestamp": datetime.now().isoformat(),
-            "life_cycle": life_cycle.name if life_cycle else "UNKNOWN",
-            "player_count": len(players),
-            "players": players,
-        }
-
-
-def format_live_player_summary(player: Dict[str, Any]) -> str:
-    """Format a single player's live stats as a readable line."""
-    name = player["name"][:16].ljust(16)
-    k = player["kills"]
-    d = player["deaths"]
-    a = player["assists"]
-    kd = k / max(d, 1)
-
-    return f"{name} K:{k:3d} D:{d:3d} A:{a:3d} K/D:{kd:.2f}"
-
-
-def print_live_scoreboard(players: List[Dict[str, Any]], life_cycle: str):
-    """Print a formatted live scoreboard to console."""
-    print("\n" + "=" * 60)
-    print(f" HALO 2 LIVE STATS - {life_cycle}")
-    print("=" * 60)
-
-    if not players:
-        print(" No players found in game.")
-    else:
-        # Sort by kills descending
-        sorted_players = sorted(players, key=lambda p: p["kills"], reverse=True)
-
-        for i, player in enumerate(sorted_players, 1):
-            print(f" {i:2d}. {format_live_player_summary(player)}")
-
-    print("=" * 60)
-    print()
-
-
 def format_player_summary(player: PCRPlayerStats) -> str:
     """Format a single player's stats as a readable line."""
     name = player.player_name[:16].ljust(16)
@@ -574,7 +406,6 @@ def compute_game_fingerprint(players) -> str:
     Includes score_string, shots, headshots, and gametype values to
     distinguish games with identical K/D/A (e.g. solo 0-0-0 CTF games).
 
-    Works with both PCRPlayerStats and PGCRDisplayStats.
     """
     parts = []
     for p in sorted(players, key=lambda x: x.player_name):
@@ -592,7 +423,6 @@ def compute_game_fingerprint(players) -> str:
 
 
 def build_snapshot(players,
-                   pgcr_display: Optional[List[PGCRDisplayStats]] = None,
                    source: str = "pcr",
                    gametype_id: Optional[int] = None,
                    teams: Optional[List[TeamStats]] = None) -> Dict[str, Any]:
@@ -600,8 +430,7 @@ def build_snapshot(players,
     Build a complete game snapshot dictionary.
 
     Args:
-        players: List of active player stats (PCRPlayerStats or PGCRDisplayStats)
-        pgcr_display: Optional extra PGCR display stats for killed-by data
+        players: List of active player stats (PCRPlayerStats)
         source: Data source identifier ("pcr" or "pgcr_display")
         gametype_id: Gametype enum value from memory (e.g. GameType.SLAYER = 2)
         teams: Optional list of TeamStats from team data area
@@ -1062,7 +891,6 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
 
 def print_scoreboard_rich(players: List[PCRPlayerStats],
                           gametype: Optional[str] = None,
-                          pgcr_display: Optional[List[PGCRDisplayStats]] = None,
                           all_players: Optional[List[Optional[PCRPlayerStats]]] = None,
                           teams: Optional[List[TeamStats]] = None):
     """Print a detailed scoreboard with medals, accuracy, and gametype stats."""
@@ -1133,64 +961,6 @@ def print_scoreboard_rich(players: List[PCRPlayerStats],
                     print(f"     {gametype.upper()}: {', '.join(gt_parts)}")
             else:
                 print(f"     Gametype Values: {player.gametype_value0}, {player.gametype_value1}")
-
-        if pgcr_display:
-            for display in pgcr_display:
-                if display.player_name == player.player_name and any(v > 0 for v in display.killed_by):
-                    killed_by_parts = []
-                    for idx, count in enumerate(display.killed_by):
-                        if count > 0:
-                            killer = slot_names.get(idx, f"P{idx}")
-                            if idx == 0 and not slot_names.get(0):
-                                killer = "self"
-                            killed_by_parts.append(f"{killer}: {count}")
-                    if killed_by_parts:
-                        print(f"     Killed by: {', '.join(killed_by_parts)}")
-                    break
-
-    print("\n" + "=" * 72)
-    print()
-
-
-def print_scoreboard_display(players: List[PGCRDisplayStats]):
-    """Print a scoreboard from PGCR Display data (used when PCR is empty)."""
-    if not players:
-        print("No players found in game.")
-        return
-
-    sorted_players = sorted(players, key=lambda p: p.kills, reverse=True)
-
-    print("\n" + "=" * 72)
-    print(" HALO 2 POST-GAME CARNAGE REPORT")
-    print("=" * 72)
-
-    for i, player in enumerate(sorted_players, 1):
-        name = player.player_name[:16].ljust(16)
-        k, d, a = player.kills, player.deaths, player.assists
-        kd = k / max(d, 1)
-
-        place_str = player.place_string or f"#{player.place}"
-        score_str = player.score_string or ""
-        print(f"\n {i:2d}. {name}  {place_str:>4s}  Score: {score_str}")
-        print(f"     K:{k:3d}  D:{d:3d}  A:{a:3d}  S:{player.suicides:2d}  K/D:{kd:.2f}")
-
-        if player.total_shots > 0:
-            acc = player.shots_hit / player.total_shots * 100
-            print(f"     Accuracy: {acc:.1f}%  ({player.shots_hit}/{player.total_shots} shots, {player.headshots} headshots)")
-
-        if any(v > 0 for v in player.killed_by):
-            killed_by_parts = []
-            for idx, count in enumerate(player.killed_by):
-                if count > 0:
-                    # Try to find killer name from the player list
-                    killer = f"P{idx}"
-                    for p in players:
-                        if p.place == idx + 1:
-                            killer = p.player_name
-                            break
-                    killed_by_parts.append(f"{killer}: {count}")
-            if killed_by_parts:
-                print(f"     Killed by: {', '.join(killed_by_parts)}")
 
     print("\n" + "=" * 72)
     print()
@@ -1376,7 +1146,7 @@ def dump_pgcr_annotated(client, history_dir: str, fingerprint: str) -> Optional[
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Read live Halo 2 statistics via XBDM",
+        description="Read Halo 2 post-game statistics via XBDM/QMP",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -1425,11 +1195,6 @@ Examples:
         type=float,
         default=5.0,
         help="Connection timeout in seconds (default: 5.0)"
-    )
-    parser.add_argument(
-        "--live", "-l",
-        action="store_true",
-        help="Read LIVE stats during gameplay (HaloCaster addresses)"
     )
     parser.add_argument(
         "--slow", "-s",
@@ -1573,86 +1338,66 @@ Examples:
             return
 
         while True:
-            if args.live:
-                # Live stats mode (HaloCaster addresses)
-                if args.json or args.output:
-                    snapshot = reader.get_live_snapshot()
+            # Try PGCR Display first (more reliable), fall back to PCR
+            all_indexed = None
+            source = "pcr"
 
-                    if args.output:
-                        with open(args.output, 'w') as f:
-                            json.dump(snapshot, f, indent=2)
-                        print(f"Live stats saved to {args.output}")
-
-                    if args.json:
-                        print(json.dumps(snapshot, indent=2))
-                else:
-                    life_cycle = reader.read_life_cycle()
-                    life_cycle_str = life_cycle.name if life_cycle else "UNKNOWN"
-                    players = reader.read_all_live_players()
-                    print_live_scoreboard(players, life_cycle_str)
-
+            if reader.probe_pgcr_display_populated():
+                players = reader.read_active_pgcr_display()
+                source = "pgcr_display"
+                if players:
+                    print("[Note] Using PGCR Display data")
             else:
-                # PCR stats mode - try PGCR Display first (more reliable), fall back to PCR
-                # Both sources return PCRPlayerStats (same struct layout)
-                all_indexed = None
+                players = []
+
+            if not players:
+                all_indexed = reader.read_all_players_indexed()
+                players = [p for p in all_indexed if p is not None]
                 source = "pcr"
 
-                if reader.probe_pgcr_display_populated():
-                    players = reader.read_active_pgcr_display()
-                    source = "pgcr_display"
-                    if players:
-                        print("[Note] Using PGCR Display data")
+            # Read gametype from discovered address, PGCR header fallback
+            gametype_enum = reader.read_gametype_discovered() or reader.read_gametype()
+            teams = reader.read_teams()
+            gametype_id_val = gametype_enum.value if gametype_enum else None
+
+            if args.json or args.output:
+                snapshot = build_snapshot(
+                    players, source=source,
+                    gametype_id=gametype_id_val, teams=teams,
+                )
+
+                if args.output:
+                    with open(args.output, 'w') as f:
+                        json.dump(snapshot, f, indent=2)
+                    print(f"Stats saved to {args.output}")
+
+                if args.json:
+                    print(json.dumps(snapshot, indent=2))
+            else:
+                # CLI --gametype flag overrides; otherwise use enum-derived name
+                gametype_for_display = args.gametype
+                if not gametype_for_display and gametype_enum and gametype_enum.value > 0:
+                    gametype_for_display = GAMETYPE_NAMES.get(gametype_enum, str(gametype_enum)).lower()
+
+                if args.simple:
+                    print_scoreboard(players)
+                elif args.pgcr:
+                    print_pgcr_report(players, teams, gametype_for_display)
                 else:
-                    players = []
-
-                if not players:
-                    all_indexed = reader.read_all_players_indexed()
-                    players = [p for p in all_indexed if p is not None]
-                    source = "pcr"
-
-                # Read gametype from discovered address, PGCR header fallback
-                gametype_enum = reader.read_gametype_discovered() or reader.read_gametype()
-                teams = reader.read_teams()
-                gametype_id_val = gametype_enum.value if gametype_enum else None
-
-                if args.json or args.output:
-                    snapshot = build_snapshot(
-                        players, source=source,
-                        gametype_id=gametype_id_val, teams=teams,
+                    print_scoreboard_rich(
+                        players,
+                        gametype=gametype_for_display,
+                        all_players=all_indexed,
+                        teams=teams,
                     )
 
-                    if args.output:
-                        with open(args.output, 'w') as f:
-                            json.dump(snapshot, f, indent=2)
-                        print(f"Stats saved to {args.output}")
-
-                    if args.json:
-                        print(json.dumps(snapshot, indent=2))
-                else:
-                    # CLI --gametype flag overrides; otherwise use enum-derived name
-                    gametype_for_display = args.gametype
-                    if not gametype_for_display and gametype_enum and gametype_enum.value > 0:
-                        gametype_for_display = GAMETYPE_NAMES.get(gametype_enum, str(gametype_enum)).lower()
-
-                    if args.simple:
-                        print_scoreboard(players)
-                    elif args.pgcr:
-                        print_pgcr_report(players, teams, gametype_for_display)
-                    else:
-                        print_scoreboard_rich(
-                            players,
-                            gametype=gametype_for_display,
-                            all_players=all_indexed,
-                            teams=teams,
-                        )
-
-                if args.save and players:
-                    snapshot = build_snapshot(
-                        players, source=source,
-                        gametype_id=gametype_id_val, teams=teams,
-                    )
-                    filepath = save_game_history(snapshot, args.history_dir)
-                    print(f"Saved to {filepath}")
+            if args.save and players:
+                snapshot = build_snapshot(
+                    players, source=source,
+                    gametype_id=gametype_id_val, teams=teams,
+                )
+                filepath = save_game_history(snapshot, args.history_dir)
+                print(f"Saved to {filepath}")
 
             if args.poll <= 0:
                 break

@@ -11,7 +11,7 @@ Cross-platform Python tool to read Halo 2 multiplayer post-game statistics from 
 - **Watch mode**: Auto-detects game completions and saves history
 - **JSON output**: Machine-readable output for integrations
 - **Rich scoreboard**: Detailed output with accuracy, medals, gametype stats
-- **Game mode stats**: CTF, Slayer, Assault, Oddball, KOTH, Juggernaut, Territories
+- **All game modes**: CTF, Slayer, Assault, Oddball, KOTH, Juggernaut, Territories
 - **Export pipeline**: Optional PostgreSQL and Excel export scripts
 
 ## Requirements
@@ -57,22 +57,25 @@ python halo2_stats.py --host 172.20.0.10 --qmp 4444
 python halo2_stats.py --host 172.20.0.10 --qmp 4444 --watch
 
 # Test QMP connection
-python qmp_client.py 172.20.0.10 4444 --pgcr
+python qmp_client.py 172.20.0.10 4444
 ```
 
 ## Project Structure
 
 ```
+halo2_stats.py           # Main CLI tool
 xbdm_client.py           # XBDM protocol client (TCP:731)
 qmp_client.py            # QMP protocol client (TCP:4444, guest physical reads)
-halo2_structs.py          # Data structures, addresses, struct parsing
-halo2_stats.py            # Main CLI tool
-live_stats.py             # Live in-game stats structs/parsers
+halo2_structs.py         # Data structures, enums, struct parsing
+addresses.py             # Address constants loader (from addresses.json)
+addresses.json           # Canonical memory address reference
+pgcr_server.py           # Web viewer server (serves pgcr_viewer.html)
+pgcr_viewer.html         # Browser-based game history viewer
 exports/
-  db_export.py            # PostgreSQL export (requires psycopg2-binary)
-  xlsx_export.py          # Excel export (requires openpyxl)
-  requirements.txt        # Optional dependencies for export scripts
-research/                 # Debugging and memory discovery scripts
+  db_export.py           # PostgreSQL export (requires psycopg2-binary)
+  xlsx_export.py         # Excel export (requires openpyxl)
+  requirements.txt       # Optional dependencies for export scripts
+_archive/                # Research scripts, historical docs, and archived code
 ```
 
 ## Export (Optional)

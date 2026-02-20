@@ -938,6 +938,12 @@ def _export_per_game(games, output_dir, style="bungie"):
 PGCR_SECTION_FONT = Font(bold=True, size=12, color="c4a747")
 PGCR_INFO_FONT = Font(size=11, color="AAAAAA")
 
+# Team colors for PGCR
+TEAM_RED_FILL = PatternFill(start_color="CC0000", end_color="CC0000", fill_type="solid")  # Red
+TEAM_BLUE_FILL = PatternFill(start_color="0066CC", end_color="0066CC", fill_type="solid")  # Blue
+GREY_FILL = PatternFill(start_color="404040", end_color="404040", fill_type="solid")  # Grey
+TEAM_FONT = Font(color="FFFFFF", bold=True)  # White text for contrast
+
 
 def _pgcr_sheet_name(game, used_names):
     """Generate a unique sheet name like 'Slayer 02-17' for a game."""
@@ -1220,6 +1226,97 @@ def _DEAD_START(wb, game):
     return ws
 
 
+def _pgcr_player_totals_sheet(wb, games):
+    """Build Player Totals sheet with aggregate stats ranked best to worst."""
+    ws = wb.create_sheet("Player Totals")
+
+    # Aggregate stats by player
+    agg = {}
+    for g in games:
+        for p in g.get("players", []):
+            name = p.get("name", "")
+            if not name or not _is_valid_name(name):
+                continue
+            if name not in agg:
+                agg[name] = {
+                    "games": 0, "kills": 0, "deaths": 0, "assists": 0,
+                    "suicides": 0, "medals": 0, "headshots": 0,
+                    "total_shots": 0, "shots_hit": 0,
+                }
+            s = agg[name]
+            s["games"] += 1
+            s["kills"] += _safe_int(p.get("kills"))
+            s["deaths"] += _safe_int(p.get("deaths"))
+            s["assists"] += _safe_int(p.get("assists"))
+            s["suicides"] += _safe_int(p.get("suicides"))
+            s["medals"] += _player_medals_total(p)
+            s["headshots"] += _player_headshots(p)
+            s["total_shots"] += _player_total_shots(p)
+            s["shots_hit"] += _player_shots_hit(p)
+
+    # Sort by kills descending
+    sorted_players = sorted(agg.items(), key=lambda kv: kv[1]["kills"], reverse=True)
+
+    # --- TITLE ---
+    ws.merge_cells("A1:H1")
+    title_cell = ws.cell(row=1, column=1, value="PLAYER TOTALS — ALL GAMES")
+    title_cell.font = BUNGIE_TITLE_FONT
+    title_cell.fill = BUNGIE_DARK
+    for col in range(1, 9):
+        ws.cell(row=1, column=col).fill = BUNGIE_DARK
+
+    # Blank row
+    for col in range(1, 9):
+        ws.cell(row=2, column=col).fill = BUNGIE_DARK
+
+    # Headers
+    headers = ["Player", "Games", "Kills", "Deaths", "Assists", "K/D", "Accuracy%", "Headshots", "Medals"]
+    for col_idx, h in enumerate(headers, 1):
+        cell = ws.cell(row=3, column=col_idx, value=h)
+        cell.font = BUNGIE_HEADER_FONT
+        cell.fill = BUNGIE_DARK
+        cell.alignment = Alignment(horizontal="center")
+        cell.border = BUNGIE_THIN_BORDER
+    for col in range(1, 10):
+        ws.cell(row=3, column=col).fill = BUNGIE_DARK
+
+    # Data rows (ranked by kills) - grey only
+    for i, (name, s) in enumerate(sorted_players):
+        row_num = i + 4
+        kd = s["kills"] / max(s["deaths"], 1)
+        acc = (s["shots_hit"] / s["total_shots"] * 100) if s["total_shots"] > 0 else 0.0
+
+        vals = [
+            name,
+            s["games"],
+            s["kills"],
+            s["deaths"],
+            s["assists"],
+            round(kd, 2),
+            round(acc, 1),
+            s["headshots"],
+            s["medals"],
+        ]
+
+        for col, v in enumerate(vals, 1):
+            cell = ws.cell(row=row_num, column=col, value=_sanitize(v) if isinstance(v, str) else v)
+            cell.border = BUNGIE_THIN_BORDER
+            cell.alignment = Alignment(horizontal="center") if col > 1 else Alignment()
+            cell.font = BUNGIE_VALUE_FONT
+            cell.fill = GREY_FILL
+        # Fill remaining cols grey
+        for col in range(len(vals) + 1, 10):
+            c = ws.cell(row=row_num, column=col)
+            c.fill = GREY_FILL
+
+    # Column widths
+    ws.column_dimensions["A"].width = 20
+    for col_idx in range(2, 10):
+        ws.column_dimensions[get_column_letter(col_idx)].width = 14
+
+    ws.freeze_panes = "A4"
+
+
 def _pgcr_index_sheet(wb, games):
     """Build the Index sheet listing all games."""
     ws = wb.active
@@ -1274,8 +1371,9 @@ def _export_pgcr(games, output_path):
     """Export all games to a single workbook in PGCR format (one sheet per game)."""
     wb = Workbook()
     _pgcr_index_sheet(wb, games)
+    _pgcr_player_totals_sheet(wb, games)
 
-    used_names = {"Index"}
+    used_names = {"Index", "Player Totals"}
     exported = 0
     for game in games:
         if not _game_has_valid_players(game):
@@ -1351,29 +1449,30 @@ def _pgcr_game_sheet_on(wb, ws, game):
             cell.border = BUNGIE_THIN_BORDER
         return row + 1
 
-    def _data_row(row, values, is_first, row_idx, fmts=None):
+    def _data_row(row, values, is_first, row_idx, fmts=None, team=None):
+        # Choose team color: red for team 0, blue for team 1, grey otherwise
+        if team == 0:
+            fill = TEAM_RED_FILL
+            font = TEAM_FONT
+        elif team == 1:
+            fill = TEAM_BLUE_FILL
+            font = TEAM_FONT
+        else:
+            fill = GREY_FILL
+            font = BUNGIE_VALUE_FONT
+
         for col, v in enumerate(values, 1):
             cell = ws.cell(row=row, column=col, value=_sanitize(v) if isinstance(v, str) else v)
             cell.border = BUNGIE_THIN_BORDER
             cell.alignment = Alignment(horizontal="center") if col > 1 else Alignment()
-            cell.font = BUNGIE_VALUE_FONT
+            cell.font = font
             if fmts and col in fmts:
                 cell.number_format = fmts[col]
-            if is_first:
-                cell.fill = BUNGIE_GOLD_ROW
-            elif row_idx % 2 == 1:
-                cell.fill = BUNGIE_ACCENT
-            else:
-                cell.fill = BUNGIE_DARK
-        # Fill remaining cols dark
+            cell.fill = fill
+        # Fill remaining cols
         for col in range(len(values) + 1, num_cols + 1):
             c = ws.cell(row=row, column=col)
-            if is_first:
-                c.fill = BUNGIE_GOLD_ROW
-            elif row_idx % 2 == 1:
-                c.fill = BUNGIE_ACCENT
-            else:
-                c.fill = BUNGIE_DARK
+            c.fill = fill
         return row + 1
 
     def _blank_dark(row):
@@ -1406,12 +1505,13 @@ def _pgcr_game_sheet_on(wb, ws, game):
 
     for i, p in enumerate(sorted_players):
         is_first = _safe_int(p.get("place")) == 0
+        team = _safe_int(p.get("team"))
         vals = [p.get("name", ""), p.get("place_string") or f"#{_safe_int(p.get('place')) + 1}"]
         if has_gt:
             gt0, gt1 = _gt_values(p)
             vals.extend([gt0, gt1])
         vals.append(p.get("score_string", ""))
-        current_row = _data_row(current_row, vals, is_first, i)
+        current_row = _data_row(current_row, vals, is_first, i, team=team)
     current_row = _blank_dark(current_row)
 
     # --- KILLS ---
@@ -1419,10 +1519,11 @@ def _pgcr_game_sheet_on(wb, ws, game):
     current_row = _col_headers(current_row, ["Player", "Kills", "Assists", "Deaths", "Suicides"])
     for i, p in enumerate(sorted_players):
         is_first = _safe_int(p.get("place")) == 0
+        team = _safe_int(p.get("team"))
         current_row = _data_row(current_row, [
             p.get("name", ""), _safe_int(p.get("kills")), _safe_int(p.get("assists")),
             _safe_int(p.get("deaths")), _safe_int(p.get("suicides")),
-        ], is_first, i)
+        ], is_first, i, team=team)
     current_row = _blank_dark(current_row)
 
     # --- HIT STATS ---
@@ -1431,10 +1532,11 @@ def _pgcr_game_sheet_on(wb, ws, game):
         current_row = _col_headers(current_row, ["Player", "Shots Fired", "Shots Hit", "Hit %", "Headshots"])
         for i, p in enumerate(sorted_players):
             is_first = _safe_int(p.get("place")) == 0
+            team = _safe_int(p.get("team"))
             current_row = _data_row(current_row, [
                 p.get("name", ""), _player_total_shots(p), _player_shots_hit(p),
                 round(_player_accuracy(p), 1), _player_headshots(p),
-            ], is_first, i, fmts={4: "0.0"})
+            ], is_first, i, fmts={4: "0.0"}, team=team)
         current_row = _blank_dark(current_row)
 
     # --- MEDALS ---
@@ -1451,11 +1553,12 @@ def _pgcr_game_sheet_on(wb, ws, game):
 
         for i, p in enumerate(sorted_players):
             is_first = _safe_int(p.get("place")) == 0
+            team = _safe_int(p.get("team"))
             bitmask = _player_medals_bitmask(p)
             vals = [p.get("name", ""), _player_medals_total(p)]
             for medal_idx in active_indices:
                 vals.append(1 if bitmask & (1 << medal_idx) else "")
-            current_row = _data_row(current_row, vals, is_first, i)
+            current_row = _data_row(current_row, vals, is_first, i, team=team)
         current_row = _blank_dark(current_row)
 
     # --- PLAYER VS. PLAYER ---
@@ -1482,10 +1585,23 @@ def _pgcr_game_sheet_on(wb, ws, game):
         # Data rows
         for i, p in enumerate(sorted_players):
             row_num = current_row
-            # Row label
+            team = _safe_int(p.get("team"))
+
+            # Choose team color for row label
+            if team == 0:
+                label_fill = TEAM_RED_FILL
+                label_font = TEAM_FONT
+            elif team == 1:
+                label_fill = TEAM_BLUE_FILL
+                label_font = TEAM_FONT
+            else:
+                label_fill = GREY_FILL
+                label_font = BUNGIE_VALUE_FONT
+
+            # Row label with team color
             label_cell = ws.cell(row=row_num, column=1, value=_sanitize(names[i]))
-            label_cell.font = Font(bold=True, color="c4a747")
-            label_cell.fill = BUNGIE_DARK
+            label_cell.font = label_font
+            label_cell.fill = label_fill
             label_cell.border = BUNGIE_THIN_BORDER
 
             killed = _get_killed_array(p)
@@ -1503,11 +1619,11 @@ def _pgcr_game_sheet_on(wb, ws, game):
                     val = _safe_int(killed[target_slot]) if target_slot < len(killed) else 0
                     cell.value = val if val > 0 else ""
                     cell.font = BUNGIE_VALUE_FONT
-                    cell.fill = BUNGIE_DARK
+                    cell.fill = label_fill
 
-            # Fill remaining columns dark
+            # Fill remaining columns with team color
             for col in range(len(sorted_players) + 2, num_cols + 1):
-                ws.cell(row=row_num, column=col).fill = BUNGIE_DARK
+                ws.cell(row=row_num, column=col).fill = label_fill
             current_row += 1
 
     # --- Column widths ---

@@ -48,63 +48,16 @@
     }
   },
 
-  "live_stats": {
-    "_doc": "HaloCaster offsets - inaccessible via XBDM (kernel VA gap), accessible via QMP",
-    "xbe_base": "0x8005C000",
-    "physical_base": "0x5C000",
-    "kernel_va_gap": {
-      "start": "0x83145000",
-      "end": "0x83AC4000"
-    },
-    "haloc_offsets": {
-      "game_stats": "0x35ADF02",
-      "session_players": "0x35AD344",
-      "weapon_stats": "0x35ADFE0",
-      "medal_stats": "0x35ADF4E",
-      "life_cycle": "0x35E4F04",
-      "post_game_report": "0x363A990",
-      "variant_info": "0x35AD0EC",
-      "profile_enabled": "0x3569128",
-      "game_engine_globals": "0x35A53B8",
-      "players": "0x35A44F4",
-      "objects": "0x35BBBD0",
-      "game_results_globals": "0x35ACFB0",
-      "game_results_globals_extra": "0x35CF014",
-      "disable_rendering": "0x3520E22",
-      "lobby_players": "0x35CC008",
-      "tags": "0x360558C"
-    }
-  },
-
   "discovered": {
-    "_doc": "Empirically discovered Xbox addresses (via memscan_gametype.py differential scanning)",
+    "_doc": "Empirically discovered Xbox addresses (verified Feb 2026)",
     "gametype_confirmed": "0x52ED24",
-    "_gametype_confirmed_doc": "int32 gametype enum. Verified correct for ALL 7 gametypes: CTF(1), Slayer(2), Oddball(3), KOTH(4), Juggernaut(7), Territories(8), Assault(9) via 7-way cross-reference of full .data section snapshots (Feb 2026). ONLY address in entire 1MB .data section matching all 7 gametypes. Timing-sensitive: read while PGCR is populated. Primary gametype source.",
-    "gametype_backup1": "0x549634",
-    "_gametype_backup1_doc": "int32 gametype enum. Passed 3-way (Slayer/CTF/Oddball) but FAILED 4-way (wrong for KOTH). Do not use.",
-    "gametype_backup2": "0x5614D4",
-    "_gametype_backup2_doc": "int32 gametype enum. Passed 3-way (Slayer/CTF/Oddball) but FAILED 4-way (wrong for KOTH). Do not use.",
-    "gametype_profile": "0x53D004",
-    "_gametype_profile_doc": "int32 gametype enum at player_struct_base+0x04. UNRELIABLE — shows previous game's gametype, not current.",
-    "profile_base": "0x53E0C0",
-    "session_player_base": "0x55D790",
-    "player_struct_base": "0x53D000",
-    "game_state_area": "0x55C300",
-    "game_state_extended": "0x510000",
-    "cached_deaths_array": "0x53D08C",
+    "_gametype_confirmed_doc": "int32 gametype enum. Verified for ALL 7 gametypes via 7-way cross-reference. Primary gametype source. Timing-sensitive: read while PGCR is populated.",
     "pgcr_display_base": "0x56B900"
-  },
-
-  "yelo": {
-    "_doc": "Yelo Carnage breakpoint and patch addresses (reference only)",
-    "pgcr_breakpoint": "0x233194",
-    "ai_enable_patch": "0x1C79E5"
   },
 
   "sizing": {
     "max_players": 16,
-    "max_teams": 8,
-    "weapon_count": 41
+    "max_teams": 8
   },
 
   "structs": {
@@ -143,31 +96,6 @@
         "team_id":      { "offset": "0x62", "type": "int16" },
         "place_string": { "offset": "0x64", "type": "utf16le", "size": 32 }
       }
-    },
-    "game_stats": {
-      "size": "0x36",
-      "stride": "0x36A",
-      "_doc": "Live in-game stats, 54 bytes actual, 858 byte stride per player"
-    },
-    "weapon_stat": {
-      "size": "0x10",
-      "_doc": "16 bytes per weapon, 41 weapons"
-    },
-    "medal_stats": {
-      "size": "0x30",
-      "_doc": "48 bytes, 24 ushorts (one count per medal type)"
-    },
-    "session_player": {
-      "size": "0xA4",
-      "_doc": "164 bytes player session properties"
-    },
-    "lobby_player": {
-      "size": "0x10C",
-      "_doc": "268 bytes lobby player entry"
-    },
-    "variant_info": {
-      "size": "0x131",
-      "_doc": "305 bytes game variant info"
     }
   },
 

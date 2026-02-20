@@ -2,8 +2,7 @@
 Canonical address loader for Halo 2 Xbox memory constants.
 
 Reads addresses.json once at import time and exposes all constants as
-module-level variables for backward compatibility with halo2_structs.py
-and live_stats.py.
+module-level variables used by halo2_structs.py and halo2_stats.py.
 
 Zero dependencies on other project modules (leaf module).
 """
@@ -75,85 +74,12 @@ MAX_TEAMS = _DATA["sizing"]["max_teams"]
 PGCR_BREAKPOINT_ADDR = _parse_hex(_bp["pgcr_clear"])
 
 # ---------------------------------------------------------------------------
-# Live stats addresses (live_stats.py constants)
+# Discovered addresses and sizing
 # ---------------------------------------------------------------------------
-
-_live = _DATA["live_stats"]
-_haloc = _live["haloc_offsets"]
-
-XBE_BASE = _parse_hex(_live["xbe_base"])
-PHYSICAL_BASE = _parse_hex(_live["physical_base"])
-
-# Raw HaloCaster offsets (relative to XBE base)
-HALOC_OFFSETS = {k: _parse_hex(v) for k, v in _haloc.items()}
-
-# Key remapping: HALOC_OFFSETS key → LIVE_ADDRESSES key
-_LIVE_KEY_REMAP = {
-    "players": "players_ptr",
-    "objects": "objects_ptr",
-    "tags": "tags_ptr",
-    "game_results_globals_extra": "game_results_extra",
-}
-
-# Xbox kernel virtual addresses (XBE_BASE + offset)
-LIVE_ADDRESSES = {}
-for _key, _offset in HALOC_OFFSETS.items():
-    _live_key = _LIVE_KEY_REMAP.get(_key, _key)
-    LIVE_ADDRESSES[_live_key] = XBE_BASE + _offset
-
-# Yelo Carnage reference addresses
-_yelo = _DATA["yelo"]
-YELO_ADDRESSES = {
-    "pgcr_breakpoint": _parse_hex(_yelo["pgcr_breakpoint"]),
-    "ai_enable_patch": _parse_hex(_yelo["ai_enable_patch"]),
-}
 
 # Empirically discovered addresses
 _disc = _DATA["discovered"]
 DISCOVERED_ADDRESSES = {k: _parse_hex(v) for k, v in _disc.items()
                         if not k.startswith("_")}
 
-# ---------------------------------------------------------------------------
-# Structure sizes and strides (live_stats.py constants)
-# ---------------------------------------------------------------------------
-
-_structs = _DATA["structs"]
-
-GAME_STATS_SIZE = _parse_hex(_structs["game_stats"]["stride"])
-GAME_STATS_STRUCT = _parse_hex(_structs["game_stats"]["size"])
-SESSION_PLAYER_SIZE = _parse_hex(_structs["session_player"]["size"])
-WEAPON_STAT_SIZE = _parse_hex(_structs["weapon_stat"]["size"])
-MEDAL_STATS_STRUCT = _parse_hex(_structs["medal_stats"]["size"])
-WEAPON_COUNT = _DATA["sizing"]["weapon_count"]
-LOBBY_PLAYER_SIZE = _parse_hex(_structs["lobby_player"]["size"])
 MAX_PLAYERS = _DATA["sizing"]["max_players"]
-VARIANT_INFO_SIZE = _parse_hex(_structs["variant_info"]["size"])
-
-# ---------------------------------------------------------------------------
-# Address helper functions (moved from live_stats.py)
-# ---------------------------------------------------------------------------
-
-
-def get_live_address(name: str) -> int:
-    """Get Xbox kernel virtual memory address for live stats by name."""
-    return LIVE_ADDRESSES.get(name, 0)
-
-
-def haloc_to_xbox_virtual(haloc_offset: int) -> int:
-    """Convert HaloCaster offset to Xbox kernel virtual address."""
-    return XBE_BASE + haloc_offset
-
-
-def xbox_virtual_to_physical(xbox_virtual: int) -> int:
-    """Convert Xbox kernel virtual address to physical RAM address."""
-    if xbox_virtual >= 0x80000000:
-        return xbox_virtual - 0x80000000
-    return xbox_virtual
-
-
-def get_haloc_address(name: str) -> int:
-    """Get physical address from HaloCaster offset name."""
-    if name not in HALOC_OFFSETS:
-        return 0
-    xbox_virt = haloc_to_xbox_virtual(HALOC_OFFSETS[name])
-    return xbox_virtual_to_physical(xbox_virt)
