@@ -84,6 +84,38 @@ class QMPClient:
             self.disconnect()
             return False
 
+    def connect_with_retry(self, max_retries: int = 0, backoff: float = 5.0,
+                           max_backoff: float = 60.0) -> bool:
+        """Connect to QMP with retry and exponential backoff.
+
+        Args:
+            max_retries: Max attempts (0 = retry forever until connected).
+            backoff: Initial delay between retries in seconds.
+            max_backoff: Maximum delay cap in seconds.
+
+        Returns:
+            True once connected, False if max_retries exhausted.
+        """
+        import time
+        attempt = 0
+        delay = backoff
+        while True:
+            attempt += 1
+            if self.connect():
+                return True
+            if max_retries > 0 and attempt >= max_retries:
+                return False
+            print(f"[QMP] Retrying in {delay:.0f}s... (attempt {attempt})",
+                  file=sys.stderr)
+            time.sleep(delay)
+            delay = min(delay * 2, max_backoff)
+
+    def reconnect(self, max_retries: int = 0, backoff: float = 5.0,
+                  max_backoff: float = 60.0) -> bool:
+        """Disconnect, then reconnect with retry. See connect_with_retry()."""
+        self.disconnect()
+        return self.connect_with_retry(max_retries, backoff, max_backoff)
+
     def disconnect(self):
         """Close QMP connection."""
         self._connected = False
@@ -141,6 +173,7 @@ class QMPClient:
             return self._json_read()
         except (socket.error, socket.timeout, OSError) as e:
             print(f"ERROR: QMP command failed: {e}", file=sys.stderr)
+            self._connected = False
             return None
 
     @staticmethod

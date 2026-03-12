@@ -550,6 +550,12 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
 
     while True:
         try:
+            # Reconnect if connection was lost (e.g. broken pipe, xemu restart)
+            if hasattr(reader.client, 'is_connected') and not reader.client.is_connected:
+                print("[Watch] Connection lost, reconnecting...")
+                reader.client.reconnect()
+                print("[Watch] Reconnected!")
+
             players = None
             source = None
 
@@ -1268,7 +1274,9 @@ Examples:
         from qmp_client import QMPClient
         print(f"Connecting to QMP at {args.host}:{args.qmp}...")
         client = QMPClient(args.host, args.qmp, timeout=args.timeout)
-        if not client.connect():
+        if not client.connect_with_retry():
+            # connect_with_retry(max_retries=0) retries forever, so this
+            # only triggers if someone overrides max_retries in the future.
             print("ERROR: Failed to connect to QMP", file=sys.stderr)
             print("Make sure Xemu is running with:", file=sys.stderr)
             print(f"  -qmp tcp:0.0.0.0:{args.qmp},server,nowait", file=sys.stderr)
