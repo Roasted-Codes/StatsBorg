@@ -465,9 +465,6 @@ def build_snapshot(players,
     if teams:
         snapshot["teams"] = [t.to_dict() for t in teams]
 
-    if pgcr_display and source != "pgcr_display":
-        snapshot["pgcr_display"] = [d.to_dict() for d in pgcr_display]
-
     return snapshot
 
 

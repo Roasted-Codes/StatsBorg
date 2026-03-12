@@ -1,0 +1,10 @@
+# Normalize line endings to LF in the repo, convert to CRLF on Windows checkout
+* text=auto eol=lf
+*.py text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+
+# Treat GIFs as binary (no line ending conversion)
+*.gif binary

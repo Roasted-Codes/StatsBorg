@@ -1,81 +1,104 @@
 # StatsBorg — Halo 2 Post-Game Stats Reader
 
-Cross-platform Python tool to read Halo 2 multiplayer post-game statistics from Xbox/Xemu via XBDM (Xbox Debug Monitor) and QMP (QEMU Machine Protocol). Linux-compatible alternative to Windows-only HaloCaster.
+Cross-platform Python tool that reads Halo 2 multiplayer post-game statistics from Xbox/Xemu via XBDM or QMP. Linux-compatible alternative to Windows-only HaloCaster.
 
-## Features
-
-- **Cross-platform**: Works on Windows, Linux, and macOS
-- **Dual protocol**: XBDM (direct Xbox memory) and QMP (Xemu guest physical memory)
-- **Post-game stats**: Kills, deaths, assists, suicides, accuracy, medals, gametype-specific stats
-- **Team support**: Team names, scores, and per-player team assignments
-- **Watch mode**: Auto-detects game completions and saves history
-- **JSON output**: Machine-readable output for integrations
-- **Rich scoreboard**: Detailed output with accuracy, medals, gametype stats
-- **All game modes**: CTF, Slayer, Assault, Oddball, KOTH, Juggernaut, Territories
-- **Export pipeline**: Optional PostgreSQL and Excel export scripts
+**Stats captured:** Kills, deaths, assists, suicides, K/D ratio, accuracy (shots/hits/headshots), medals, placement, team data, and gametype-specific stats across all game modes (Slayer, CTF, Oddball, KOTH, Juggernaut, Territories, Assault).
 
 ## Requirements
 
-- Python 3.7+ (standard library only — no pip dependencies)
+- Python 3.7+ (no pip dependencies for core tool)
 - One of:
   - Xbox with XBDM enabled (debug kit or modded console with CerbiosDebug)
-  - Xemu emulator with [xbdm_gdb_bridge](https://github.com/abaire/xbdm_gdb_bridge) or native CerbiosDebug
-  - Xemu with QMP enabled (`-qmp tcp:0.0.0.0:4444,server,nowait`)
-- Halo 2 running on the Xbox/emulator
+  - Xemu with QMP enabled (launch with `-qmp tcp:0.0.0.0:4444,server,nowait`)
 
-## Usage
+## Quick Start
 
-### XBDM (direct Xbox memory reads)
+### 1. Capture Stats
 
-```bash
-# Read post-game stats
-python halo2_stats.py --host 172.20.0.51
+Run watch mode in the background during your session. It auto-detects game completions and saves stats after each match:
 
-# Watch for game completions and auto-save history
-python halo2_stats.py --host 172.20.0.51 --watch
-
-# Watch with instant breakpoint detection (instead of polling)
-python halo2_stats.py --host 172.20.0.51 --watch --breakpoint
-
-# One-shot save to history directory
-python halo2_stats.py --host 172.20.0.51 --save
-
-# JSON output
-python halo2_stats.py --host 172.20.0.51 --json
-
-# Test XBDM connection
-python xbdm_client.py 172.20.0.51
-```
-
-### QMP (Xemu guest physical memory reads)
+**QMP (Xemu) — primary method:**
 
 ```bash
-# Read post-game stats via QMP (same output as XBDM)
-python halo2_stats.py --host 172.20.0.10 --qmp 4444
-
-# Watch mode via QMP
-python halo2_stats.py --host 172.20.0.10 --qmp 4444 --watch
-
-# Test QMP connection
-python qmp_client.py 172.20.0.10 4444
+python halo2_stats.py --host <XEMU_IP> --qmp 4444 --watch
 ```
 
-## Project Structure
+Requires Xemu launched with `-qmp tcp:0.0.0.0:4444,server,nowait`.
+
+**XBDM (Xbox/Xemu with CerbiosDebug):**
+
+```bash
+# Polling (checks every 3 seconds)
+python halo2_stats.py --host <XBOX_IP> --watch
+
+# Instant detection via breakpoint (no polling delay)
+python halo2_stats.py --host <XBOX_IP> --watch --breakpoint
+```
+
+Each completed game is automatically deduplicated and saved as JSON to the `history/` directory.
+
+### 2. View Your Stats
+
+Start the built-in web viewer to browse your game history:
+
+```bash
+python pgcr_server.py
+```
+
+Open **http://localhost:8080** in your browser. The viewer reads all saved games from `history/` and displays them with scores, placements, and per-player breakdowns.
+
+To use a different port: `python pgcr_server.py 9090`
+
+## Where Stats Are Stored
+
+All game data is saved to the `history/` directory as JSON files, one per game:
 
 ```
-halo2_stats.py           # Main CLI tool
-xbdm_client.py           # XBDM protocol client (TCP:731)
-qmp_client.py            # QMP protocol client (TCP:4444, guest physical reads)
-halo2_structs.py         # Data structures, enums, struct parsing
-addresses.py             # Address constants loader (from addresses.json)
-addresses.json           # Canonical memory address reference
-pgcr_server.py           # Web viewer server (serves pgcr_viewer.html)
-pgcr_viewer.html         # Browser-based game history viewer
-exports/
-  db_export.py           # PostgreSQL export (requires psycopg2-binary)
-  xlsx_export.py         # Excel export (requires openpyxl)
-  requirements.txt       # Optional dependencies for export scripts
-_archive/                # Research scripts, historical docs, and archived code
+history/
+  2026-02-18_22-31-58_cf561ec1.json
+  2026-02-18_21-59-26_bc2c035c.json
+  ...
+```
+
+Each file is named `<date>_<time>_<fingerprint>.json` and contains the full scoreboard: every player's stats, team data, and gametype. These files are consumed by the web viewer and the export scripts.
+
+## Output Formats
+
+```bash
+# Default: rich scoreboard with accuracy, medals, gametype stats
+python halo2_stats.py --host <IP> --save
+
+# Simple K/D/A summary
+python halo2_stats.py --host <IP> --simple
+
+# PGCR tabular format (matches in-game screenshot layout)
+python halo2_stats.py --host <IP> --pgcr
+
+# JSON output (to stdout)
+python halo2_stats.py --host <IP> --json
+
+# JSON output to a specific file
+python halo2_stats.py --host <IP> --json --output stats.json
+```
+
+## Additional Flags
+
+| Flag | Description |
+|------|-------------|
+| `--watch-interval N` | Seconds between watch-mode polls (default: 3) |
+| `--timeout N` | Connection timeout in seconds (default: 5) |
+| `--slow` | 200ms read delay instead of 50ms (XBDM only, safer for unstable connections) |
+| `--save-ram` | Save full 64MB RAM snapshot at game end (QMP only, large files) |
+| `--verbose` | Debug logging |
+
+## Testing Your Connection
+
+```bash
+# Test XBDM
+python xbdm_client.py <XBOX_IP>
+
+# Test QMP
+python qmp_client.py <XEMU_IP> 4444
 ```
 
 ## Export (Optional)
@@ -84,26 +107,35 @@ Export scripts require additional dependencies:
 
 ```bash
 pip install -r exports/requirements.txt
+```
 
-# PostgreSQL export
+```bash
+# PostgreSQL
 python exports/db_export.py --init-schema
 python exports/db_export.py --import-history
 
-# Excel export
+# Excel
 python exports/xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
+
+# Per-game Excel sheets (Bungie-style)
+python exports/xlsx_export.py --per-game --style bungie -o exports/bungie/
 ```
 
-## How It Works
+## Project Structure
 
-1. Connect via XBDM (port 731) or QMP (port 4444)
-2. Probe PGCR Display at `0x56B900` for populated player data
-3. Read player stats (0x114-byte structs), team data, and gametype from memory
-4. Parse into structured data and output as rich scoreboard or JSON
-
-The primary data source is the **PGCR Display** structure at `0x56B900`, which contains a 0x90-byte header followed by 16 player records and 8 team records. QMP translates Xbox virtual addresses to physical via `gva2gpa` page table walk, making both protocols read the exact same data.
+```
+halo2_stats.py        Main CLI tool
+xbdm_client.py        XBDM protocol client
+qmp_client.py         QMP protocol client
+halo2_structs.py      Data structures and struct parsing
+addresses.json        Memory address reference
+pgcr_server.py        Web viewer server
+pgcr_viewer.html      Browser-based game history viewer
+history/              Saved game data (JSON, one file per game)
+exports/              PostgreSQL and Excel export scripts
+```
 
 ## Credits
 
 - Memory structures from [OpenSauce](https://github.com/OpenSauce-Halo-CE/OpenSauce) (`Networking/Statistics.hpp`)
-- Research informed by [HaloCaster](https://github.com/I2aMpAnT/HaloCaster) and [Yelo Carnage](https://github.com/OpenSauce-Halo-CE/OpenSauce)
-- Address reference from xbox7887 stats memory documentation
+- Research informed by [HaloCaster](https://github.com/I2aMpAnT/HaloCaster) and Yelo Carnage

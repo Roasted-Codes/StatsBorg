@@ -16,48 +16,65 @@
     overflow-x: hidden;
   }
 
+  /* ── Page header (shared) ── */
+  .page-header {
+    border-bottom: 1px solid #1a2a40;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    position: relative;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4a8ad4, #2a5a9a, transparent);
+  }
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8ab4d8;
+    padding-top: 12px;
+  }
+  .page-header .header-sub {
+    color: #4a6a8a;
+    font-size: 13px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
   /* ── Game list screen ── */
   #game-list-screen {
     max-width: 960px;
     margin: 0 auto;
     padding: 20px;
   }
-  #game-list-screen h1 {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #8ab4d8;
-    margin-bottom: 16px;
-  }
-  .game-count {
-    color: #5a7a9a;
-    font-size: 14px;
-    margin-bottom: 12px;
-  }
+  .game-count { display: none; }
   .game-list-table {
     width: 100%;
     border-collapse: collapse;
   }
   .game-list-table th {
-    background: #1a1e2a;
-    color: #8a8e9a;
+    background: #111520;
+    color: #6a7a9a;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 8px 12px;
+    letter-spacing: 1.5px;
+    padding: 8px 14px;
     text-align: left;
-    border-bottom: 1px solid #2a2e3a;
+    border-bottom: 1px solid #1e2535;
   }
   .game-list-table td {
-    padding: 9px 12px;
+    padding: 10px 14px;
     font-size: 15px;
     font-weight: 500;
     border-bottom: 1px solid rgba(255,255,255,0.04);
   }
-  .game-list-table tr:hover {
-    background: rgba(106, 138, 180, 0.1);
+  .game-list-table tr:hover td:not(.cb-col) {
+    background: rgba(74, 138, 212, 0.08);
     cursor: pointer;
   }
   .game-list-table .gt-badge {
@@ -250,6 +267,13 @@
     font-weight: 600;
     letter-spacing: 2px;
   }
+  .win-star {
+    color: #d4a820;
+    font-size: 18px;
+    line-height: 1;
+    text-shadow: 0 0 6px rgba(212, 168, 32, 0.5);
+    margin-left: 6px;
+  }
 
   /* ── Table ── */
   .pgcr-table {
@@ -325,23 +349,30 @@
     font-style: italic;
   }
 
-  /* Medal chips */
+  /* Medal images */
   .medal-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 6px;
+    align-items: center;
   }
+  .medal-img {
+    height: 38px;
+    width: 38px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));
+    cursor: default;
+  }
+  /* Text fallback for medals with no image */
   .medal-chip {
     font-size: 11px;
     font-weight: 600;
     padding: 2px 7px;
     border-radius: 3px;
     white-space: nowrap;
+    background: #2a3a50;
+    color: #90b8d8;
   }
-  .medal-multi   { background: #4a2a60; color: #c8a0e0; }
-  .medal-style   { background: #2a4060; color: #90b8d8; }
-  .medal-spree   { background: #604a20; color: #e0c880; }
-  .medal-obj     { background: #205040; color: #80c8a0; }
 
   /* ── Toolbar ── */
   .toolbar {
@@ -364,13 +395,179 @@
   }
   .btn:hover { background: #2a3a5a; }
   .timestamp { color: #4a6080; font-size: 13px; }
+  .btn-disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+  .btn-primary { background: #1a3a6a; border-color: #3060a0; color: #a0c8f0; }
+  .btn-primary:hover { background: #1e4478; }
+
+  /* ── Game list checkboxes & toolbar ── */
+  .game-list-table .cb-col {
+    width: 36px;
+    text-align: center;
+    padding: 8px 0;
+  }
+  .game-list-table input[type="checkbox"] {
+    accent-color: #4a8ad4;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .list-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 14px 0;
+    gap: 10px;
+  }
+  .sel-count {
+    color: #5a7a9a;
+    font-size: 14px;
+    flex: 1;
+  }
+
+  /* ── Leaderboard screen ── */
+  #leaderboard-screen {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .lb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .lb-header-left { display: flex; align-items: center; gap: 14px; }
+  .lb-subtitle { color: #4a6a8a; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; }
+  #lb-content { overflow-x: visible; }
+  .lb-table { width: 100%; font-size: 12px; table-layout: auto; }
+  .lb-table td { padding: 5px 8px; }
+  .lb-table th {
+    padding: 6px 8px;
+    font-size: 11px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  .lb-table th:hover { background: #181d2c; color: #c0d0e8; }
+  .lb-table th.sorted { color: #8ab4d8; }
+  .lb-table th.sorted::after { content: " ▼"; font-size: 10px; }
+  .lb-table th.sorted.asc::after { content: " ▲"; font-size: 10px; }
+  .lb-table td.player-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 600; max-width: 160px; }
+  .lb-table th.player-name { width: 160px; }
+  #lb-search {
+    background: #111520;
+    border: 1px solid #1e2d45;
+    color: #d0d4dc;
+    padding: 5px 11px;
+    font-family: inherit;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 200px;
+    outline: none;
+  }
+  #lb-search::placeholder { color: #3a5070; }
+  #lb-search:focus { border-color: #3a6a9a; background: #141828; }
+
+  /* ── Leaderboard view tabs ── */
+  .lb-view-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #1a2a40;
+  }
+  .lb-view-tab {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #4a6a8a;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .lb-view-tab:hover { color: #8ab4d8; }
+  .lb-view-tab.active { color: #a0c8f0; border-bottom-color: #4a8ad4; }
+  .lb-view-tab.disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ── Series banner (leaderboard) ── */
+  .series-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 18px 24px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #0d1628 0%, #111828 100%);
+    border: 1px solid #1a2a40;
+    border-radius: 6px;
+  }
+  .series-team-block { text-align: center; flex: 1; }
+  .series-team-block.left { text-align: right; }
+  .series-team-block.right { text-align: left; }
+  .series-team-name {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .series-kd {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+  .series-score-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .series-score-num {
+    font-size: 40px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .series-score-dash {
+    font-size: 30px;
+    color: #3a5070;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .lb-team-header-row td {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-top: 2px solid rgba(255,255,255,0.08);
+  }
+  #export-toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #1a3a6a; color: #a0c8f0; border: 1px solid #3060a0;
+    padding: 10px 22px; border-radius: 6px; font-size: 14px; font-weight: 600;
+    z-index: 1000; pointer-events: none; opacity: 0;
+    transition: opacity 0.3s ease; white-space: nowrap;
+  }
 </style>
 </head>
 <body>
 
 <!-- ── Game List (served mode) ── -->
 <div id="game-list-screen" style="display:none">
-  <h1>Postgame Carnage Report</h1>
+  <div class="page-header">
+    <h1>Postgame Carnage Report</h1>
+    <div class="header-sub">Halo 2 — Game History</div>
+  </div>
   <div class="game-count" id="game-count"></div>
   <div id="game-list-content">
     <table class="game-list-table">
@@ -395,10 +592,40 @@
   <input type="file" id="file-input" accept=".json">
 </div>
 
+<!-- ── Leaderboard ── -->
+<div id="leaderboard-screen" style="display:none">
+  <div class="page-header">
+    <div class="lb-header">
+      <div class="lb-header-left">
+        <button class="btn" id="btn-lb-back">&#9664; Back</button>
+        <div>
+          <h1 style="padding-top:0;margin-bottom:2px">Leaderboard</h1>
+          <div class="lb-subtitle" id="lb-subtitle"></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="exportToExcel()" style="font-size:12px;padding:5px 12px">&#8659;&nbsp;Excel</button>
+        <button class="btn" onclick="exportToSheets()" style="font-size:12px;padding:5px 12px">&#8659;&nbsp;Sheets</button>
+        <input type="text" id="lb-search" placeholder="Filter players..." autocomplete="off">
+      </div>
+    </div>
+  </div>
+  <div class="lb-view-tabs">
+    <button class="lb-view-tab" id="lb-tab-series">Series</button>
+    <button class="lb-view-tab" id="lb-tab-individual">Individual</button>
+  </div>
+  <div id="lb-content"></div>
+</div>
+<div id="export-toast"></div>
+
 <!-- ── Viewer ── -->
 <div id="viewer">
   <div class="toolbar">
-    <button class="btn" id="btn-back">Back to Games</button>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button class="btn" id="btn-back">&#9664; Games</button>
+      <button class="btn" id="btn-prev-game" style="display:none">&#9664; Prev</button>
+      <button class="btn" id="btn-next-game" style="display:none">Next &#9654;</button>
+    </div>
     <span class="timestamp" id="timestamp"></span>
   </div>
   <div class="header-banner">
@@ -448,26 +675,38 @@ function formatDate(ts) {
 }
 
 // ─── Medal definitions ───
-const MEDAL_NAMES = [
-  "Double Kill","Triple Kill","Overkill","Killtacular","Killtrocity","Killimanjaro+",
-  "Sniper Kill","Splatter","Beat Down","Assassination","Destroyed Vehicle","Carjack","Stick",
-  "Killing Spree","Killing Frenzy","Running Riot","Rampage","Untouchable",
-  "Flag Grab","Flag Carrier Kill","Flag Returned",
-  "Bomb Planted","Bomb Carrier Kill","Bomb Defused"
+const MEDALS = [
+  { name: "Double Kill",       img: "medals/double_kill.gif" },
+  { name: "Triple Kill",       img: "medals/triple_kill.gif" },
+  { name: "Overkill",          img: "medals/overkill.gif" },
+  { name: "Killtacular",       img: "medals/killtacular.gif" },
+  { name: "Killtrocity",       img: "medals/killtrocity.gif" },
+  { name: "Killimanjaro+",     img: "medals/killimanjaro.gif" },
+  { name: "Sniper Kill",       img: "medals/sniper_kill.gif" },
+  { name: "Splatter",          img: "medals/splatter.gif" },
+  { name: "Beat Down",         img: "medals/beat_down.gif" },
+  { name: "Assassination",     img: "medals/assassination.gif" },
+  { name: "Destroyed Vehicle", img: null },
+  { name: "Carjack",           img: "medals/carjack.gif" },
+  { name: "Stick",             img: "medals/stick.gif" },
+  { name: "Killing Spree",     img: "medals/killing_spree.gif" },
+  { name: "Killing Frenzy",    img: "medals/killing_frenzy.gif" },
+  { name: "Running Riot",      img: "medals/running_riot.gif" },
+  { name: "Rampage",           img: "medals/rampage.gif" },
+  { name: "Untouchable",       img: null },
+  { name: "Flag Grab",         img: "medals/flag_grab.gif" },
+  { name: "Flag Carrier Kill", img: "medals/flag_carrier_kill.svg" },
+  { name: "Flag Returned",     img: "medals/flag_returned.gif" },
+  { name: "Bomb Planted",      img: "medals/bomb_planted.gif" },
+  { name: "Bomb Carrier Kill", img: "medals/bomb_carrier_kill.gif" },
+  { name: "Bomb Defused",      img: null }
 ];
-
-function medalCategory(bit) {
-  if (bit <= 5) return "medal-multi";
-  if (bit <= 12) return "medal-style";
-  if (bit <= 17) return "medal-spree";
-  return "medal-obj";
-}
 
 function decodeMedals(bitmask) {
   const medals = [];
   if (!bitmask) return medals;
   for (let i = 0; i < 24; i++) {
-    if (bitmask & (1 << i)) medals.push({ name: MEDAL_NAMES[i], cat: medalCategory(i) });
+    if (bitmask & (1 << i)) medals.push(MEDALS[i]);
   }
   return medals;
 }
@@ -519,10 +758,22 @@ let data = null;
 let currentTab = 0;
 let pvpSelected = 0;
 let servedMode = false;
+let selectedGames = new Set();
+let gameListCache = null;
+let currentGameIndex = -1;
+let lbSortCol = "kills";
+let lbSortAsc = false;
+let lbData = null;
+let lbTeamStats = null;
+let lbIsSeriesView = false;
+let lbWarningHtml = "";
+let lbFilter = "";
+let lbViewMode = "series"; // "series" | "individual"
 
 const gameListScreen = document.getElementById("game-list-screen");
 const dropFallback = document.getElementById("drop-fallback");
 const viewer = document.getElementById("viewer");
+const leaderboardScreen = document.getElementById("leaderboard-screen");
 
 // ─── Dynamic tabs ───
 function getTabNames() {
@@ -555,22 +806,33 @@ function showGameList(games) {
   gameListScreen.style.display = "block";
   dropFallback.style.display = "none";
   viewer.classList.remove("active");
+  leaderboardScreen.style.display = "none";
+  gameListCache = games;
 
   var content = document.getElementById("game-list-content");
+  document.getElementById("game-count").textContent = "";
 
   if (!games || games.length === 0) {
-    document.getElementById("game-count").textContent = "";
     content.innerHTML = '<div class="empty-state">No games recorded yet. Play a game in Halo 2 with watch mode running.</div>';
     return;
   }
 
-  document.getElementById("game-count").textContent = games.length + " games";
-
-  content.innerHTML = '<table class="game-list-table"><thead><tr>' +
-    '<th style="width:22%">Date</th>' +
-    '<th style="width:15%">Gametype</th>' +
-    '<th style="width:10%">Players</th>' +
-    '<th>Result</th>' +
+  content.innerHTML =
+    '<div class="list-toolbar">' +
+      '<span id="sel-count" class="sel-count"></span>' +
+      '<div style="display:flex;gap:8px">' +
+        '<button class="btn" id="btn-select-all">Select All</button>' +
+        '<button class="btn" id="btn-clear-sel">Clear</button>' +
+        '<button class="btn btn-disabled" id="btn-leaderboard">View Leaderboard</button>' +
+        '<button class="btn btn-primary" id="btn-all-time">All-Time Stats</button>' +
+      '</div>' +
+    '</div>' +
+    '<table class="game-list-table"><thead><tr>' +
+      '<th class="cb-col"><input type="checkbox" id="cb-all"></th>' +
+      '<th style="width:22%">Date</th>' +
+      '<th style="width:15%">Gametype</th>' +
+      '<th style="width:10%">Players</th>' +
+      '<th>Result</th>' +
     '</tr></thead><tbody id="game-list-body"></tbody></table>';
 
   var tbody = document.getElementById("game-list-body");
@@ -585,16 +847,25 @@ function showGameList(games) {
     } else {
       result = esc(g.winner || "");
     }
+    var checked = selectedGames.has(g.filename) ? ' checked' : '';
     return '<tr data-file="' + esc(g.filename) + '">' +
+      '<td class="cb-col"><input type="checkbox" class="cb-game" value="' + esc(g.filename) + '"' + checked + '></td>' +
       '<td>' + formatDate(g.timestamp) + '</td>' +
       '<td><span class="gt-badge">' + esc(g.gametype) + '</span></td>' +
       '<td>' + (g.player_count || 0) + '</td>' +
-      '<td>' + result + '</td></tr>';
+      '<td>' + result + '</td>' +
+    '</tr>';
   }).join("");
 
   tbody.querySelectorAll("tr").forEach(function(row) {
-    row.addEventListener("click", function() { loadFromServer(row.dataset.file); });
+    row.querySelectorAll("td:not(.cb-col)").forEach(function(td) {
+      td.style.cursor = "pointer";
+      td.addEventListener("click", function() { loadFromServer(row.dataset.file); });
+    });
   });
+
+  bindGameListControls();
+  updateSelectionUI();
 }
 
 async function loadFromServer(filename) {
@@ -607,6 +878,9 @@ async function loadFromServer(filename) {
     if (!res.ok) throw new Error("HTTP " + res.status);
     data = await res.json();
     if (!data.players || !data.players.length) throw new Error("No players in game data");
+    if (gameListCache) {
+      currentGameIndex = gameListCache.findIndex(function(g) { return g.filename === filename; });
+    }
     showViewer();
   } catch (err) {
     data = null;
@@ -614,6 +888,376 @@ async function loadFromServer(filename) {
     var content = document.getElementById("game-list-content");
     content.innerHTML = '<div class="error-msg"><p>Failed to load game: ' + esc(err.message) + '</p>' +
       '<button class="btn" onclick="location.reload()">Retry</button></div>';
+  }
+}
+
+// ─── Game list controls ───
+function bindGameListControls() {
+  document.querySelectorAll(".cb-game").forEach(function(cb) {
+    cb.addEventListener("change", function() {
+      if (cb.checked) selectedGames.add(cb.value);
+      else selectedGames.delete(cb.value);
+      updateSelectionUI();
+    });
+  });
+  var cbAll = document.getElementById("cb-all");
+  if (cbAll) {
+    cbAll.addEventListener("change", function() {
+      document.querySelectorAll(".cb-game").forEach(function(cb) {
+        cb.checked = cbAll.checked;
+        if (cbAll.checked) selectedGames.add(cb.value);
+        else selectedGames.delete(cb.value);
+      });
+      updateSelectionUI();
+    });
+  }
+  var btnSelectAll = document.getElementById("btn-select-all");
+  if (btnSelectAll) {
+    btnSelectAll.addEventListener("click", function() {
+      document.querySelectorAll(".cb-game").forEach(function(cb) {
+        cb.checked = true;
+        selectedGames.add(cb.value);
+      });
+      updateSelectionUI();
+    });
+  }
+  var btnClear = document.getElementById("btn-clear-sel");
+  if (btnClear) {
+    btnClear.addEventListener("click", function() {
+      document.querySelectorAll(".cb-game").forEach(function(cb) { cb.checked = false; });
+      selectedGames.clear();
+      updateSelectionUI();
+    });
+  }
+  var btnLb = document.getElementById("btn-leaderboard");
+  if (btnLb) {
+    btnLb.addEventListener("click", function() { if (selectedGames.size > 0) showLeaderboard(); });
+  }
+  var btnAllTime = document.getElementById("btn-all-time");
+  if (btnAllTime) {
+    btnAllTime.addEventListener("click", function() {
+      if (!gameListCache) return;
+      gameListCache.forEach(function(g) { selectedGames.add(g.filename); });
+      updateSelectionUI();
+      showLeaderboard();
+    });
+  }
+}
+
+function updateSelectionUI() {
+  var n = selectedGames.size;
+  var total = gameListCache ? gameListCache.length : 0;
+  var selCount = document.getElementById("sel-count");
+  if (selCount) selCount.textContent = n + " of " + total + " games selected";
+  var btnLb = document.getElementById("btn-leaderboard");
+  if (btnLb) {
+    if (n === 0) btnLb.classList.add("btn-disabled");
+    else btnLb.classList.remove("btn-disabled");
+  }
+  var cbAll = document.getElementById("cb-all");
+  if (cbAll) {
+    cbAll.indeterminate = n > 0 && n < total;
+    cbAll.checked = n === total && total > 0;
+  }
+}
+
+// ─── Leaderboard ───
+async function showLeaderboard() {
+  if (selectedGames.size === 0) return;
+  gameListScreen.style.display = "none";
+  leaderboardScreen.style.display = "block";
+  var subtitle = document.getElementById("lb-subtitle");
+  if (subtitle) subtitle.textContent = selectedGames.size + " game" + (selectedGames.size === 1 ? "" : "s") + " selected";
+  var content = document.getElementById("lb-content");
+  content.innerHTML = '<div class="loading-wrap"><div class="spinner"></div>' +
+    '<span>Loading ' + selectedGames.size + ' game' + (selectedGames.size === 1 ? "" : "s") + '...</span></div>';
+
+  var files = Array.from(selectedGames);
+  var promises = files.map(function(f) {
+    return fetch("/history/" + f).then(function(r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    });
+  });
+  var results = await Promise.allSettled(promises);
+  var games = results.filter(function(r) { return r.status === "fulfilled"; }).map(function(r) { return r.value; });
+  var failed = results.filter(function(r) { return r.status === "rejected"; }).length;
+
+  if (games.length === 0) {
+    content.innerHTML = '<div class="error-msg"><p>Failed to load any game files.</p></div>';
+    return;
+  }
+  lbWarningHtml = failed > 0
+    ? '<div style="color:#e8a060;padding:8px 0;font-size:13px">&#9888; ' + failed + ' game file(s) could not be loaded and are excluded.</div>'
+    : "";
+  var agg = aggregateLeaderboard(games);
+  lbData = agg.rows;
+  lbTeamStats = agg.teamStats;
+  lbIsSeriesView = agg.isSeriesView;
+  lbSortCol = "kills";
+  lbSortAsc = false;
+  lbFilter = "";
+  lbViewMode = lbIsSeriesView ? "series" : "individual";
+  renderLeaderboard();
+}
+
+function aggregateLeaderboard(games) {
+  var map = {};
+  var teamStats = {};    // teamId -> { name, teamId, wins, kills, deaths }
+  var teamGameCount = 0;
+  games.forEach(function(game) {
+    var isTeam = game.teams && game.teams.length > 0 &&
+      game.players.some(function(p) { return p.team !== 65535 && p.team != null; });
+    var teamPlaceById = {};
+    if (isTeam && game.teams) {
+      teamGameCount++;
+      game.teams.forEach(function(t) {
+        teamPlaceById[t.team_id] = t.place;
+        if (!teamStats[t.team_id]) {
+          teamStats[t.team_id] = { name: t.name, teamId: t.team_id, wins: 0, kills: 0, deaths: 0 };
+        }
+        if (t.place === 0) teamStats[t.team_id].wins++;
+      });
+    }
+    game.players.forEach(function(p) {
+      var key = p.name;
+      if (!map[key]) {
+        map[key] = { name: p.name, games: 0, wins: 0, kills: 0, deaths: 0, assists: 0,
+          suicides: 0, headshots: 0, totalShots: 0, shotsHit: 0, medals: 0,
+          slayerGames: 0, slayerAvgLifeSum: 0, slayerBestSpreeMax: 0,
+          teamCounts: {} };
+      }
+      var row = map[key];
+      row.games++;
+      var won = isTeam ? (teamPlaceById[p.team] === 0) : (p.place === 0);
+      if (won) row.wins++;
+      row.kills    += (p.kills    || 0);
+      row.deaths   += (p.deaths   || 0);
+      row.assists  += (p.assists  || 0);
+      row.suicides += (p.suicides || 0);
+      row.headshots  += safe(p, "accuracy", "headshots");
+      row.totalShots += safe(p, "accuracy", "total_shots");
+      row.shotsHit   += safe(p, "accuracy", "shots_hit");
+      row.medals     += safe(p, "medals", "total");
+      if (isTeam && p.team != null && p.team !== 65535) {
+        var tid = p.team;  // p.team equals team_id in schema v3
+        row.teamCounts[tid] = (row.teamCounts[tid] || 0) + 1;
+        if (teamStats[tid]) {
+          teamStats[tid].kills  += (p.kills  || 0);
+          teamStats[tid].deaths += (p.deaths || 0);
+        }
+      }
+      if (game.gametype === "slayer") {
+        row.slayerGames++;
+        var avgLife   = safe(p, "gametype_stats", "Avg Life");
+        var bestSpree = safe(p, "gametype_stats", "Best Spree");
+        row.slayerAvgLifeSum += (avgLife || 0);
+        if ((bestSpree || 0) > row.slayerBestSpreeMax) row.slayerBestSpreeMax = bestSpree;
+      }
+    });
+  });
+  var rows = Object.values(map).map(function(row) {
+    row.kd       = row.deaths === 0 ? (row.kills > 0 ? Infinity : 0) : Math.round((row.kills / row.deaths) * 100) / 100;
+    row.kda      = row.deaths === 0 ? (row.kills + row.assists > 0 ? Infinity : 0) : Math.round(((row.kills + row.assists) / row.deaths) * 100) / 100;
+    row.winRate  = row.games  === 0 ? 0 : Math.round((row.wins  / row.games)  * 1000) / 10;
+    row.accuracy    = row.totalShots === 0 ? 0 : Math.round((row.shotsHit / row.totalShots) * 1000) / 10;
+    row.hitsPerGame = row.games === 0 ? 0 : Math.round(row.shotsHit / row.games);
+    row.slayerAvgLife = row.slayerGames === 0 ? null : Math.round(row.slayerAvgLifeSum / row.slayerGames);
+    var primaryTeamId = null;
+    var maxCount = 0;
+    Object.keys(row.teamCounts).forEach(function(tid) {
+      if (row.teamCounts[tid] > maxCount) {
+        maxCount = row.teamCounts[tid];
+        primaryTeamId = parseInt(tid, 10);
+      }
+    });
+    row.primaryTeamId = primaryTeamId;
+    return row;
+  });
+  return {
+    rows: rows,
+    teamStats: teamStats,
+    isSeriesView: teamGameCount > 0 && teamGameCount >= Math.ceil(games.length / 2)
+  };
+}
+
+var LB_COLS = [
+  { key: "name",               label: "Player",     align: "left",  fmt: function(v) { return esc(v); } },
+  { key: "games",              label: "GP",         align: "right", fmt: function(v) { return v; } },
+  { key: "wins",               label: "Wins",       align: "right", fmt: function(v) { return v; } },
+  { key: "winRate",            label: "Win%",       align: "right", fmt: function(v) { return v.toFixed(1) + "%"; } },
+  { key: "kills",              label: "Kills",      align: "right", fmt: function(v) { return v; } },
+  { key: "deaths",             label: "Deaths",     align: "right", fmt: function(v) { return v; } },
+  { key: "kd",                 label: "K/D",        align: "right", fmt: function(v) { return v === Infinity ? "&#8734;" : v.toFixed(2); } },
+  { key: "kda",                label: "KDA",        align: "right", fmt: function(v) { return v === Infinity ? "&#8734;" : v.toFixed(2); } },
+  { key: "assists",            label: "Assists",    align: "right", fmt: function(v) { return v; } },
+  { key: "suicides",           label: "Suicides",   align: "right", fmt: function(v) { return v; } },
+  { key: "headshots",          label: "HS",         align: "right", fmt: function(v) { return v; } },
+  { key: "accuracy",           label: "Acc%",       align: "right", fmt: function(v) { return v.toFixed(1) + "%"; } },
+  { key: "totalShots",         label: "Fired",      align: "right", fmt: function(v) { return v; } },
+  { key: "shotsHit",           label: "Hits",       align: "right", fmt: function(v) { return v; } },
+  { key: "hitsPerGame",        label: "Hits/G",     align: "right", fmt: function(v) { return v; } },
+  { key: "medals",             label: "Medals",     align: "right", fmt: function(v) { return v; } },
+  { key: "slayerBestSpreeMax", label: "Spree",      align: "right", fmt: function(v) { return v > 0 ? v : "&#8212;"; } },
+  { key: "slayerAvgLife",      label: "Avg Life",   align: "right", fmt: function(v) { return v === null ? "&#8212;" : formatTime(v); } },
+];
+
+function lbSortFn(a, b) {
+  var av = a[lbSortCol], bv = b[lbSortCol];
+  if (av === null || av === undefined) av = -1;
+  if (bv === null || bv === undefined) bv = -1;
+  if (av === Infinity) av = 99999;
+  if (bv === Infinity) bv = 99999;
+  if (typeof av === "string") return lbSortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+  return lbSortAsc ? av - bv : bv - av;
+}
+
+function renderSeriesBanner(teamIds) {
+  var html = '<div class="series-banner">';
+  if (teamIds.length === 2) {
+    var a = teamIds[0], b = teamIds[1];
+    var tca = getTeamColor(a), tcb = getTeamColor(b);
+    var tsa = lbTeamStats[a], tsb = lbTeamStats[b];
+    var kdA = tsa.deaths === 0 ? (tsa.kills > 0 ? "&#8734;" : "0") : (tsa.kills / tsa.deaths).toFixed(2);
+    var kdB = tsb.deaths === 0 ? (tsb.kills > 0 ? "&#8734;" : "0") : (tsb.kills / tsb.deaths).toFixed(2);
+    html +=
+      '<div class="series-team-block left">' +
+        '<div class="series-team-name" style="color:' + tca.text + '">' + esc(tsa.name || tca.name) + '</div>' +
+        '<div class="series-kd" style="color:' + tca.text + '">K/D ' + kdA + '</div>' +
+      '</div>' +
+      '<div class="series-score-block">' +
+        '<span class="series-score-num" style="color:' + tca.text + '">' + tsa.wins + '</span>' +
+        '<span class="series-score-dash">—</span>' +
+        '<span class="series-score-num" style="color:' + tcb.text + '">' + tsb.wins + '</span>' +
+      '</div>' +
+      '<div class="series-team-block right">' +
+        '<div class="series-team-name" style="color:' + tcb.text + '">' + esc(tsb.name || tcb.name) + '</div>' +
+        '<div class="series-kd" style="color:' + tcb.text + '">K/D ' + kdB + '</div>' +
+      '</div>';
+  } else {
+    teamIds.forEach(function(tid) {
+      var tc = getTeamColor(tid);
+      var ts = lbTeamStats[tid];
+      var kd = ts.deaths === 0 ? (ts.kills > 0 ? "&#8734;" : "0") : (ts.kills / ts.deaths).toFixed(2);
+      html += '<div class="series-team-block" style="text-align:center;padding:0 12px">' +
+        '<div class="series-team-name" style="color:' + tc.text + '">&#9679; ' + esc(ts.name || tc.name) + '</div>' +
+        '<div class="series-score-num" style="color:' + tc.text + '">' + ts.wins + 'W</div>' +
+        '<div class="series-kd" style="color:' + tc.text + '">K/D ' + kd + '</div>' +
+      '</div>';
+    });
+  }
+  return html + '</div>';
+}
+
+function renderLeaderboard() {
+  var filtered = lbFilter
+    ? lbData.filter(function(r) { return r.name.toLowerCase().indexOf(lbFilter) >= 0; })
+    : lbData;
+
+  var header = LB_COLS.map(function(col) {
+    var cls = col.align === "right" ? "num" : "player-name";
+    if (col.key === lbSortCol) cls += " sorted" + (lbSortAsc ? " asc" : "");
+    return '<th class="' + cls + '" data-col="' + col.key + '">' + col.label + '</th>';
+  }).join("");
+
+  // Sync tab active state
+  var tabSeries = document.getElementById("lb-tab-series");
+  var tabIndividual = document.getElementById("lb-tab-individual");
+  var hasTeamData = lbIsSeriesView && lbTeamStats && Object.keys(lbTeamStats).length > 0;
+  if (tabSeries) {
+    tabSeries.classList.toggle("active", lbViewMode === "series");
+    tabSeries.classList.toggle("disabled", !hasTeamData);
+  }
+  if (tabIndividual) tabIndividual.classList.toggle("active", lbViewMode === "individual");
+
+  var colCount = LB_COLS.length;
+  var seriesBannerHtml = "";
+  var tbody = "";
+
+  if (lbViewMode === "series" && hasTeamData) {
+    // Sort teams: most wins first
+    var teamIds = Object.keys(lbTeamStats).map(Number).sort(function(a, b) {
+      return lbTeamStats[b].wins - lbTeamStats[a].wins;
+    });
+    seriesBannerHtml = renderSeriesBanner(teamIds);
+
+    teamIds.forEach(function(teamId) {
+      var tc = getTeamColor(teamId);
+      var ts = lbTeamStats[teamId];
+      var teamKD = ts.deaths === 0 ? (ts.kills > 0 ? "&#8734;" : "0.00") : (ts.kills / ts.deaths).toFixed(2);
+      var totalGamesWon = ts.wins;
+      var rawName = ts.name || tc.name;
+      var teamLabel = rawName.toLowerCase().replace(/\s+/g, "").endsWith("team") ? rawName : rawName + " Team";
+      tbody +=
+        '<tr class="lb-team-header-row" style="background:' + tc.bg + ';border-left:3px solid ' + tc.border + '">' +
+          '<td class="player-name" colspan="' + colCount + '">' +
+            '<span style="color:' + tc.text + '">&#9679;&nbsp;' + esc(teamLabel.toUpperCase()) + '</span>' +
+            '<span style="color:#4a6a8a;font-size:11px;font-weight:500;margin-left:16px">' +
+              totalGamesWon + 'W &nbsp;&#183;&nbsp; K/D ' + teamKD +
+            '</span>' +
+          '</td>' +
+        '</tr>';
+      var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
+      teamRows.sort(lbSortFn);
+      teamRows.forEach(function(row) {
+        var cells = LB_COLS.map(function(col) {
+          var cls = col.align === "right" ? ' class="num"' : ' class="player-name"';
+          return '<td' + cls + '>' + col.fmt(row[col.key]) + '</td>';
+        }).join("");
+        tbody += '<tr style="background:' + tc.bg + '">' + cells + '</tr>';
+      });
+    });
+
+    // Players with no team affiliation (FFA players in a mixed selection)
+    var unaffiliated = filtered.filter(function(r) { return r.primaryTeamId === null; });
+    if (unaffiliated.length > 0) {
+      tbody +=
+        '<tr class="lb-team-header-row" style="background:#111520;border-left:3px solid #2a2e3a">' +
+          '<td class="player-name" colspan="' + colCount + '">' +
+            '<span style="color:#6a7a9a">&#9679;&nbsp;UNAFFILIATED</span>' +
+          '</td>' +
+        '</tr>';
+      unaffiliated.sort(lbSortFn);
+      unaffiliated.forEach(function(row, i) {
+        var cells = LB_COLS.map(function(col) {
+          var cls = col.align === "right" ? ' class="num"' : ' class="player-name"';
+          return '<td' + cls + '>' + col.fmt(row[col.key]) + '</td>';
+        }).join("");
+        tbody += '<tr class="' + rowClass(i) + '">' + cells + '</tr>';
+      });
+    }
+  } else {
+    // Flat sorted view (FFA or no team data)
+    var rows = filtered.slice().sort(lbSortFn);
+    tbody = rows.map(function(row, i) {
+      var cells = LB_COLS.map(function(col) {
+        var cls = col.align === "right" ? ' class="num"' : ' class="player-name"';
+        return '<td' + cls + '>' + col.fmt(row[col.key]) + '</td>';
+      }).join("");
+      return '<tr class="' + rowClass(i) + '">' + cells + '</tr>';
+    }).join("");
+  }
+
+  var content = document.getElementById("lb-content");
+  content.innerHTML = lbWarningHtml + seriesBannerHtml +
+    '<table class="pgcr-table lb-table"><thead><tr>' + header + '</tr></thead>' +
+    '<tbody>' + tbody + '</tbody></table>';
+
+  content.querySelectorAll("th[data-col]").forEach(function(th) {
+    th.addEventListener("click", function() {
+      var col = th.dataset.col;
+      if (lbSortCol === col) lbSortAsc = !lbSortAsc;
+      else { lbSortCol = col; lbSortAsc = col === "name"; }
+      renderLeaderboard();
+    });
+  });
+  var searchEl = document.getElementById("lb-search");
+  if (searchEl) {
+    searchEl.value = lbFilter;
+    searchEl.addEventListener("input", function() {
+      lbFilter = searchEl.value.toLowerCase().trim();
+      renderLeaderboard();
+    });
   }
 }
 
@@ -669,8 +1313,10 @@ function showViewer() {
     banner.style.display = "flex";
     banner.innerHTML = teams.map(function(t, i) {
       var tc = getTeamColor(t.team_id);
+      var winStar = (t.place === 0) ? '<span class="win-star">&#9733;</span>' : '';
       var side = '<div class="team-banner-side">' +
         '<span style="color:' + tc.text + '">' + esc(t.name || tc.name) + '</span>' +
+        winStar +
         '<span class="team-banner-score" style="color:' + tc.text + '">' + esc(t.score_string || "0") + '</span>' +
         '</div>';
       return (i > 0 ? '<span class="team-banner-vs">VS</span>' : '') + side;
@@ -680,8 +1326,32 @@ function showViewer() {
     banner.innerHTML = "";
   }
 
+  var btnPrev = document.getElementById("btn-prev-game");
+  var btnNext = document.getElementById("btn-next-game");
+  if (btnPrev && btnNext && servedMode && gameListCache && gameListCache.length > 1) {
+    btnPrev.style.display = "";
+    btnNext.style.display = "";
+    btnPrev.disabled = currentGameIndex <= 0;
+    btnNext.disabled = currentGameIndex < 0 || currentGameIndex >= gameListCache.length - 1;
+  } else {
+    if (btnPrev) btnPrev.style.display = "none";
+    if (btnNext) btnNext.style.display = "none";
+  }
+
   renderTab();
 }
+
+document.getElementById("btn-prev-game").addEventListener("click", function() {
+  if (gameListCache && currentGameIndex > 0) {
+    loadFromServer(gameListCache[currentGameIndex - 1].filename);
+  }
+});
+
+document.getElementById("btn-next-game").addEventListener("click", function() {
+  if (gameListCache && currentGameIndex >= 0 && currentGameIndex < gameListCache.length - 1) {
+    loadFromServer(gameListCache[currentGameIndex + 1].filename);
+  }
+});
 
 document.getElementById("btn-back").addEventListener("click", async function() {
   viewer.classList.remove("active");
@@ -740,6 +1410,22 @@ function renderTab() {
 
 function rowClass(i) { return "row-" + (i % 8); }
 
+document.getElementById("btn-lb-back").addEventListener("click", function() {
+  leaderboardScreen.style.display = "none";
+  showGameList(gameListCache);
+});
+
+document.getElementById("lb-tab-series").addEventListener("click", function() {
+  if (!lbData) return;
+  lbViewMode = "series";
+  renderLeaderboard();
+});
+document.getElementById("lb-tab-individual").addEventListener("click", function() {
+  if (!lbData) return;
+  lbViewMode = "individual";
+  renderLeaderboard();
+});
+
 // ─── Team-grouped table helper ───
 function renderPlayerTable(headerHtml, colCount, rowFn) {
   if (isTeamGame()) {
@@ -777,8 +1463,9 @@ function renderTeamStats() {
     var t = teams[i];
     var tc = getTeamColor(t.team_id);
     var playerCount = getTeamPlayers(t.team_id).length;
+    var winStar = (t.place === 0) ? ' <span class="win-star">&#9733;</span>' : '';
     html += '<tr style="background:' + tc.bg + ';border-left:3px solid ' + tc.border + '">' +
-      '<td class="player-name" style="color:' + tc.text + '">' + esc(t.name || tc.name) + '</td>' +
+      '<td class="player-name" style="color:' + tc.text + '">' + esc(t.name || tc.name) + winStar + '</td>' +
       '<td class="num">' + esc(t.place_string || ("#" + ((t.place || 0) + 1))) + '</td>' +
       '<td class="num" style="color:' + tc.text + ';font-weight:700;font-size:18px">' + esc(t.score_string || "0") + '</td>' +
       '<td class="num">' + playerCount + '</td></tr>';
@@ -895,7 +1582,10 @@ function renderMedals() {
     var total = safe(player, "medals", "total");
     var medals = decodeMedals(bitmask);
     var chips = medals.map(function(m) {
-      return '<span class="medal-chip ' + m.cat + '">' + m.name + '</span>';
+      if (m.img) {
+        return '<img class="medal-img" src="' + m.img + '" title="' + m.name + '" alt="' + m.name + '">';
+      }
+      return '<span class="medal-chip">' + m.name + '</span>';
     }).join("");
     var bg = tc ? 'style="background:' + tc.bg + '"' : 'class="' + rowClass(i) + '"';
     return '<tr ' + bg + '>' +
@@ -903,6 +1593,140 @@ function renderMedals() {
       '<td class="num">' + total + '</td>' +
       '<td><div class="medal-list">' + chips + '</div></td></tr>';
   });
+}
+
+// ─── Export ───
+function buildExportTable() {
+  var rowColors = ["#2a2a30","#1a2050","#1e2858","#1a3828","#3a3820","#381a1a","#2a1a30","#30282a"];
+  var filtered = lbFilter
+    ? lbData.filter(function(r) { return r.name.toLowerCase().indexOf(lbFilter) >= 0; })
+    : lbData;
+
+  var html = '<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:12px;background:#0a0e1a;color:#d0d4dc">';
+  html += '<tr>';
+  LB_COLS.forEach(function(col) {
+    var align = col.align === "right" ? "right" : "left";
+    html += '<th style="background:#1a1e2a;color:#8a8e9a;padding:7px 8px;text-align:' + align + ';white-space:nowrap;border-bottom:1px solid #2a2e3a">' + col.label + '</th>';
+  });
+  html += '</tr>';
+
+  function dataRow(row, bg) {
+    var cells = LB_COLS.map(function(col) {
+      var align = col.align === "right" ? "right" : "left";
+      var val = col.fmt(row[col.key]).replace(/&#8734;/g, "\u221e").replace(/&#8212;/g, "\u2014");
+      return '<td style="background:' + bg + ';color:#d0d4dc;padding:5px 8px;text-align:' + align + '">' + val + '</td>';
+    }).join("");
+    return '<tr>' + cells + '</tr>';
+  }
+
+  if (lbIsSeriesView && lbTeamStats && Object.keys(lbTeamStats).length > 0) {
+    var teamIds = Object.keys(lbTeamStats).map(Number).sort(function(a, b) {
+      return lbTeamStats[b].wins - lbTeamStats[a].wins;
+    });
+    teamIds.forEach(function(teamId) {
+      var tc = getTeamColor(teamId);
+      var ts = lbTeamStats[teamId];
+      var teamKD = ts.deaths === 0 ? (ts.kills > 0 ? "\u221e" : "0.00") : (ts.kills / ts.deaths).toFixed(2);
+      html += '<tr><td colspan="' + LB_COLS.length + '" style="background:' + tc.bg + ';color:' + tc.text + ';font-weight:700;padding:6px 10px;border-left:3px solid ' + tc.border + '">' +
+        '\u25cf\u00a0' + (ts.name || tc.name) + ' TEAM \u2014 ' + ts.wins + 'W  \u00b7  K/D ' + teamKD + '</td></tr>';
+      var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
+      teamRows.sort(lbSortFn);
+      teamRows.forEach(function(row) { html += dataRow(row, tc.bg); });
+    });
+    var unaffiliated = filtered.filter(function(r) { return r.primaryTeamId === null; });
+    if (unaffiliated.length > 0) {
+      html += '<tr><td colspan="' + LB_COLS.length + '" style="background:#111520;color:#6a7a9a;font-weight:700;padding:6px 10px">\u25cf\u00a0UNAFFILIATED</td></tr>';
+      unaffiliated.sort(lbSortFn);
+      unaffiliated.forEach(function(row, i) { html += dataRow(row, rowColors[i % 8]); });
+    }
+  } else {
+    var rows = filtered.slice().sort(lbSortFn);
+    rows.forEach(function(row, i) { html += dataRow(row, rowColors[i % 8]); });
+  }
+  return html + '</table>';
+}
+
+
+function exportToExcel() {
+  if (!lbData) { showExportToast("No data loaded"); return; }
+  try {
+    var html = '<html><head><meta charset="UTF-8"><style>body{background:#0a0e1a;margin:0;padding:8px}</style></head><body>' + buildExportTable() + '</body></html>';
+    var blob = new Blob([html], { type: "application/vnd.ms-excel;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "halo2_leaderboard.xls";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch(e) { showExportToast("Export failed: " + e.message); console.error(e); }
+}
+
+function csvField(val) {
+  var s = String(val).replace(/&#8734;/g, "\u221e").replace(/&#8212;/g, "\u2014").replace(/<[^>]*>/g, "");
+  // RFC 4180: wrap in quotes if contains comma, quote, or newline
+  if (s.indexOf(",") >= 0 || s.indexOf('"') >= 0 || s.indexOf("\n") >= 0) {
+    s = '"' + s.replace(/"/g, '""') + '"';
+  }
+  return s;
+}
+
+function buildExportCsv() {
+  var filtered = lbFilter
+    ? lbData.filter(function(r) { return r.name.toLowerCase().indexOf(lbFilter) >= 0; })
+    : lbData;
+  var rows = filtered.slice().sort(lbSortFn);
+  var lines = [LB_COLS.map(function(c) { return csvField(c.label); }).join(",")];
+  rows.forEach(function(row) {
+    lines.push(LB_COLS.map(function(col) {
+      return csvField(col.fmt(row[col.key]));
+    }).join(","));
+  });
+  return lines.join("\r\n");
+}
+
+function exportToSheets() {
+  if (!lbData) { showExportToast("No data loaded"); return; }
+  try {
+    var tableHtml = buildExportTable();
+    var el = document.createElement("div");
+    el.setAttribute("contenteditable", "true");
+    el.style.cssText = "position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;";
+    el.innerHTML = tableHtml;
+    document.body.appendChild(el);
+    el.focus();
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    sel.addRange(range);
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) {}
+    sel.removeAllRanges();
+    document.body.removeChild(el);
+    if (ok) {
+      showExportToast("Copied! Paste into Google Sheets");
+    } else {
+      var bom = "\uFEFF";
+      var blob = new Blob([bom + buildExportCsv()], { type: "text/csv;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = "halo2_leaderboard.csv";
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+  } catch(e) { showExportToast("Export failed: " + e.message); console.error(e); }
+}
+
+var _exportToastTimer = null;
+function showExportToast(msg) {
+  var el = document.getElementById("export-toast");
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = "1";
+  if (_exportToastTimer) clearTimeout(_exportToastTimer);
+  _exportToastTimer = setTimeout(function() { el.style.opacity = "0"; }, 2500);
 }
 
 // ─── Tab: Hit Stats ───
