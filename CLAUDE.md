@@ -36,8 +36,8 @@ python halo2_stats.py --host 172.20.0.51 --pgcr
 python halo2_stats.py --host 172.20.0.51 --simple
 
 # Additional flags (work with both XBDM and QMP):
-#   --poll 2             Poll at custom interval (seconds)
-#   --watch-interval 5   Custom watch poll interval (default 3s)
+#   --poll 2             Poll every N seconds (non-watch mode; 0 = single read)
+#   --watch-interval 5   Seconds between watch-mode probes (watch mode only, default 3s)
 #   --timeout 10         Connection timeout in seconds (default 5)
 #   --output stats.json  Save JSON output to file
 #   --slow               200ms read delay instead of 50ms (XBDM only)

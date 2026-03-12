@@ -85,7 +85,12 @@ python halo2_stats.py --host <IP> --json --output stats.json
 
 | Flag | Description |
 |------|-------------|
+| `--port N` | XBDM port (default: 731) |
+| `--poll N` | Poll every N seconds without watch mode (0 = single read) |
 | `--watch-interval N` | Seconds between watch-mode polls (default: 3) |
+| `--breakpoint`, `-b` | Use XBDM breakpoint for instant game-end detection instead of polling |
+| `--history-dir DIR` | Directory for auto-saved games (default: history/) |
+| `--pgcr-display` | Also read killed-by data from PGCR display (post-game screen only) |
 | `--timeout N` | Connection timeout in seconds (default: 5) |
 | `--slow` | 200ms read delay instead of 50ms (XBDM only, safer for unstable connections) |
 | `--save-ram` | Save full 64MB RAM snapshot at game end (QMP only, large files) |
