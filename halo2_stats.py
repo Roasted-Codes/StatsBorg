@@ -44,7 +44,6 @@ from halo2_structs import (
     calculate_pgcr_display_team_address,
     get_address,
     decode_medals,
-    detect_gametype_from_medals,
     PCR_PLAYER_SIZE,
     PGCR_DISPLAY_SIZE,
     TEAM_DATA_STRIDE,
@@ -900,10 +899,6 @@ def print_scoreboard_rich(players: List[PCRPlayerStats],
     if not players:
         print("No players found in game.")
         return
-
-    # Auto-detect gametype from medals if not specified
-    if not gametype:
-        gametype = detect_gametype_from_medals(players)
 
     sorted_players = sorted(players, key=lambda p: p.kills, reverse=True)
 
