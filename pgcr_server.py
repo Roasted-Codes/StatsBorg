@@ -6,7 +6,7 @@ import glob
 import json
 import os
 import sys
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 HISTORY_DIR = os.path.join(ROOT, "history")
@@ -26,8 +26,10 @@ class PGCRHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(f.read())
         elif self.path == "/api/games":
             self._serve_game_list()
-        else:
+        elif self.path.startswith("/history/") or self.path.startswith("/medals/"):
             super().do_GET()
+        else:
+            self.send_error(404)
 
     def _serve_game_list(self):
         games = []
@@ -66,7 +68,7 @@ class PGCRHandler(SimpleHTTPRequestHandler):
 
 def main():
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
-    server = HTTPServer(("0.0.0.0", port), PGCRHandler)
+    server = ThreadingHTTPServer(("0.0.0.0", port), PGCRHandler)
     print(f"PGCR Viewer running at http://localhost:{port}")
     print("Press Ctrl+C to stop")
     try:
