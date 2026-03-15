@@ -551,6 +551,20 @@
     border-bottom: 1px solid rgba(255,255,255,0.06);
     border-top: 2px solid rgba(255,255,255,0.08);
   }
+  .lb-team-totals-row td {
+    font-weight: 700;
+    font-size: 12px;
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+    padding: 6px 8px;
+    color: #a0c8f0;
+  }
+  .lb-team-totals-row td.player-name {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
   #export-toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
     background: #1a3a6a; color: #a0c8f0; border: 1px solid #3060a0;
@@ -1014,8 +1028,11 @@ function aggregateLeaderboard(games) {
       game.teams.forEach(function(t) {
         teamPlaceById[t.team_id] = t.place;
         if (!teamStats[t.team_id]) {
-          teamStats[t.team_id] = { name: t.name, teamId: t.team_id, wins: 0, kills: 0, deaths: 0 };
+          teamStats[t.team_id] = { name: t.name, teamId: t.team_id, wins: 0, games: 0,
+            kills: 0, deaths: 0, assists: 0, suicides: 0,
+            headshots: 0, totalShots: 0, shotsHit: 0, medals: 0 };
         }
+        teamStats[t.team_id].games++;
         if (t.place === 0) teamStats[t.team_id].wins++;
       });
     }
@@ -1043,8 +1060,14 @@ function aggregateLeaderboard(games) {
         var tid = p.team;  // p.team equals team_id in schema v3
         row.teamCounts[tid] = (row.teamCounts[tid] || 0) + 1;
         if (teamStats[tid]) {
-          teamStats[tid].kills  += (p.kills  || 0);
-          teamStats[tid].deaths += (p.deaths || 0);
+          teamStats[tid].kills     += (p.kills    || 0);
+          teamStats[tid].deaths    += (p.deaths   || 0);
+          teamStats[tid].assists   += (p.assists  || 0);
+          teamStats[tid].suicides  += (p.suicides || 0);
+          teamStats[tid].headshots += safe(p, "accuracy", "headshots");
+          teamStats[tid].totalShots+= safe(p, "accuracy", "total_shots");
+          teamStats[tid].shotsHit  += safe(p, "accuracy", "shots_hit");
+          teamStats[tid].medals    += safe(p, "medals", "total");
         }
       }
       if (game.gametype === "slayer") {
@@ -1073,6 +1096,25 @@ function aggregateLeaderboard(games) {
     });
     row.primaryTeamId = primaryTeamId;
     return row;
+  });
+  // Compute derived team stats
+  Object.values(teamStats).forEach(function(ts) {
+    ts.kd       = ts.deaths === 0 ? (ts.kills > 0 ? Infinity : 0) : Math.round((ts.kills / ts.deaths) * 100) / 100;
+    ts.kda      = ts.deaths === 0 ? (ts.kills + ts.assists > 0 ? Infinity : 0) : Math.round(((ts.kills + ts.assists) / ts.deaths) * 100) / 100;
+    ts.winRate  = ts.games  === 0 ? 0 : Math.round((ts.wins  / ts.games)  * 1000) / 10;
+    ts.accuracy    = ts.totalShots === 0 ? 0 : Math.round((ts.shotsHit / ts.totalShots) * 1000) / 10;
+    ts.hitsPerGame = ts.games === 0 ? 0 : Math.round(ts.shotsHit / ts.games);
+  });
+  // Derive slayer stats per team from player rows
+  Object.keys(teamStats).forEach(function(tid) {
+    var teamPlayers = rows.filter(function(r) { return r.primaryTeamId === parseInt(tid, 10); });
+    var maxSpree = 0, avgLifeSum = 0, avgLifeCount = 0;
+    teamPlayers.forEach(function(r) {
+      if (r.slayerBestSpreeMax > maxSpree) maxSpree = r.slayerBestSpreeMax;
+      if (r.slayerAvgLife !== null) { avgLifeSum += r.slayerAvgLife; avgLifeCount++; }
+    });
+    teamStats[tid].slayerBestSpreeMax = maxSpree;
+    teamStats[tid].slayerAvgLife = avgLifeCount === 0 ? null : Math.round(avgLifeSum / avgLifeCount);
   });
   return {
     rows: rows,
@@ -1124,6 +1166,7 @@ function renderSeriesBanner(teamIds) {
       '<div class="series-team-block left">' +
         '<div class="series-team-name" style="color:' + tca.text + '">' + esc(tsa.name || tca.name) + '</div>' +
         '<div class="series-kd" style="color:' + tca.text + '">K/D ' + kdA + '</div>' +
+        '<div class="series-kd" style="color:' + tca.text + ';opacity:0.7;font-size:11px">' + tsa.assists + ' Ast &middot; ' + tsa.accuracy.toFixed(1) + '% Acc &middot; ' + tsa.medals + ' Mdl</div>' +
       '</div>' +
       '<div class="series-score-block">' +
         '<span class="series-score-num" style="color:' + tca.text + '">' + tsa.wins + '</span>' +
@@ -1133,6 +1176,7 @@ function renderSeriesBanner(teamIds) {
       '<div class="series-team-block right">' +
         '<div class="series-team-name" style="color:' + tcb.text + '">' + esc(tsb.name || tcb.name) + '</div>' +
         '<div class="series-kd" style="color:' + tcb.text + '">K/D ' + kdB + '</div>' +
+        '<div class="series-kd" style="color:' + tcb.text + ';opacity:0.7;font-size:11px">' + tsb.assists + ' Ast &middot; ' + tsb.accuracy.toFixed(1) + '% Acc &middot; ' + tsb.medals + ' Mdl</div>' +
       '</div>';
   } else {
     teamIds.forEach(function(tid) {
@@ -1143,6 +1187,7 @@ function renderSeriesBanner(teamIds) {
         '<div class="series-team-name" style="color:' + tc.text + '">&#9679; ' + esc(ts.name || tc.name) + '</div>' +
         '<div class="series-score-num" style="color:' + tc.text + '">' + ts.wins + 'W</div>' +
         '<div class="series-kd" style="color:' + tc.text + '">K/D ' + kd + '</div>' +
+        '<div class="series-kd" style="color:' + tc.text + ';opacity:0.7;font-size:11px">' + ts.assists + ' Ast &middot; ' + ts.accuracy.toFixed(1) + '% Acc</div>' +
       '</div>';
     });
   }
@@ -1206,6 +1251,16 @@ function renderLeaderboard() {
         }).join("");
         tbody += '<tr style="background:' + tc.bg + '">' + cells + '</tr>';
       });
+      // Team totals row
+      var totCells = LB_COLS.map(function(col) {
+        var cls = col.align === "right" ? ' class="num"' : ' class="player-name"';
+        var val;
+        if (col.key === "name") val = "Team Totals";
+        else if (ts[col.key] !== undefined) val = col.fmt(ts[col.key]);
+        else val = "&#8212;";
+        return '<td' + cls + '>' + val + '</td>';
+      }).join("");
+      tbody += '<tr class="lb-team-totals-row" style="background:' + tc.bg + ';border-left:3px solid ' + tc.border + '">' + totCells + '</tr>';
     });
 
     // Players with no team affiliation (FFA players in a mixed selection)
@@ -1632,6 +1687,15 @@ function buildExportTable() {
       var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
       teamRows.sort(lbSortFn);
       teamRows.forEach(function(row) { html += dataRow(row, tc.bg); });
+      // Team totals row in export
+      html += '<tr>' + LB_COLS.map(function(col) {
+        var align = col.align === "right" ? "right" : "left";
+        var val;
+        if (col.key === "name") val = "TEAM TOTALS";
+        else if (ts[col.key] !== undefined) val = col.fmt(ts[col.key]).replace(/&#8734;/g, "\u221e").replace(/&#8212;/g, "\u2014");
+        else val = "\u2014";
+        return '<td style="background:' + tc.bg + ';color:#a0c8f0;padding:5px 8px;text-align:' + align + ';font-weight:700;font-style:italic">' + val + '</td>';
+      }).join("") + '</tr>';
     });
     var unaffiliated = filtered.filter(function(r) { return r.primaryTeamId === null; });
     if (unaffiliated.length > 0) {
@@ -1676,13 +1740,36 @@ function buildExportCsv() {
   var filtered = lbFilter
     ? lbData.filter(function(r) { return r.name.toLowerCase().indexOf(lbFilter) >= 0; })
     : lbData;
-  var rows = filtered.slice().sort(lbSortFn);
   var lines = [LB_COLS.map(function(c) { return csvField(c.label); }).join(",")];
-  rows.forEach(function(row) {
+  function addRow(obj) {
     lines.push(LB_COLS.map(function(col) {
-      return csvField(col.fmt(row[col.key]));
+      var val;
+      if (col.key === "name" && obj._isTotals) val = "TEAM TOTALS";
+      else if (obj[col.key] !== undefined) val = col.fmt(obj[col.key]);
+      else val = "\u2014";
+      return csvField(val);
     }).join(","));
-  });
+  }
+  var hasTeamData = lbIsSeriesView && lbTeamStats && Object.keys(lbTeamStats).length > 0;
+  if (hasTeamData) {
+    var teamIds = Object.keys(lbTeamStats).map(Number).sort(function(a, b) {
+      return lbTeamStats[b].wins - lbTeamStats[a].wins;
+    });
+    teamIds.forEach(function(teamId) {
+      var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
+      teamRows.sort(lbSortFn);
+      teamRows.forEach(addRow);
+      var ts = Object.assign({ _isTotals: true }, lbTeamStats[teamId]);
+      ts.name = lbTeamStats[teamId].name || getTeamColor(teamId).name;
+      addRow(ts);
+    });
+    var unaffiliated = filtered.filter(function(r) { return r.primaryTeamId === null; });
+    unaffiliated.sort(lbSortFn);
+    unaffiliated.forEach(addRow);
+  } else {
+    var rows = filtered.slice().sort(lbSortFn);
+    rows.forEach(addRow);
+  }
   return lines.join("\r\n");
 }
 
