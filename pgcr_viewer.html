@@ -545,25 +545,14 @@
   .lb-team-header-row td {
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 7px 12px;
+    padding: 7px 8px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
     border-top: 2px solid rgba(255,255,255,0.08);
-  }
-  .lb-team-totals-row td {
-    font-weight: 700;
-    font-size: 12px;
-    font-style: italic;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    border-bottom: 2px solid rgba(255,255,255,0.08);
-    padding: 6px 8px;
     color: #a0c8f0;
   }
-  .lb-team-totals-row td.player-name {
-    letter-spacing: 1px;
+  .lb-team-header-row td.player-name {
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    font-size: 11px;
   }
   #export-toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
@@ -1229,19 +1218,18 @@ function renderLeaderboard() {
     teamIds.forEach(function(teamId) {
       var tc = getTeamColor(teamId);
       var ts = lbTeamStats[teamId];
-      var teamKD = ts.deaths === 0 ? (ts.kills > 0 ? "&#8734;" : "0.00") : (ts.kills / ts.deaths).toFixed(2);
-      var totalGamesWon = ts.wins;
       var rawName = ts.name || tc.name;
       var teamLabel = rawName.toLowerCase().replace(/\s+/g, "").endsWith("team") ? rawName : rawName + " Team";
-      tbody +=
-        '<tr class="lb-team-header-row" style="background:' + tc.bg + ';border-left:3px solid ' + tc.border + '">' +
-          '<td class="player-name" colspan="' + colCount + '">' +
-            '<span style="color:' + tc.text + '">&#9679;&nbsp;' + esc(teamLabel.toUpperCase()) + '</span>' +
-            '<span style="color:#4a6a8a;font-size:11px;font-weight:500;margin-left:16px">' +
-              totalGamesWon + 'W &nbsp;&#183;&nbsp; K/D ' + teamKD +
-            '</span>' +
-          '</td>' +
-        '</tr>';
+      // Team header row with inline aggregate stats using LB_COLS
+      var headerCells = LB_COLS.map(function(col) {
+        var cls = col.align === "right" ? ' class="num"' : ' class="player-name"';
+        var val;
+        if (col.key === "name") val = '<span style="color:' + tc.text + '">&#9679;&nbsp;' + esc(teamLabel.toUpperCase()) + '</span>';
+        else if (ts[col.key] !== undefined) val = col.fmt(ts[col.key]);
+        else val = "&#8212;";
+        return '<td' + cls + '>' + val + '</td>';
+      }).join("");
+      tbody += '<tr class="lb-team-header-row" style="background:' + tc.bg + ';border-left:3px solid ' + tc.border + '">' + headerCells + '</tr>';
       var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
       teamRows.sort(lbSortFn);
       teamRows.forEach(function(row) {
@@ -1251,16 +1239,6 @@ function renderLeaderboard() {
         }).join("");
         tbody += '<tr style="background:' + tc.bg + '">' + cells + '</tr>';
       });
-      // Team totals row
-      var totCells = LB_COLS.map(function(col) {
-        var cls = col.align === "right" ? ' class="num"' : ' class="player-name"';
-        var val;
-        if (col.key === "name") val = "Team Totals";
-        else if (ts[col.key] !== undefined) val = col.fmt(ts[col.key]);
-        else val = "&#8212;";
-        return '<td' + cls + '>' + val + '</td>';
-      }).join("");
-      tbody += '<tr class="lb-team-totals-row" style="background:' + tc.bg + ';border-left:3px solid ' + tc.border + '">' + totCells + '</tr>';
     });
 
     // Players with no team affiliation (FFA players in a mixed selection)
@@ -1681,21 +1659,20 @@ function buildExportTable() {
     teamIds.forEach(function(teamId) {
       var tc = getTeamColor(teamId);
       var ts = lbTeamStats[teamId];
-      var teamKD = ts.deaths === 0 ? (ts.kills > 0 ? "\u221e" : "0.00") : (ts.kills / ts.deaths).toFixed(2);
-      html += '<tr><td colspan="' + LB_COLS.length + '" style="background:' + tc.bg + ';color:' + tc.text + ';font-weight:700;padding:6px 10px;border-left:3px solid ' + tc.border + '">' +
-        '\u25cf\u00a0' + (ts.name || tc.name) + ' TEAM \u2014 ' + ts.wins + 'W  \u00b7  K/D ' + teamKD + '</td></tr>';
-      var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
-      teamRows.sort(lbSortFn);
-      teamRows.forEach(function(row) { html += dataRow(row, tc.bg); });
-      // Team totals row in export
+      var rawName = ts.name || tc.name;
+      var teamLabel = rawName.toLowerCase().replace(/\s+/g, "").endsWith("team") ? rawName : rawName + " Team";
+      // Team header row with inline aggregate stats
       html += '<tr>' + LB_COLS.map(function(col) {
         var align = col.align === "right" ? "right" : "left";
         var val;
-        if (col.key === "name") val = "TEAM TOTALS";
+        if (col.key === "name") val = "\u25cf\u00a0" + teamLabel.toUpperCase();
         else if (ts[col.key] !== undefined) val = col.fmt(ts[col.key]).replace(/&#8734;/g, "\u221e").replace(/&#8212;/g, "\u2014");
         else val = "\u2014";
-        return '<td style="background:' + tc.bg + ';color:#a0c8f0;padding:5px 8px;text-align:' + align + ';font-weight:700;font-style:italic">' + val + '</td>';
+        return '<td style="background:' + tc.bg + ';color:#a0c8f0;padding:5px 8px;text-align:' + align + ';font-weight:700;border-top:2px solid rgba(255,255,255,0.08)">' + val + '</td>';
       }).join("") + '</tr>';
+      var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
+      teamRows.sort(lbSortFn);
+      teamRows.forEach(function(row) { html += dataRow(row, tc.bg); });
     });
     var unaffiliated = filtered.filter(function(r) { return r.primaryTeamId === null; });
     if (unaffiliated.length > 0) {
@@ -1744,7 +1721,7 @@ function buildExportCsv() {
   function addRow(obj) {
     lines.push(LB_COLS.map(function(col) {
       var val;
-      if (col.key === "name" && obj._isTotals) val = "TEAM TOTALS";
+      if (col.key === "name" && obj._isTotals) val = obj.name.toUpperCase();
       else if (obj[col.key] !== undefined) val = col.fmt(obj[col.key]);
       else val = "\u2014";
       return csvField(val);
@@ -1756,12 +1733,13 @@ function buildExportCsv() {
       return lbTeamStats[b].wins - lbTeamStats[a].wins;
     });
     teamIds.forEach(function(teamId) {
+      var ts = Object.assign({ _isTotals: true }, lbTeamStats[teamId]);
+      var rawName = lbTeamStats[teamId].name || getTeamColor(teamId).name;
+      ts.name = rawName.toLowerCase().replace(/\s+/g, "").endsWith("team") ? rawName : rawName + " Team";
+      addRow(ts);
       var teamRows = filtered.filter(function(r) { return r.primaryTeamId === teamId; });
       teamRows.sort(lbSortFn);
       teamRows.forEach(addRow);
-      var ts = Object.assign({ _isTotals: true }, lbTeamStats[teamId]);
-      ts.name = lbTeamStats[teamId].name || getTeamColor(teamId).name;
-      addRow(ts);
     });
     var unaffiliated = filtered.filter(function(r) { return r.primaryTeamId === null; });
     unaffiliated.sort(lbSortFn);
