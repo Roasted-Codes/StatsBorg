@@ -1,0 +1,100 @@
+{
+  "game_result": {
+    "embeds": [
+      {
+        "title": "🎮 Halo 2 Match Complete",
+        "description": "**{{gametype}}** on {{map}}",
+        "color": 65535,
+        "timestamp": "{{timestamp}}",
+        "fields": [
+          {
+            "name": "🏆 Winner",
+            "value": "{{winner_team}} ({{winner_score}})",
+            "inline": true
+          },
+          {
+            "name": "📊 Score",
+            "value": "{{final_score}}",
+            "inline": true
+          },
+          {
+            "name": "👥 Players",
+            "value": "{{player_count}}",
+            "inline": true
+          },
+          {
+            "name": "🔥 Top Performer",
+            "value": "{{top_player}} - {{top_kills}}/{{top_deaths}}",
+            "inline": false
+          },
+          {
+            "name": "📈 Game Stats",
+            "value": "```\n{{top_3_players}}\n```",
+            "inline": false
+          }
+        ],
+        "footer": {
+          "text": "Halo 2 StatsBorg • Game {{game_number}}"
+        }
+      }
+    ]
+  },
+  "series_complete": {
+    "embeds": [
+      {
+        "title": "🏁 Series Complete",
+        "description": "**{{series_name}}** has finished",
+        "color": 16753920,
+        "fields": [
+          {
+            "name": "📊 Series Length",
+            "value": "{{game_count}} games",
+            "inline": true
+          },
+          {
+            "name": "⏱️ Duration",
+            "value": "{{duration}}",
+            "inline": true
+          },
+          {
+            "name": "👑 Series MVP",
+            "value": "{{mvp_name}} ({{mvp_stats}})",
+            "inline": false
+          },
+          {
+            "name": "🎯 Top 3 Players",
+            "value": "```\n{{series_leaderboard}}\n```",
+            "inline": false
+          }
+        ],
+        "footer": {
+          "text": "Halo 2 StatsBorg • Series {{series_id}}"
+        }
+      }
+    ]
+  },
+  "player_achievement": {
+    "embeds": [
+      {
+        "title": "🎖️ Player Achievement",
+        "description": "{{player_name}} earned a milestone!",
+        "color": 15844367,
+        "fields": [
+          {
+            "name": "🏆 Achievement",
+            "value": "{{achievement_name}}",
+            "inline": false
+          },
+          {
+            "name": "📈 Stats",
+            "value": "{{achievement_stats}}",
+            "inline": false
+          }
+        ],
+        "footer": {
+          "text": "Halo 2 StatsBorg • Achievement System"
+        }
+      }
+    ]
+  }
+}

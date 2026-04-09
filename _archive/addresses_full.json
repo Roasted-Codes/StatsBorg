@@ -1,0 +1,217 @@
+{
+  "_metadata": {
+    "description": "Halo 2 Xbox memory addresses, struct layouts, and constants",
+    "game_version": "Halo 2 Xbox v1.0/v1.5 retail",
+    "xbe_module": "halo2ship.exe",
+    "xbe_base": "0x000118E0",
+    "xbe_size": "0x005ADBC0",
+    "last_verified": "2026-02"
+  },
+
+  "post_game": {
+    "_doc": "Post-game carnage report addresses (XBDM-accessible, working)",
+    "pgcr_display": {
+      "header": "0x56B900",
+      "header_size": "0x90",
+      "gametype_offset": "0x84",
+      "gametype_addr": "0x56B984",
+      "player_base": "0x56B990",
+      "player_stride": "0x114",
+      "team_base": "0x56CAD0",
+      "team_stride": "0x84"
+    },
+    "pcr_fallback": {
+      "_doc": "PCR stats - EMPTY on docker-bridged-xemu, fallback only",
+      "player_base": "0x55CAF0",
+      "player_stride": "0x114",
+      "team_base": "0x55DC30",
+      "team_stride": "0x84"
+    },
+    "breakpoint": {
+      "pgcr_clear": "0x23975C",
+      "_doc": "Code address: PGCR clear function, fires at game end"
+    },
+    "gametype_addresses": {
+      "xbox7887": {
+        "address": "0x50224C",
+        "_doc": "Reads as zero on docker-bridged-xemu. Do not use."
+      },
+      "pgcr_header": {
+        "address": "0x56B984",
+        "_doc": "Stale on docker-bridged-xemu, always reads 5. Do not rely on."
+      }
+    },
+    "misc": {
+      "str_kills": "0x4603B8",
+      "str_deaths": "0x4603A8",
+      "profile_data": "0x53D000"
+    }
+  },
+
+  "live_stats": {
+    "_doc": "HaloCaster offsets - inaccessible via XBDM (kernel VA gap), accessible via QMP",
+    "xbe_base": "0x8005C000",
+    "physical_base": "0x5C000",
+    "kernel_va_gap": {
+      "start": "0x83145000",
+      "end": "0x83AC4000"
+    },
+    "haloc_offsets": {
+      "game_stats": "0x35ADF02",
+      "session_players": "0x35AD344",
+      "weapon_stats": "0x35ADFE0",
+      "medal_stats": "0x35ADF4E",
+      "life_cycle": "0x35E4F04",
+      "post_game_report": "0x363A990",
+      "variant_info": "0x35AD0EC",
+      "profile_enabled": "0x3569128",
+      "game_engine_globals": "0x35A53B8",
+      "players": "0x35A44F4",
+      "objects": "0x35BBBD0",
+      "game_results_globals": "0x35ACFB0",
+      "game_results_globals_extra": "0x35CF014",
+      "disable_rendering": "0x3520E22",
+      "lobby_players": "0x35CC008",
+      "tags": "0x360558C"
+    }
+  },
+
+  "discovered": {
+    "_doc": "Empirically discovered Xbox addresses (via memscan_gametype.py differential scanning)",
+    "gametype_confirmed": "0x52ED24",
+    "_gametype_confirmed_doc": "int32 gametype enum. Verified correct for ALL 7 gametypes: CTF(1), Slayer(2), Oddball(3), KOTH(4), Juggernaut(7), Territories(8), Assault(9) via 7-way cross-reference of full .data section snapshots (Feb 2026). ONLY address in entire 1MB .data section matching all 7 gametypes. Timing-sensitive: read while PGCR is populated. Primary gametype source.",
+    "gametype_backup1": "0x549634",
+    "_gametype_backup1_doc": "int32 gametype enum. Passed 3-way (Slayer/CTF/Oddball) but FAILED 4-way (wrong for KOTH). Do not use.",
+    "gametype_backup2": "0x5614D4",
+    "_gametype_backup2_doc": "int32 gametype enum. Passed 3-way (Slayer/CTF/Oddball) but FAILED 4-way (wrong for KOTH). Do not use.",
+    "gametype_profile": "0x53D004",
+    "_gametype_profile_doc": "int32 gametype enum at player_struct_base+0x04. UNRELIABLE — shows previous game's gametype, not current.",
+    "profile_base": "0x53E0C0",
+    "session_player_base": "0x55D790",
+    "player_struct_base": "0x53D000",
+    "game_state_area": "0x55C300",
+    "game_state_extended": "0x510000",
+    "cached_deaths_array": "0x53D08C",
+    "pgcr_display_base": "0x56B900"
+  },
+
+  "yelo": {
+    "_doc": "Yelo Carnage breakpoint and patch addresses (reference only)",
+    "pgcr_breakpoint": "0x233194",
+    "ai_enable_patch": "0x1C79E5"
+  },
+
+  "sizing": {
+    "max_players": 16,
+    "max_teams": 8,
+    "weapon_count": 41
+  },
+
+  "structs": {
+    "pcr_stat_player": {
+      "size": "0x114",
+      "fields": {
+        "player_name":     { "offset": "0x00", "type": "utf16le[16]", "size": 32 },
+        "display_name":    { "offset": "0x20", "type": "utf16le[16]", "size": 32 },
+        "score_string":    { "offset": "0x40", "type": "utf16le[16]", "size": 32 },
+        "kills":           { "offset": "0x60", "type": "int32" },
+        "deaths":          { "offset": "0x64", "type": "int32" },
+        "assists":         { "offset": "0x68", "type": "int32" },
+        "suicides":        { "offset": "0x6C", "type": "int32" },
+        "place":           { "offset": "0x70", "type": "int16" },
+        "team":            { "offset": "0x72", "type": "int16" },
+        "observer":        { "offset": "0x74", "type": "bool" },
+        "rank":            { "offset": "0x78", "type": "int16" },
+        "rank_verified":   { "offset": "0x7A", "type": "int16" },
+        "medals_earned":   { "offset": "0x7C", "type": "int32" },
+        "medals_by_type":  { "offset": "0x80", "type": "int32", "_doc": "24-bit bitmask" },
+        "total_shots":     { "offset": "0x84", "type": "int32" },
+        "shots_hit":       { "offset": "0x88", "type": "int32" },
+        "headshots":       { "offset": "0x8C", "type": "int32" },
+        "killed_array":    { "offset": "0x90", "type": "int32[16]", "size": 64 },
+        "place_string":    { "offset": "0xE0", "type": "utf16le[16]", "size": 32 },
+        "gametype_value0": { "offset": "0x10C", "type": "int32" },
+        "gametype_value1": { "offset": "0x110", "type": "int32" }
+      }
+    },
+    "team_stats": {
+      "size": "0x84",
+      "fields": {
+        "name":         { "offset": "0x00", "type": "utf16le[32]", "size": 64 },
+        "score_string": { "offset": "0x40", "type": "utf16le", "size": 32 },
+        "place":        { "offset": "0x60", "type": "int16" },
+        "team_id":      { "offset": "0x62", "type": "int16" },
+        "place_string": { "offset": "0x64", "type": "utf16le", "size": 32 }
+      }
+    },
+    "game_stats": {
+      "size": "0x36",
+      "stride": "0x36A",
+      "_doc": "Live in-game stats, 54 bytes actual, 858 byte stride per player"
+    },
+    "weapon_stat": {
+      "size": "0x10",
+      "_doc": "16 bytes per weapon, 41 weapons"
+    },
+    "medal_stats": {
+      "size": "0x30",
+      "_doc": "48 bytes, 24 ushorts (one count per medal type)"
+    },
+    "session_player": {
+      "size": "0xA4",
+      "_doc": "164 bytes player session properties"
+    },
+    "lobby_player": {
+      "size": "0x10C",
+      "_doc": "268 bytes lobby player entry"
+    },
+    "variant_info": {
+      "size": "0x131",
+      "_doc": "305 bytes game variant info"
+    }
+  },
+
+  "enums": {
+    "game_type": {
+      "0": "None",
+      "1": "CTF",
+      "2": "Slayer",
+      "3": "Oddball",
+      "4": "KOTH",
+      "7": "Juggernaut",
+      "8": "Territories",
+      "9": "Assault"
+    },
+    "game_team": {
+      "0": "Red",
+      "1": "Blue",
+      "2": "Yellow",
+      "3": "Green",
+      "4": "Purple",
+      "5": "Orange",
+      "6": "Brown",
+      "7": "Pink",
+      "8": "Neutral"
+    },
+    "medal_bitmask": {
+      "_doc": "Bit positions in medals_by_type bitmask",
+      "ranges": {
+        "multi_kills": { "bits": "0-5", "names": ["Double Kill", "Triple Kill", "Overkill", "Killtacular", "Killtrocity", "Killimanjaro+"] },
+        "style":       { "bits": "6-12", "names": ["Sniper Kill", "Splatter", "Beat Down", "Assassination", "Destroyed Vehicle", "Carjack", "Stick"] },
+        "sprees":      { "bits": "13-17", "names": ["Killing Spree", "Killing Frenzy", "Running Riot", "Rampage", "Untouchable"] },
+        "ctf":         { "bits": "18-20", "names": ["Flag Grab", "Flag Carrier Kill", "Flag Returned"] },
+        "assault":     { "bits": "21-23", "names": ["Bomb Planted", "Bomb Carrier Kill", "Bomb Defused"] }
+      }
+    },
+    "gametype_value_labels": {
+      "_doc": "Labels for gametype_value0/value1 fields at 0x10C/0x110",
+      "ctf":         ["Flag Saves", "Flag Steals"],
+      "slayer":      ["Avg Life", "Best Spree"],
+      "oddball":     ["Ball Carrier Kills", "Kills As Carrier"],
+      "koth":        ["Control Time", "Time On Hill"],
+      "juggernaut":  ["Juggernaut Kills", "Kills As Juggernaut"],
+      "territories": ["Territories Taken", "Territories Lost"],
+      "assault":     ["Bomb Grabs", "Bomb Carrier Kills"]
+    }
+  }
+}
