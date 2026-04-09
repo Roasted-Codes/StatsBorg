@@ -298,7 +298,11 @@ class Halo2StatsReader:
         offset = va - self._DATA_SECTION_VA
         if offset < 0:
             return None
-        return self.client._read_physical(phys_start + offset, length)
+        target_physical = phys_start + offset
+        if target_physical + length > 0x4000000:  # 64MB Xbox RAM boundary
+            self.log(f"_read_via_data_section_offset: 0x{target_physical:X} exceeds 64MB")
+            return None
+        return self.client._read_physical(target_physical, length)
 
     def read_gametype_discovered(self) -> Optional[GameType]:
         """Read gametype from discovered address 0x52ED24.
@@ -337,13 +341,14 @@ class Halo2StatsReader:
             self.log(f"Unknown gametype value at 0x{addr:08X}: {value}")
         return None
 
-    # variant_info: variant name (UTF-16LE) at physical 0x036295F4, gametype byte
-    # at +0x40. Map content path (ASCII, e.g. "t:\$C\<title_id>\<map_name>") lives
-    # 0xA4 bytes before the variant name. Verified stable across lobby, in-game,
-    # and PGCR screen via QMP scan (2026-03-28).
-    VARIANT_INFO_PHYSICAL = 0x036295F4
+    # variant_info: XBE-relative offsets for variant name + map content path.
+    # Expressed as pseudo-VAs (XBE load address + offset) so they work with
+    # _read_via_data_section_offset's linear math. Source: halo-scraper
+    # OffVariantInfo = 0x35AD0EC, confirmed working across xemu sessions.
+    _XBE_BASE_VA = 0x10000
+    VARIANT_INFO_VA = _XBE_BASE_VA + 0x35AD0EC        # 0x35BD0EC
     VARIANT_INFO_SIZE = 0x50         # variant name (32 bytes) + gametype at +0x40
-    VARIANT_INFO_MAP_PHYSICAL = 0x03629550  # map content path (0xA4 before variant name)
+    VARIANT_INFO_MAP_VA = VARIANT_INFO_VA - 0xA4       # 0x35BD048 (map content path)
     VARIANT_INFO_MAP_SIZE = 0xA4
 
     MAP_NAMES = {
@@ -373,16 +378,16 @@ class Halo2StatsReader:
     }
 
     def read_variant_info(self) -> Optional[Dict[str, str]]:
-        """Read variant name and map name from variant_info struct in physical memory.
+        """Read variant name and map name via XBE-relative physical offset.
+
+        Uses the same linear-offset-from-.data-section technique as
+        read_gametype_discovered(). The XBE is physically contiguous in
+        Xbox RAM, so translating the .data section VA once gives a stable
+        anchor for computing any XBE-relative physical address.
 
         Returns dict with 'variant' and 'map' keys, or None on failure.
-        Only works via QMP (direct physical reads).
         """
-        if not hasattr(self.client, '_read_physical'):
-            self.log("variant_info requires QMP client with _read_physical")
-            return None
-
-        data = self.client._read_physical(self.VARIANT_INFO_PHYSICAL, self.VARIANT_INFO_SIZE)
+        data = self._read_via_data_section_offset(self.VARIANT_INFO_VA, self.VARIANT_INFO_SIZE)
         if not data or len(data) < self.VARIANT_INFO_SIZE:
             self.log(f"variant_info read failed (got {len(data) if data else 0} bytes)")
             return None
@@ -398,7 +403,7 @@ class Halo2StatsReader:
         # Parse map name from content path at separate physical address
         # Format: "t:\$C\<title_id>\<map_name>" e.g. "t:\$C\4d53006400000003\backwash"
         map_name = ""
-        map_data = self.client._read_physical(self.VARIANT_INFO_MAP_PHYSICAL, self.VARIANT_INFO_MAP_SIZE)
+        map_data = self._read_via_data_section_offset(self.VARIANT_INFO_MAP_VA, self.VARIANT_INFO_MAP_SIZE)
         if map_data:
             try:
                 content_path = map_data.split(b'\x00')[0].decode('ascii')

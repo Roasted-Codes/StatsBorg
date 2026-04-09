@@ -54,13 +54,17 @@
     "_gametype_confirmed_doc": "int32 gametype enum. Verified for ALL 7 gametypes via 7-way cross-reference. Primary gametype source. Timing-sensitive: read while PGCR is populated.",
     "pgcr_display_base": "0x56B900",
     "variant_info": {
-      "_doc": "Physical addresses for variant name + map name. Read via QMP _read_physical(). Stable across lobby, in-game, and PGCR screen. Verified 2026-03-28.",
-      "variant_name": "0x036295F4",
-      "variant_name_doc": "UTF-16LE[16] (32 bytes). Game variant display name, e.g. 'MLG 1v1', 'Bomb', 'Team Slayer'.",
-      "gametype_byte": "0x03629634",
+      "_doc": "XBE-relative offsets for variant name + map name. Read via _read_via_data_section_offset() which translates .data section VA to physical, then adds linear offset. Stable across xemu sessions.",
+      "xbe_offset": "0x35AD0EC",
+      "xbe_offset_doc": "Offset from XBE base to variant_info struct. Source: halo-scraper OffVariantInfo.",
+      "variant_name_doc": "UTF-16LE[16] (32 bytes) at +0x00. Game variant display name.",
+      "gametype_byte_offset": "0x40",
       "gametype_byte_doc": "Single byte at variant_name + 0x40. Gametype enum (1=CTF, 2=Slayer, etc.).",
-      "map_content_path": "0x03629550",
-      "map_content_path_doc": "ASCII null-terminated. Xbox content path format: 't:\\$C\\<title_id>\\<map_name>'. Map name is the last path component."
+      "map_content_path_offset": "-0xA4",
+      "map_content_path_doc": "ASCII null-terminated, 0xA4 bytes before variant_name. Xbox content path format: 't:\\$C\\<title_id>\\<map_name>'.",
+      "_legacy_physical_variant_name": "0x036295F4",
+      "_legacy_physical_map_content_path": "0x03629550",
+      "_legacy_note": "Physical addresses from a single session (2026-03-28). Shift between xemu restarts — do not use directly."
     }
   },
 
