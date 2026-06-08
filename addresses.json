@@ -79,6 +79,20 @@
       "description_physical": "0x01917008",
       "display_name_size": "0x40",
       "description_size": "0xC0"
+    },
+    "active_variant_name_physical": {
+      "_doc": "UTF-16LE active variant-name copies found by SBORG A1/A2 RAM-dump comparison on Sayian. These survived lobby and PGCR and were verified by direct QMP _read_physical().",
+      "verified_on": "2026-06-08",
+      "size": "0x20",
+      "candidates": [
+        "0x035E2490",
+        "0x03629D3C",
+        "0x0366B1EC",
+        "0x036D3384"
+      ],
+      "_excluded": {
+        "0x037398F4": "Marker appeared in dumps but was not stable under later direct QMP read."
+      }
     }
   },
 

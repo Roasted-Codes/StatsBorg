@@ -83,6 +83,7 @@ DISCOVERED_ADDRESSES = {k: _parse_hex(v) for k, v in _disc.items()
                         if not k.startswith("_")}
 VARIANT_INFO = _disc.get("variant_info", {})
 LIVE_MAP_METADATA = _disc.get("live_map_metadata", {})
+ACTIVE_VARIANT_NAME_PHYSICAL = _disc.get("active_variant_name_physical", {})
 MAP_NAMES = _DATA["enums"].get("map_names", {})
 
 MAX_PLAYERS = _DATA["sizing"]["max_players"]

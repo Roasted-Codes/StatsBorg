@@ -55,6 +55,7 @@ from halo2_structs import (
     PGCR_DISPLAY_GAMETYPE_ADDR,
 )
 from addresses import (
+    ACTIVE_VARIANT_NAME_PHYSICAL,
     DISCOVERED_ADDRESSES,
     LIVE_MAP_METADATA,
     MAP_NAMES as CANONICAL_MAP_NAMES,
@@ -374,6 +375,10 @@ class Halo2StatsReader:
     MAP_METADATA_DESCRIPTION_ADDR = _parse_address.__func__(LIVE_MAP_METADATA.get("description_physical"))
     MAP_METADATA_DISPLAY_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("display_name_size"), 0x40)
     MAP_METADATA_DESCRIPTION_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("description_size"), 0xC0)
+    ACTIVE_VARIANT_NAME_SIZE = _parse_address.__func__(ACTIVE_VARIANT_NAME_PHYSICAL.get("size"), 0x20)
+    ACTIVE_VARIANT_NAME_CANDIDATES = []
+    for _active_variant_addr in ACTIVE_VARIANT_NAME_PHYSICAL.get("candidates", []):
+        ACTIVE_VARIANT_NAME_CANDIDATES.append(_parse_address.__func__(_active_variant_addr))
 
     MAP_NAMES = CANONICAL_MAP_NAMES
     DISPLAY_TO_INTERNAL = {display: internal for internal, display in MAP_NAMES.items()}
@@ -405,6 +410,37 @@ class Halo2StatsReader:
         except Exception:
             return ""
         return self._read_ascii_z_from_bytes(data)
+
+    def _is_reasonable_variant_name(self, value: str) -> bool:
+        return bool(value) and len(value) <= 32 and all(0x20 <= ord(c) <= 0x7E for c in value)
+
+    def _read_active_variant_name(self) -> str:
+        """Read active variant-name copies found by RAM-dump comparison."""
+        if not hasattr(self.client, '_read_physical'):
+            return ""
+
+        hits = []
+        for addr in self.ACTIVE_VARIANT_NAME_CANDIDATES:
+            try:
+                data = self.client._read_physical(addr, self.ACTIVE_VARIANT_NAME_SIZE)
+            except Exception:
+                data = None
+            name = self._clean_variant_name(self._read_utf16_z_from_bytes(data))
+            if self._is_reasonable_variant_name(name):
+                hits.append(name)
+
+        if not hits:
+            return ""
+
+        counts = {}
+        for name in hits:
+            counts[name] = counts.get(name, 0) + 1
+        name, count = max(counts.items(), key=lambda item: item[1])
+        if count >= 2 or len(hits) == 1:
+            self.log(f"active_variant_name: {name!r} ({count}/{len(hits)} candidates)")
+            return name
+        self.log(f"active_variant_name disagreement: {hits!r}")
+        return ""
 
     def _friendly_map_from_path(self, path: str) -> Tuple[str, str]:
         if not path:
@@ -463,19 +499,30 @@ class Halo2StatsReader:
         'map_description'. Internal scenario paths are only used to derive
         the display map name and are not returned.
         """
+        variant_name = self._read_active_variant_name()
+        map_name = ""
+
         data = self._read_via_data_section_offset(self.VARIANT_INFO_VA, self.VARIANT_INFO_SIZE)
         if not data:
             self.log(f"variant_info read failed (got {len(data) if data else 0} bytes)")
-            return self._read_map_metadata()
+            metadata = self._read_map_metadata() or {}
+            result = {}
+            if variant_name:
+                result["variant"] = variant_name
+            if metadata.get("map"):
+                result["map"] = metadata["map"]
+            if metadata.get("map_description"):
+                result["map_description"] = metadata["map_description"]
+            return result or None
 
         variant_end = self.VARIANT_NAME_OFFSET + self.VARIANT_NAME_SIZE
-        variant_name = self._clean_variant_name(
-            self._read_utf16_z_from_bytes(data[self.VARIANT_NAME_OFFSET:variant_end])
-        )
-        if variant_name and (len(variant_name) > 32 or not all(0x20 <= ord(c) <= 0x7E for c in variant_name)):
-            variant_name = ""
+        if not variant_name:
+            variant_name = self._clean_variant_name(
+                self._read_utf16_z_from_bytes(data[self.VARIANT_NAME_OFFSET:variant_end])
+            )
+            if not self._is_reasonable_variant_name(variant_name):
+                variant_name = ""
 
-        map_name = ""
         map_path_va = self.VARIANT_INFO_VA + self.MAP_CONTENT_PATH_OFFSET
         map_data = self._read_via_data_section_offset(map_path_va, self.MAP_CONTENT_PATH_SIZE)
         content_path = self._read_ascii_z_from_bytes(map_data)
