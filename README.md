@@ -126,6 +126,32 @@ python exports/xlsx_export.py --history-dir history/ -o halo2_stats.xlsx
 python exports/xlsx_export.py --per-game --style bungie -o exports/bungie/
 ```
 
+## Shared Master Server (Optional)
+
+StatsBorg can also run as a central ingest server backed by PostgreSQL. This is
+for collecting matches from multiple game boxes into one shared database while
+letting contributors build different frontends from the same source.
+
+```bash
+cp .env.example .env  # or set POSTGRES_PASSWORD and MASTER_TOKEN another way
+docker compose -f docker-compose.master.yml up -d --build
+curl http://127.0.0.1:8080/healthz
+```
+
+The master service binds to `127.0.0.1:8080` by default. Put a TLS reverse proxy
+in front of it before exposing it publicly, because agents send `MASTER_TOKEN`
+as a bearer token.
+
+Agent ingest endpoint:
+
+```bash
+POST http://127.0.0.1:8080/api/v1/matches
+Authorization: Bearer <MASTER_TOKEN>
+```
+
+Read APIs include `/api/games`, `/api/players`, `/api/leaderboard/<stat>`,
+`/api/pvp?player=<name>`, and `/api/v1/servers`.
+
 ## Project Structure
 
 ```
