@@ -30,7 +30,7 @@ import struct
 import sys
 import time
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import Any, Dict, List, Optional, Tuple
 
 from xbdm_client import XBDMClient, XBDMNotificationListener
 from halo2_structs import (
@@ -54,7 +54,13 @@ from halo2_structs import (
     PGCR_DISPLAY_HEADER_SIZE,
     PGCR_DISPLAY_GAMETYPE_ADDR,
 )
-from addresses import DISCOVERED_ADDRESSES
+from addresses import (
+    ACTIVE_VARIANT_NAME_PHYSICAL,
+    DISCOVERED_ADDRESSES,
+    LIVE_MAP_METADATA,
+    MAP_NAMES as CANONICAL_MAP_NAMES,
+    VARIANT_INFO,
+)
 
 
 def _is_valid_player_name(name_bytes: bytes) -> bool:
@@ -341,81 +347,207 @@ class Halo2StatsReader:
             self.log(f"Unknown gametype value at 0x{addr:08X}: {value}")
         return None
 
-    # variant_info: XBE-relative offsets for variant name + map content path.
-    # Expressed as pseudo-VAs (XBE load address + offset) so they work with
-    # _read_via_data_section_offset's linear math. Source: halo-scraper
-    # OffVariantInfo = 0x35AD0EC, confirmed working across xemu sessions.
-    _XBE_BASE_VA = 0x10000
-    VARIANT_INFO_VA = _XBE_BASE_VA + 0x35AD0EC        # 0x35BD0EC
-    VARIANT_INFO_SIZE = 0x50         # variant name (32 bytes) + gametype at +0x40
-    VARIANT_INFO_MAP_VA = VARIANT_INFO_VA - 0xA4       # 0x35BD048 (map content path)
-    VARIANT_INFO_MAP_SIZE = 0xA4
+    @staticmethod
+    def _parse_address(value, default: int = 0) -> int:
+        if isinstance(value, int):
+            return value
+        if isinstance(value, str):
+            try:
+                return int(value, 16)
+            except ValueError:
+                return default
+        return default
 
-    MAP_NAMES = {
-        "beavercreek": "Beaver Creek",
-        "burial_mounds": "Burial Mounds",
-        "coagulation": "Coagulation",
-        "colossus": "Colossus",
-        "cyclotron": "Ivory Tower",
-        "foundation": "Foundation",
-        "headlong": "Headlong",
-        "lockout": "Lockout",
-        "midship": "Midship",
-        "waterworks": "Waterworks",
-        "zanzibar": "Zanzibar",
-        "ascension": "Ascension",
-        "deltatap": "Sanctuary",
-        "dune": "Relic",
-        "elongation": "Elongation",
-        "gemini": "Gemini",
-        "triplicate": "Terminal",
-        "turf": "Turf",
-        "containment": "Containment",
-        "warlock": "Warlock",
-        "street_sweeper": "District",
-        "needle": "Uplift",
-        "backwash": "Backwash",
-    }
+    # variant_info: XBE-relative offsets for variant name + map content path.
+    # Values come from addresses.json so memory findings stay in one place.
+    _XBE_BASE_VA = 0x10000
+    VARIANT_INFO_XBE_OFFSET = _parse_address.__func__(VARIANT_INFO.get("xbe_offset"))
+    VARIANT_INFO_VA = _XBE_BASE_VA + VARIANT_INFO_XBE_OFFSET
+    VARIANT_INFO_SIZE = _parse_address.__func__(VARIANT_INFO.get("struct_size"), 0x230)
+    VARIANT_NAME_OFFSET = _parse_address.__func__(VARIANT_INFO.get("variant_name_offset"), 0)
+    VARIANT_NAME_SIZE = _parse_address.__func__(VARIANT_INFO.get("variant_name_size"), 0x20)
+    MAP_CONTENT_PATH_OFFSET = _parse_address.__func__(VARIANT_INFO.get("map_content_path_offset"), -0xA4)
+    MAP_CONTENT_PATH_SIZE = _parse_address.__func__(VARIANT_INFO.get("map_content_path_size"), 0xA4)
+    SCENARIO_PATH_OFFSET = _parse_address.__func__(VARIANT_INFO.get("scenario_path_offset"), 0x130)
+    SCENARIO_PATH_SIZE = _parse_address.__func__(VARIANT_INFO.get("scenario_path_size"), 0x100)
+
+    MAP_METADATA_DISPLAY_ADDR = _parse_address.__func__(LIVE_MAP_METADATA.get("display_name_physical"))
+    MAP_METADATA_DESCRIPTION_ADDR = _parse_address.__func__(LIVE_MAP_METADATA.get("description_physical"))
+    MAP_METADATA_DISPLAY_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("display_name_size"), 0x40)
+    MAP_METADATA_DESCRIPTION_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("description_size"), 0xC0)
+    ACTIVE_VARIANT_NAME_SIZE = _parse_address.__func__(ACTIVE_VARIANT_NAME_PHYSICAL.get("size"), 0x20)
+    ACTIVE_VARIANT_NAME_CANDIDATES = []
+    for _active_variant_addr in ACTIVE_VARIANT_NAME_PHYSICAL.get("candidates", []):
+        ACTIVE_VARIANT_NAME_CANDIDATES.append(_parse_address.__func__(_active_variant_addr))
+
+    MAP_NAMES = CANONICAL_MAP_NAMES
+    DISPLAY_TO_INTERNAL = {display: internal for internal, display in MAP_NAMES.items()}
+    KNOWN_DISPLAY_NAMES = set(DISPLAY_TO_INTERNAL)
+
+    @staticmethod
+    def _read_ascii_z_from_bytes(data: Optional[bytes]) -> str:
+        if not data:
+            return ""
+        return data.split(b'\x00', 1)[0].decode('ascii', errors='ignore').strip()
+
+    @staticmethod
+    def _read_utf16_z_from_bytes(data: Optional[bytes]) -> str:
+        if not data:
+            return ""
+        return data.decode('utf-16-le', errors='ignore').rstrip('\x00').strip()
+
+    @staticmethod
+    def _clean_variant_name(value: str) -> str:
+        # Strip private-use Unicode chars that can appear as trailing garbage.
+        return ''.join(c for c in value if ord(c) < 0xE000 or ord(c) > 0xF8FF).strip()
+
+    def _read_ascii_z(self, addr: int, max_len: int, physical: bool = False) -> str:
+        try:
+            if physical and hasattr(self.client, '_read_physical'):
+                data = self.client._read_physical(addr, max_len)
+            else:
+                data = self.client.read_memory(addr, max_len)
+        except Exception:
+            return ""
+        return self._read_ascii_z_from_bytes(data)
+
+    def _is_reasonable_variant_name(self, value: str) -> bool:
+        return bool(value) and len(value) <= 32 and all(0x20 <= ord(c) <= 0x7E for c in value)
+
+    def _read_active_variant_name(self) -> str:
+        """Read active variant-name copies found by RAM-dump comparison."""
+        if not hasattr(self.client, '_read_physical'):
+            return ""
+
+        hits = []
+        for addr in self.ACTIVE_VARIANT_NAME_CANDIDATES:
+            try:
+                data = self.client._read_physical(addr, self.ACTIVE_VARIANT_NAME_SIZE)
+            except Exception:
+                data = None
+            name = self._clean_variant_name(self._read_utf16_z_from_bytes(data))
+            if self._is_reasonable_variant_name(name):
+                hits.append(name)
+
+        if not hits:
+            return ""
+
+        counts = {}
+        for name in hits:
+            counts[name] = counts.get(name, 0) + 1
+        name, count = max(counts.items(), key=lambda item: item[1])
+        if count >= 2 or len(hits) == 1:
+            self.log(f"active_variant_name: {name!r} ({count}/{len(hits)} candidates)")
+            return name
+        self.log(f"active_variant_name disagreement: {hits!r}")
+        return ""
+
+    def _friendly_map_from_path(self, path: str) -> Tuple[str, str]:
+        if not path:
+            return "", ""
+        internal = path.replace('\\', '/').split('/')[-1].strip().lower()
+        return self.MAP_NAMES.get(internal, internal), internal
+
+    def _read_map_metadata(self) -> Optional[Dict[str, str]]:
+        """Read the observed physical map metadata block as a sanity-checked fallback."""
+        if not self.MAP_METADATA_DISPLAY_ADDR:
+            return None
+
+        display_name = self._read_ascii_z(
+            self.MAP_METADATA_DISPLAY_ADDR,
+            self.MAP_METADATA_DISPLAY_SIZE,
+            physical=True,
+        )
+        description = self._read_ascii_z(
+            self.MAP_METADATA_DESCRIPTION_ADDR,
+            self.MAP_METADATA_DESCRIPTION_SIZE,
+            physical=True,
+        ) if self.MAP_METADATA_DESCRIPTION_ADDR else ""
+
+        if not display_name:
+            display_name = self._read_ascii_z(
+                self.MAP_METADATA_DISPLAY_ADDR,
+                self.MAP_METADATA_DISPLAY_SIZE,
+                physical=False,
+            )
+        if not description and self.MAP_METADATA_DESCRIPTION_ADDR:
+            description = self._read_ascii_z(
+                self.MAP_METADATA_DESCRIPTION_ADDR,
+                self.MAP_METADATA_DESCRIPTION_SIZE,
+                physical=False,
+            )
+
+        if display_name not in self.KNOWN_DISPLAY_NAMES:
+            return None
+        if description and len(description) < 8:
+            description = ""
+
+        result = {"map": display_name}
+        if description:
+            result["map_description"] = description
+        return result
 
     def read_variant_info(self) -> Optional[Dict[str, str]]:
-        """Read variant name and map name via XBE-relative physical offset.
+        """Read variant name and public map metadata via XBE-relative physical offset.
 
         Uses the same linear-offset-from-.data-section technique as
         read_gametype_discovered(). The XBE is physically contiguous in
         Xbox RAM, so translating the .data section VA once gives a stable
         anchor for computing any XBE-relative physical address.
 
-        Returns dict with 'variant' and 'map' keys, or None on failure.
+        Returns public-safe keys such as 'variant', 'map', and
+        'map_description'. Internal scenario paths are only used to derive
+        the display map name and are not returned.
         """
-        data = self._read_via_data_section_offset(self.VARIANT_INFO_VA, self.VARIANT_INFO_SIZE)
-        if not data or len(data) < self.VARIANT_INFO_SIZE:
-            self.log(f"variant_info read failed (got {len(data) if data else 0} bytes)")
-            return None
-
-        # Parse variant name (UTF-16LE, 16 chars at offset 0x00)
-        try:
-            variant_name = data[0:32].decode('utf-16-le').rstrip('\x00')
-            # Strip private-use Unicode chars (e.g. \ue008) that appear as trailing garbage
-            variant_name = ''.join(c for c in variant_name if ord(c) < 0xE000 or ord(c) > 0xF8FF).strip()
-        except Exception:
-            variant_name = ""
-
-        # Parse map name from content path at separate physical address
-        # Format: "t:\$C\<title_id>\<map_name>" e.g. "t:\$C\4d53006400000003\backwash"
+        variant_name = self._read_active_variant_name()
         map_name = ""
-        map_data = self._read_via_data_section_offset(self.VARIANT_INFO_MAP_VA, self.VARIANT_INFO_MAP_SIZE)
-        if map_data:
-            try:
-                content_path = map_data.split(b'\x00')[0].decode('ascii')
-                parts = content_path.replace('\\', '/').split('/')
-                internal = parts[-1] if parts else ""
-                map_name = self.MAP_NAMES.get(internal, internal)
-            except Exception:
-                pass
 
-        if variant_name or map_name:
+        data = self._read_via_data_section_offset(self.VARIANT_INFO_VA, self.VARIANT_INFO_SIZE)
+        if not data:
+            self.log(f"variant_info read failed (got {len(data) if data else 0} bytes)")
+            metadata = self._read_map_metadata() or {}
+            result = {}
+            if variant_name:
+                result["variant"] = variant_name
+            if metadata.get("map"):
+                result["map"] = metadata["map"]
+            if metadata.get("map_description"):
+                result["map_description"] = metadata["map_description"]
+            return result or None
+
+        variant_end = self.VARIANT_NAME_OFFSET + self.VARIANT_NAME_SIZE
+        if not variant_name:
+            variant_name = self._clean_variant_name(
+                self._read_utf16_z_from_bytes(data[self.VARIANT_NAME_OFFSET:variant_end])
+            )
+            if not self._is_reasonable_variant_name(variant_name):
+                variant_name = ""
+
+        map_path_va = self.VARIANT_INFO_VA + self.MAP_CONTENT_PATH_OFFSET
+        map_data = self._read_via_data_section_offset(map_path_va, self.MAP_CONTENT_PATH_SIZE)
+        content_path = self._read_ascii_z_from_bytes(map_data)
+        map_name, _internal = self._friendly_map_from_path(content_path)
+
+        if not map_name:
+            scenario_end = self.SCENARIO_PATH_OFFSET + self.SCENARIO_PATH_SIZE
+            scenario_path = self._read_ascii_z_from_bytes(data[self.SCENARIO_PATH_OFFSET:scenario_end])
+            map_name, _internal = self._friendly_map_from_path(scenario_path)
+
+        metadata = self._read_map_metadata() or {}
+        if not map_name and metadata.get("map"):
+            map_name = metadata["map"]
+
+        result = {}
+        if variant_name:
+            result["variant"] = variant_name
+        if map_name:
+            result["map"] = map_name
+        if metadata.get("map_description"):
+            result["map_description"] = metadata["map_description"]
+
+        if result:
             self.log(f"variant_info: variant=\"{variant_name}\" map=\"{map_name}\"")
-            return {"variant": variant_name, "map": map_name}
+            return result
 
         self.log("variant_info: empty (no game active?)")
         return None
@@ -510,7 +642,8 @@ def build_snapshot(players,
                    gametype_id: Optional[int] = None,
                    teams: Optional[List[TeamStats]] = None,
                    map_name: Optional[str] = None,
-                   variant_name: Optional[str] = None) -> Dict[str, Any]:
+                   variant_name: Optional[str] = None,
+                   map_description: Optional[str] = None) -> Dict[str, Any]:
     """
     Build a complete game snapshot dictionary.
 
@@ -521,6 +654,7 @@ def build_snapshot(players,
         teams: Optional list of TeamStats from team data area
         map_name: Map display name (e.g. "Lockout")
         variant_name: Game variant name (e.g. "Team Slayer")
+        map_description: Map description text, when available from memory
     """
     fingerprint = compute_game_fingerprint(players)
 
@@ -555,6 +689,8 @@ def build_snapshot(players,
         snapshot["map"] = map_name
     if variant_name:
         snapshot["variant"] = variant_name
+    if map_description:
+        snapshot["map_description"] = map_description
 
     # Add labeled gametype stats per player
     if gametype:
@@ -752,6 +888,7 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
                         teams=teams,
                         map_name=vinfo.get("map") if vinfo else None,
                         variant_name=vinfo.get("variant") if vinfo else None,
+                        map_description=vinfo.get("map_description") if vinfo else None,
                     )
 
                     gt_label = GAMETYPE_NAMES.get(gametype_id, "Unknown") if gametype_id else "Unknown"
@@ -967,6 +1104,7 @@ def run_watch_mode_breakpoint(reader: 'Halo2StatsReader', client: XBDMClient, ar
                     teams=teams,
                     map_name=vinfo.get("map") if vinfo else None,
                     variant_name=vinfo.get("variant") if vinfo else None,
+                    map_description=vinfo.get("map_description") if vinfo else None,
                 )
 
                 map_str = f", map: {vinfo['map']}" if vinfo and vinfo.get('map') else ""
@@ -1491,6 +1629,7 @@ Examples:
                     players, source=source,
                     gametype_id=gametype_id_val, teams=teams,
                     map_name=_map, variant_name=_variant,
+                    map_description=vinfo.get("map_description") if vinfo else None,
                 )
 
                 if args.output:
@@ -1523,6 +1662,7 @@ Examples:
                     players, source=source,
                     gametype_id=gametype_id_val, teams=teams,
                     map_name=_map, variant_name=_variant,
+                    map_description=vinfo.get("map_description") if vinfo else None,
                 )
                 filepath = save_game_history(snapshot, args.history_dir)
                 print(f"Saved to {filepath}")

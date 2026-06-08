@@ -42,6 +42,9 @@ def init_db(db_path: str) -> None:
             timestamp TEXT,
             gametype TEXT,
             gametype_id INTEGER,
+            map TEXT,
+            variant TEXT,
+            map_description TEXT,
             player_count INTEGER,
             source TEXT,
             schema_version INTEGER,
@@ -89,10 +92,28 @@ def init_db(db_path: str) -> None:
         CREATE INDEX IF NOT EXISTS idx_players_game ON players(game_id);
         CREATE INDEX IF NOT EXISTS idx_games_timestamp ON games(timestamp);
         CREATE INDEX IF NOT EXISTS idx_games_gametype ON games(gametype);
+        CREATE INDEX IF NOT EXISTS idx_games_map ON games(map);
+        CREATE INDEX IF NOT EXISTS idx_games_variant ON games(variant);
         CREATE INDEX IF NOT EXISTS idx_teams_game ON teams(game_id);
         CREATE INDEX IF NOT EXISTS idx_games_fingerprint ON games(fingerprint);
         """)
+        _ensure_columns(conn, "games", {
+            "map": "TEXT",
+            "variant": "TEXT",
+            "map_description": "TEXT",
+        })
         conn.commit()
+
+
+def _ensure_columns(conn: sqlite3.Connection, table: str, columns: Dict[str, str]) -> None:
+    """Add missing SQLite columns for users upgrading an existing DB file."""
+    existing = {
+        row["name"]
+        for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
+    }
+    for name, column_type in columns.items():
+        if name not in existing:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {column_type}")
 
 
 def import_game(db_path: str, game_dict: Dict[str, Any], filename: str) -> bool:
@@ -115,15 +136,19 @@ def import_game(db_path: str, game_dict: Dict[str, Any], filename: str) -> bool:
         
         # Insert game record
         cursor.execute("""
-            INSERT INTO games (filename, fingerprint, timestamp, gametype, gametype_id, 
-                             player_count, source, schema_version, raw_json)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO games (filename, fingerprint, timestamp, gametype, gametype_id,
+                             map, variant, map_description, player_count, source,
+                             schema_version, raw_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             filename,
             game_dict.get('fingerprint'),
             game_dict.get('timestamp'),
             game_dict.get('gametype'),
             game_dict.get('gametype_id'),
+            game_dict.get('map'),
+            game_dict.get('variant'),
+            game_dict.get('map_description'),
             game_dict.get('player_count'),
             game_dict.get('source'),
             game_dict.get('schema_version'),
@@ -205,7 +230,8 @@ def get_all_games(db_path: str) -> List[Dict[str, Any]]:
     with get_db_connection(db_path) as conn:
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT g.filename, g.timestamp, g.gametype, g.player_count, g.raw_json,
+            SELECT g.filename, g.timestamp, g.gametype, g.map, g.variant,
+                   g.map_description, g.player_count, g.raw_json,
                    GROUP_CONCAT(t.name) as team_names,
                    GROUP_CONCAT(t.score_string) as team_scores,
                    GROUP_CONCAT(t.team_id) as team_ids,
@@ -221,13 +247,18 @@ def get_all_games(db_path: str) -> List[Dict[str, Any]]:
             # Extract map/variant from raw_json if available
             map_name = ""
             variant = ""
+            map_description = ""
             if row['raw_json']:
                 try:
                     rj = json.loads(row['raw_json'])
                     map_name = rj.get('map', '')
                     variant = rj.get('variant', '')
+                    map_description = rj.get('map_description', '')
                 except (json.JSONDecodeError, TypeError):
                     pass
+            map_name = row['map'] or map_name
+            variant = row['variant'] or variant
+            map_description = row['map_description'] or map_description
 
             game_entry = {
                 "filename": row['filename'],
@@ -236,6 +267,7 @@ def get_all_games(db_path: str) -> List[Dict[str, Any]]:
                 "player_count": row['player_count'] or 0,
                 "map": map_name,
                 "variant": variant,
+                "map_description": map_description,
                 "winner": "",
                 "teams": []
             }
@@ -305,6 +337,9 @@ def get_game(db_path: str, filename: str) -> Optional[Dict[str, Any]]:
             'gametype_id': game_row['gametype_id'],
             'player_count': game_row['player_count']
         })
+        for key in ("map", "variant", "map_description"):
+            if game_row[key] or key not in game_data:
+                game_data[key] = game_row[key]
         
         # Prefer raw_json players/teams (preserves nested medals, accuracy, gametype_stats)
         if 'players' in game_data and game_data['players']:

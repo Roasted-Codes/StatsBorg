@@ -47,6 +47,9 @@ CREATE TABLE IF NOT EXISTS games (
     source         VARCHAR(20),
     gametype_id    SMALLINT,
     gametype       VARCHAR(20),
+    map            VARCHAR(64),
+    variant        VARCHAR(64),
+    map_description TEXT,
     player_count   SMALLINT,
     schema_version SMALLINT DEFAULT 1,
     raw_json       JSONB,
@@ -87,6 +90,12 @@ CREATE TABLE IF NOT EXISTS players (
     killed_array     INTEGER[],
     UNIQUE(game_id, player_name)
 );
+
+ALTER TABLE games ADD COLUMN IF NOT EXISTS map VARCHAR(64);
+ALTER TABLE games ADD COLUMN IF NOT EXISTS variant VARCHAR(64);
+ALTER TABLE games ADD COLUMN IF NOT EXISTS map_description TEXT;
+CREATE INDEX IF NOT EXISTS idx_games_map ON games(map);
+CREATE INDEX IF NOT EXISTS idx_games_variant ON games(variant);
 """
 
 
@@ -167,8 +176,9 @@ class Halo2Database:
             cur.execute(
                 """
                 INSERT INTO games (timestamp, fingerprint, source, gametype_id,
-                                   gametype, player_count, schema_version, raw_json)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                                   gametype, map, variant, map_description,
+                                   player_count, schema_version, raw_json)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING id
                 """,
                 (
@@ -177,6 +187,9 @@ class Halo2Database:
                     snapshot.get("source"),
                     snapshot.get("gametype_id"),       # None for v1 files
                     snapshot.get("gametype"),
+                    snapshot.get("map"),
+                    snapshot.get("variant"),
+                    snapshot.get("map_description"),
                     snapshot.get("player_count", 0),
                     snapshot.get("schema_version", 1),
                     json.dumps(snapshot),

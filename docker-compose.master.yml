@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-statsborg}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-statsborg}
+      - POSTGRES_DB=${POSTGRES_DB:-statsborg}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-statsborg}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile.master
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-statsborg}:${POSTGRES_PASSWORD:-statsborg}@postgres:5432/${POSTGRES_DB:-statsborg}
+      - MASTER_TOKEN=${MASTER_TOKEN:-}
+      - PORT=8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:
