@@ -31,7 +31,31 @@ class RelocatedDataClient:
         return b"\x00" * length
 
 
+class StaleLegacyAddressClient(RelocatedDataClient):
+    def __init__(self):
+        super().__init__(0x034DD6E0, "")
+
+    def _read_physical(self, address: int, length: int):
+        if address == 0x035E2490:
+            return "STALE VARIANT".encode("utf-16-le").ljust(length, b"\x00")
+        return super()._read_physical(address, length)
+
+
 class ActiveVariantNameTests(unittest.TestCase):
+    def test_does_not_trust_instance_specific_physical_fallback(self):
+        reader = Halo2StatsReader(cast(Any, StaleLegacyAddressClient()))
+
+        value = reader._read_active_variant_name()
+
+        self.assertEqual(value, "")
+
+    def test_utf16_reader_stops_at_first_nul_terminator(self):
+        data = "MLG TS 2007\x00OLD".encode("utf-16-le")
+
+        value = Halo2StatsReader._read_utf16_z_from_bytes(data)
+
+        self.assertEqual(value, "MLG TS 2007")
+
     def test_reads_variant_relative_to_relocated_data_section(self):
         for physical_base in (0x034DD6E0, 0x035956E0):
             with self.subTest(physical_base=physical_base):
