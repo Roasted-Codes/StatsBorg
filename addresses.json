@@ -80,8 +80,14 @@
       "display_name_size": "0x40",
       "description_size": "0xC0"
     },
+    "active_variant_name": {
+      "_doc": "Halo 2 .data-section VA for the active UTF-16LE variant name. Resolve through _read_via_data_section_offset(); the backing physical address moves when xemu relocates the XBE.",
+      "verified_on": "2026-07-22",
+      "va": "0x004BA490",
+      "size": "0x20"
+    },
     "active_variant_name_physical": {
-      "_doc": "UTF-16LE active variant-name copies found by SBORG A1/A2 RAM-dump comparison on Sayian. These survived lobby and PGCR and were verified by direct QMP _read_physical().",
+      "_doc": "Legacy physical observations from Sayian. They move with the XBE and are fallback/research values only; prefer active_variant_name.va.",
       "verified_on": "2026-06-08",
       "size": "0x20",
       "candidates": [

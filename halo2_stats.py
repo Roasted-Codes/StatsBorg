@@ -55,6 +55,7 @@ from halo2_structs import (
     PGCR_DISPLAY_GAMETYPE_ADDR,
 )
 from addresses import (
+    ACTIVE_VARIANT_NAME,
     ACTIVE_VARIANT_NAME_PHYSICAL,
     DISCOVERED_ADDRESSES,
     LIVE_MAP_METADATA,
@@ -375,7 +376,8 @@ class Halo2StatsReader:
     MAP_METADATA_DESCRIPTION_ADDR = _parse_address.__func__(LIVE_MAP_METADATA.get("description_physical"))
     MAP_METADATA_DISPLAY_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("display_name_size"), 0x40)
     MAP_METADATA_DESCRIPTION_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("description_size"), 0xC0)
-    ACTIVE_VARIANT_NAME_SIZE = _parse_address.__func__(ACTIVE_VARIANT_NAME_PHYSICAL.get("size"), 0x20)
+    ACTIVE_VARIANT_NAME_VA = int(str(ACTIVE_VARIANT_NAME.get("va", "0")), 0)
+    ACTIVE_VARIANT_NAME_SIZE = int(str(ACTIVE_VARIANT_NAME.get("size", "0x20")), 0)
     ACTIVE_VARIANT_NAME_CANDIDATES = []
     for _active_variant_addr in ACTIVE_VARIANT_NAME_PHYSICAL.get("candidates", []):
         ACTIVE_VARIANT_NAME_CANDIDATES.append(_parse_address.__func__(_active_variant_addr))
@@ -415,7 +417,17 @@ class Halo2StatsReader:
         return bool(value) and len(value) <= 32 and all(0x20 <= ord(c) <= 0x7E for c in value)
 
     def _read_active_variant_name(self) -> str:
-        """Read active variant-name copies found by RAM-dump comparison."""
+        """Read the active variant name from Halo 2's relocatable .data section."""
+        if self.ACTIVE_VARIANT_NAME_VA:
+            data = self._read_via_data_section_offset(
+                self.ACTIVE_VARIANT_NAME_VA,
+                self.ACTIVE_VARIANT_NAME_SIZE,
+            )
+            name = self._clean_variant_name(self._read_utf16_z_from_bytes(data))
+            if self._is_reasonable_variant_name(name):
+                self.log(f"active_variant_name: {name!r} (relocatable .data VA)")
+                return name
+
         if not hasattr(self.client, '_read_physical'):
             return ""
 

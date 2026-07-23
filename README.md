@@ -4,6 +4,10 @@ Cross-platform Python tool that reads Halo 2 multiplayer post-game statistics fr
 
 **Stats captured:** Kills, deaths, assists, suicides, K/D ratio, accuracy (shots/hits/headshots), medals, placement, team data, and gametype-specific stats across all game modes (Slayer, CTF, Oddball, KOTH, Juggernaut, Territories, Assault).
 
+## Project Status
+
+`main` is the production branch. It includes relocatable xemu/QMP reads for the active game-variant name, map metadata fallbacks, and the shared agent/master snapshot schema. Experimental memory research belongs under `research/` or on a feature branch and should not replace `main` without passing the regression suite.
+
 ## Requirements
 
 - Python 3.7+ (no pip dependencies for core tool)
@@ -165,6 +169,16 @@ pgcr_viewer.html      Browser-based game history viewer
 history/              Saved game data (JSON, one file per game)
 exports/              PostgreSQL and Excel export scripts
 ```
+
+## Tests
+
+Run the dependency-free regression suite before deploying:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+GitHub Actions also validates `addresses.json` and compiles every tracked, non-archived Python module.
 
 ## Credits
 
