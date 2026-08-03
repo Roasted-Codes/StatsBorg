@@ -56,6 +56,7 @@ from halo2_structs import (
 )
 from addresses import (
     ACTIVE_VARIANT_NAME,
+    ACTIVE_VARIANT_NAME_PHYSICAL,
     DISCOVERED_ADDRESSES,
     LIVE_MAP_METADATA,
     MAP_NAMES as CANONICAL_MAP_NAMES,
@@ -377,6 +378,10 @@ class Halo2StatsReader:
     MAP_METADATA_DESCRIPTION_SIZE = _parse_address.__func__(LIVE_MAP_METADATA.get("description_size"), 0xC0)
     ACTIVE_VARIANT_NAME_VA = int(str(ACTIVE_VARIANT_NAME.get("va", "0")), 0)
     ACTIVE_VARIANT_NAME_SIZE = int(str(ACTIVE_VARIANT_NAME.get("size", "0x20")), 0)
+    ACTIVE_VARIANT_NAME_CANDIDATES = []
+    for _active_variant_addr in ACTIVE_VARIANT_NAME_PHYSICAL.get("candidates", []):
+        ACTIVE_VARIANT_NAME_CANDIDATES.append(_parse_address.__func__(_active_variant_addr))
+
     MAP_NAMES = CANONICAL_MAP_NAMES
     DISPLAY_TO_INTERNAL = {display: internal for internal, display in MAP_NAMES.items()}
     KNOWN_DISPLAY_NAMES = set(DISPLAY_TO_INTERNAL)
@@ -391,7 +396,7 @@ class Halo2StatsReader:
     def _read_utf16_z_from_bytes(data: Optional[bytes]) -> str:
         if not data:
             return ""
-        return data.decode('utf-16-le', errors='ignore').split('\x00', 1)[0].strip()
+        return data.decode('utf-16-le', errors='ignore').rstrip('\x00').strip()
 
     @staticmethod
     def _clean_variant_name(value: str) -> str:
@@ -423,6 +428,30 @@ class Halo2StatsReader:
                 self.log(f"active_variant_name: {name!r} (relocatable .data VA)")
                 return name
 
+        if not hasattr(self.client, '_read_physical'):
+            return ""
+
+        hits = []
+        for addr in self.ACTIVE_VARIANT_NAME_CANDIDATES:
+            try:
+                data = self.client._read_physical(addr, self.ACTIVE_VARIANT_NAME_SIZE)
+            except Exception:
+                data = None
+            name = self._clean_variant_name(self._read_utf16_z_from_bytes(data))
+            if self._is_reasonable_variant_name(name):
+                hits.append(name)
+
+        if not hits:
+            return ""
+
+        counts = {}
+        for name in hits:
+            counts[name] = counts.get(name, 0) + 1
+        name, count = max(counts.items(), key=lambda item: item[1])
+        if count >= 2 or len(hits) == 1:
+            self.log(f"active_variant_name: {name!r} ({count}/{len(hits)} candidates)")
+            return name
+        self.log(f"active_variant_name disagreement: {hits!r}")
         return ""
 
     def _friendly_map_from_path(self, path: str) -> Tuple[str, str]:
