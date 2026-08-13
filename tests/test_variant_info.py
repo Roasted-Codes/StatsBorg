@@ -49,6 +49,29 @@ class ActiveVariantNameTests(unittest.TestCase):
                 )
                 self.assertEqual(snapshot.get("variant"), "MLG TS 2007")
 
+    def test_uses_variant_cached_before_pgcr_memory_is_cleared(self):
+        reader = Halo2StatsReader(
+            cast(Any, RelocatedDataClient(0x034DD6E0, "MLG FFA"))
+        )
+
+        self.assertEqual(reader.cache_active_variant_name(), "MLG FFA")
+        reader.client.variant_bytes = b"\x00" * 0x20
+
+        info = reader.read_variant_info()
+
+        self.assertEqual((info or {}).get("variant"), "MLG FFA")
+
+    def test_clears_cached_variant_after_match(self):
+        reader = Halo2StatsReader(
+            cast(Any, RelocatedDataClient(0x034DD6E0, "MLG FFA"))
+        )
+        reader.cache_active_variant_name()
+
+        reader.clear_variant_name_cache()
+        reader.client.variant_bytes = b"\x00" * 0x20
+
+        self.assertIsNone(reader.read_variant_info())
+
 
 if __name__ == "__main__":
     unittest.main()

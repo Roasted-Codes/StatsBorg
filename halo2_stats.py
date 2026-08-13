@@ -98,6 +98,7 @@ class Halo2StatsReader:
         self.verbose = verbose
         self._last_error: Optional[str] = None
         self._variant_info = None  # Reserved for future use
+        self._cached_variant_name = ""
 
     def log(self, message: str):
         """Print message if verbose mode enabled."""
@@ -454,6 +455,17 @@ class Halo2StatsReader:
         self.log(f"active_variant_name disagreement: {hits!r}")
         return ""
 
+    def cache_active_variant_name(self) -> str:
+        """Remember the active variant before Halo 2 clears it at game end."""
+        name = self._read_active_variant_name()
+        if name:
+            self._cached_variant_name = name
+        return name
+
+    def clear_variant_name_cache(self) -> None:
+        """Prevent a completed game's variant from leaking into the next game."""
+        self._cached_variant_name = ""
+
     def _friendly_map_from_path(self, path: str) -> Tuple[str, str]:
         if not path:
             return "", ""
@@ -511,7 +523,10 @@ class Halo2StatsReader:
         'map_description'. Internal scenario paths are only used to derive
         the display map name and are not returned.
         """
-        variant_name = self._read_active_variant_name()
+        active_variant_name = self.cache_active_variant_name()
+        variant_name = active_variant_name or self._cached_variant_name
+        if variant_name and not active_variant_name:
+            self.log(f"active_variant_name: {variant_name!r} (cached before PGCR)")
         map_name = ""
 
         data = self._read_via_data_section_offset(self.VARIANT_INFO_VA, self.VARIANT_INFO_SIZE)
@@ -817,6 +832,11 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
             players = None
             source = None
 
+            # The active variant slot can be cleared before PGCR becomes
+            # readable. Sample it throughout the lobby/game and consume the
+            # cached value when the completed match is captured.
+            reader.cache_active_variant_name()
+
             # Try PGCR Display first (reliable), then PCR (may be empty)
             if reader.probe_pgcr_display_populated():
                 display_players = reader.read_active_pgcr_display()
@@ -921,6 +941,7 @@ def run_watch_mode(reader: 'Halo2StatsReader', args) -> None:
 
                     filepath = save_game_history(snapshot, history_dir)
                     print(f"  -> Saved to {filepath}")
+                    reader.clear_variant_name_cache()
 
                     # Save annotated PGCR dump + raw memory for struct analysis
                     fp8 = fingerprint[:8] if len(fingerprint) >= 8 else fingerprint
